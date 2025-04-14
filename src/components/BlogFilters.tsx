@@ -7,7 +7,7 @@ interface Props {
 	categories: string[];
 }
 
-export default function ProjectFilters({
+export default function BlogFilters({
 	onSearch,
 	onCategoryChange,
 	categories,
@@ -33,7 +33,7 @@ export default function ProjectFilters({
 				</div>
 				<input
 					type="text"
-					placeholder="Search projects..."
+					placeholder="Search blog posts..."
 					value={searchTerm}
 					onChange={(e) => handleSearch(e.target.value)}
 					className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
@@ -44,7 +44,7 @@ export default function ProjectFilters({
 					onClick={() => handleCategoryChange("all")}
 					className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
 						selectedCategory === "all"
-							? "bg-blue-500 text-white dark:bg-blue-600"
+							? "bg-green-500 text-white dark:bg-green-600"
 							: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
 					}`}
 				>
@@ -56,7 +56,7 @@ export default function ProjectFilters({
 						onClick={() => handleCategoryChange(category)}
 						className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
 							selectedCategory === category
-								? "bg-blue-500 text-white dark:bg-blue-600"
+								? "bg-green-500 text-white dark:bg-green-600"
 								: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
 						}`}
 					>

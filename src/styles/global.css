@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+:root {
+  font-family: 'Comfortaa', system-ui, sans-serif;
+}
+
+body {
+  font-family: 'Comfortaa', sans-serif;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
