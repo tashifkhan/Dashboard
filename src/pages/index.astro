@@ -1,11 +1,337 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import ThemeToggle from "../components/ThemeToggle";
+import ProjectFilters from "../components/ProjectFilters";
+import {
+	Github,
+	Twitter,
+	Linkedin,
+	Mail,
+	Rss,
+	Code2,
+	BookOpen,
+	Users,
+	ExternalLink,
+} from "lucide-react";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = [
+	{
+		title: "Project 1",
+		description: "A revolutionary open-source project",
+		tags: ["React", "TypeScript", "Node.js"],
+		link: "https://github.com/yourusername/project1",
+		category: "Web Development",
+	},
+	{
+		title: "Project 2",
+		description: "Contributing to the developer ecosystem",
+		tags: ["Vue", "JavaScript", "AWS"],
+		link: "https://github.com/yourusername/project2",
+		category: "Cloud",
+	},
+	{
+		title: "Project 3",
+		description: "Mobile app for productivity",
+		tags: ["React Native", "TypeScript"],
+		link: "https://github.com/yourusername/project3",
+		category: "Mobile",
+	},
+	{
+		title: "Project 4",
+		description: "Machine learning experiments",
+		tags: ["Python", "TensorFlow", "Data Science"],
+		link: "https://github.com/yourusername/project4",
+		category: "AI/ML",
+	},
+];
+
+const categories = [...new Set(projects.map((project) => project.category))];
+
+const blogPosts = [
+	{
+		title: "Understanding Modern Web Architecture",
+		category: "Technical",
+		date: "2024-03-15",
+		link: "/blog/web-architecture",
+	},
+	{
+		title: "The Future of Open Source",
+		category: "Community",
+		date: "2024-03-10",
+		link: "/blog/open-source-future",
+	},
+];
+
+const socials = [
+	{ icon: Github, link: "https://github.com/yourusername", label: "GitHub" },
+	{ icon: Twitter, link: "https://twitter.com/yourusername", label: "Twitter" },
+	{
+		icon: Linkedin,
+		link: "https://linkedin.com/in/yourusername",
+		label: "LinkedIn",
+	},
+	{ icon: Mail, link: "mailto:you@example.com", label: "Email" },
+];
+
+const rssItems = [
+	{ title: "Latest Blog Post", date: "2024-03-15", link: "#" },
+	{ title: "Recent Project Update", date: "2024-03-14", link: "#" },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Tashif Ahmad Khan - Personal Dashboard">
+	<div
+		class="min-h-screen bg-white dark:bg-dark-950 text-gray-900 dark:text-dark-100"
+	>
+		<!-- Header -->
+		<header
+			class="bg-gray-50 dark:bg-dark-900 border-b border-gray-200 dark:border-dark-800"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+				<div class="flex justify-between items-center">
+					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+						Tashif Ahmad Khan
+					</h1>
+					<div class="flex items-center space-x-4">
+						<ThemeToggle client:load />
+						{
+							socials.map((social) => (
+								<a
+									href={social.link}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-gray-600 dark:text-dark-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+									aria-label={social.label}
+								>
+									<social.icon size={20} />
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Navigation -->
+		<nav
+			class="bg-gray-50 dark:bg-dark-900 border-b border-gray-200 dark:border-dark-800"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex space-x-8" x-data="{ activeTab: 'projects' }">
+					<button
+						class="py-4 px-3 inline-flex items-center space-x-2 border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+					>
+						<Code2 size={20} />
+						<span>Projects</span>
+					</button>
+					<button
+						class="py-4 px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-dark-300 hover:text-gray-900 dark:hover:text-dark-100 hover:border-gray-300 dark:hover:border-dark-600"
+					>
+						<BookOpen size={20} />
+						<span>Blog</span>
+					</button>
+					<button
+						class="py-4 px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-dark-300 hover:text-gray-900 dark:hover:text-dark-100 hover:border-gray-300 dark:hover:border-dark-600"
+					>
+						<Users size={20} />
+						<span>Community</span>
+					</button>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Main Content -->
+		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<!-- Projects Section -->
+			<div>
+				<ProjectFilters
+					client:load
+					categories={categories}
+					onSearch={(term) => {
+						const projectCards = document.querySelectorAll(
+							"[data-project-card]"
+						);
+						projectCards.forEach((card) => {
+							const title =
+								card
+									.querySelector("[data-project-title]")
+									?.textContent?.toLowerCase() || "";
+							const description =
+								card
+									.querySelector("[data-project-description]")
+									?.textContent?.toLowerCase() || "";
+							const tags = Array.from(
+								card.querySelectorAll("[data-project-tag]")
+							).map((tag) => tag.textContent?.toLowerCase() || "");
+
+							const searchTerm = term.toLowerCase();
+							const matches =
+								title.includes(searchTerm) ||
+								description.includes(searchTerm) ||
+								tags.some((tag) => tag.includes(searchTerm));
+
+							card.classList.toggle("hidden", !matches);
+						});
+					}}
+					onCategoryChange={(category) => {
+						const projectCards = document.querySelectorAll(
+							"[data-project-card]"
+						);
+						projectCards.forEach((card) => {
+							const projectCategory = card.getAttribute(
+								"data-project-category"
+							);
+							card.classList.toggle(
+								"hidden",
+								category !== "all" && projectCategory !== category
+							);
+						});
+					}}
+				/>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{
+						projects.map((project) => (
+							<div
+								class="bg-gray-50 dark:bg-dark-900 p-6 rounded-lg border border-gray-200 dark:border-dark-800"
+								data-project-card
+								data-project-category={project.category}
+							>
+								<h3
+									class="text-xl font-semibold text-gray-900 dark:text-white font-mono"
+									data-project-title
+								>
+									{project.title}
+								</h3>
+								<p
+									class="mt-2 text-gray-600 dark:text-dark-300"
+									data-project-description
+								>
+									{project.description}
+								</p>
+								<div class="mt-4 flex flex-wrap gap-2">
+									{project.tags.map((tag) => (
+										<span
+											class="px-3 py-1 bg-gray-200 dark:bg-dark-800 text-blue-600 dark:text-blue-400 rounded-full text-sm font-mono"
+											data-project-tag
+										>
+											{tag}
+										</span>
+									))}
+								</div>
+								<div class="mt-4 flex items-center justify-between">
+									<span class="text-sm text-gray-500 dark:text-dark-400">
+										{project.category}
+									</span>
+									<a
+										href={project.link}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+									>
+										View Project <ExternalLink size={16} className="ml-1" />
+									</a>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<!-- Blog Section -->
+			<div class="hidden space-y-6">
+				{
+					blogPosts.map((post) => (
+						<div class="bg-gray-50 dark:bg-dark-900 p-6 rounded-lg border border-gray-200 dark:border-dark-800">
+							<div class="flex justify-between items-start">
+								<div>
+									<span class="px-3 py-1 bg-gray-200 dark:bg-dark-800 text-green-600 dark:text-green-400 rounded-full text-sm font-mono">
+										{post.category}
+									</span>
+									<h3 class="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
+										{post.title}
+									</h3>
+								</div>
+								<span class="text-gray-500 dark:text-dark-400 text-sm">
+									{post.date}
+								</span>
+							</div>
+							<a
+								href={post.link}
+								class="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+							>
+								Read More <ExternalLink size={16} className="ml-1" />
+							</a>
+						</div>
+					))
+				}
+			</div>
+
+			<!-- Community Section -->
+			<div
+				class="hidden bg-gray-50 dark:bg-dark-900 p-6 rounded-lg border border-gray-200 dark:border-dark-800"
+			>
+				<div class="flex items-center space-x-2 mb-6">
+					<Rss size={20} className="text-orange-500 dark:text-orange-400" />
+					<h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+						Latest Updates
+					</h2>
+				</div>
+				<div class="space-y-4">
+					{
+						rssItems.map((item) => (
+							<div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-dark-800">
+								<a
+									href={item.link}
+									class="text-gray-900 dark:text-dark-100 hover:text-blue-600 dark:hover:text-blue-400"
+								>
+									{item.title}
+								</a>
+								<span class="text-sm text-gray-500 dark:text-dark-400">
+									{item.date}
+								</span>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</main>
+	</div>
 </Layout>
+
+<script>
+	// Tab switching logic
+	const tabs = document.querySelectorAll("nav button");
+	const sections = document.querySelectorAll("main > div");
+
+	tabs.forEach((tab, index) => {
+		tab.addEventListener("click", () => {
+			// Update tab styles
+			tabs.forEach((t) => {
+				t.classList.remove(
+					"border-blue-500",
+					"text-blue-600",
+					"dark:text-blue-400"
+				);
+				t.classList.add(
+					"border-transparent",
+					"text-gray-600",
+					"dark:text-dark-300"
+				);
+			});
+			tab.classList.remove(
+				"border-transparent",
+				"text-gray-600",
+				"dark:text-dark-300"
+			);
+			tab.classList.add(
+				"border-blue-500",
+				"text-blue-600",
+				"dark:text-blue-400"
+			);
+
+			// Show corresponding section
+			sections.forEach((s) => s.classList.add("hidden"));
+			sections[index].classList.remove("hidden");
+		});
+	});
+</script>
