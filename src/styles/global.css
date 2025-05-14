@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import '@fontsource/comfortaa';
+@import '@fontsource/jetbrains-mono';
 
 :root {
   font-family: 'Comfortaa', system-ui, sans-serif;
