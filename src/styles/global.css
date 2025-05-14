@@ -3,13 +3,13 @@
 @import '@fontsource/jetbrains-mono';
 
 :root {
-  font-family: 'Comfortaa', system-ui, sans-serif;
+  font-family: 'Comfortaa';
 }
 
 body {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Comfortaa';
 }
 
 code, pre, .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono';
 }
