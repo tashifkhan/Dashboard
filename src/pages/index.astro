@@ -14,54 +14,11 @@ import {
 	Users,
 	ExternalLink,
 } from "lucide-react";
+import { allProjects, type Project } from "../data/projects"; // Import projects
+import { allBlogPosts, type BlogPost } from "../data/blog"; // Import blog posts
 
-const projects = [
-	{
-		title: "Project 1",
-		description: "A revolutionary open-source project",
-		tags: ["React", "TypeScript", "Node.js"],
-		link: "https://github.com/yourusername/project1",
-		category: "Web Development",
-	},
-	{
-		title: "Project 2",
-		description: "Contributing to the developer ecosystem",
-		tags: ["Vue", "JavaScript", "AWS"],
-		link: "https://github.com/yourusername/project2",
-		category: "Cloud",
-	},
-	{
-		title: "Project 3",
-		description: "Mobile app for productivity",
-		tags: ["React Native", "TypeScript"],
-		link: "https://github.com/yourusername/project3",
-		category: "Mobile",
-	},
-	{
-		title: "Project 4",
-		description: "Machine learning experiments",
-		tags: ["Python", "TensorFlow", "Data Science"],
-		link: "https://github.com/yourusername/project4",
-		category: "AI/ML",
-	},
-];
-
-const categories = [...new Set(projects.map((project) => project.category))];
-
-const blogPosts = [
-	{
-		title: "Understanding Modern Web Architecture",
-		category: "Technical",
-		date: "2024-03-15",
-		link: "/blog/web-architecture",
-	},
-	{
-		title: "The Future of Open Source",
-		category: "Community",
-		date: "2024-03-10",
-		link: "/blog/open-source-future",
-	},
-];
+const projects: Project[] = allProjects;
+const blogPosts: BlogPost[] = allBlogPosts;
 
 const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
@@ -156,7 +113,6 @@ const rssItems = [
 			<div id="projects-section">
 				<ProjectFilters
 					client:load
-					categories={categories}
 					onSearch={(term) => {
 						console.log("Search term:", term);
 						const searchEvent = new CustomEvent("project-search", {
@@ -164,59 +120,73 @@ const rssItems = [
 						});
 						document.dispatchEvent(searchEvent);
 					}}
-					onCategoryChange={(category) => {
-						console.log("Category changed:", category);
-						const categoryEvent = new CustomEvent("project-category", {
-							detail: { category },
-						});
-						document.dispatchEvent(categoryEvent);
-					}}
 				/>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 					{
-						projects.map((project) => (
-							<div
-								class="bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300"
-								data-project-card
-								data-project-category={project.category}
-							>
-								<h3
-									class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white font-mono"
-									data-project-title
+						projects.map(
+							(project: {
+								title: string;
+								description: string;
+								languages: string[];
+								live_website_url?: string;
+								github_link: string;
+								readme: string;
+								slug: string;
+							}) => (
+								<a
+									href={`/projects/${project.slug}`}
+									class="block bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300 hover:shadow-lg no-underline group"
+									data-project-item-card
 								>
-									{project.title}
-								</h3>
-								<p
-									class="mt-2 text-gray-600 dark:text-gray-300"
-									data-project-description
-								>
-									{project.description}
-								</p>
-								<div class="mt-4 flex flex-wrap gap-2">
-									{project.tags.map((tag) => (
-										<span
-											class="px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 text-blue-600 dark:text-blue-400 rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
-											data-project-tag
-										>
-											{tag}
-										</span>
-									))}
-								</div>
-								<div class="mt-4 flex items-center justify-between">
-									<span class="text-sm text-gray-500 dark:text-gray-400">
-										{project.category}
-									</span>
-									<a
-										href={project.link}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+									<h3
+										class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white font-mono group-hover:text-blue-600 dark:group-hover:text-blue-400"
+										data-project-title
 									>
-										View Project <ExternalLink size={16} className="ml-1" />
-									</a>
-								</div>
-							</div>
-						))
+										{project.title}
+									</h3>
+									<p
+										class="mt-2 text-gray-600 dark:text-gray-300 text-sm"
+										data-project-description
+									>
+										{project.description}
+									</p>
+									<div class="mt-4 flex flex-wrap gap-2">
+										{project.languages.map((lang) => (
+											<span
+												class="px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 text-blue-600 dark:text-blue-400 rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
+												data-project-language
+											>
+												{lang}
+											</span>
+										))}
+									</div>
+									<div class="mt-4 flex items-center justify-start space-x-4">
+										{project.live_website_url && (
+											<span
+												class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm"
+												onClick={(e: MouseEvent) => {
+													e.preventDefault();
+													e.stopPropagation();
+													window.open(project.live_website_url, "_blank");
+												}}
+											>
+												Live Site <ExternalLink size={16} className="ml-1" />
+											</span>
+										)}
+										<span
+											class="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 text-sm"
+											onclick={(e: MouseEvent) => {
+												e.preventDefault();
+												e.stopPropagation();
+												window.open(project.github_link, "_blank");
+											}}
+										>
+											GitHub <Github size={16} className="ml-1" />
+										</span>
+									</div>
+								</a>
+							)
+						)
 					}
 				</div>
 			</div>
@@ -268,7 +238,7 @@ const rssItems = [
 								</span>
 							</div>
 							<a
-								href={post.link}
+								href={`/blog/${post.slug}`}
 								class="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
 							>
 								Read More <ExternalLink size={16} className="ml-1" />
@@ -313,6 +283,8 @@ const rssItems = [
 	</div>
 </Layout>
 
+<script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+></script>
 <script>
 	// Tab switching logic
 	const tabs = {
@@ -378,9 +350,10 @@ const rssItems = [
 	// Project search and filter functionality
 	document.addEventListener("project-search", (e: Event) => {
 		const searchTerm = (e as CustomEvent).detail.term.toLowerCase();
-		const projectCards = document.querySelectorAll("[data-project-card]");
+		const projectCards = document.querySelectorAll("[data-project-item-card]");
 
-		projectCards.forEach((card) => {
+		projectCards.forEach((cardEl) => {
+			const card = cardEl as HTMLElement;
 			const title =
 				card
 					.querySelector("[data-project-title]")
@@ -389,29 +362,16 @@ const rssItems = [
 				card
 					.querySelector("[data-project-description]")
 					?.textContent?.toLowerCase() || "";
-			const tags = Array.from(card.querySelectorAll("[data-project-tag]")).map(
-				(tag) => tag.textContent?.toLowerCase() || ""
-			);
+			const languages = Array.from(
+				card.querySelectorAll("[data-project-language]")
+			).map((lang) => lang.textContent?.toLowerCase() || "");
 
 			const matches =
 				title.includes(searchTerm) ||
 				description.includes(searchTerm) ||
-				tags.some((tag) => tag.includes(searchTerm));
+				languages.some((lang) => lang.includes(searchTerm));
 
-			card.classList.toggle("hidden", !matches);
-		});
-	});
-
-	document.addEventListener("project-category", (e: Event) => {
-		const category = (e as CustomEvent).detail.category;
-		const projectCards = document.querySelectorAll("[data-project-card]");
-
-		projectCards.forEach((card) => {
-			const projectCategory = card.getAttribute("data-project-category");
-			card.classList.toggle(
-				"hidden",
-				category !== "all" && projectCategory !== category
-			);
+			card.style.display = matches ? "" : "none";
 		});
 	});
 

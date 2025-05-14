@@ -3,26 +3,14 @@ import { Search } from "lucide-react";
 
 interface Props {
 	onSearch: (term: string) => void;
-	onCategoryChange: (category: string) => void;
-	categories: string[];
 }
 
-export default function ProjectFilters({
-	onSearch,
-	onCategoryChange,
-	categories,
-}: Props) {
+export default function ProjectFilters({ onSearch }: Props) {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [selectedCategory, setSelectedCategory] = useState("all");
 
 	const handleSearch = (value: string) => {
 		setSearchTerm(value);
 		onSearch(value);
-	};
-
-	const handleCategoryChange = (category: string) => {
-		setSelectedCategory(category);
-		onCategoryChange(category);
 	};
 
 	return (
@@ -33,36 +21,11 @@ export default function ProjectFilters({
 				</div>
 				<input
 					type="text"
-					placeholder="Search projects..."
+					placeholder="Search projects by title, description, or language..."
 					value={searchTerm}
 					onChange={(e) => handleSearch(e.target.value)}
 					className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
 				/>
-			</div>
-			<div className="flex flex-wrap gap-2">
-				<button
-					onClick={() => handleCategoryChange("all")}
-					className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
-						selectedCategory === "all"
-							? "bg-blue-500 text-white dark:bg-blue-600"
-							: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
-					}`}
-				>
-					All
-				</button>
-				{categories.map((category) => (
-					<button
-						key={category}
-						onClick={() => handleCategoryChange(category)}
-						className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
-							selectedCategory === category
-								? "bg-blue-500 text-white dark:bg-blue-600"
-								: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
-						}`}
-					>
-						{category}
-					</button>
-				))}
 			</div>
 		</div>
 	);
