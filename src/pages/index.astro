@@ -14,8 +14,8 @@ import {
 	Users,
 	ExternalLink,
 } from "lucide-react";
-import { allProjects, type Project } from "../data/projects"; // Import projects
-import { allBlogPosts, type BlogPost } from "../data/blog"; // Import blog posts
+import { allProjects, type Project } from "../data/projects";
+import { allBlogPosts, type BlogPost } from "../data/blog";
 
 const projects: Project[] = allProjects;
 const blogPosts: BlogPost[] = allBlogPosts;
@@ -23,14 +23,14 @@ const blogPosts: BlogPost[] = allBlogPosts;
 const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
 const socials = [
-	{ icon: Github, link: "https://github.com/yourusername", label: "GitHub" },
-	{ icon: Twitter, link: "https://twitter.com/yourusername", label: "Twitter" },
+	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
+	{ icon: Twitter, link: "https://twitter.com/khan_tashif", label: "Twitter" },
 	{
 		icon: Linkedin,
-		link: "https://linkedin.com/in/yourusername",
+		link: "https://www.linkedin.com/in/tashif-ahmad-khan-982304244/",
 		label: "LinkedIn",
 	},
-	{ icon: Mail, link: "mailto:you@example.com", label: "Email" },
+	{ icon: Mail, link: "mailto:tashif@duck.com", label: "Email" },
 ];
 
 const rssItems = [
