@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import '@fontsource/comfortaa';
 @import '@fontsource/jetbrains-mono';
+@import "./prism-one-dark.css";
 
 :root {
   font-family: 'Comfortaa';

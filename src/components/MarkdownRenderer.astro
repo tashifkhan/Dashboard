@@ -106,6 +106,12 @@ function enhanceHtml(rawHtml: string): string {
 	// Paragraphs
 	html = html.replace(/<p>/g, '<p class="text-white/70 mb-4 leading-relaxed">');
 
+	// Add custom classes to <pre> for code blocks
+	html = html.replace(
+		/<pre>/g,
+		'<pre class="!bg-gray-900 !rounded-lg !border !border-gray-700 !p-4 !overflow-x-auto my-6">'
+	);
+
 	return html;
 }
 
