@@ -1,0 +1,11 @@
+---
+import BlogFiltersComponent from "./BlogFilters.tsx";
+const { onSearch, onCategoryChange, categories } = Astro.props;
+---
+
+<BlogFiltersComponent
+	client:load
+	onSearch={onSearch}
+	onCategoryChange={onCategoryChange}
+	categories={categories}
+/>

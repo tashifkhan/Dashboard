@@ -1,0 +1,6 @@
+---
+import ProjectFiltersComponent from "./ProjectFilters.tsx";
+const { onSearch } = Astro.props;
+---
+
+<ProjectFiltersComponent client:load onSearch={onSearch} />
