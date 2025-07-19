@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 				<a
 					href="/#projects-tab"
-					class="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block"
+					class="text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:underline mb-6 inline-block"
 				>
 					&larr; Back to Projects
 				</a>
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
 				<div class="flex flex-wrap gap-2 mb-4">
 					{
 						project.languages.map((lang: string) => (
-							<span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-blue-600 dark:text-blue-400 rounded-full text-sm font-mono">
+							<span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 cream:bg-[var(--primary-color)] text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] rounded-full text-sm font-mono">
 								{lang}
 							</span>
 						))
@@ -57,7 +57,7 @@ export async function getStaticPaths() {
 								href={project.live_website_url}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+								class="inline-flex items-center text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:text-orange-800 dark:hover:text-orange-300 cream:hover:text-[var(--accent-color-hover)]"
 							>
 								Live Site <ExternalLink size={18} className="ml-1.5" />
 							</a>

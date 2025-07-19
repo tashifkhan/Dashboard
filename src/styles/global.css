@@ -5,10 +5,30 @@
 
 :root {
   font-family: 'Comfortaa';
+  --accent-color: #ff9800;
+  --accent-color-hover: #ffb74d;
+  --bg-color: #fff;
+  --primary-color: #fff;
+  --text-color: #222;
+  --card-bg: #f8fafc;
+  --label-color: #555;
+  --radius: 8px;
+}
+
+.cream {
+  --bg-color: #fdf6e3;
+  --primary-color: #f5e9da;
+  --accent-color: #A47551;
+  --text-color: #3b2f1e;
+  --card-bg: #f7f1e1;
+  --label-color: #555;
+  --radius: 8px;
 }
 
 body {
   font-family: 'Comfortaa';
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 code, pre, .font-mono {
