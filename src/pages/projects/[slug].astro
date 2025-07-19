@@ -1,21 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { remark } from "remark";
-import remarkHtml from "remark-html";
 import { Github, ExternalLink } from "lucide-react";
 import { allProjects, type Project } from "../../data/projects";
+import MarkdownRenderer from "../../components/MarkdownRenderer.astro";
 
 const { project } = Astro.props as { project: Project };
 
-let htmlContent = "";
+let decodedReadme = "";
 if (project.readme) {
-	const decodedReadme = Buffer.from(project.readme, "base64").toString("utf-8");
-	console.log(decodedReadme);
-	const processed = await remark().use(remarkHtml).process(decodedReadme);
-	htmlContent = processed.value.toString();
-	console.log(htmlContent);
-} else {
-	htmlContent = "<p>No README available for this project.</p>";
+	decodedReadme = Buffer.from(project.readme, "base64").toString("utf-8");
 }
 
 export async function getStaticPaths() {
@@ -86,10 +79,16 @@ export async function getStaticPaths() {
 			<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
 				README
 			</h2>
-			<article
-				class="prose prose-lg dark:prose-invert max-w-none bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700"
-				set:html={htmlContent}
-			/>
+			{
+				project.readme ? (
+					<MarkdownRenderer
+						content={decodedReadme}
+						githubBaseUrl={project.github_link}
+					/>
+				) : (
+					<p>No README available for this project.</p>
+				)
+			}
 		</main>
 	</div>
 </Layout>
