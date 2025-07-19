@@ -10,15 +10,22 @@ let html = "";
 function convertRelativeUrl(url: string): string {
 	if (!githubBaseUrl) return url;
 	if (url.startsWith("http://") || url.startsWith("https://")) return url;
+
+	// Replace githubBaseUrl with raw.githubusercontent.com equivalent
+	let rawBaseUrl = githubBaseUrl.replace(
+		/^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/(.+)$/,
+		"https://raw.githubusercontent.com/$1/$2/$3"
+	);
+
 	let convertedUrl = url;
 	if (url.startsWith("./")) {
-		convertedUrl = `${githubBaseUrl}/${url.substring(2)}`;
+		convertedUrl = `${rawBaseUrl}/${url.substring(2)}`;
 	} else if (url.startsWith("../")) {
-		convertedUrl = `${githubBaseUrl}/${url.replace(/^\.\.\//, "")}`;
+		convertedUrl = `${rawBaseUrl}/${url.replace(/^\.\.\//, "")}`;
 	} else if (url.startsWith("/")) {
-		convertedUrl = `${githubBaseUrl}${url}`;
+		convertedUrl = `${rawBaseUrl}${url}`;
 	} else if (!url.includes("://") && !url.startsWith("#")) {
-		convertedUrl = `${githubBaseUrl}/${url}`;
+		convertedUrl = `${rawBaseUrl}/${url}`;
 	}
 	return convertedUrl;
 }
