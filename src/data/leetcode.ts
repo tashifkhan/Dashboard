@@ -154,5 +154,3 @@ async function fetchLeetCodeData(): Promise<LeetCodeData> {
 }
 
 export const leetCodeData: LeetCodeData = await fetchLeetCodeData(); 
-
-console.log(leetCodeData);
