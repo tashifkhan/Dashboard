@@ -493,29 +493,94 @@ const socials = [
 	tabs.resume?.addEventListener("click", () => activateTab("resume"));
 	tabs.community?.addEventListener("click", () => activateTab("community"));
 
+	// Enhanced search functions
+	function fuzzySearch(text: string, query: string): boolean {
+		if (!query.trim()) return true;
+
+		const textLower = text.toLowerCase();
+		const queryLower = query.toLowerCase();
+
+		// Exact match check
+		if (textLower.includes(queryLower)) return true;
+
+		// Fuzzy match using character sequence
+		let queryIndex = 0;
+		for (
+			let i = 0;
+			i < textLower.length && queryIndex < queryLower.length;
+			i++
+		) {
+			if (textLower[i] === queryLower[queryIndex]) {
+				queryIndex++;
+			}
+		}
+
+		// If we found all characters in sequence, it's a fuzzy match
+		return queryIndex === queryLower.length;
+	}
+
+	function enhancedSearch(text: string, query: string): boolean {
+		if (!query.trim()) return true;
+
+		const textLower = text.toLowerCase();
+		const queryLower = query.toLowerCase();
+
+		console.log(`Enhanced search: "${text}" vs "${query}"`);
+
+		// 1. Exact substring match (highest priority)
+		if (textLower.includes(queryLower)) {
+			console.log("  -> Exact match found");
+			return true;
+		}
+
+		// 2. Word boundary match (matches whole words)
+		const words = textLower.split(/\s+/);
+		const queryWords = queryLower.split(/\s+/);
+
+		// Check if all query words are found in text words
+		const allWordsFound = queryWords.every((queryWord) =>
+			words.some((word) => word.includes(queryWord))
+		);
+		if (allWordsFound) {
+			console.log("  -> Word boundary match found");
+			return true;
+		}
+
+		// 3. Fuzzy match (for typos and partial matches)
+		const fuzzyResult = fuzzySearch(textLower, queryLower);
+		console.log("  -> Fuzzy match result:", fuzzyResult);
+		return fuzzyResult;
+	}
+
 	// Project search and filter functionality
 	document.addEventListener("project-search", (e: Event) => {
-		const searchTerm = (e as CustomEvent).detail.term.toLowerCase();
-		const projectCards = document.querySelectorAll("[data-project-item-card]");
+		const searchTerm = (e as CustomEvent).detail.term;
+		console.log("Project search triggered with term:", searchTerm);
 
-		projectCards.forEach((cardEl) => {
+		const projectCards = document.querySelectorAll("[data-project-item-card]");
+		console.log("Found project cards:", projectCards.length);
+
+		projectCards.forEach((cardEl, index) => {
 			const card = cardEl as HTMLElement;
 			const title =
-				card
-					.querySelector("[data-project-title]")
-					?.textContent?.toLowerCase() || "";
+				card.querySelector("[data-project-title]")?.textContent || "";
 			const description =
-				card
-					.querySelector("[data-project-description]")
-					?.textContent?.toLowerCase() || "";
+				card.querySelector("[data-project-description]")?.textContent || "";
 			const languages = Array.from(
 				card.querySelectorAll("[data-project-language]")
-			).map((lang) => lang.textContent?.toLowerCase() || "");
+			).map((lang) => lang.textContent || "");
 
-			const matches =
-				title.includes(searchTerm) ||
-				description.includes(searchTerm) ||
-				languages.some((lang) => lang.includes(searchTerm));
+			console.log(`Card ${index}:`, { title, description, languages });
+
+			// Use enhanced search for better matching
+			const titleMatch = enhancedSearch(title, searchTerm);
+			const descriptionMatch = enhancedSearch(description, searchTerm);
+			const languageMatch = languages.some((lang) =>
+				enhancedSearch(lang, searchTerm)
+			);
+
+			const matches = titleMatch || descriptionMatch || languageMatch;
+			console.log(`Card ${index} matches:`, matches);
 
 			card.style.display = matches ? "" : "none";
 		});
@@ -523,20 +588,19 @@ const socials = [
 
 	// Blog search and filter functionality
 	document.addEventListener("blog-search", (e: Event) => {
-		const searchTerm = (e as CustomEvent).detail.term.toLowerCase();
+		const searchTerm = (e as CustomEvent).detail.term;
 		const blogCards = document.querySelectorAll("[data-blog-card]");
 
 		blogCards.forEach((card) => {
-			const title =
-				card.querySelector("[data-blog-title]")?.textContent?.toLowerCase() ||
-				"";
+			const title = card.querySelector("[data-blog-title]")?.textContent || "";
 			const category =
-				card
-					.querySelector("[data-blog-category]")
-					?.textContent?.toLowerCase() || "";
+				card.querySelector("[data-blog-category]")?.textContent || "";
 
-			const matches =
-				title.includes(searchTerm) || category.includes(searchTerm);
+			// Use enhanced search for better matching
+			const titleMatch = enhancedSearch(title, searchTerm);
+			const categoryMatch = enhancedSearch(category, searchTerm);
+
+			const matches = titleMatch || categoryMatch;
 			card.classList.toggle("hidden", !matches);
 		});
 	});

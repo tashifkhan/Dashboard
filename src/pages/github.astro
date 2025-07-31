@@ -1,0 +1,114 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GitHubStats from "../components/GitHubStats.astro";
+import { Github, BarChart3, Activity, Star } from "lucide-react";
+---
+
+<Layout title="GitHub - Tashif Ahmad Khan">
+	<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="mb-8">
+				<div class="flex items-center space-x-3 mb-4">
+					<div
+						class="p-3 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl"
+					>
+						<Github className="w-6 h-6 text-white" />
+					</div>
+					<div>
+						<h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+							GitHub Profile
+						</h1>
+						<p class="text-gray-600 dark:text-gray-300">
+							Open source contributions and development activity
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="space-y-8">
+				<!-- Stats Section -->
+				<div>
+					<div class="flex items-center space-x-3 mb-6">
+						<BarChart3 className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+						<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+							Statistics & Activity
+						</h2>
+					</div>
+					<GitHubStats />
+				</div>
+
+				<!-- Additional GitHub Info -->
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<!-- Profile Card -->
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								Profile
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							View my complete GitHub profile and repositories
+						</p>
+						<a
+							href="https://github.com/tashifkhan"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							Visit Profile →
+						</a>
+					</div>
+
+					<!-- Activity Card -->
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Activity className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								Activity
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							Check out my recent commits and contributions
+						</p>
+						<a
+							href="https://github.com/tashifkhan?tab=activity"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							View Activity →
+						</a>
+					</div>
+
+					<!-- Repositories Card -->
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Star className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								Repositories
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							Explore my open source projects and contributions
+						</p>
+						<a
+							href="https://github.com/tashifkhan?tab=repositories"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							Browse Repos →
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</Layout>
