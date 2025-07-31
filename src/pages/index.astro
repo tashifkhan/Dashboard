@@ -163,23 +163,17 @@ const rssItems = [
 									<div class="mt-4 flex items-center justify-start space-x-4">
 										{project.live_website_url && (
 											<span
-												class="inline-flex items-center text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:text-orange-800 dark:hover:text-orange-300 cream:hover:text-[var(--accent-color-hover)] text-sm"
-												onClick={(e: MouseEvent) => {
-													e.preventDefault();
-													e.stopPropagation();
-													window.open(project.live_website_url, "_blank");
-												}}
+												class="inline-flex items-center text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:text-orange-800 dark:hover:text-orange-300 cream:hover:text-[var(--accent-color-hover)] text-sm cursor-pointer"
+												data-live-link
+												data-url={project.live_website_url}
 											>
 												Live Site <ExternalLink size={16} className="ml-1" />
 											</span>
 										)}
 										<span
-											class="inline-flex items-center text-gray-600 dark:text-gray-400 cream:text-[var(--text-color)] hover:text-gray-800 dark:hover:text-gray-300 cream:hover:text-[var(--accent-color-hover)] text-sm"
-											onclick={(e: MouseEvent) => {
-												e.preventDefault();
-												e.stopPropagation();
-												window.open(project.github_link, "_blank");
-											}}
+											class="inline-flex items-center text-gray-600 dark:text-gray-400 cream:text-[var(--text-color)] hover:text-gray-800 dark:hover:text-gray-300 cream:hover:text-[var(--accent-color-hover)] text-sm cursor-pointer"
+											data-github-link
+											data-url={project.github_link}
 										>
 											GitHub <Github size={16} className="ml-1" />
 										</span>
@@ -416,5 +410,29 @@ const rssItems = [
 	document.addEventListener("DOMContentLoaded", () => {
 		const theme = localStorage.getItem("theme") || "light";
 		document.documentElement.classList.toggle("dark", theme === "dark");
+
+		// Handle live link clicks
+		document.querySelectorAll("[data-live-link]").forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				const url = link.getAttribute("data-url");
+				if (url) {
+					window.open(url, "_blank");
+				}
+			});
+		});
+
+		// Handle GitHub link clicks
+		document.querySelectorAll("[data-github-link]").forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				const url = link.getAttribute("data-url");
+				if (url) {
+					window.open(url, "_blank");
+				}
+			});
+		});
 	});
 </script>
