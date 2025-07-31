@@ -28,10 +28,69 @@ body {
   font-family: 'Comfortaa';
   background: var(--bg-color);
   color: var(--text-color);
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 code, pre, .font-mono {
   font-family: 'JetBrains Mono';
+}
+
+/* Mobile-first responsive design */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Prevent horizontal scrolling globally */
+body, html, #__next, main, header, section, div {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Allow navigation to scroll horizontally */
+nav {
+  overflow-x: auto;
+  max-width: 100vw;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 2px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Ensure content doesn't overflow on mobile */
+.prose {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.prose pre,
+.prose code {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* Enhanced Code Block Styling */
@@ -48,6 +107,7 @@ code, pre, .font-mono {
     0 0 0 1px rgba(255, 152, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  max-width: 100%;
 }
 
 .code-block-wrapper:hover {
@@ -68,7 +128,11 @@ code, pre, .font-mono {
   font-size: 0.875rem !important;
   line-height: 1.6 !important;
   overflow-x: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
   position: relative;
+  max-width: 100%;
 }
 
 .code-block-wrapper pre code {
@@ -79,6 +143,9 @@ code, pre, .font-mono {
   color: #e2e8f0 !important;
   border: none !important;
   box-shadow: none !important;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Language Label */
@@ -300,25 +367,136 @@ code, pre, .font-mono {
   }
 }
 
-/* Responsive adjustments */
+/* Mobile-first responsive adjustments */
 @media (max-width: 768px) {
+  /* Prevent horizontal scrolling on mobile */
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  .max-w-4xl,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Force all content to wrap */
+  * {
+    max-width: 100%;
+  }
+  
+  /* Allow navigation to scroll horizontally on mobile as before */
+  nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  
+  nav > div {
+    min-width: max-content;
+    width: max-content;
+  }
+  
+  nav .flex {
+    flex-shrink: 0;
+    min-width: max-content;
+    width: max-content;
+  }
+  
+  nav button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  
   .code-block-wrapper {
     margin: 1rem 0;
     border-radius: 8px;
+    max-width: 100%;
+    overflow: hidden;
   }
   
   .code-block-wrapper pre {
     padding: 1rem !important;
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100%;
+  }
+  
+  .code-block-wrapper pre code {
+    font-size: 0.75rem !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
   .language-label {
-    font-size: 0.7rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    right: 0;
   }
   
   .copy-button {
-    right: 3rem;
-    padding: 0.4rem;
+    right: 2.5rem;
+    padding: 0.3rem;
+    top: 0.5rem;
   }
+  
+  /* Ensure all content wraps properly on mobile */
+  .prose {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .prose pre,
+  .prose code,
+  .prose p,
+  .prose li,
+  .prose blockquote {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Force table responsiveness */
+  .prose table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  /* Ensure images don't overflow */
+  .prose img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .code-block-wrapper pre {
+    padding: 0.75rem !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .language-label {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .copy-button {
+    right: 2rem;
+    padding: 0.25rem;
+  }
+  
+
 }
