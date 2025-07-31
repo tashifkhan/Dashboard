@@ -1,7 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import GitHubStats from "../components/GitHubStats.astro";
-import { Github, BarChart3, Activity, Star, ArrowLeft } from "lucide-react";
+import {
+	Github,
+	BarChart3,
+	Activity,
+	Star,
+	ArrowLeft,
+	ExternalLink,
+} from "lucide-react";
 ---
 
 <Layout title="GitHub - Tashif Ahmad Khan">
@@ -65,7 +72,7 @@ import { Github, BarChart3, Activity, Star, ArrowLeft } from "lucide-react";
 							rel="noopener noreferrer"
 							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
 						>
-							Visit Profile →
+							Visit Profile <ExternalLink size={16} className="ml-1.5" />
 						</a>
 					</div>
 
@@ -88,7 +95,7 @@ import { Github, BarChart3, Activity, Star, ArrowLeft } from "lucide-react";
 							rel="noopener noreferrer"
 							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
 						>
-							View Activity →
+							View Activity <ExternalLink size={16} className="ml-1.5" />
 						</a>
 					</div>
 
@@ -111,7 +118,7 @@ import { Github, BarChart3, Activity, Star, ArrowLeft } from "lucide-react";
 							rel="noopener noreferrer"
 							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
 						>
-							Browse Repos →
+							Browse Repos <ExternalLink size={16} className="ml-1.5" />
 						</a>
 					</div>
 				</div>

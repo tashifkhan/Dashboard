@@ -2,11 +2,11 @@ export interface LeetCodeStats {
 	totalSolved: number;
 	totalQuestions: number;
 	easySolved: number;
-	easyTotal: number;
+	totalEasy: number;
 	mediumSolved: number;
-	mediumTotal: number;
+	totalMedium: number;
 	hardSolved: number;
-	hardTotal: number;
+	totalHard: number;
 	ranking: number;
 	contributionPoints: number;
 	reputation: number;

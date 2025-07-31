@@ -74,18 +74,18 @@ const { stats, profile } = leetCodeData;
 				Easy
 			</h3>
 			<span class="text-2xl font-bold text-green-600 dark:text-green-400"
-				>{stats.easySolved}/{stats.easyTotal}</span
+				>{stats.easySolved}/{stats.totalEasy}</span
 			>
 		</div>
 		<div class="w-full bg-green-200 dark:bg-green-800 rounded-full h-2">
 			<div
 				class="bg-green-500 h-2 rounded-full transition-all duration-300"
-				style={`width: ${(stats.easySolved / stats.easyTotal) * 100}%`}
+				style={`width: ${(stats.easySolved / stats.totalEasy) * 100}%`}
 			>
 			</div>
 		</div>
 		<p class="text-sm text-green-600 dark:text-green-400 mt-2">
-			{Math.round((stats.easySolved / stats.easyTotal) * 100)}% completed
+			{Math.round((stats.easySolved / stats.totalEasy) * 100)}% completed
 		</p>
 	</div>
 
@@ -98,18 +98,18 @@ const { stats, profile } = leetCodeData;
 				Medium
 			</h3>
 			<span class="text-2xl font-bold text-yellow-600 dark:text-yellow-400"
-				>{stats.mediumSolved}/{stats.mediumTotal}</span
+				>{stats.mediumSolved}/{stats.totalMedium}</span
 			>
 		</div>
 		<div class="w-full bg-yellow-200 dark:bg-yellow-800 rounded-full h-2">
 			<div
 				class="bg-yellow-500 h-2 rounded-full transition-all duration-300"
-				style={`width: ${(stats.mediumSolved / stats.mediumTotal) * 100}%`}
+				style={`width: ${(stats.mediumSolved / stats.totalMedium) * 100}%`}
 			>
 			</div>
 		</div>
 		<p class="text-sm text-yellow-600 dark:text-yellow-400 mt-2">
-			{Math.round((stats.mediumSolved / stats.mediumTotal) * 100)}% completed
+			{Math.round((stats.mediumSolved / stats.totalMedium) * 100)}% completed
 		</p>
 	</div>
 
@@ -120,19 +120,18 @@ const { stats, profile } = leetCodeData;
 		<div class="flex items-center justify-between mb-2">
 			<h3 class="text-lg font-semibold text-red-700 dark:text-red-300">Hard</h3>
 			<span class="text-2xl font-bold text-red-600 dark:text-red-400"
-				>{stats.hardSolved}/{stats.hardTotal}</span
+				>{stats.hardSolved}/{stats.totalHard}</span
 			>
 		</div>
 		<div class="w-full bg-red-200 dark:bg-red-800 rounded-full h-2">
 			<div
 				class="bg-red-500 h-2 rounded-full transition-all duration-300"
-				style={`width: ${(stats.hardSolved / stats.hardTotal) * 100}%`}
+				style={`width: ${(stats.hardSolved / stats.totalHard) * 100}%`}
 			>
 			</div>
 		</div>
 		<p class="text-sm text-red-600 dark:text-red-400 mt-2">
-			{Math.round((stats.hardSolved / stats.hardTotal) * 100)}% completed
+			{Math.round((stats.hardSolved / stats.totalHard) * 100)}% completed
 		</p>
 	</div>
 </div>
-
