@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ThemeToggle from "../components/ThemeToggle";
+// import ThemeToggle from "../components/ThemeToggle";
 import ProjectFilters from "../components/ProjectFilters";
 import BlogFilters from "../components/BlogFilters";
 import LeetCodeStats from "../components/LeetCodeStats.astro";
@@ -17,7 +17,7 @@ import {
 	BookOpen,
 	Users,
 	ExternalLink,
-	Zap,
+	Globe,
 	FileText,
 } from "lucide-react";
 import { allProjects, type Project } from "../data/projects";
@@ -34,7 +34,7 @@ const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
 const socials = [
 	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
-	{ icon: Zap, link: "https://portfolio.tashif.codes", label: "Portfolio" },
+	{ icon: Globe, link: "https://portfolio.tashif.codes", label: "Portfolio" },
 	{ icon: Twitter, link: "https://twitter.com/khan_tashif_", label: "Twitter" },
 	{
 		icon: Linkedin,
@@ -75,7 +75,7 @@ const socials = [
 						</div>
 					</div>
 					<div class="flex items-center space-x-3 sm:space-x-4">
-						<ThemeToggle client:load />
+						<!-- <ThemeToggle client:load /> -->
 						{
 							socials.map((social) => (
 								<a
