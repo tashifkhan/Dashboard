@@ -2,6 +2,7 @@
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 import rehypePrism from "rehype-prism-plus";
+import remarkGfm from "remark-gfm";
 
 const { content, githubBaseUrl } = Astro.props;
 
@@ -23,13 +24,13 @@ function convertRelativeUrl(url: string): string {
 
 	let convertedUrl = url;
 	if (url.startsWith("./")) {
-		convertedUrl = `${baseUrl}/${url.substring(2)}`;
+		convertedUrl = baseUrl + "/" + url.substring(2);
 	} else if (url.startsWith("../")) {
-		convertedUrl = `${baseUrl}/${url.replace(/^\.\.\//, "")}`;
+		convertedUrl = baseUrl + "/" + url.replace(/^\.\.\//, "");
 	} else if (url.startsWith("/")) {
-		convertedUrl = `${baseUrl}${url}`;
+		convertedUrl = baseUrl + url;
 	} else if (!url.includes("://") && !url.startsWith("#")) {
-		convertedUrl = `${baseUrl}/${url}`;
+		convertedUrl = baseUrl + "/" + url;
 	}
 	return convertedUrl;
 }
@@ -76,7 +77,15 @@ function enhanceHtml(rawHtml: string): string {
 		/<img([^>]*)src="([^"]+)"([^>]*)>/g,
 		(match: string, before: string, src: string, after: string) => {
 			const fullSrc = convertRelativeUrl(src);
-			return `<img${before}src="${fullSrc}"${after} class="max-w-full h-auto rounded-lg border border-gray-700 my-4 mx-auto block" />`;
+			return (
+				"<img" +
+				before +
+				'src="' +
+				fullSrc +
+				'"' +
+				after +
+				' class="max-w-full h-auto rounded-lg border border-gray-700 my-4 mx-auto block" />'
+			);
 		}
 	);
 
@@ -85,7 +94,15 @@ function enhanceHtml(rawHtml: string): string {
 		/<a href="([^"]+)"([^>]*)>(.*?)<\/a>/g,
 		(match: string, url: string, rest: string, text: string) => {
 			const fullUrl = convertRelativeUrl(url);
-			return `<a href="${fullUrl}" target="_blank" class="text-orange-400 hover:text-orange-300 underline transition-colors"${rest}>${text}</a>`;
+			return (
+				'<a href="' +
+				fullUrl +
+				'" target="_blank" class="text-orange-400 hover:text-orange-300 underline transition-colors"' +
+				rest +
+				">" +
+				text +
+				"</a>"
+			);
 		}
 	);
 
@@ -93,6 +110,42 @@ function enhanceHtml(rawHtml: string): string {
 	html = html.replace(/<ul>/g, '<ul class="my-3 space-y-1 list-disc pl-6">');
 	html = html.replace(/<ol>/g, '<ol class="my-3 space-y-1 list-decimal pl-6">');
 	html = html.replace(/<li>/g, '<li class="text-white/80 mb-1">');
+
+	// Todo checkboxes (task lists)
+	html = html.replace(
+		/<input type="checkbox"([^>]*)>/g,
+		'<input type="checkbox" class="mr-2 mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-orange-500 focus:ring-orange-500 focus:ring-offset-gray-800"$1>'
+	);
+
+	// Enhanced code blocks with language labels and proper closing
+	html = html.replace(
+		/<pre class="([^"]*)language-([^"]*)"([^>]*)>([\s\S]*?)<\/pre>/g,
+		(
+			match: string,
+			classes: string,
+			language: string,
+			rest: string,
+			content: string
+		) => {
+			const langLabel = language !== "text" ? language.toUpperCase() : "";
+			const langLabelHtml = langLabel
+				? '<div class="language-label">' + langLabel + "</div>"
+				: "";
+			return (
+				'<div class="relative group">' +
+				langLabelHtml +
+				'<pre class="' +
+				classes +
+				" language-" +
+				language +
+				'"' +
+				rest +
+				">" +
+				content +
+				"</pre></div>"
+			);
+		}
+	);
 
 	// Tables
 	html = html.replace(
@@ -117,19 +170,18 @@ function enhanceHtml(rawHtml: string): string {
 	// Paragraphs
 	html = html.replace(/<p>/g, '<p class="text-white/70 mb-4 leading-relaxed">');
 
-	// Add custom classes to <pre> for code blocks
-	html = html.replace(
-		/<pre>/g,
-		'<pre class="!bg-gray-900 !rounded-lg !border !border-gray-700 !p-4 !overflow-x-auto my-6">'
-	);
-
 	return html;
 }
 
 if (content) {
 	const processed = await remark()
+		.use(remarkGfm)
 		.use(remarkHtml, { sanitize: false })
-		.use(rehypePrism)
+		.use(rehypePrism, {
+			showLineNumbers: true,
+			lineNumbers: true,
+			plugins: ["line-numbers", "command-line", "diff-highlight"],
+		})
 		.process(content);
 	html = enhanceHtml(processed.value.toString());
 } else {
