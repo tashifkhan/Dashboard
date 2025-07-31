@@ -17,27 +17,31 @@ import {
 ---
 
 <div
-	class="bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl max-w-4xl mx-auto"
+	class="bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl max-w-4xl mx-auto"
 	id="resume-content"
 >
 	<!-- Header with Download Button -->
-	<div class="flex justify-between items-start mb-8">
+	<div
+		class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 gap-4"
+	>
 		<div class="flex items-center space-x-3">
 			<div
-				class="p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
+				class="p-2 sm:p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
 			>
-				<FileText className="w-6 h-6 text-white" />
+				<FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
 			</div>
 			<div>
-				<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Resume</h2>
-				<p class="text-gray-600 dark:text-gray-300 text-sm">
+				<h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+					Resume
+				</h2>
+				<p class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
 					Professional experience and achievements
 				</p>
 			</div>
 		</div>
 		<button
 			onclick="downloadResume()"
-			class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+			class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center"
 		>
 			<Download className="w-4 h-4" />
 			<span class="font-medium">Download PDF</span>
@@ -47,39 +51,43 @@ import {
 	<div class="prose prose-gray dark:prose-invert max-w-none">
 		<!-- Enhanced Header -->
 		<div
-			class="mb-10 p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-600"
+			class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-600"
 		>
 			<h1
-				class="text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
+				class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 text-center"
 			>
 				TASHIF AHMAD KHAN
 			</h1>
-			<p class="text-center text-gray-600 dark:text-gray-300 mb-4 text-lg">
+			<p
+				class="text-center text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg"
+			>
 				Engineering Undergrade | Tech Enthusiast | Full Stack Engineer
 			</p>
 
 			<!-- Contact Information -->
 			<div class="mb-4 flex justify-center">
 				<div
-					class="flex flex-col md:flex-row items-center justify-center gap-4 w-full"
+					class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full"
 				>
 					<div class="flex items-center space-x-2 justify-center">
 						<Mail className="w-4 h-4 text-orange-500" />
 						<a
 							href="mailto:developer@tashif.codes"
-							class="text-gray-700 dark:text-gray-300 hover:underline"
+							class="text-gray-700 dark:text-gray-300 hover:underline text-sm sm:text-base"
 						>
 							developer@tashif.codes
 						</a>
 					</div>
-					<div class="flex items-center space-x-3 justify-center">
+					<div class="flex items-center space-x-2 sm:space-x-3 justify-center">
 						<LocationIcon className="w-4 h-4 text-orange-500" />
-						<span class="text-gray-700 dark:text-gray-300">Delhi, India</span>
+						<span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+							>Delhi, India</span
+						>
 					</div>
 				</div>
 			</div>
 			<!-- Social Links -->
-			<div class="flex flex-wrap justify-center gap-0">
+			<div class="flex flex-wrap justify-center gap-1 sm:gap-2">
 				<a
 					href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
 					target="_blank"
@@ -109,16 +117,18 @@ import {
 	</div>
 
 	<!-- Skills -->
-	<div class="mb-10">
+	<div class="mb-8 sm:mb-10">
 		<h2
-			class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center space-x-3"
+			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 		>
 			<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-				<Award className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+				<Award
+					className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
+				/>
 			</div>
 			<span>SKILLS</span>
 		</h2>
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
 			<div class="space-y-4">
 				<div
 					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
@@ -206,26 +216,32 @@ import {
 	</div>
 
 	<!-- Experience -->
-	<div class="mb-10">
+	<div class="mb-8 sm:mb-10">
 		<h2
-			class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center space-x-3"
+			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 		>
 			<div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-				<Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+				<Calendar
+					className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400"
+				/>
 			</div>
 			<span>EXPERIENCE</span>
 		</h2>
-		<div class="space-y-6">
+		<div class="space-y-4 sm:space-y-6">
 			<div
-				class="relative p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
+				class="relative p-4 sm:p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
 			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+				<div
+					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+				>
+					<h3
+						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+					>
 						UNICLOUD
 					</h3>
 					<div class="flex items-center space-x-2">
 						<span
-							class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
+							class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium"
 						>
 							June - July 2026
 						</span>
@@ -233,16 +249,20 @@ import {
 							href="https://drive.tashif.codes/s/RsaiDWGCEoXjt2K"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+							class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
 						>
 							Certificate
 						</a>
 					</div>
 				</div>
-				<p class="text-lg text-blue-600 dark:text-blue-400 mb-4 font-medium">
+				<p
+					class="text-base sm:text-lg text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 font-medium"
+				>
 					Software Development Intern
 				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+				<ul
+					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+				>
 					<li class="flex items-start">
 						<span
 							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
@@ -284,22 +304,28 @@ import {
 	</div>
 
 	<!-- Notable Projects -->
-	<div class="mb-10">
+	<div class="mb-8 sm:mb-10">
 		<h2
-			class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center space-x-3"
+			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 		>
 			<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-				<BookOpen className="w-5 h-5 text-green-600 dark:text-green-400" />
+				<BookOpen
+					className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400"
+				/>
 			</div>
 			<span>NOTABLE PROJECTS</span>
 		</h2>
-		<div class="space-y-6">
+		<div class="space-y-4 sm:space-y-6">
 			<!-- FindexAI -->
 			<div
-				class="relative p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
+				class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
 			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+				<div
+					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+				>
+					<h3
+						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+					>
 						FindexAI — AI-Powered Browser Discovery Engine
 					</h3>
 					<div class="flex space-x-2">
@@ -307,23 +333,27 @@ import {
 							href="https://findex.tashif.codes"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+							class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
 							>Live</a
 						>
 						<a
 							href="https://github.com/tashifkhan/findex"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+							class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
 							>GitHub</a
 						>
 					</div>
 				</div>
-				<p class="text-sm text-green-600 dark:text-green-400 mb-4 font-medium">
+				<p
+					class="text-xs sm:text-sm text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
+				>
 					Next.js, React, FastAPI, LangChain, LangGraph, FAISS, ChromaDB,
 					Docker, WebExtension APIs
 				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+				<ul
+					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+				>
 					<li class="flex items-start">
 						<span
 							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
@@ -787,7 +817,7 @@ import {
 							>Live</a
 						>
 						<a
-							href="https://github.com/tashifkhan/crop-mate"
+							href="https://github.com/tashifkhan/crop- mate"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors"
@@ -916,35 +946,43 @@ import {
 	</div>
 
 	<!-- Education -->
-	<div class="mb-10">
+	<div class="mb-8 sm:mb-10">
 		<h2
-			class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center space-x-3"
+			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 		>
 			<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-				<MapPin className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+				<MapPin
+					className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
+				/>
 			</div>
 			<span>EDUCATION</span>
 		</h2>
-		<div class="space-y-6">
+		<div class="space-y-4 sm:space-y-6">
 			<div
-				class="relative p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
+				class="relative p-4 sm:p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
 			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+				<div
+					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+				>
+					<h3
+						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+					>
 						Jaypee Institute of Information Technology, Noida, India
 					</h3>
 					<span
-						class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium"
+						class="px-2 sm:px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-xs sm:text-sm font-medium"
 					>
 						2022 - 2026
 					</span>
 				</div>
 				<p
-					class="text-lg text-orange-600 dark:text-orange-400 mb-2 font-medium"
+					class="text-base sm:text-lg text-orange-600 dark:text-orange-400 mb-2 font-medium"
 				>
 					B. Tech Electronics & Communication Engineering
 				</p>
-				<p class="text-gray-700 dark:text-gray-300 font-medium">
+				<p
+					class="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base"
+				>
 					CGPA: 7.3/10.0
 				</p>
 			</div>
@@ -969,33 +1007,43 @@ import {
 	</div>
 
 	<!-- Positions of Responsibility -->
-	<div class="mb-8">
+	<div class="mb-6 sm:mb-8">
 		<h2
-			class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center space-x-3"
+			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 		>
 			<div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
-				<Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+				<Users
+					className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400"
+				/>
 			</div>
 			<span>POSITIONS OF RESPONSIBILITY</span>
 		</h2>
-		<div class="space-y-6">
+		<div class="space-y-4 sm:space-y-6">
 			<div
-				class="relative p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
+				class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
 			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+				<div
+					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+				>
+					<h3
+						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+					>
 						Treasurer | Senior Advisor
 					</h3>
 					<span
-						class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium"
+						class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium"
 					>
 						2024 - Present
 					</span>
 				</div>
-				<p class="text-lg text-green-600 dark:text-green-400 mb-4 font-medium">
+				<p
+					class="text-base sm:text-lg text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
+				>
 					Optica Student Chapter JIIT
 				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+				<ul
+					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+				>
 					<li class="flex items-start">
 						<span
 							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
@@ -1134,6 +1182,7 @@ import {
 			<html>
 			<head>
 				<title>Tashif Ahmad Khan - Resume</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<style>
 					body {
 						font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -1141,35 +1190,47 @@ import {
 						color: #333;
 						max-width: 800px;
 						margin: 0 auto;
-						padding: 20px;
+						padding: 15px;
 					}
 					h1, h2, h3 {
 						color: #1f2937;
 					}
 					.section {
-						margin-bottom: 30px;
+						margin-bottom: 25px;
 					}
 					.project-card {
 						border-left: 4px solid #10b981;
-						padding-left: 20px;
-						margin-bottom: 20px;
+						padding-left: 15px;
+						margin-bottom: 15px;
 						background: #f9fafb;
-						padding: 15px;
+						padding: 12px;
 						border-radius: 8px;
 					}
 					.skills-grid {
 						display: grid;
-						grid-template-columns: 1fr 1fr;
-						gap: 20px;
+						grid-template-columns: 1fr;
+						gap: 15px;
+					}
+					@media (min-width: 768px) {
+						.skills-grid {
+							grid-template-columns: 1fr 1fr;
+							gap: 20px;
+						}
 					}
 					.skill-category {
 						background: #f3f4f6;
-						padding: 15px;
+						padding: 12px;
 						border-radius: 8px;
 					}
 					@media print {
 						body { margin: 0; }
 						.no-print { display: none; }
+					}
+					@media (max-width: 768px) {
+						body { padding: 10px; }
+						h1 { font-size: 1.5rem; }
+						h2 { font-size: 1.25rem; }
+						h3 { font-size: 1.1rem; }
 					}
 				</style>
 			</head>
