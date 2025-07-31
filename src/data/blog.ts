@@ -1,3 +1,5 @@
+import { formatTitle } from "../utils/formatTitle";
+
 export interface BlogPost {
 	title: string;
 	category: string;
@@ -10,7 +12,7 @@ export interface BlogPost {
 // Sample base64 encoded "Hello World" Markdown: "IyBIZWxsbyBXb3JsZAoKYmxvZyBjb250ZW50"
 export const allBlogPosts: BlogPost[] = [
 	{
-		title: "Understanding Modern Web Architecture",
+		title: formatTitle("Understanding Modern Web Architecture"),
 		category: "Technical",
 		date: "2024-03-15",
 		slug: "understanding-modern-web-architecture",
@@ -19,7 +21,7 @@ export const allBlogPosts: BlogPost[] = [
 		description: "A deep dive into modern web architecture patterns and practices.",
 	},
 	{
-		title: "The Future of Open Source",
+		title: formatTitle("The Future of Open Source"),
 		category: "Community",
 		date: "2024-03-10",
 		slug: "future-of-open-source",

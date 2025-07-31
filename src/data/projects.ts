@@ -1,4 +1,5 @@
 import { slugify } from "../utils/slugify";
+import { formatTitle } from "../utils/formatTitle";
 
 export interface Project {
 	title: string;
@@ -21,7 +22,7 @@ async function fetchProjects(): Promise<Project[]> {
 	const apiData = await response.json();
 
 	return apiData.map((project: any) => ({
-		title: project.title,
+		title: formatTitle(project.title),
 		description: project.description || "No description available.",
 		languages: project.languages || [],
 		live_website_url: project.live_website_url,
