@@ -90,7 +90,7 @@ export interface GitHubStats {
 
 async function fetchGitHubStats(): Promise<GitHubStats> {
 	const endpoints = [
-		"https://github-stats.tashif.codes/tashifkhan/stats",
+		"https://github-stats.tashif.codes/tashifkhan/stats?exclude=HTML,CSS,Jupyter Notebook,SCSS",
 		"https://github-stats.tashif.codes/tashifkhan/prs",
 		"https://github-stats.tashif.codes/tashifkhan/stars",
 		"https://github-stats.tashif.codes/tashifkhan/commits",
