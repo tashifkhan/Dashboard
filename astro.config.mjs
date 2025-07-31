@@ -10,6 +10,7 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tashif.codes/', // <-- Top-level, not inside sitemap()
+  output: 'server',              // Enable server-side rendering for API routes
   vite: {
     plugins: [tailwindcss()]
   },
