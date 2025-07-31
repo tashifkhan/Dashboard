@@ -3,13 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import LeetCodeStats from "../components/LeetCodeStats.astro";
 import LeetCodeContests from "../components/LeetCodeContests.astro";
 import LeetCodeBadges from "../components/LeetCodeBadges.astro";
-import { Trophy, Target, Award } from "lucide-react";
+import { Trophy, Target, Award, ArrowLeft } from "lucide-react";
 ---
 
 <Layout title="LeetCode - Tashif Ahmad Khan">
 	<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-8">
+				<a
+					href="/"
+					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-4 transition-colors"
+				>
+					<ArrowLeft size={20} className="mr-2" />
+					Back to Home
+				</a>
 				<div class="flex items-center space-x-3 mb-4">
 					<div
 						class="p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
