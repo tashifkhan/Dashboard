@@ -35,12 +35,12 @@ const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 const socials = [
 	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
 	{ icon: Globe, link: "https://portfolio.tashif.codes", label: "Portfolio" },
-	{ icon: Twitter, link: "https://twitter.com/khan_tashif_", label: "Twitter" },
 	{
 		icon: Linkedin,
 		link: "https://www.linkedin.com/in/tashif-ahmad-khan-982304244/",
 		label: "LinkedIn",
 	},
+	{ icon: Twitter, link: "https://twitter.com/khan_tashif_", label: "Twitter" },
 	{ icon: Mail, link: "mailto:tashif@duck.com", label: "Email" },
 ];
 ---
@@ -98,7 +98,7 @@ const socials = [
 		<nav
 			class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300 overflow-x-auto font-sans"
 		>
-			<div class="px-4 sm:px-6 lg:px-8">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex space-x-4 sm:space-x-8 min-w-max">
 					<button
 						id="projects-tab"

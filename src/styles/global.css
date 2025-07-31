@@ -47,10 +47,37 @@ code, pre, .font-mono {
 }
 
 /* Prevent horizontal scrolling globally */
-body, html, #__next, main, header, section, div {
+body, html, #__next, header, section, div {
   overflow-x: hidden;
   max-width: 100vw;
 }
+
+  /* Allow main content to use proper containers */
+  main {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Ensure main container respects max-width */
+  main.max-w-7xl {
+    max-width: 80rem !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Ensure header container respects max-width */
+  header .max-w-7xl {
+    max-width: 80rem !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Ensure navbar container respects max-width */
+  nav .max-w-7xl {
+    max-width: 80rem !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 /* Allow navigation to scroll horizontally */
 nav {
@@ -377,10 +404,16 @@ nav::-webkit-scrollbar-thumb:hover {
   
   /* Ensure all containers respect viewport width */
   .max-w-4xl,
-  .max-w-7xl,
   .max-w-6xl,
   .max-w-5xl {
     max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Allow max-w-7xl to work properly */
+  .max-w-7xl {
+    max-width: 80rem;
     padding-left: 1rem;
     padding-right: 1rem;
   }
