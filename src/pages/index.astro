@@ -159,16 +159,7 @@ const socials = [
 					</p>
 				</div>
 
-				<ProjectFilters
-					client:load
-					onSearch={(term) => {
-						console.log("Search term:", term);
-						const searchEvent = new CustomEvent("project-search", {
-							detail: { term },
-						});
-						document.dispatchEvent(searchEvent);
-					}}
-				/>
+				<ProjectFilters client:load />
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 					{
 						projects.map(
