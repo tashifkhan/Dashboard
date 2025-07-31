@@ -7,6 +7,7 @@ import LeetCodeStats from "../components/LeetCodeStats.astro";
 import GitHubStats from "../components/GitHubStats.astro";
 import LeetCodeContests from "../components/LeetCodeContests.astro";
 import LeetCodeBadges from "../components/LeetCodeBadges.astro";
+import Resume from "../components/Resume.astro";
 import {
 	Github,
 	Twitter,
@@ -17,7 +18,7 @@ import {
 	Users,
 	ExternalLink,
 	Zap,
-	BarChart3,
+	FileText,
 } from "lucide-react";
 import { allProjects, type Project } from "../data/projects";
 import { allBlogPosts, type BlogPost } from "../data/blog";
@@ -33,6 +34,7 @@ const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
 const socials = [
 	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
+	{ icon: Zap, link: "https://portfolio.tashif.codes", label: "Portfolio" },
 	{ icon: Twitter, link: "https://twitter.com/khan_tashif_", label: "Twitter" },
 	{
 		icon: Linkedin,
@@ -125,6 +127,13 @@ const socials = [
 					>
 						<Github size={20} />
 						<span>GitHub</span>
+					</button>
+					<button
+						id="resume-tab"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+					>
+						<FileText size={20} />
+						<span>Resume</span>
 					</button>
 					<button
 						id="community-tab"
@@ -323,6 +332,11 @@ const socials = [
 				<GitHubStats />
 			</div>
 
+			<!-- Resume Section -->
+			<div id="resume-section" class="hidden">
+				<Resume />
+			</div>
+
 			<!-- Community Section -->
 			<div id="community-section" class="hidden">
 				<div class="mb-8">
@@ -413,6 +427,7 @@ const socials = [
 		blog: document.getElementById("blog-tab"),
 		leetcode: document.getElementById("leetcode-tab"),
 		github: document.getElementById("github-tab"),
+		resume: document.getElementById("resume-tab"),
 		community: document.getElementById("community-tab"),
 	};
 
@@ -421,12 +436,13 @@ const socials = [
 		blog: document.getElementById("blog-section"),
 		leetcode: document.getElementById("leetcode-section"),
 		github: document.getElementById("github-section"),
+		resume: document.getElementById("resume-section"),
 		community: document.getElementById("community-section"),
 	};
 
 	// Function to activate a tab
 	function activateTab(
-		tabId: "projects" | "blog" | "leetcode" | "github" | "community"
+		tabId: "projects" | "blog" | "leetcode" | "github" | "resume" | "community"
 	) {
 		// Update tab styles
 		Object.values(tabs).forEach((tab) => {
@@ -474,6 +490,7 @@ const socials = [
 	tabs.blog?.addEventListener("click", () => activateTab("blog"));
 	tabs.leetcode?.addEventListener("click", () => activateTab("leetcode"));
 	tabs.github?.addEventListener("click", () => activateTab("github"));
+	tabs.resume?.addEventListener("click", () => activateTab("resume"));
 	tabs.community?.addEventListener("click", () => activateTab("community"));
 
 	// Project search and filter functionality
