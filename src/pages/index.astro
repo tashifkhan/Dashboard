@@ -3,22 +3,31 @@ import Layout from "../layouts/Layout.astro";
 import ThemeToggle from "../components/ThemeToggle";
 import ProjectFilters from "../components/ProjectFilters";
 import BlogFilters from "../components/BlogFilters";
+import LeetCodeStats from "../components/LeetCodeStats.astro";
+import GitHubStats from "../components/GitHubStats.astro";
+import LeetCodeContests from "../components/LeetCodeContests.astro";
+import LeetCodeBadges from "../components/LeetCodeBadges.astro";
 import {
 	Github,
 	Twitter,
 	Linkedin,
 	Mail,
-	Rss,
 	Code2,
 	BookOpen,
 	Users,
 	ExternalLink,
+	Zap,
+	BarChart3,
 } from "lucide-react";
 import { allProjects, type Project } from "../data/projects";
 import { allBlogPosts, type BlogPost } from "../data/blog";
+import { leetCodeData } from "../data/leetcode";
+import { githubStats } from "../data/github";
 
 const projects: Project[] = allProjects;
 const blogPosts: BlogPost[] = allBlogPosts;
+const { profile } = leetCodeData;
+const { stats } = githubStats;
 
 const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
@@ -32,30 +41,37 @@ const socials = [
 	},
 	{ icon: Mail, link: "mailto:tashif@duck.com", label: "Email" },
 ];
-
-const rssItems = [
-	{ title: "Latest Blog Post", date: "2024-03-15", link: "#" },
-	{ title: "Recent Project Update", date: "2024-03-14", link: "#" },
-];
 ---
 
 <Layout title="Tashif Ahmad Khan - Personal Dashboard">
 	<div
-		class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
+		class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
 	>
 		<!-- Header -->
 		<header
-			class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300"
+			class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
 				<div
 					class="flex flex-col sm:flex-row justify-between items-center gap-4"
 				>
-					<h1
-						class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-sans"
-					>
-						Tashif Ahmad Khan
-					</h1>
+					<div class="flex items-center space-x-4">
+						<div
+							class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center"
+						>
+							<Zap className="w-6 h-6 text-white" />
+						</div>
+						<div>
+							<h1
+								class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-sans"
+							>
+								Tashif Ahmad Khan
+							</h1>
+							<p class="text-gray-600 dark:text-gray-300 text-sm">
+								{profile.realName || "Software Developer"}
+							</p>
+						</div>
+					</div>
 					<div class="flex items-center space-x-3 sm:space-x-4">
 						<ThemeToggle client:load />
 						{
@@ -78,27 +94,41 @@ const rssItems = [
 
 		<!-- Navigation -->
 		<nav
-			class="bg-gray-50 dark:bg-gray-800 cream:bg-[var(--primary-color)] border-b border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] transition-colors duration-300 overflow-x-auto font-sans"
+			class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300 overflow-x-auto font-sans"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex space-x-4 sm:space-x-8">
 					<button
 						id="projects-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] whitespace-nowrap"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 whitespace-nowrap"
 					>
 						<Code2 size={20} />
 						<span>Projects</span>
 					</button>
 					<button
 						id="blog-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 cream:text-[var(--text-color)] hover:text-gray-900 dark:hover:text-white cream:hover:text-[var(--accent-color)] hover:border-gray-300 dark:hover:border-gray-600 cream:hover:border-[var(--accent-color)] transition-colors whitespace-nowrap"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
 					>
 						<BookOpen size={20} />
 						<span>Blog</span>
 					</button>
 					<button
+						id="leetcode-tab"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+					>
+						<Code2 size={20} />
+						<span>LeetCode</span>
+					</button>
+					<button
+						id="github-tab"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+					>
+						<Github size={20} />
+						<span>GitHub</span>
+					</button>
+					<button
 						id="community-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 cream:text-[var(--text-color)] hover:text-gray-900 dark:hover:text-white cream:hover:text-[var(--accent-color)] hover:border-gray-300 dark:hover:border-gray-600 cream:hover:border-[var(--accent-color)] transition-colors whitespace-nowrap"
+						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
 					>
 						<Users size={20} />
 						<span>Community</span>
@@ -111,6 +141,15 @@ const rssItems = [
 		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 			<!-- Projects Section -->
 			<div id="projects-section">
+				<div class="mb-8">
+					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+						Projects
+					</h2>
+					<p class="text-gray-600 dark:text-gray-300">
+						Explore my latest projects and contributions
+					</p>
+				</div>
+
 				<ProjectFilters
 					client:load
 					onSearch={(term) => {
@@ -135,17 +174,17 @@ const rssItems = [
 							}) => (
 								<a
 									href={`/projects/${project.slug}`}
-									class="block bg-gray-50 dark:bg-gray-800 cream:bg-[var(--card-bg)] p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] transition-colors duration-300 hover:shadow-lg no-underline group"
+									class="block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300 hover:shadow-lg no-underline group"
 									data-project-item-card
 								>
 									<h3
-										class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white cream:text-[var(--text-color)] font-mono group-hover:text-orange-600 dark:group-hover:text-orange-400 cream:group-hover:text-[var(--accent-color)]"
+										class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white font-mono group-hover:text-orange-600 dark:group-hover:text-orange-400"
 										data-project-title
 									>
 										{project.title}
 									</h3>
 									<p
-										class="mt-2 text-gray-600 dark:text-gray-300 cream:text-[var(--text-color)] text-sm"
+										class="mt-2 text-gray-600 dark:text-gray-300 text-sm"
 										data-project-description
 									>
 										{project.description}
@@ -153,7 +192,7 @@ const rssItems = [
 									<div class="mt-4 flex flex-wrap gap-2">
 										{project.languages.map((lang) => (
 											<span
-												class="px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 cream:bg-[var(--primary-color)] text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
+												class="px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-400 rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
 												data-project-language
 											>
 												{lang}
@@ -163,7 +202,7 @@ const rssItems = [
 									<div class="mt-4 flex items-center justify-start space-x-4">
 										{project.live_website_url && (
 											<span
-												class="inline-flex items-center text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:text-orange-800 dark:hover:text-orange-300 cream:hover:text-[var(--accent-color-hover)] text-sm cursor-pointer"
+												class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 text-sm cursor-pointer"
 												data-live-link
 												data-url={project.live_website_url}
 											>
@@ -171,7 +210,7 @@ const rssItems = [
 											</span>
 										)}
 										<span
-											class="inline-flex items-center text-gray-600 dark:text-gray-400 cream:text-[var(--text-color)] hover:text-gray-800 dark:hover:text-gray-300 cream:hover:text-[var(--accent-color-hover)] text-sm cursor-pointer"
+											class="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 text-sm cursor-pointer"
 											data-github-link
 											data-url={project.github_link}
 										>
@@ -186,7 +225,16 @@ const rssItems = [
 			</div>
 
 			<!-- Blog Section -->
-			<div id="blog-section" class="hidden space-y-4 sm:space-y-6">
+			<div id="blog-section" class="hidden">
+				<div class="mb-8">
+					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+						Blog
+					</h2>
+					<p class="text-gray-600 dark:text-gray-300">
+						Thoughts on technology and development
+					</p>
+				</div>
+
 				<BlogFilters
 					client:load
 					categories={blogCategories}
@@ -208,32 +256,32 @@ const rssItems = [
 				{
 					blogPosts.map((post) => (
 						<div
-							class="bg-gray-50 dark:bg-gray-800 cream:bg-[var(--card-bg)] p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] transition-colors duration-300"
+							class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300"
 							data-blog-card
 							data-blog-category={post.category}
 						>
 							<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
 								<div>
 									<span
-										class="px-3 py-1 bg-gray-200 dark:bg-gray-700 cream:bg-[var(--primary-color)] text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] rounded-full text-sm font-mono transition-colors duration-300"
+										class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-400 rounded-full text-sm font-mono transition-colors duration-300"
 										data-blog-category
 									>
 										{post.category}
 									</span>
 									<h3
-										class="mt-2 text-xl font-semibold text-gray-900 dark:text-white cream:text-[var(--text-color)]"
+										class="mt-2 text-xl font-semibold text-gray-900 dark:text-white"
 										data-blog-title
 									>
 										{post.title}
 									</h3>
 								</div>
-								<span class="text-gray-500 dark:text-gray-400 cream:text-[var(--label-color)] text-sm">
+								<span class="text-gray-500 dark:text-gray-400 text-sm">
 									{post.date}
 								</span>
 							</div>
 							<a
 								href={`/blog/${post.slug}`}
-								class="mt-4 inline-flex items-center text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:text-orange-800 dark:hover:text-orange-300 cream:hover:text-[var(--accent-color-hover)]"
+								class="mt-4 inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
 							>
 								Read More <ExternalLink size={16} className="ml-1" />
 							</a>
@@ -242,73 +290,156 @@ const rssItems = [
 				}
 			</div>
 
-			<!-- Community Section -->
-			<div
-				id="community-section"
-				class="hidden bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300"
-			>
-				<div class="flex items-center space-x-2 mb-4 sm:mb-6">
-					<Rss size={20} className="text-orange-500 dark:text-orange-400" />
-					<h2
-						class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white"
-					>
-						Latest Updates
+			<!-- LeetCode Section -->
+			<div id="leetcode-section" class="hidden">
+				<div class="mb-8">
+					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+						LeetCode Profile
 					</h2>
+					<p class="text-gray-600 dark:text-gray-300">
+						Your coding challenge journey
+					</p>
 				</div>
-				<div class="space-y-3 sm:space-y-4">
-					{
-						rssItems.map((item) => (
-							<div class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
-								<a
-									href={item.link}
-									class="text-gray-900 dark:text-white hover:text-orange-600 dark:hover:text-orange-400"
-								>
-									{item.title}
-								</a>
-								<span class="text-sm text-gray-500 dark:text-gray-400">
-									{item.date}
-								</span>
-							</div>
-						))
-					}
+
+				<LeetCodeStats />
+
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<LeetCodeContests />
+					<LeetCodeBadges />
+				</div>
+			</div>
+
+			<!-- GitHub Section -->
+			<div id="github-section" class="hidden">
+				<div class="mb-8">
+					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+						GitHub Profile
+					</h2>
+					<p class="text-gray-600 dark:text-gray-300">
+						Your open source contributions
+					</p>
+				</div>
+
+				<GitHubStats />
+			</div>
+
+			<!-- Community Section -->
+			<div id="community-section" class="hidden">
+				<div class="mb-8">
+					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+						Community
+					</h2>
+					<p class="text-gray-600 dark:text-gray-300">
+						Connect with the developer community
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								GitHub
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							Follow my open source projects and contributions
+						</p>
+						<a
+							href="https://github.com/tashifkhan"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							Visit Profile <ExternalLink size={16} className="ml-1" />
+						</a>
+					</div>
+
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Twitter className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								Twitter
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							Follow for tech updates and coding insights
+						</p>
+						<a
+							href="https://twitter.com/khan_tashif_"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							Follow <ExternalLink size={16} className="ml-1" />
+						</a>
+					</div>
+
+					<div
+						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+					>
+						<div class="flex items-center space-x-3 mb-4">
+							<Linkedin className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+								LinkedIn
+							</h3>
+						</div>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							Connect professionally and view my experience
+						</p>
+						<a
+							href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+						>
+							Connect <ExternalLink size={16} className="ml-1" />
+						</a>
+					</div>
 				</div>
 			</div>
 		</main>
 	</div>
 </Layout>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-></script>
 <script>
 	// Tab switching logic
 	const tabs = {
 		projects: document.getElementById("projects-tab"),
 		blog: document.getElementById("blog-tab"),
+		leetcode: document.getElementById("leetcode-tab"),
+		github: document.getElementById("github-tab"),
 		community: document.getElementById("community-tab"),
 	};
 
 	const sections = {
 		projects: document.getElementById("projects-section"),
 		blog: document.getElementById("blog-section"),
+		leetcode: document.getElementById("leetcode-section"),
+		github: document.getElementById("github-section"),
 		community: document.getElementById("community-section"),
 	};
 
 	// Function to activate a tab
-	function activateTab(tabId: "projects" | "blog" | "community") {
+	function activateTab(
+		tabId: "projects" | "blog" | "leetcode" | "github" | "community"
+	) {
 		// Update tab styles
 		Object.values(tabs).forEach((tab) => {
 			if (!tab) return;
 			tab.classList.remove(
 				"border-orange-500",
 				"text-orange-600",
-				"dark:text-orange-400",
-				"cream:text-[var(--accent-color)]"
+				"dark:text-orange-400"
 			);
 			tab.classList.add(
 				"border-transparent",
 				"text-gray-600",
-				"dark:text-gray-300",
-				"cream:text-[var(--text-color)]"
+				"dark:text-gray-300"
 			);
 		});
 
@@ -317,14 +448,12 @@ const rssItems = [
 			activeTab.classList.remove(
 				"border-transparent",
 				"text-gray-600",
-				"dark:text-gray-300",
-				"cream:text-[var(--text-color)]"
+				"dark:text-gray-300"
 			);
 			activeTab.classList.add(
 				"border-orange-500",
 				"text-orange-600",
-				"dark:text-orange-400",
-				"cream:text-[var(--accent-color)]"
+				"dark:text-orange-400"
 			);
 		}
 
@@ -343,6 +472,8 @@ const rssItems = [
 	// Add event listeners to tabs
 	tabs.projects?.addEventListener("click", () => activateTab("projects"));
 	tabs.blog?.addEventListener("click", () => activateTab("blog"));
+	tabs.leetcode?.addEventListener("click", () => activateTab("leetcode"));
+	tabs.github?.addEventListener("click", () => activateTab("github"));
 	tabs.community?.addEventListener("click", () => activateTab("community"));
 
 	// Project search and filter functionality

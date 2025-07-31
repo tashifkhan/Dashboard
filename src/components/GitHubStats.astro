@@ -1,0 +1,187 @@
+---
+import { githubStats } from "../data/github";
+import {
+	GitCommit,
+	Star,
+	GitPullRequest,
+	Users,
+	TrendingUp,
+	Calendar,
+} from "lucide-react";
+
+const { stats, prs, stars, commits } = githubStats;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+	<!-- Total Commits -->
+	<div
+		class="bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-emerald-100 text-sm font-medium">Total Commits</p>
+				<p class="text-3xl font-bold">{stats.totalCommits.toLocaleString()}</p>
+				<p class="text-emerald-100 text-sm">lifetime commits</p>
+			</div>
+			<GitCommit className="w-8 h-8 text-emerald-200" />
+		</div>
+	</div>
+
+	<!-- Current Streak -->
+	<div
+		class="bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-orange-100 text-sm font-medium">Current Streak</p>
+				<p class="text-3xl font-bold">{stats.currentStreak}</p>
+				<p class="text-orange-100 text-sm">days in a row</p>
+			</div>
+			<TrendingUp className="w-8 h-8 text-orange-200" />
+		</div>
+	</div>
+
+	<!-- Longest Streak -->
+	<div
+		class="bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-purple-100 text-sm font-medium">Longest Streak</p>
+				<p class="text-3xl font-bold">{stats.longestStreak}</p>
+				<p class="text-purple-100 text-sm">best streak</p>
+			</div>
+			<Calendar className="w-8 h-8 text-purple-200" />
+		</div>
+	</div>
+
+	<!-- Total Stars -->
+	<div
+		class="bg-gradient-to-br from-yellow-500 to-yellow-600 dark:from-yellow-600 dark:to-yellow-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-yellow-100 text-sm font-medium">Total Stars</p>
+				<p class="text-3xl font-bold">{stars.total_stars.toLocaleString()}</p>
+				<p class="text-yellow-100 text-sm">repositories starred</p>
+			</div>
+			<Star className="w-8 h-8 text-yellow-200" />
+		</div>
+	</div>
+
+	<!-- Pull Requests -->
+	<div
+		class="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-blue-100 text-sm font-medium">Pull Requests</p>
+				<p class="text-3xl font-bold">{prs.length}</p>
+				<p class="text-blue-100 text-sm">contributions</p>
+			</div>
+			<GitPullRequest className="w-8 h-8 text-blue-200" />
+		</div>
+	</div>
+
+	<!-- Profile Visitors -->
+	<div
+		class="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 p-6 rounded-lg text-white"
+	>
+		<div class="flex items-center justify-between">
+			<div>
+				<p class="text-indigo-100 text-sm font-medium">Profile Views</p>
+				<p class="text-3xl font-bold">
+					{stats.profile_visitors.toLocaleString()}
+				</p>
+				<p class="text-indigo-100 text-sm">total visitors</p>
+			</div>
+			<Users className="w-8 h-8 text-indigo-200" />
+		</div>
+	</div>
+</div>
+
+<!-- Top Languages -->
+<div
+	class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 mb-6"
+>
+	<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+		Top Programming Languages
+	</h3>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		{
+			stats.topLanguages.slice(0, 6).map((lang) => (
+				<div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+					<div class="flex items-center space-x-3">
+						<div
+							class="w-4 h-4 rounded-full"
+							style={`background-color: ${lang.color}`}
+						/>
+						<span class="font-medium text-gray-900 dark:text-white">
+							{lang.name}
+						</span>
+					</div>
+					<span class="text-sm text-gray-600 dark:text-gray-300">
+						{lang.percentage}%
+					</span>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<!-- Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+	<!-- Recent Commits -->
+	<div
+		class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+	>
+		<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+			Recent Commits
+		</h3>
+		<div class="space-y-3">
+			{
+				commits.slice(0, 5).map((commit) => (
+					<div class="flex items-start space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+						<GitCommit className="w-4 h-4 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+						<div class="flex-1 min-w-0">
+							<p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+								{commit.message}
+							</p>
+							<p class="text-xs text-gray-500 dark:text-gray-400">
+								{commit.repo} •{" "}
+								{new Date(commit.timestamp).toLocaleDateString()}
+							</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<!-- Recent PRs -->
+	<div
+		class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+	>
+		<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+			Recent Pull Requests
+		</h3>
+		<div class="space-y-3">
+			{
+				prs.slice(0, 5).map((pr) => (
+					<div class="flex items-start space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+						<GitPullRequest className="w-4 h-4 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+						<div class="flex-1 min-w-0">
+							<p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+								{pr.title}
+							</p>
+							<p class="text-xs text-gray-500 dark:text-gray-400">
+								{pr.repo} • {pr.state} •{" "}
+								{new Date(pr.created_at).toLocaleDateString()}
+							</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>
