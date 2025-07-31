@@ -1,0 +1,27 @@
+{
+	"crons": [
+		{
+			"path": "/api/cron/deploy",
+			"schedule": "0 2 * * *"
+		}
+	],
+	"functions": {
+		"src/pages/api/cron/deploy.ts": {
+			"maxDuration": 30
+		},
+		"src/pages/api/cron/test.ts": {
+			"maxDuration": 10
+		}
+	},
+	"headers": [
+		{
+			"source": "/api/cron/(.*)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "no-cache, no-store, must-revalidate"
+				}
+			]
+		}
+	]
+}
