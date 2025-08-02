@@ -152,4 +152,24 @@ async function fetchGitHubStats(): Promise<GitHubStats> {
 	}
 }
 
-export const githubStats: GitHubStats = await fetchGitHubStats();
+async function getViews(githubstats: GitHubStats): Promise<GitHubStats> {
+	const viewsResponse = await fetch("https://komarev.com/ghpvc/?username=tashifkhan&style=for-the-badge&color=orange");
+	if (viewsResponse.ok) {
+		const viewsData = await viewsResponse.text();
+		const titleMatch = viewsData.match(/<title>(.*?)<\/title>/);
+		const matches = titleMatch ? titleMatch[1].match(/(\d[\d,]*)/) : null;
+		if (matches && matches[0]) {
+			const profile_visitors = parseInt(matches[0].replace(/,/g, ""), 10);
+			return {
+				...githubstats,
+				stats: {
+					...githubstats.stats,
+					profile_visitors
+				}
+			};
+		}
+	}
+	return githubstats;
+}
+
+export const githubStats: GitHubStats = await getViews(await fetchGitHubStats());
