@@ -1,0 +1,553 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Tashif Ahmad Khan - Printable Resume">
+	<style>
+		body {
+			font-family:
+				"Inter",
+				-apple-system,
+				BlinkMacSystemFont,
+				sans-serif;
+			line-height: 1.6;
+			color: #333;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 15px;
+			background: #fff;
+		}
+		h1,
+		h2,
+		h3 {
+			color: #1f2937;
+			margin-top: 2.2em;
+			margin-bottom: 0.7em;
+			font-weight: bold;
+		}
+		h1 {
+			font-size: 2.1rem;
+			margin-top: 0.5em;
+		}
+		h2 {
+			font-size: 1.5rem;
+			border-bottom: 2px solid #f3f4f6;
+			padding-bottom: 0.2em;
+			margin-top: 2em;
+		}
+		h3 {
+			font-size: 1.15rem;
+			margin-top: 1.5em;
+		}
+		.section {
+			margin-bottom: 25px;
+		}
+		.project-card {
+			border-left: 4px solid #f59e42;
+			padding-left: 15px;
+			margin-bottom: 15px;
+			background: #f9fafb;
+			padding: 12px;
+			border-radius: 8px;
+		}
+		.skills-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 15px;
+		}
+		@media (min-width: 768px) {
+			.skills-grid {
+				grid-template-columns: 1fr 1fr;
+				gap: 20px;
+			}
+		}
+		.skill-category {
+			background: #f3f4f6;
+			padding: 12px;
+			border-radius: 8px;
+			list-style: none;
+		}
+		@media print {
+			body {
+				margin: 0;
+			}
+			.no-print {
+				display: none;
+			}
+		}
+		@media (max-width: 768px) {
+			body {
+				padding: 10px;
+			}
+			h1 {
+				font-size: 1.5rem;
+			}
+			h2 {
+				font-size: 1.25rem;
+			}
+			h3 {
+				font-size: 1.1rem;
+			}
+		}
+		ul,
+		ol {
+			margin-top: 0.2em;
+			margin-bottom: 1em;
+			padding-left: 1.3em;
+		}
+		li {
+			margin-bottom: 0.3em;
+		}
+		a {
+			color: #d97706;
+			text-decoration: underline;
+			word-break: break-all;
+		}
+		strong,
+		b {
+			color: #1f2937;
+		}
+		.contact-links {
+			margin-bottom: 1.2em;
+			font-size: 1.05em;
+		}
+		.resume-header {
+			margin-bottom: 1.5em;
+			text-align: center;
+		}
+		.edu-list,
+		.pos-list {
+			margin-bottom: 1.5em;
+		}
+		.edu-list li,
+		.pos-list li {
+			margin-bottom: 0.5em;
+		}
+	</style>
+
+	<div class="resume-header">
+		<h1 style="margin-bottom:0.2em;">TASHIF AHMAD KHAN</h1>
+		<div>
+			<strong>Mail:</strong>
+			<a href="mailto:developer@tashif.codes">developer@tashif.codes</a>
+		</div>
+		<div class="contact-links">
+			<a
+				href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
+				target="_blank">LinkedIn</a
+			> |
+			<a href="https://github.com/tashifkhan" target="_blank">GitHub</a> |
+			<a href="https://portfolio.tashif.codes" target="_blank">Portfolio</a>
+		</div>
+	</div>
+
+	<h2>SKILLS</h2>
+	<ul class="skills-grid">
+		<li class="skill-category">
+			<strong>Programming Languages:</strong> Python, JavaScript, Go
+		</li>
+		<li class="skill-category">
+			<strong>Frameworks & Libraries:</strong> Next.js, React.js, React Native, Node.js,
+			Astro, Express.js, Flask, FastAPI, Redux Toolkit, LangChain, LangGraph, Framer
+			Motion
+		</li>
+		<li class="skill-category">
+			<strong>Databases:</strong> MySQL, MongoDB, PostgreSQL, FAISS, ChromaDB, SQLite
+		</li>
+		<li class="skill-category">
+			<strong>Tools & Platforms:</strong> Git/GitHub, Docker, Docker Compose, Vercel,
+			Pyodide, Tailscale, Nginx Proxy Manager, Browser WebExtension APIs
+		</li>
+		<li class="skill-category">
+			<strong>Systems & Networking:</strong> System Administration, Network Configuration,
+			VPN
+		</li>
+		<li class="skill-category">
+			<strong>Additional Skills:</strong> UI/UX Design, Technical Content Writing,
+			Data Analysis (MS Excel), Presentation Design (MS PowerPoint)
+		</li>
+		<li class="skill-category">
+			<strong>Soft Skills:</strong> Leadership, Public Relations, Debating & Public
+			Speaking, Event & Financial Management
+		</li>
+	</ul>
+
+	<h2>EXPERIENCE</h2>
+	<div class="section">
+		<div class="project-card">
+			<strong>UNICLOUD</strong> | <a
+				href="https://drive.tashif.codes/s/RsaiDWGCEoXjt2K"
+				target="_blank">Software Development Intern (June - July 2026)</a
+			>
+			<ul>
+				<li>
+					<strong>Engineered</strong> and <strong>deployed</strong> 3 critical React
+					modules (video-tracking, shapefile download, and block change/edit page)
+					for a <a href="https://irgvap.ircep.gov.in" target="_blank"
+						>high-profile IRCTC project</a
+					>, significantly enhancing vendor progress monitoring and data
+					visualization capabilities.
+				</li>
+				<li>
+					<strong>Developed</strong> robust NestJS REST APIs, securing data transactions
+					with JWT authentication and optimizing CRUD operations with PostgreSQL,
+					thereby <strong>powering</strong> dynamic front-end functionalities.
+				</li>
+				<li>
+					<strong>Automated</strong> and improved Database Migration Cron jobs to
+					dispatch real-time Block Change Alerts to approvers via SMTP mail server
+					and browser webpush notifications, <strong>improving</strong> project oversight
+					and ensuring timely responses.
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<h2>NOTABLE PROJECTS</h2>
+	<div class="section">
+		<div class="project-card">
+			<strong>FindexAI — AI-Powered Browser Discovery Engine</strong> | Next.js,
+			React, FastAPI, LangChain, LangGraph, FAISS, ChromaDB, Docker, WebExtension
+			APIs<br />
+			<a href="https://findex.tashif.codes" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/findex"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Pioneered</strong> FindexAI, an <strong
+						>AI-powered browser extension</strong
+					> transforming conventional browser search into a sophisticated discovery
+					engine for web content and YouTube, significantly <strong
+						>enhancing information retrieval and contextual understanding</strong
+					>.
+				</li>
+				<li>
+					<strong>Developed a multi-agent architecture</strong> utilizing <strong
+						>LangChain</strong
+					> and <strong>LangGraph</strong> to orchestrate specialized agents for
+					real-time web search (SearchXNG), YouTube transcript analysis, and intelligent
+					HTML page querying.
+				</li>
+				<li>
+					<strong>Implemented advanced vector-based similarity search</strong> with
+					<strong>FAISS</strong> and <strong>ChromaDB</strong> for lightning-fast
+					retrieval of indexed content, enabling <strong
+						>semantic search capabilities</strong
+					> beyond keyword matching.
+				</li>
+				<li>
+					<strong>Engineered a model-agnostic FastAPI backend</strong> and a <strong
+						>responsive React browser extension</strong
+					> (Chrome & Firefox), demonstrating full-stack development proficiency
+					and a highly modular, extensible system design.
+				</li>
+				<li>
+					<strong>Designed and integrated a customizable theme engine</strong> (including
+					MacOS Classic, Windows XP, Neobrutal), enhancing user experience and personalizing
+					the search interface.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>TalentSync AI</strong> | Next.js, TypeScript, FastAPI, LangChain, LangGraph,
+			PostgreSQL, Docker<br />
+			<a href="https://talentsync.tashif.codes/" target="_blank">Live</a> | <a
+				href="https://github.com/harleenkaur28/AI-Resume-Parser"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Pioneered</strong> an AI-driven Next.js platform for comprehensive
+					resume analysis, job category prediction, and efficient talent management,
+					featuring a pre-vetted dashboard for employers.
+				</li>
+				<li>
+					<strong>Engineered</strong> advanced capabilities using <strong
+						>LangChain</strong
+					>, <strong>RAG</strong> and <strong>LangGraph</strong> to dynamically prepare
+					personalized cold emails, generate targeted interview questions, and craft
+					compelling answer frameworks, significantly enhancing recruitment efficiency.
+				</li>
+				<li>
+					<strong>Utilized</strong> intelligent parsing to extract key insights from
+					complex resume data, ensuring highly accurate job category predictions
+					and comprehensive candidate profiling.
+				</li>
+				<li>
+					<strong>Developed</strong> a scalable Python (FastAPI) backend with PostgreSQL,
+					ensuring robust data management, and <strong>containerized</strong> the
+					application using Docker for streamlined deployment.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>Home Lab Automation & Media Server</strong> | Docker, Docker Compose,
+			Linux, Bash
+			<ul>
+				<li>
+					<strong>Architected and deployed</strong> a robust self-hosted home lab
+					encompassing 10+ Dockerized services, including Nextcloud for personal
+					cloud storage, Jellyfin for media streaming, and a full "Arr" stack for
+					automated content management.
+				</li>
+				<li>
+					<strong>Engineered a secure remote access solution</strong> by configuring
+					a Tailscale VPN tunnel to a VPS, enabling public accessibility without
+					a static IP, and implementing Nginx Proxy Manager for efficient reverse
+					proxy and SSL termination.
+				</li>
+				<li>
+					<strong>Automated media acquisition and organization</strong> through the
+					integrated "Arr" stack (Prowlarr, Sonarr, Radarr, Lidarr, Readarr, Homarr)
+					paired with qBittorrent, creating a seamless, centralized entertainment
+					and data ecosystem.
+				</li>
+				<li>
+					<strong>Managed and optimized</strong> containerized environments and network
+					configurations, demonstrating strong capabilities in system administration,
+					network engineering, and infrastructure deployment.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>JPortal</strong> | React, Python, WASM (Pyodide), MongoDB (4.5k + users)<br
+			/>
+			<a href="https://jportal.tashif.codes" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/jportal"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Developed</strong> a modern React Progressive Web App (PWA) to
+					serve as an intuitive and customizable frontend for the JIIT WebKiosk Webportal,
+					attracting over 4,500 users.
+				</li>
+				<li>
+					<strong>Integrated</strong> Pyodide to enable efficient parsing and display
+					of marks PDF data directly on the frontend, significantly improving user
+					experience.
+				</li>
+				<li>
+					<strong>Implemented</strong> a sophisticated theming system and customizability
+					options, ensuring a responsive and optimized experience across both mobile
+					and desktop devices.
+				</li>
+				<li>
+					<strong>Incorporated</strong> critical features including the <a
+						href="https://jiit-timetable.tashif.codes/"
+						target="_blank">JIIT Timetable</a
+					>, <a
+						href="https://github.com/tashifkhan/placement-alerts-superset-telegram-notification-bot"
+						target="_blank">Placement</a
+					>, and <a href="https://jiit-updates.tashif.codes/" target="_blank"
+						>Campus Updates</a
+					>, centralizing key information for students.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>SolarHelper</strong> | React, TypeScript, FastAPI, PWA, RAG - Langchain,
+			Vector DB, LightGBM<br />
+			<a href="https://solar-helper.tashif.codes/" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/SolarHelper"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Built</strong> a React PWA delivering personalized solar sizing,
+					cost projections, and savings forecasts, empowering users with data-driven
+					insights.
+				</li>
+				<li>
+					<strong>Deployed</strong> an AI chatbot utilizing LangChain, Gemini, and
+					RAG for instant, accurate guidance on solar subsidies and policies, <strong
+						>enhancing</strong
+					> user support.
+				</li>
+				<li>
+					<strong>Utilized</strong> LightGBM to generate precise monthly solar yield
+					forecasts based on local weather data, <strong>optimizing</strong> energy
+					predictions.
+				</li>
+				<li>
+					<strong>Constructed</strong> a robust FastAPI backend for efficient web
+					scraping, vector embeddings, LLM integration, and real-time tariff/weather
+					feed processing.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>BiasDetector</strong> | Next.js, TypeScript, Flask, MongoDB, JWT, XgBoost<br
+			/>
+			<a href="https://bias-detector.tashif.codes/" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/News-Bias-Detector"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Created</strong> a Next.js application in TypeScript for real-time
+					detection of bias in news articles, storing comprehensive data in MongoDB.
+				</li>
+				<li>
+					<strong>Designed</strong> and <strong>implemented</strong> a sophisticated
+					web scraping pipeline to aggregate news content from diverse sources, ensuring
+					a rich dataset for analysis.
+				</li>
+				<li>
+					<strong>Integrated</strong> an XgBoost ML Model to accurately identify
+					bias patterns and provide actionable insights, <strong
+						>enhancing</strong
+					> user comprehension of media objectivity.
+				</li>
+				<li>
+					<strong>Crafted</strong> a sleek and intuitive frontend, ensuring seamless
+					user interaction and easy access to bias detection results.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>Designique</strong> | Next.js, TypeScript, Node.js, MongoDB, JWT, WebSockets,
+			Gemini Gen AI API<br />
+			<a href="https://designique.tashif.codes/" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/Designique-rideHack24"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Developed</strong> a comprehensive Next.js application designed
+					to foster direct connections between designers, manufacturers, and consumers,
+					<strong>facilitating</strong> a unique marketplace experience.
+				</li>
+				<li>
+					<strong>Engineered</strong> a full-featured e-commerce portal, including
+					robust marketplace functionalities, powered by MongoDB for efficient data
+					management.
+				</li>
+				<li>
+					<strong>Implemented</strong> anonymous real-time chatting capabilities
+					between manufacturers and designers using WebSockets, <strong
+						>enhancing</strong
+					> collaboration and communication.
+				</li>
+				<li>
+					<strong>Integrated</strong> Gemini's Generative AI API to power an intelligent
+					support chat, <strong>streamlining</strong> customer query resolution and
+					improving user satisfaction.
+				</li>
+			</ul>
+		</div>
+		<div class="project-card">
+			<strong>CropMate</strong> | Next.js, TypeScript, Flask, JWT, Gemini Gen AI
+			API, Random Forest KNN<br />
+			<a href="https://cropmate.tashif.codes/" target="_blank">Live</a> | <a
+				href="https://github.com/tashifkhan/crop-mate"
+				target="_blank">GitHub</a
+			>
+			<ul>
+				<li>
+					<strong>Built</strong> a Next.js application offering AI-driven crop recommendations,
+					accurate yield predictions, and personalized insurance advisories for farmers.
+				</li>
+				<li>
+					<strong>Developed</strong> an AI-powered chatbot using Gemini's Generative
+					AI API, providing real-time support and instant answers to agricultural
+					queries.
+				</li>
+				<li>
+					<strong>Utilized</strong> Random Forest KNN algorithms to ensure highly
+					accurate crop and yield predictions, <strong>optimizing</strong> agricultural
+					planning.
+				</li>
+				<li>
+					<strong>Designed</strong> a sleek, farmer-friendly interface with Framer
+					Motion animations, <strong>enhancing</strong> usability and engagement.
+				</li>
+				<li>
+					<strong>Constructed</strong> a robust Flask backend for seamless ML model
+					integration and comprehensive weather-based risk analysis, <strong
+						>providing</strong
+					> crucial insights.
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<h2>EDUCATION</h2>
+	<ul class="edu-list">
+		<li>
+			<strong>Jaypee Institute of Information Technology, Noida, India</strong> (September
+			2022 - June 2026)
+			<ul>
+				<li>B. Tech Electronics & Communication Engineering</li>
+				<li>CGPA: 7.3/10.0</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Delhi Public School, R. K. Puram, New Delhi, India</strong> (2018 -
+			2022)
+			<ul>
+				<li>CBSE XII - 92%</li>
+				<li>CBSE X - 91.8%</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h2>POSITIONS OF RESPONSIBILITY</h2>
+	<ul class="pos-list">
+		<li>
+			<strong>Treasurer | Senior Advisor</strong> | Optica Student Chapter JIIT (2024
+			- Present)
+			<ul>
+				<li>
+					<strong>Successfully orchestrated</strong> a flagship talk by HC Verma,
+					drawing approximately 4,000 participants from both on-campus and external
+					sources, significantly boosting chapter visibility.
+				</li>
+				<li>
+					<strong>Led the coordination</strong> of a highly popular comedy talent
+					show (open mic event), engaging approximately 3,000 college participants
+					and fostering community engagement.
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Mentor</strong> | The Jaypee Debating Society (July 2023 - Present)
+			<ul>
+				<li>
+					<strong>Guided and developed</strong> junior members in advanced debating
+					techniques, contributing to the society's competitive success.
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Organizing Secretary | Co-founder</strong> | Jaypee Parliamentary Debate
+			(August 2023 - March 2024)
+			<ul>
+				<li>
+					<strong>Pioneered and spearheaded</strong> the inaugural Jaypee Parliamentary
+					Debate (JPD 1.0), a major inter-college event that attracted 52 external
+					teams, establishing a new tradition for the institution.
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>Core Executive</strong> | JOUST'23 | Parola Literary Hub JIIT (January
+			2019 - December 2020)
+			<ul>
+				<li>
+					<strong>Managed and executed</strong> one of India's largest literary festivals,
+					<strong>attracting over 500 paid participants</strong> and <strong
+						>generating significant revenue of Rs. 700,000</strong
+					>.
+				</li>
+				<li>
+					<strong>Secured strategic partnerships</strong> with 8 prominent media
+					outlets (e.g., Jagran Josh, DU Beat), resulting in a <strong
+						>50% boost in national participation</strong
+					>.
+				</li>
+			</ul>
+		</li>
+	</ul>
+</Layout>
