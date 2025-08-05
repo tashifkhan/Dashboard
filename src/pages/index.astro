@@ -176,6 +176,7 @@ const socials = [
 									href={`/projects/${project.slug}`}
 									class="block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300 hover:shadow-lg no-underline group"
 									data-project-item-card
+									data-has-live-link={!!project.live_website_url}
 								>
 									<h3
 										class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white font-mono group-hover:text-orange-600 dark:group-hover:text-orange-400"
@@ -545,11 +546,19 @@ const socials = [
 
 	// Project search and filter functionality
 	document.addEventListener("project-search", (e: Event) => {
-		const searchTerm = (e as CustomEvent).detail.term;
-		console.log("Project search triggered with term:", searchTerm);
+		const { term: searchTerm, showLiveOnly } = (e as CustomEvent).detail;
+		console.log(
+			"Project search triggered with term:",
+			searchTerm,
+			"showLiveOnly:",
+			showLiveOnly
+		);
 
 		const projectCards = document.querySelectorAll("[data-project-item-card]");
 		console.log("Found project cards:", projectCards.length);
+
+		let visibleCount = 0;
+		let liveProjectCount = 0;
 
 		projectCards.forEach((cardEl, index) => {
 			const card = cardEl as HTMLElement;
@@ -561,7 +570,20 @@ const socials = [
 				card.querySelectorAll("[data-project-language]")
 			).map((lang) => lang.textContent || "");
 
-			console.log(`Card ${index}:`, { title, description, languages });
+			// Check if this project has a live link
+			const hasLiveLink =
+				card.querySelector("[data-live-link]") !== null ||
+				card.getAttribute("data-has-live-link") === "true";
+			if (hasLiveLink) liveProjectCount++;
+
+			console.log(`Card ${index}:`, {
+				title,
+				description,
+				languages,
+				hasLiveLink,
+				hasLiveLinkElement: card.querySelector("[data-live-link]") !== null,
+				dataHasLiveLink: card.getAttribute("data-has-live-link"),
+			});
 
 			// Use enhanced search for better matching
 			const titleMatch = enhancedSearch(title, searchTerm);
@@ -570,11 +592,23 @@ const socials = [
 				enhancedSearch(lang, searchTerm)
 			);
 
-			const matches = titleMatch || descriptionMatch || languageMatch;
-			console.log(`Card ${index} matches:`, matches);
+			const searchMatches = titleMatch || descriptionMatch || languageMatch;
+			const liveFilter = !showLiveOnly || hasLiveLink;
+			const matches = searchMatches && liveFilter;
 
+			console.log(`Card ${index} matches:`, {
+				searchMatches,
+				liveFilter,
+				matches,
+			});
+
+			if (matches) visibleCount++;
 			card.style.display = matches ? "" : "none";
 		});
+
+		console.log(
+			`Filter results: ${visibleCount} visible cards, ${liveProjectCount} total live projects`
+		);
 	});
 
 	// Blog search and filter functionality
@@ -609,10 +643,34 @@ const socials = [
 		});
 	});
 
-	// Make sure the theme from localStorage is applied immediately
+	// Initialize filters and handle link clicks
 	document.addEventListener("DOMContentLoaded", () => {
 		const theme = localStorage.getItem("theme") || "light";
 		document.documentElement.classList.toggle("dark", theme === "dark");
+
+		// Initialize project filters with default state
+		const projectCards = document.querySelectorAll("[data-project-item-card]");
+		console.log(
+			"Initializing project filters with",
+			projectCards.length,
+			"cards"
+		);
+
+		// Count live projects for debugging
+		let liveProjectCount = 0;
+		projectCards.forEach((card) => {
+			const hasLiveLink =
+				card.querySelector("[data-live-link]") !== null ||
+				card.getAttribute("data-has-live-link") === "true";
+			if (hasLiveLink) liveProjectCount++;
+		});
+		console.log("Total live projects found:", liveProjectCount);
+
+		// Apply initial filter state (show all projects by default)
+		const initialSearchEvent = new CustomEvent("project-search", {
+			detail: { term: "", showLiveOnly: false },
+		});
+		document.dispatchEvent(initialSearchEvent);
 
 		// Handle live link clicks
 		document.querySelectorAll("[data-live-link]").forEach((link) => {
