@@ -1,0 +1,120 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+	getDownloadUrl,
+	getAllDownloadProjects,
+} from "../../utils/downloadRedirect";
+import { ArrowLeft, AlertCircle, Download } from "lucide-react";
+
+export interface Props {
+	projectTitle: string;
+}
+
+export async function getStaticPaths() {
+	const downloadProjects = getAllDownloadProjects();
+
+	return downloadProjects.map((project) => ({
+		params: { projectTitle: project.title },
+		props: { projectTitle: project.title },
+	}));
+}
+
+const { projectTitle } = Astro.params;
+const downloadUrl = projectTitle ? getDownloadUrl(projectTitle) : null;
+
+if (downloadUrl) {
+	return Astro.redirect(downloadUrl, 302);
+}
+---
+
+<Layout title="Download Redirect">
+	<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="mb-8">
+				<a
+					href="/"
+					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-4 transition-colors"
+				>
+					<ArrowLeft size={20} className="mr-2" />
+					Back to Home
+				</a>
+				<div class="flex items-center space-x-3 mb-4">
+					<div class="p-3 bg-gradient-to-br from-red-500 to-red-600 rounded-xl">
+						<AlertCircle className="w-6 h-6 text-white" />
+					</div>
+					<div>
+						<h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+							Download Not Found
+						</h1>
+						<p class="text-gray-600 dark:text-gray-300">
+							The requested project download could not be located
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8"
+			>
+				<div class="text-center">
+					<div class="flex justify-center mb-6">
+						<div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-full">
+							<Download
+								className="w-12 h-12 text-gray-400 dark:text-gray-500"
+							/>
+						</div>
+					</div>
+					<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+						Project Not Found
+					</h2>
+					<p class="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
+						The download link you're looking for doesn't exist or may have been
+						moved. Please check the project name or browse available projects.
+					</p>
+					<div class="flex flex-col sm:flex-row gap-4 justify-center">
+						<a
+							href="/#projects-tab"
+							class="inline-flex items-center px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-colors"
+						>
+							<ArrowLeft size={18} className="mr-2" />
+							Browse Projects
+						</a>
+						<a
+							href="/"
+							class="inline-flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
+						>
+							Go to Dashboard
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<script>
+	// Client-side redirect as fallback
+	const projectTitle = window.location.pathname.split("/").pop();
+	if (projectTitle) {
+		// Show loading state briefly
+		const loadingElement = document.createElement("div");
+		loadingElement.className =
+			"fixed top-4 right-4 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-4 py-2 rounded-lg shadow-lg";
+		loadingElement.textContent = "Checking download...";
+		document.body.appendChild(loadingElement);
+
+		fetch(`/api/download/${projectTitle}`)
+			.then((response) => {
+				if (response.redirected) {
+					window.location.href = response.url;
+				} else if (response.status === 404) {
+					// Remove loading indicator and show error page
+					loadingElement.remove();
+				}
+			})
+			.catch(() => {
+				// Remove loading indicator and show error page
+				loadingElement.remove();
+			});
+	}
+</script>
