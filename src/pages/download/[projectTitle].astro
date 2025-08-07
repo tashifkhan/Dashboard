@@ -91,30 +91,3 @@ if (downloadUrl) {
 		</div>
 	</div>
 </Layout>
-
-<script>
-	// Client-side redirect as fallback
-	const projectTitle = window.location.pathname.split("/").pop();
-	if (projectTitle) {
-		// Show loading state briefly
-		const loadingElement = document.createElement("div");
-		loadingElement.className =
-			"fixed top-4 right-4 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-4 py-2 rounded-lg shadow-lg";
-		loadingElement.textContent = "Checking download...";
-		document.body.appendChild(loadingElement);
-
-		fetch(`/api/download/${projectTitle}`)
-			.then((response) => {
-				if (response.redirected) {
-					window.location.href = response.url;
-				} else if (response.status === 404) {
-					// Remove loading indicator and show error page
-					loadingElement.remove();
-				}
-			})
-			.catch(() => {
-				// Remove loading indicator and show error page
-				loadingElement.remove();
-			});
-	}
-</script>
