@@ -26,6 +26,49 @@ import { ArrowLeft } from "lucide-react";
 			</div>
 
 			<ResumeComponent />
+			<div id="print-resume-container" style="display:none;"></div>
+			<script>
+				document.addEventListener("DOMContentLoaded", () => {
+					const btn = document.querySelector("[data-download-resume]");
+					if (btn) {
+						btn.addEventListener("click", async () => {
+							try {
+								const html2pdf = (await import("html2pdf.js")).default;
+								const container = document.getElementById(
+									"print-resume-container"
+								);
+								if (!container) {
+									console.error("Container not found");
+									return;
+								}
+								const res = await fetch("/print-resume");
+								const html = await res.text();
+								container.innerHTML = html;
+								const resumeContent =
+									container.querySelector("body") || container;
+								await html2pdf()
+									.set({
+										margin: 0,
+										filename: "Tashif_Ahmad_Khan_Resume.pdf",
+										image: { type: "jpeg", quality: 0.98 },
+										html2canvas: { scale: 2, useCORS: true },
+										jsPDF: {
+											unit: "in",
+											format: "a4",
+											orientation: "portrait",
+										},
+									})
+									.from(resumeContent)
+									.save();
+								container.innerHTML = "";
+							} catch (error) {
+								console.error("Error generating PDF:", error);
+								alert("Failed to generate PDF. Please try again.");
+							}
+						});
+					}
+				});
+			</script>
 		</div>
 	</div>
 </Layout>

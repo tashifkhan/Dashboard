@@ -16,1248 +16,1341 @@ import {
 } from "lucide-react";
 ---
 
-<div
-	class="bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl max-w-4xl mx-auto"
-	id="resume-content"
->
-	<!-- Header with Download Button -->
-	<div
-		class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 gap-4"
-	>
-		<div class="flex items-center space-x-3">
-			<div
-				class="p-2 sm:p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
-			>
-				<FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-			</div>
-			<div>
-				<h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-					Resume
-				</h2>
-				<p class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
-					Professional experience and achievements
-				</p>
-			</div>
-		</div>
-		<button
-			onclick="downloadResume()"
-			class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center"
-		>
-			<Download className="w-4 h-4" />
-			<span class="font-medium">Download PDF</span>
-		</button>
-	</div>
-
-	<div class="prose prose-gray dark:prose-invert max-w-none">
-		<!-- Enhanced Header -->
+<div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+	<!-- Navigation Sidebar -->
+	<div class="lg:w-64 flex-shrink-0">
 		<div
-			class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-600"
+			class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg sticky top-6"
 		>
-			<h1
-				class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 text-center"
+			<h3
+				class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center"
 			>
-				TASHIF AHMAD KHAN
-			</h1>
-			<p
-				class="text-center text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg"
-			>
-				Engineering Undergrade | Tech Enthusiast | Full Stack Engineer
-			</p>
-
-			<!-- Contact Information -->
-			<div class="mb-4 flex justify-center">
-				<div
-					class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full"
-				>
-					<div class="flex items-center space-x-2 justify-center">
-						<Mail className="w-4 h-4 text-orange-500" />
-						<a
-							href="mailto:developer@tashif.codes"
-							class="text-gray-700 dark:text-gray-300 hover:underline text-sm sm:text-base"
-						>
-							developer@tashif.codes
-						</a>
-					</div>
-					<div class="flex items-center space-x-2 sm:space-x-3 justify-center">
-						<LocationIcon className="w-4 h-4 text-orange-500" />
-						<span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base"
-							>Delhi, India</span
-						>
-					</div>
-				</div>
-			</div>
-			<!-- Social Links -->
-			<div class="flex flex-wrap justify-center gap-1 sm:gap-2">
+				<FileText className="w-5 h-5 mr-2 text-orange-500" />
+				Resume Sections
+			</h3>
+			<nav class="space-y-2">
 				<a
-					href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+					href="#skills"
+					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+					data-section="skills"
 				>
-					<Linkedin className="w-4 h-4" />
+					<Award className="w-4 h-4" />
+					<span>Skills</span>
 				</a>
 				<a
-					href="https://github.com/tashifkhan"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors duration-200"
+					href="#experience"
+					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+					data-section="experience"
 				>
-					<Github className="w-4 h-4" />
+					<Calendar className="w-4 h-4" />
+					<span>Experience</span>
 				</a>
 				<a
-					href="https://portfolio.tashif.codes"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
+					href="#projects"
+					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+					data-section="projects"
 				>
-					<Globe className="w-4 h-4" />
+					<BookOpen className="w-4 h-4" />
+					<span>Notable Projects</span>
 				</a>
-			</div>
+				<a
+					href="#education"
+					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+					data-section="education"
+				>
+					<MapPin className="w-4 h-4" />
+					<span>Education</span>
+				</a>
+				<a
+					href="#positions"
+					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+					data-section="positions"
+				>
+					<Users className="w-4 h-4" />
+					<span>Positions of Responsibility</span>
+				</a>
+			</nav>
 		</div>
 	</div>
 
-	<!-- Skills -->
-	<div class="mb-8 sm:mb-10">
-		<h2
-			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
+	<!-- Main Resume Content -->
+	<div class="flex-1">
+		<div
+			class="bg-white dark:bg-gray-900 p-4 sm:p-6 lg:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl"
+			id="resume-content"
 		>
-			<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-				<Award
-					className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
-				/>
-			</div>
-			<span>SKILLS</span>
-		</h2>
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-			<div class="space-y-4">
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
-						Programming Languages
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">Python, JavaScript, Go</p>
-				</div>
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-						Frameworks & Libraries
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">
-						Next.js, React.js, React Native, Node.js, Astro, Express.js, Flask,
-						FastAPI, Redux Toolkit, LangChain, LangGraph, Framer Motion
-					</p>
-				</div>
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-						Databases
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">
-						MySQL, MongoDB, PostgreSQL, FAISS, ChromaDB, SQLite
-					</p>
-				</div>
-			</div>
-			<div class="space-y-4">
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
-						Tools & Platforms
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">
-						Git/GitHub, Docker, Docker Compose, Vercel, Pyodide, Tailscale,
-						Nginx Proxy Manager, Browser WebExtension APIs
-					</p>
-				</div>
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-						Systems & Networking
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">
-						System Administration, Network Configuration, VPN
-					</p>
-				</div>
-				<div
-					class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
-				>
-					<h3
-						class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-					>
-						<span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
-						Additional Skills
-					</h3>
-					<p class="text-gray-700 dark:text-gray-300">
-						UI/UX Design, Technical Content Writing, Data Analysis (MS Excel),
-						Presentation Design (MS PowerPoint)
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Experience -->
-	<div class="mb-8 sm:mb-10">
-		<h2
-			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-		>
-			<div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-				<Calendar
-					className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400"
-				/>
-			</div>
-			<span>EXPERIENCE</span>
-		</h2>
-		<div class="space-y-4 sm:space-y-6">
+			<!-- Header with Download Button -->
 			<div
-				class="relative p-4 sm:p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
+				class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 gap-4"
 			>
-				<div
-					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
-				>
-					<h3
-						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+				<div class="flex items-center space-x-3">
+					<div
+						class="p-2 sm:p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
 					>
-						UNICLOUD
-					</h3>
-					<div class="flex items-center space-x-2">
-						<span
-							class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium"
+						<FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+					</div>
+					<div>
+						<h2
+							class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"
 						>
-							June - July 2026
-						</span>
+							Resume
+						</h2>
+						<p class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
+							Professional experience and achievements
+						</p>
+					</div>
+				</div>
+				<button
+					data-download-resume
+					class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center"
+				>
+					<Download className="w-4 h-4" />
+					<span class="font-medium">Download PDF</span>
+				</button>
+			</div>
+
+			<div class="prose prose-gray dark:prose-invert max-w-none">
+				<!-- Enhanced Header -->
+				<div
+					class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-600"
+				>
+					<h1
+						class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 text-center"
+					>
+						TASHIF AHMAD KHAN
+					</h1>
+					<p
+						class="text-center text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg"
+					>
+						Engineering Undergrade | Tech Enthusiast | Full Stack Engineer
+					</p>
+
+					<!-- Contact Information -->
+					<div class="mb-4 flex justify-center">
+						<div
+							class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full"
+						>
+							<div class="flex items-center space-x-2 justify-center">
+								<Mail className="w-4 h-4 text-orange-500" />
+								<a
+									href="mailto:developer@tashif.codes"
+									class="text-gray-700 dark:text-gray-300 hover:underline text-sm sm:text-base"
+								>
+									developer@tashif.codes
+								</a>
+							</div>
+							<div
+								class="flex items-center space-x-2 sm:space-x-3 justify-center"
+							>
+								<LocationIcon className="w-4 h-4 text-orange-500" />
+								<span
+									class="text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+									>Delhi, India</span
+								>
+							</div>
+						</div>
+					</div>
+					<!-- Social Links -->
+					<div class="flex flex-wrap justify-center gap-1 sm:gap-2">
 						<a
-							href="https://drive.tashif.codes/s/RsaiDWGCEoXjt2K"
+							href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+							class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
 						>
-							Certificate
+							<Linkedin className="w-4 h-4" />
+						</a>
+						<a
+							href="https://github.com/tashifkhan"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors duration-200"
+						>
+							<Github className="w-4 h-4" />
+						</a>
+						<a
+							href="https://portfolio.tashif.codes"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center px-2 py-2 bg-gray-800 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
+						>
+							<Globe className="w-4 h-4" />
 						</a>
 					</div>
 				</div>
-				<p
-					class="text-base sm:text-lg text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 font-medium"
-				>
-					Software Development Intern
-				</p>
-				<ul
-					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
-				>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Engineered and deployed 3 critical React modules for a
-							<a
-								href="https://irgvap.ircep.gov.in"
-								target="_blank"
-								class="text-blue-600 dark:text-blue-400 hover:underline"
-								>high-profile IRCTC project</a
-							>, significantly enhancing vendor progress monitoring and data
-							visualization capabilities.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed robust NestJS REST APIs, securing data transactions
-							with JWT authentication and optimizing CRUD operations with
-							PostgreSQL.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Automated and improved Database Migration Cron jobs to dispatch
-							real-time Block Change Alerts to approvers via SMTP mail server
-							and browser webpush notifications.</span
-						>
-					</li>
-				</ul>
 			</div>
-		</div>
-	</div>
 
-	<!-- Notable Projects -->
-	<div class="mb-8 sm:mb-10">
-		<h2
-			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-		>
-			<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-				<BookOpen
-					className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400"
-				/>
-			</div>
-			<span>NOTABLE PROJECTS</span>
-		</h2>
-		<div class="space-y-4 sm:space-y-6">
-			<!-- FindexAI -->
-			<div
-				class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
-			>
-				<div
-					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+			<!-- Skills -->
+			<div id="skills" class="resume-section mb-8 sm:mb-10">
+				<h2
+					class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 				>
-					<h3
-						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
-					>
-						FindexAI — AI-Powered Browser Discovery Engine
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://findex.tashif.codes"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/tashifkhan/findex"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
-							>GitHub</a
-						>
+					<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+						<Award
+							className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
+						/>
 					</div>
-				</div>
-				<p
-					class="text-xs sm:text-sm text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
-				>
-					Next.js, React, FastAPI, LangChain, LangGraph, FAISS, ChromaDB,
-					Docker, WebExtension APIs
-				</p>
-				<ul
-					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
-				>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Pioneered FindexAI, an <strong
-								>AI-powered browser extension</strong
+					<span>SKILLS</span>
+				</h2>
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+					<div class="space-y-4">
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
+						>
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
 							>
-							transforming conventional browser search into a sophisticated discovery
-							engine for web content and YouTube, significantly <strong
-								>enhancing information retrieval and contextual understanding</strong
-							>.</span
+								<span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+								Programming Languages
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								Python, JavaScript, Go
+							</p>
+						</div>
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
 						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed a <strong>multi-agent architecture</strong> utilizing
-							<strong>LangChain</strong> and <strong>LangGraph</strong> to orchestrate
-							specialized agents for real-time web search (SearchXNG), YouTube transcript
-							analysis, and intelligent HTML page querying.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Implemented <strong
-								>advanced vector-based similarity search</strong
-							> with <strong>FAISS</strong> and <strong>ChromaDB</strong> for lightning-fast
-							retrieval of indexed content, enabling <strong
-								>semantic search capabilities</strong
-							> beyond keyword matching.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Engineered a <strong>model-agnostic FastAPI backend</strong> and a
-							<strong>responsive React browser extension</strong> (Chrome & Firefox),
-							demonstrating full-stack development proficiency and a highly modular,
-							extensible system design.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Designed and integrated a <strong
-								>customizable theme engine</strong
-							> (including MacOS Classic, Windows XP, Neobrutal), enhancing user
-							experience and personalizing the search interface.</span
-						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- TalentSync AI -->
-			<div
-				class="relative p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						TalentSync AI
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://talentsync.tashif.codes/"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/harleenkaur28/AI-Resume-Parser"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-							>GitHub</a
-						>
-					</div>
-				</div>
-				<p class="text-sm text-blue-600 dark:text-blue-400 mb-4 font-medium">
-					Next.js, TypeScript, FastAPI, LangChain, LangGraph, PostgreSQL, Docker
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Pioneered an AI-driven Next.js platform for comprehensive resume
-							analysis, job category prediction, and efficient talent
-							management, featuring a pre-vetted dashboard for employers.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Engineered advanced capabilities using <strong>LangChain</strong
-							>, <strong>RAG</strong> and <strong>LangGraph</strong> to dynamically
-							prepare personalized cold emails, generate targeted interview questions,
-							and craft compelling answer frameworks, significantly enhancing recruitment
-							efficiency.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Utilized intelligent parsing to extract key insights from complex
-							resume data, ensuring highly accurate job category predictions and
-							comprehensive candidate profiling.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed a scalable Python (FastAPI) backend with PostgreSQL,
-							ensuring robust data management, and <strong>containerized</strong
-							> the application using Docker for streamlined deployment.</span
-						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- JPortal -->
-			<div
-				class="relative p-6 bg-purple-50 dark:bg-purple-900/10 rounded-2xl border-l-4 border-purple-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						JPortal
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://jportal.tashif.codes"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/tashifkhan/jportal"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
-							>GitHub</a
-						>
-					</div>
-				</div>
-				<p
-					class="text-sm text-purple-600 dark:text-purple-400 mb-4 font-medium"
-				>
-					React, Python, WASM (Pyodide), MongoDB (4.5k + users)
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed a modern React Progressive Web App (PWA) to serve as an
-							intuitive and customizable frontend for the JIIT WebKiosk
-							Webportal, attracting over 4,500 users.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Integrated Pyodide to enable efficient parsing and display of
-							marks PDF data directly on the frontend.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Implemented a sophisticated theming system and customizability
-							options, ensuring a responsive experience across devices.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Incorporated critical features including the <a
-								href="https://jiit-timetable.tashif.codes/"
-								target="_blank"
-								class="text-purple-600 dark:text-purple-400 hover:underline"
-								>JIIT Timetable</a
-							>, <a
-								href="https://github.com/tashifkhan/placement-alerts-superset-telegram-notification-bot"
-								target="_blank"
-								class="text-purple-600 dark:text-purple-400 hover:underline"
-								>Placement</a
-							>, and <a
-								href="https://jiit-updates.tashif.codes/"
-								target="_blank"
-								class="text-purple-600 dark:text-purple-400 hover:underline"
-								>Campus Updates</a
-							>, centralizing key information for students.</span
-						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- SolarHelper -->
-			<div
-				class="relative p-6 bg-yellow-50 dark:bg-yellow-900/10 rounded-2xl border-l-4 border-yellow-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						SolarHelper
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://solar-helper.tashif.codes/"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/tashifkhan/SolarHelper"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors"
-							>GitHub</a
-						>
-					</div>
-				</div>
-				<p
-					class="text-sm text-yellow-600 dark:text-yellow-400 mb-4 font-medium"
-				>
-					React, TypeScript, FastAPI, PWA, RAG - Langchain, Vector DB, LightGBM
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Built a React PWA delivering personalized solar sizing, cost
-							projections, and savings forecasts, empowering users with
-							data-driven insights.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Deployed an AI chatbot utilizing LangChain, Gemini, and RAG for
-							instant, accurate guidance on solar subsidies and policies, <strong
-								>enhancing</strong
-							> user support.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Utilized LightGBM to generate precise monthly solar yield
-							forecasts based on local weather data, <strong>optimizing</strong>
-							energy predictions.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Constructed a robust FastAPI backend for efficient web scraping,
-							vector embeddings, LLM integration, and real-time tariff/weather
-							feed processing.</span
-						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- BiasDetector -->
-			<div
-				class="relative p-6 bg-red-50 dark:bg-red-900/10 rounded-2xl border-l-4 border-red-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						BiasDetector
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://bias-detector.tashif.codes/"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/tashifkhan/News-Bias-Detector"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
-							>GitHub</a
-						>
-					</div>
-				</div>
-				<p class="text-sm text-red-600 dark:text-red-400 mb-4 font-medium">
-					Next.js, TypeScript, Flask, MongoDB, JWT, XgBoost
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Created a Next.js application in TypeScript for real-time
-							detection of bias in news articles, storing comprehensive data in
-							MongoDB.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Designed and implemented a sophisticated web scraping pipeline to
-							aggregate news content from diverse sources, ensuring a rich
-							dataset for analysis.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Integrated an XgBoost ML Model to accurately identify bias
-							patterns and provide actionable insights, <strong
-								>enhancing</strong
-							> user comprehension of media objectivity.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Crafted a sleek and intuitive frontend, ensuring seamless user
-							interaction and easy access to bias detection results.</span
-						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Designique -->
-			<div
-				class="relative p-6 bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl border-l-4 border-indigo-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Designique
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://designique.tashif.codes/"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-							>Live</a
-						>
-						<a
-							href="https://github.com/tashifkhan/Designique-rideHack24"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-							>GitHub</a
-						>
-					</div>
-				</div>
-				<p
-					class="text-sm text-indigo-600 dark:text-indigo-400 mb-4 font-medium"
-				>
-					Next.js, TypeScript, Node.js, MongoDB, JWT, WebSockets, Gemini Gen AI
-					API
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed a comprehensive Next.js application designed to foster
-							direct connections between designers, manufacturers, and
-							consumers, <strong>facilitating</strong> a unique marketplace experience.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Engineered a full-featured e-commerce portal, including robust
-							marketplace functionalities, powered by MongoDB for efficient data
-							management.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Implemented anonymous real-time chatting capabilities between
-							manufacturers and designers using WebSockets, <strong
-								>enhancing</strong
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
 							>
-							collaboration and communication.</span
+								<span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+								Frameworks & Libraries
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								Next.js, React.js, React Native, Node.js, Astro, Express.js,
+								Flask, FastAPI, Redux Toolkit, LangChain, LangGraph, Framer
+								Motion
+							</p>
+						</div>
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
 						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Integrated Gemini's Generative AI API to power an intelligent
-							support chat, <strong>streamlining</strong> customer query resolution
-							and improving user satisfaction.</span
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
+							>
+								<span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+								Databases
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								MySQL, MongoDB, PostgreSQL, FAISS, ChromaDB, SQLite
+							</p>
+						</div>
+					</div>
+					<div class="space-y-4">
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
 						>
-					</li>
-				</ul>
-			</div>
-
-			<!-- CropMate -->
-			<div
-				class="relative p-6 bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl border-l-4 border-emerald-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						CropMate
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://cropmate.tashif.codes/"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors"
-							>Live</a
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
+							>
+								<span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+								Tools & Platforms
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								Git/GitHub, Docker, Docker Compose, Vercel, Pyodide, Tailscale,
+								Nginx Proxy Manager, Browser WebExtension APIs
+							</p>
+						</div>
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
 						>
-						<a
-							href="https://github.com/tashifkhan/crop- mate"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors"
-							>GitHub</a
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
+							>
+								<span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+								Systems & Networking
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								System Administration, Network Configuration, VPN
+							</p>
+						</div>
+						<div
+							class="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
 						>
+							<h3
+								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
+							>
+								<span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+								Additional Skills
+							</h3>
+							<p class="text-gray-700 dark:text-gray-300">
+								UI/UX Design, Technical Content Writing, Data Analysis (MS
+								Excel), Presentation Design (MS PowerPoint)
+							</p>
+						</div>
 					</div>
 				</div>
-				<p
-					class="text-sm text-emerald-600 dark:text-emerald-400 mb-4 font-medium"
-				>
-					Next.js, TypeScript, Flask, JWT, Gemini Gen AI API, Random Forest KNN
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Built a Next.js application offering AI-driven crop
-							recommendations, accurate yield predictions, and personalized
-							insurance advisories for farmers.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Developed an AI-powered chatbot using Gemini's Generative AI API,
-							providing real-time support and instant answers to agricultural
-							queries.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Utilized Random Forest KNN algorithms to ensure highly accurate
-							crop and yield predictions, <strong>optimizing</strong> agricultural
-							planning.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Designed a sleek, farmer-friendly interface with Framer Motion
-							animations, <strong>enhancing</strong> usability and engagement.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Constructed a robust Flask backend for seamless ML model
-							integration and comprehensive weather-based risk analysis,
-							<strong>providing</strong> crucial insights.</span
-						>
-					</li>
-				</ul>
 			</div>
 
-			<!-- Home Lab Automation & Media Server -->
-			<div
-				class="relative p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border-l-4 border-gray-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Home Lab Automation & Media Server
-					</h3>
-					<div class="flex space-x-2">
-						<a
-							href="https://github.com/tashifkhan/home-lab"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-							>GitHub</a
+			<!-- Experience -->
+			<div id="experience" class="resume-section mb-8 sm:mb-10">
+				<h2
+					class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
+				>
+					<div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+						<Calendar
+							className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400"
+						/>
+					</div>
+					<span>EXPERIENCE</span>
+				</h2>
+				<div class="space-y-4 sm:space-y-6">
+					<div
+						class="relative p-4 sm:p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
+					>
+						<div
+							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
 						>
+							<h3
+								class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+							>
+								UNICLOUD
+							</h3>
+							<div class="flex items-center space-x-2">
+								<span
+									class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium"
+								>
+									June - July 2026
+								</span>
+								<a
+									href="https://drive.tashif.codes/s/RsaiDWGCEoXjt2K"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+								>
+									Certificate
+								</a>
+							</div>
+						</div>
+						<p
+							class="text-base sm:text-lg text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 font-medium"
+						>
+							Software Development Intern
+						</p>
+						<ul
+							class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+						>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Engineered and deployed 3 critical React modules for a
+									<a
+										href="https://irgvap.ircep.gov.in"
+										target="_blank"
+										class="text-blue-600 dark:text-blue-400 hover:underline"
+										>high-profile IRCTC project</a
+									>, significantly enhancing vendor progress monitoring and data
+									visualization capabilities.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed robust NestJS REST APIs, securing data transactions
+									with JWT authentication and optimizing CRUD operations with
+									PostgreSQL.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Automated and improved Database Migration Cron jobs to
+									dispatch real-time Block Change Alerts to approvers via SMTP
+									mail server and browser webpush notifications.</span
+								>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<p class="text-sm text-gray-600 dark:text-gray-400 mb-4 font-medium">
-					Docker, Docker Compose, Linux, Bash
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Architected and deployed a robust self-hosted home lab
-							encompassing 10+ Dockerized services, including Nextcloud for
-							personal cloud storage, Jellyfin for media streaming, and a full
-							"Arr" stack for automated content management.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Engineered a secure remote access solution by configuring a
-							Tailscale VPN tunnel to a VPS, enabling public accessibility
-							without a static IP, and implementing Nginx Proxy Manager for
-							efficient reverse proxy and SSL termination.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Automated media acquisition and organization through the
-							integrated "Arr" stack (Prowlarr, Sonarr, Radarr, Lidarr, Readarr,
-							Homarr) paired with qBittorrent, creating a seamless, centralized
-							entertainment and data ecosystem.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Managed and optimized containerized environments and network
-							configurations, demonstrating strong capabilities in system
-							administration, network engineering, and infrastructure
-							deployment.</span
-						>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- Education -->
-	<div class="mb-8 sm:mb-10">
-		<h2
-			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-		>
-			<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-				<MapPin
-					className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
-				/>
-			</div>
-			<span>EDUCATION</span>
-		</h2>
-		<div class="space-y-4 sm:space-y-6">
-			<div
-				class="relative p-4 sm:p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
-			>
-				<div
-					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
-				>
-					<h3
-						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
-					>
-						Jaypee Institute of Information Technology, Noida, India
-					</h3>
-					<span
-						class="px-2 sm:px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-xs sm:text-sm font-medium"
-					>
-						2022 - 2026
-					</span>
-				</div>
-				<p
-					class="text-base sm:text-lg text-orange-600 dark:text-orange-400 mb-2 font-medium"
-				>
-					B. Tech Electronics & Communication Engineering
-				</p>
-				<p
-					class="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base"
-				>
-					CGPA: 7.3/10.0
-				</p>
-			</div>
-			<div
-				class="relative p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Delhi Public School, R. K. Puram, New Delhi, India
-					</h3>
-					<span
-						class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium"
-					>
-						2018 - 2022
-					</span>
-				</div>
-				<ul
-					class="list-disc pl-5 text-lg text-orange-600 dark:text-orange-400 font-medium space-y-1"
-				>
-					<li>CBSE XII – 92%</li>
-					<li>CBSE X – 91.8%</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- Positions of Responsibility -->
-	<div class="mb-6 sm:mb-8">
-		<h2
-			class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-		>
-			<div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
-				<Users
-					className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400"
-				/>
-			</div>
-			<span>POSITIONS OF RESPONSIBILITY</span>
-		</h2>
-		<div class="space-y-4 sm:space-y-6">
-			<div
-				class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
-			>
-				<div
-					class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
-				>
-					<h3
-						class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
-					>
-						Treasurer | Senior Advisor
-					</h3>
-					<span
-						class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium"
-					>
-						2024 - Present
-					</span>
-				</div>
-				<p
-					class="text-base sm:text-lg text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
-				>
-					Optica Student Chapter JIIT
-				</p>
-				<ul
-					class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
-				>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Successfully orchestrated a flagship talk by HC Verma, drawing
-							approximately 4,000 participants from both on-campus and external
-							sources.</span
-						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Led the coordination of a highly popular comedy talent show (open
-							mic event), engaging approximately 3,000 college participants.</span
-						>
-					</li>
-				</ul>
-			</div>
-			<div
-				class="relative p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Mentor
-					</h3>
-					<span
-						class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
-					>
-						2023 - Present
-					</span>
-				</div>
-				<p class="text-lg text-blue-600 dark:text-blue-400 mb-4 font-medium">
-					The Jaypee Debating Society
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Guided and developed junior members in advanced debating
-							techniques, contributing to the society's competitive success.</span
-						>
-					</li>
-				</ul>
 			</div>
 
-			<div
-				class="relative p-6 bg-purple-50 dark:bg-purple-900/10 rounded-2xl border-l-4 border-purple-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Organizing Secretary | Co-founder
-					</h3>
-					<span
-						class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium"
-					>
-						2023 - 2024
-					</span>
-				</div>
-				<p
-					class="text-lg text-purple-600 dark:text-purple-400 mb-4 font-medium"
+			<!-- Notable Projects -->
+			<div id="projects" class="resume-section mb-8 sm:mb-10">
+				<h2
+					class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 				>
-					Jaypee Parliamentary Debate
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Pioneered and spearheaded the inaugural Jaypee Parliamentary
-							Debate (JPD 1.0), a major inter-college event that attracted 52
-							external teams, establishing a new tradition for the institution.</span
+					<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+						<BookOpen
+							className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400"
+						/>
+					</div>
+					<span>NOTABLE PROJECTS</span>
+				</h2>
+				<div class="space-y-4 sm:space-y-6">
+					<!-- FindexAI -->
+					<div
+						class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
+					>
+						<div
+							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
 						>
-					</li>
-				</ul>
+							<h3
+								class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+							>
+								FindexAI — AI-Powered Browser Discovery Engine
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://findex.tashif.codes"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/findex"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-xs sm:text-sm text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
+						>
+							Next.js, React, FastAPI, LangChain, LangGraph, FAISS, ChromaDB,
+							Docker, WebExtension APIs
+						</p>
+						<ul
+							class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+						>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Pioneered FindexAI, an <strong
+										>AI-powered browser extension</strong
+									>
+									transforming conventional browser search into a sophisticated discovery
+									engine for web content and YouTube, significantly <strong
+										>enhancing information retrieval and contextual
+										understanding</strong
+									>.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed a <strong>multi-agent architecture</strong> utilizing
+									<strong>LangChain</strong> and <strong>LangGraph</strong> to orchestrate
+									specialized agents for real-time web search (SearchXNG), YouTube
+									transcript analysis, and intelligent HTML page querying.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Implemented <strong
+										>advanced vector-based similarity search</strong
+									> with <strong>FAISS</strong> and <strong>ChromaDB</strong> for
+									lightning-fast retrieval of indexed content, enabling <strong
+										>semantic search capabilities</strong
+									> beyond keyword matching.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Engineered a <strong>model-agnostic FastAPI backend</strong> and
+									a
+									<strong>responsive React browser extension</strong> (Chrome & Firefox),
+									demonstrating full-stack development proficiency and a highly modular,
+									extensible system design.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Designed and integrated a <strong
+										>customizable theme engine</strong
+									> (including MacOS Classic, Windows XP, Neobrutal), enhancing user
+									experience and personalizing the search interface.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- TalentSync AI -->
+					<div
+						class="relative p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								TalentSync AI
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://talentsync.tashif.codes/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/harleenkaur28/AI-Resume-Parser"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-blue-600 dark:text-blue-400 mb-4 font-medium"
+						>
+							Next.js, TypeScript, FastAPI, LangChain, LangGraph, PostgreSQL,
+							Docker
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Pioneered an AI-driven Next.js platform for comprehensive
+									resume analysis, job category prediction, and efficient talent
+									management, featuring a pre-vetted dashboard for employers.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Engineered advanced capabilities using <strong
+										>LangChain</strong
+									>, <strong>RAG</strong> and <strong>LangGraph</strong> to dynamically
+									prepare personalized cold emails, generate targeted interview questions,
+									and craft compelling answer frameworks, significantly enhancing
+									recruitment efficiency.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Utilized intelligent parsing to extract key insights from
+									complex resume data, ensuring highly accurate job category
+									predictions and comprehensive candidate profiling.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed a scalable Python (FastAPI) backend with
+									PostgreSQL, ensuring robust data management, and <strong
+										>containerized</strong
+									> the application using Docker for streamlined deployment.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- JPortal -->
+					<div
+						class="relative p-6 bg-purple-50 dark:bg-purple-900/10 rounded-2xl border-l-4 border-purple-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								JPortal
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://jportal.tashif.codes"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/jportal"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-purple-600 dark:text-purple-400 mb-4 font-medium"
+						>
+							React, Python, WASM (Pyodide), MongoDB (4.5k + users)
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed a modern React Progressive Web App (PWA) to serve
+									as an intuitive and customizable frontend for the JIIT
+									WebKiosk Webportal, attracting over 4,500 users.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Integrated Pyodide to enable efficient parsing and display of
+									marks PDF data directly on the frontend.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Implemented a sophisticated theming system and
+									customizability options, ensuring a responsive experience
+									across devices.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Incorporated critical features including the <a
+										href="https://jiit-timetable.tashif.codes/"
+										target="_blank"
+										class="text-purple-600 dark:text-purple-400 hover:underline"
+										>JIIT Timetable</a
+									>, <a
+										href="https://github.com/tashifkhan/placement-alerts-superset-telegram-notification-bot"
+										target="_blank"
+										class="text-purple-600 dark:text-purple-400 hover:underline"
+										>Placement</a
+									>, and <a
+										href="https://jiit-updates.tashif.codes/"
+										target="_blank"
+										class="text-purple-600 dark:text-purple-400 hover:underline"
+										>Campus Updates</a
+									>, centralizing key information for students.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- SolarHelper -->
+					<div
+						class="relative p-6 bg-yellow-50 dark:bg-yellow-900/10 rounded-2xl border-l-4 border-yellow-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								SolarHelper
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://solar-helper.tashif.codes/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/SolarHelper"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-yellow-600 dark:text-yellow-400 mb-4 font-medium"
+						>
+							React, TypeScript, FastAPI, PWA, RAG - Langchain, Vector DB,
+							LightGBM
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Built a React PWA delivering personalized solar sizing, cost
+									projections, and savings forecasts, empowering users with
+									data-driven insights.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Deployed an AI chatbot utilizing LangChain, Gemini, and RAG
+									for instant, accurate guidance on solar subsidies and
+									policies, <strong>enhancing</strong> user support.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Utilized LightGBM to generate precise monthly solar yield
+									forecasts based on local weather data, <strong
+										>optimizing</strong
+									>
+									energy predictions.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Constructed a robust FastAPI backend for efficient web
+									scraping, vector embeddings, LLM integration, and real-time
+									tariff/weather feed processing.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- BiasDetector -->
+					<div
+						class="relative p-6 bg-red-50 dark:bg-red-900/10 rounded-2xl border-l-4 border-red-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								BiasDetector
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://bias-detector.tashif.codes/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/News-Bias-Detector"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p class="text-sm text-red-600 dark:text-red-400 mb-4 font-medium">
+							Next.js, TypeScript, Flask, MongoDB, JWT, XgBoost
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Created a Next.js application in TypeScript for real-time
+									detection of bias in news articles, storing comprehensive data
+									in MongoDB.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Designed and implemented a sophisticated web scraping
+									pipeline to aggregate news content from diverse sources,
+									ensuring a rich dataset for analysis.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Integrated an XgBoost ML Model to accurately identify bias
+									patterns and provide actionable insights, <strong
+										>enhancing</strong
+									> user comprehension of media objectivity.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Crafted a sleek and intuitive frontend, ensuring seamless
+									user interaction and easy access to bias detection results.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Designique -->
+					<div
+						class="relative p-6 bg-indigo-50 dark:bg-indigo-900/10 rounded-2xl border-l-4 border-indigo-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Designique
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://designique.tashif.codes/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/Designique-rideHack24"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-indigo-600 dark:text-indigo-400 mb-4 font-medium"
+						>
+							Next.js, TypeScript, Node.js, MongoDB, JWT, WebSockets, Gemini Gen
+							AI API
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed a comprehensive Next.js application designed to
+									foster direct connections between designers, manufacturers,
+									and consumers, <strong>facilitating</strong> a unique marketplace
+									experience.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Engineered a full-featured e-commerce portal, including
+									robust marketplace functionalities, powered by MongoDB for
+									efficient data management.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Implemented anonymous real-time chatting capabilities between
+									manufacturers and designers using WebSockets, <strong
+										>enhancing</strong
+									>
+									collaboration and communication.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Integrated Gemini's Generative AI API to power an intelligent
+									support chat, <strong>streamlining</strong> customer query resolution
+									and improving user satisfaction.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- CropMate -->
+					<div
+						class="relative p-6 bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl border-l-4 border-emerald-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								CropMate
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://cropmate.tashif.codes/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors"
+									>Live</a
+								>
+								<a
+									href="https://github.com/tashifkhan/crop- mate"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium hover:bg-emerald-200 dark:hover:bg-emerald-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-emerald-600 dark:text-emerald-400 mb-4 font-medium"
+						>
+							Next.js, TypeScript, Flask, JWT, Gemini Gen AI API, Random Forest
+							KNN
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Built a Next.js application offering AI-driven crop
+									recommendations, accurate yield predictions, and personalized
+									insurance advisories for farmers.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Developed an AI-powered chatbot using Gemini's Generative AI
+									API, providing real-time support and instant answers to
+									agricultural queries.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Utilized Random Forest KNN algorithms to ensure highly
+									accurate crop and yield predictions, <strong
+										>optimizing</strong
+									> agricultural planning.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Designed a sleek, farmer-friendly interface with Framer
+									Motion animations, <strong>enhancing</strong> usability and engagement.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Constructed a robust Flask backend for seamless ML model
+									integration and comprehensive weather-based risk analysis,
+									<strong>providing</strong> crucial insights.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Home Lab Automation & Media Server -->
+					<div
+						class="relative p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border-l-4 border-gray-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Home Lab Automation & Media Server
+							</h3>
+							<div class="flex space-x-2">
+								<a
+									href="https://github.com/tashifkhan/home-lab"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+									>GitHub</a
+								>
+							</div>
+						</div>
+						<p
+							class="text-sm text-gray-600 dark:text-gray-400 mb-4 font-medium"
+						>
+							Docker, Docker Compose, Linux, Bash
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Architected and deployed a robust self-hosted home lab
+									encompassing 10+ Dockerized services, including Nextcloud for
+									personal cloud storage, Jellyfin for media streaming, and a
+									full "Arr" stack for automated content management.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Engineered a secure remote access solution by configuring a
+									Tailscale VPN tunnel to a VPS, enabling public accessibility
+									without a static IP, and implementing Nginx Proxy Manager for
+									efficient reverse proxy and SSL termination.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Automated media acquisition and organization through the
+									integrated "Arr" stack (Prowlarr, Sonarr, Radarr, Lidarr,
+									Readarr, Homarr) paired with qBittorrent, creating a seamless,
+									centralized entertainment and data ecosystem.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Managed and optimized containerized environments and network
+									configurations, demonstrating strong capabilities in system
+									administration, network engineering, and infrastructure
+									deployment.</span
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 
-			<div
-				class="relative p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
-			>
-				<div class="flex items-start justify-between mb-3">
-					<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-						Core Executive
-					</h3>
-					<span
-						class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium"
-					>
-						2019 - 2020
-					</span>
-				</div>
-				<p
-					class="text-lg text-orange-600 dark:text-orange-400 mb-4 font-medium"
+			<!-- Education -->
+			<div id="education" class="resume-section mb-8 sm:mb-10">
+				<h2
+					class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
 				>
-					JOUST'23 | Parola Literary Hub JIIT
-				</p>
-				<ul class="space-y-3 text-gray-700 dark:text-gray-300">
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Managed and executed one of India's largest literary festivals,
-							attracting over 500 paid participants and generating significant
-							revenue of Rs. 700,000.</span
+					<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+						<MapPin
+							className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
+						/>
+					</div>
+					<span>EDUCATION</span>
+				</h2>
+				<div class="space-y-4 sm:space-y-6">
+					<div
+						class="relative p-4 sm:p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
+					>
+						<div
+							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
 						>
-					</li>
-					<li class="flex items-start">
-						<span
-							class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"
-						></span>
-						<span
-							>Secured strategic partnerships with 8 prominent media outlets
-							(e.g., Jagran Josh, DU Beat), resulting in a 50% boost in national
-							participation.</span
+							<h3
+								class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+							>
+								Jaypee Institute of Information Technology, Noida, India
+							</h3>
+							<span
+								class="px-2 sm:px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-xs sm:text-sm font-medium"
+							>
+								2022 - 2026
+							</span>
+						</div>
+						<p
+							class="text-base sm:text-lg text-orange-600 dark:text-orange-400 mb-2 font-medium"
 						>
-					</li>
-				</ul>
+							B. Tech Electronics & Communication Engineering
+						</p>
+						<p
+							class="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base"
+						>
+							CGPA: 7.3/10.0
+						</p>
+					</div>
+					<div
+						class="relative p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Delhi Public School, R. K. Puram, New Delhi, India
+							</h3>
+							<span
+								class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium"
+							>
+								2018 - 2022
+							</span>
+						</div>
+						<ul
+							class="list-disc pl-5 text-lg text-orange-600 dark:text-orange-400 font-medium space-y-1"
+						>
+							<li>CBSE XII – 92%</li>
+							<li>CBSE X – 91.8%</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Positions of Responsibility -->
+			<div id="positions" class="resume-section mb-6 sm:mb-8">
+				<h2
+					class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
+				>
+					<div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+						<Users
+							className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400"
+						/>
+					</div>
+					<span>POSITIONS OF RESPONSIBILITY</span>
+				</h2>
+				<div class="space-y-4 sm:space-y-6">
+					<div
+						class="relative p-4 sm:p-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border-l-4 border-green-500"
+					>
+						<div
+							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+						>
+							<h3
+								class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+							>
+								Treasurer | Senior Advisor
+							</h3>
+							<span
+								class="px-2 sm:px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-xs sm:text-sm font-medium"
+							>
+								2024 - Present
+							</span>
+						</div>
+						<p
+							class="text-base sm:text-lg text-green-600 dark:text-green-400 mb-3 sm:mb-4 font-medium"
+						>
+							Optica Student Chapter JIIT
+						</p>
+						<ul
+							class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
+						>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Successfully orchestrated a flagship talk by HC Verma,
+									drawing approximately 4,000 participants from both on-campus
+									and external sources.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Led the coordination of a highly popular comedy talent show
+									(open mic event), engaging approximately 3,000 college
+									participants.</span
+								>
+							</li>
+						</ul>
+					</div>
+					<div
+						class="relative p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Mentor
+							</h3>
+							<span
+								class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
+							>
+								2023 - Present
+							</span>
+						</div>
+						<p
+							class="text-lg text-blue-600 dark:text-blue-400 mb-4 font-medium"
+						>
+							The Jaypee Debating Society
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Guided and developed junior members in advanced debating
+									techniques, contributing to the society's competitive success.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<div
+						class="relative p-6 bg-purple-50 dark:bg-purple-900/10 rounded-2xl border-l-4 border-purple-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Organizing Secretary | Co-founder
+							</h3>
+							<span
+								class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium"
+							>
+								2023 - 2024
+							</span>
+						</div>
+						<p
+							class="text-lg text-purple-600 dark:text-purple-400 mb-4 font-medium"
+						>
+							Jaypee Parliamentary Debate
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Pioneered and spearheaded the inaugural Jaypee Parliamentary
+									Debate (JPD 1.0), a major inter-college event that attracted
+									52 external teams, establishing a new tradition for the
+									institution.</span
+								>
+							</li>
+						</ul>
+					</div>
+
+					<div
+						class="relative p-6 bg-orange-50 dark:bg-orange-900/10 rounded-2xl border-l-4 border-orange-500"
+					>
+						<div class="flex items-start justify-between mb-3">
+							<h3 class="text-xl font-bold text-gray-900 dark:text-white">
+								Core Executive
+							</h3>
+							<span
+								class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium"
+							>
+								2019 - 2020
+							</span>
+						</div>
+						<p
+							class="text-lg text-orange-600 dark:text-orange-400 mb-4 font-medium"
+						>
+							JOUST'23 | Parola Literary Hub JIIT
+						</p>
+						<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Managed and executed one of India's largest literary
+									festivals, attracting over 500 paid participants and
+									generating significant revenue of Rs. 700,000.</span
+								>
+							</li>
+							<li class="flex items-start">
+								<span
+									class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"
+								></span>
+								<span
+									>Secured strategic partnerships with 8 prominent media outlets
+									(e.g., Jagran Josh, DU Beat), resulting in a 50% boost in
+									national participation.</span
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script is:inline>
-	function downloadResume() {
-		// Create a new window with the resume content
-		const resumeContent = document.getElementById("resume-content");
-		const printWindow = window.open("", "_blank");
+<!-- Hidden container for print-resume HTML -->
+<div id="print-resume-container" style="display:none;"></div>
 
-		printWindow.document.write(`
-			<!DOCTYPE html>
-			<html>
-			<head>
-				<title>Tashif Ahmad Khan - Resume</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<style>
-					body {
-						font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-						line-height: 1.6;
-						color: #333;
-						max-width: 800px;
-						margin: 0 auto;
-						padding: 15px;
-					}
-					h1, h2, h3 {
-						color: #1f2937;
-					}
-					.section {
-						margin-bottom: 25px;
-					}
-					.project-card {
-						border-left: 4px solid #10b981;
-						padding-left: 15px;
-						margin-bottom: 15px;
-						background: #f9fafb;
-						padding: 12px;
-						border-radius: 8px;
-					}
-					.skills-grid {
-						display: grid;
-						grid-template-columns: 1fr;
-						gap: 15px;
-					}
-					@media (min-width: 768px) {
-						.skills-grid {
-							grid-template-columns: 1fr 1fr;
-							gap: 20px;
-						}
-					}
-					.skill-category {
-						background: #f3f4f6;
-						padding: 12px;
-						border-radius: 8px;
-					}
-					@media print {
-						body { margin: 0; }
-						.no-print { display: none; }
-					}
-					@media (max-width: 768px) {
-						body { padding: 10px; }
-						h1 { font-size: 1.5rem; }
-						h2 { font-size: 1.25rem; }
-						h3 { font-size: 1.1rem; }
-					}
-				</style>
-			</head>
-			<body>
-				${resumeContent.innerHTML}
-			</body>
-			</html>
-		`);
+<script>
+	// Resume navigation functionality
+	document.addEventListener("DOMContentLoaded", () => {
+		const navLinks = document.querySelectorAll(".resume-nav-link");
+		const sections = document.querySelectorAll(".resume-section");
 
-		printWindow.document.close();
-		printWindow.focus();
+		// Function to update active nav link
+		function updateActiveNavLink(targetId: string) {
+			navLinks.forEach((link) => {
+				link.classList.remove(
+					"bg-orange-50",
+					"dark:bg-orange-900/20",
+					"text-orange-600",
+					"dark:text-orange-400"
+				);
+				link.classList.add("text-gray-700", "dark:text-gray-300");
+			});
 
-		// Wait for content to load then print
-		setTimeout(() => {
-			printWindow.print();
-		}, 500);
-	}
+			const activeLink = document.querySelector(`[data-section="${targetId}"]`);
+			if (activeLink) {
+				activeLink.classList.remove("text-gray-700", "dark:text-gray-300");
+				activeLink.classList.add(
+					"bg-orange-50",
+					"dark:bg-orange-900/20",
+					"text-orange-600",
+					"dark:text-orange-400"
+				);
+			}
+		}
+
+		// Function to scroll to section
+		function scrollToSection(sectionId: string) {
+			const section = document.getElementById(sectionId);
+			if (section) {
+				section.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+				});
+			}
+		}
+
+		// Add click event listeners to nav links
+		navLinks.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+				const targetId = link.getAttribute("data-section");
+				if (targetId) {
+					scrollToSection(targetId);
+					updateActiveNavLink(targetId);
+				}
+			});
+		});
+
+		// Intersection Observer to update active nav link based on scroll position
+		const observerOptions = {
+			root: null,
+			rootMargin: "-20% 0px -70% 0px",
+			threshold: 0,
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const sectionId = entry.target.id;
+					updateActiveNavLink(sectionId);
+				}
+			});
+		}, observerOptions);
+
+		// Observe all sections
+		sections.forEach((section) => {
+			observer.observe(section);
+		});
+
+		// Set initial active state
+		if (sections.length > 0) {
+			updateActiveNavLink(sections[0].id);
+		}
+	});
 </script>
