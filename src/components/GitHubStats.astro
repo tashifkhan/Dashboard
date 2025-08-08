@@ -1,5 +1,6 @@
 ---
 import { githubStats } from "../data/github";
+import GitHubContributionGraph from "./GitHubContributionGraph.astro";
 import {
 	GitCommit,
 	Star,
@@ -173,6 +174,9 @@ const { stats, prs, stars, commits } = githubStats;
 		</div>
 	</div>
 </div>
+
+<!-- GitHub Contribution Graph -->
+<GitHubContributionGraph />
 
 <!-- Top Languages -->
 <div
