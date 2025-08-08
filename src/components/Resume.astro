@@ -101,8 +101,9 @@ import {
 					</div>
 				</div>
 				<button
+					type="button"
 					data-download-resume
-					class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center"
+					class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/50"
 				>
 					<Download className="w-4 h-4" />
 					<span class="font-medium">Download PDF</span>
@@ -1275,13 +1276,15 @@ import {
 <div id="print-resume-container" style="display:none;"></div>
 
 <script>
-	// Resume navigation functionality
-	document.addEventListener("DOMContentLoaded", () => {
+	// @ts-nocheck
+	// Resume navigation and download functionality
+	const setupResumeInteractions = () => {
 		const navLinks = document.querySelectorAll(".resume-nav-link");
 		const sections = document.querySelectorAll(".resume-section");
 
 		// Function to update active nav link
-		function updateActiveNavLink(targetId: string) {
+		/** @param {string} targetId */
+		function updateActiveNavLink(targetId) {
 			navLinks.forEach((link) => {
 				link.classList.remove(
 					"bg-orange-50",
@@ -1305,7 +1308,8 @@ import {
 		}
 
 		// Function to scroll to section
-		function scrollToSection(sectionId: string) {
+		/** @param {string} sectionId */
+		function scrollToSection(sectionId) {
 			const section = document.getElementById(sectionId);
 			if (section) {
 				section.scrollIntoView({
@@ -1352,5 +1356,48 @@ import {
 		if (sections.length > 0) {
 			updateActiveNavLink(sections[0].id);
 		}
-	});
+
+		// Resume download functionality
+		const downloadBtn = document.querySelector("[data-download-resume]");
+		if (downloadBtn) {
+			downloadBtn.addEventListener("click", async () => {
+				try {
+					const html2pdf = (await import("html2pdf.js")).default;
+					const container = document.getElementById("print-resume-container");
+					if (!container) {
+						console.error("Container not found");
+						return;
+					}
+					const res = await fetch("/print-resume");
+					const html = await res.text();
+					container.innerHTML = html;
+					const resumeContent = container.querySelector("body") || container;
+					await html2pdf()
+						.set({
+							margin: 0,
+							filename: "Tashif_Ahmad_Khan_Resume.pdf",
+							image: { type: "jpeg", quality: 0.98 },
+							html2canvas: { scale: 2, useCORS: true },
+							jsPDF: {
+								unit: "in",
+								format: "a4",
+								orientation: "portrait",
+							},
+						})
+						.from(resumeContent)
+						.save();
+					container.innerHTML = "";
+				} catch (error) {
+					console.error("Error generating PDF:", error);
+					alert("Failed to generate PDF. Please try again.");
+				}
+			});
+		}
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", setupResumeInteractions);
+	} else {
+		setupResumeInteractions();
+	}
 </script>
