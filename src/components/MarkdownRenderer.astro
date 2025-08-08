@@ -38,41 +38,41 @@ function convertRelativeUrl(url: string): string {
 function enhanceHtml(rawHtml: string): string {
 	let html = rawHtml;
 
-	// Inline code - Enhanced styling with mobile optimization
+	// Inline code - Enhanced styling with mobile optimization for both themes
 	html = html.replace(
 		/<code>([^<\n]+)<\/code>/g,
-		'<code class="bg-gradient-to-r from-gray-800/60 to-gray-700/60 text-orange-300 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-md text-xs sm:text-sm font-mono border border-orange-500/20 shadow-sm backdrop-blur-sm hover:border-orange-500/40 transition-all duration-200">$1</code>'
+		'<code class="bg-gray-100 dark:bg-gradient-to-r dark:from-gray-800/60 dark:to-gray-700/60 text-gray-800 dark:text-orange-300 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-md text-xs sm:text-sm font-mono border border-gray-300 dark:border-orange-500/20 shadow-sm backdrop-blur-sm hover:border-gray-400 dark:hover:border-orange-500/40 transition-all duration-200">$1</code>'
 	);
 
-	// Headers - Enhanced with better typography and spacing for mobile
+	// Headers - Enhanced with better typography and spacing for mobile, both themes
 	html = html.replace(
 		/<h1>(.*?)<\/h1>/g,
-		'<h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-white border-b-2 border-orange-500/30 pb-2 sm:pb-3 mt-6 sm:mt-8 first:mt-0">$1</h1>'
+		'<h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white border-b-2 border-orange-500/30 pb-2 sm:pb-3 mt-6 sm:mt-8 first:mt-0">$1</h1>'
 	);
 	html = html.replace(
 		/<h2>(.*?)<\/h2>/g,
-		'<h2 class="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white/95 mt-6 sm:mt-8 flex items-center"><span class="w-1 h-4 sm:h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full mr-2 sm:mr-3"></span>$1</h2>'
+		'<h2 class="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-gray-900 dark:text-white/95 mt-6 sm:mt-8 flex items-center"><span class="w-1 h-4 sm:h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full mr-2 sm:mr-3"></span>$1</h2>'
 	);
 	html = html.replace(
 		/<h3>(.*?)<\/h3>/g,
-		'<h3 class="text-lg sm:text-xl font-medium mb-2 sm:mb-3 text-white/90 mt-4 sm:mt-6 flex items-center"><span class="w-1 h-3 sm:h-5 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full mr-2"></span>$1</h3>'
+		'<h3 class="text-lg sm:text-xl font-medium mb-2 sm:mb-3 text-gray-800 dark:text-white/90 mt-4 sm:mt-6 flex items-center"><span class="w-1 h-3 sm:h-5 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full mr-2"></span>$1</h3>'
 	);
 	html = html.replace(
 		/<h4>(.*?)<\/h4>/g,
-		'<h4 class="text-base sm:text-lg font-medium mb-2 text-white/85 mt-4 sm:mt-5 flex items-center"><span class="w-1 h-3 sm:h-4 bg-gradient-to-b from-green-400 to-green-600 rounded-full mr-2"></span>$1</h4>'
+		'<h4 class="text-base sm:text-lg font-medium mb-2 text-gray-700 dark:text-white/85 mt-4 sm:mt-5 flex items-center"><span class="w-1 h-3 sm:h-4 bg-gradient-to-b from-green-400 to-green-600 rounded-full mr-2"></span>$1</h4>'
 	);
 
-	// Bold/italic - Enhanced styling
+	// Bold/italic - Enhanced styling for both themes
 	html = html.replace(
 		/<strong>(.*?)<\/strong>/g,
-		'<strong class="font-bold text-white bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">$1</strong>'
+		'<strong class="font-bold text-gray-900 dark:text-white bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-600 bg-clip-text text-transparent">$1</strong>'
 	);
 	html = html.replace(
 		/<em>(.*?)<\/em>/g,
-		'<em class="italic text-white/90 font-medium">$1</em>'
+		'<em class="italic text-gray-700 dark:text-white/90 font-medium">$1</em>'
 	);
 
-	// Images - Enhanced with better styling and hover effects for mobile
+	// Images - Enhanced with better styling and hover effects for mobile, both themes
 	html = html.replace(
 		/<img([^>]*)src="([^"]+)"([^>]*)>/g,
 		(match: string, before: string, src: string, after: string) => {
@@ -84,12 +84,12 @@ function enhanceHtml(rawHtml: string): string {
 				fullSrc +
 				'"' +
 				after +
-				' class="max-w-full h-auto rounded-lg sm:rounded-xl border-2 border-gray-700/50 shadow-lg sm:shadow-2xl transition-all duration-300 group-hover:border-orange-500/50 group-hover:shadow-orange-500/20 group-hover:scale-[1.02] mx-auto block" /></div>'
+				' class="max-w-full h-auto rounded-lg sm:rounded-xl border-2 border-gray-300 dark:border-gray-700/50 shadow-lg sm:shadow-2xl transition-all duration-300 group-hover:border-orange-500/50 group-hover:shadow-orange-500/20 group-hover:scale-[1.02] mx-auto block" /></div>'
 			);
 		}
 	);
 
-	// Links - Enhanced with better styling and animations
+	// Links - Enhanced with better styling and animations for both themes
 	html = html.replace(
 		/<a href="([^"]+)"([^>]*)>(.*?)<\/a>/g,
 		(match: string, url: string, rest: string, text: string) => {
@@ -97,7 +97,7 @@ function enhanceHtml(rawHtml: string): string {
 			return (
 				'<a href="' +
 				fullUrl +
-				'" target="_blank" class="text-orange-400 hover:text-orange-300 underline decoration-2 underline-offset-2 transition-all duration-200 hover:decoration-orange-300 font-medium"' +
+				'" target="_blank" class="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 underline decoration-2 underline-offset-2 transition-all duration-200 hover:decoration-orange-600 dark:hover:decoration-orange-300 font-medium"' +
 				rest +
 				">" +
 				text +
@@ -106,7 +106,7 @@ function enhanceHtml(rawHtml: string): string {
 		}
 	);
 
-	// Lists - Enhanced with better styling and icons for mobile
+	// Lists - Enhanced with better styling and icons for mobile, both themes
 	html = html.replace(
 		/<ul>/g,
 		'<ul class="my-3 sm:my-4 space-y-1 sm:space-y-2 list-none pl-0">'
@@ -117,14 +117,14 @@ function enhanceHtml(rawHtml: string): string {
 	);
 	html = html.replace(
 		/<li>/g,
-		'<li class="text-white/80 mb-1 sm:mb-2 flex items-start text-sm sm:text-base"><span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full mt-1.5 sm:mt-2 mr-2 sm:mr-3 flex-shrink-0"></span><span class="flex-1">'
+		'<li class="text-gray-700 dark:text-white/80 mb-1 sm:mb-2 flex items-start text-sm sm:text-base"><span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-orange-500 rounded-full mt-1.5 sm:mt-2 mr-2 sm:mr-3 flex-shrink-0"></span><span class="flex-1">'
 	);
 	html = html.replace(/<\/li>/g, "</span></li>");
 
-	// Todo checkboxes - Enhanced styling
+	// Todo checkboxes - Enhanced styling for both themes
 	html = html.replace(
 		/<input type="checkbox"([^>]*)>/g,
-		'<input type="checkbox" class="mr-2 sm:mr-3 mt-0.5 sm:mt-1 h-3 w-3 sm:h-4 sm:w-4 rounded border-2 border-gray-600 bg-gray-700 text-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200"$1>'
+		'<input type="checkbox" class="mr-2 sm:mr-3 mt-0.5 sm:mt-1 h-3 w-3 sm:h-4 sm:w-4 rounded border-2 border-gray-400 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-800 transition-all duration-200"$1>'
 	);
 
 	// Enhanced code blocks with language labels and proper closing for mobile
@@ -162,39 +162,39 @@ function enhanceHtml(rawHtml: string): string {
 		}
 	);
 
-	// Tables - Enhanced with modern styling and mobile responsiveness
+	// Tables - Enhanced with modern styling and mobile responsiveness for both themes
 	html = html.replace(
 		/<table>/g,
-		'<div class="overflow-x-auto my-4 sm:my-8 rounded-lg sm:rounded-xl border border-gray-700/50 shadow-lg sm:shadow-xl"><table class="min-w-full bg-gray-800/30 backdrop-blur-sm">'
+		'<div class="overflow-x-auto my-4 sm:my-8 rounded-lg sm:rounded-xl border border-gray-300 dark:border-gray-700/50 shadow-lg sm:shadow-xl"><table class="min-w-full bg-gray-50 dark:bg-gray-800/30 backdrop-blur-sm">'
 	);
 	html = html.replace(/<\/table>/g, "</table></div>");
 	html = html.replace(
 		/<thead>/g,
-		'<thead class="bg-gray-800/60 border-b border-gray-700/50">'
+		'<thead class="bg-gray-200 dark:bg-gray-800/60 border-b border-gray-300 dark:border-gray-700/50">'
 	);
 	html = html.replace(
 		/<th>/g,
-		'<th class="px-3 sm:px-6 py-2 sm:py-4 text-left text-xs sm:text-sm font-semibold text-white/95 border-r border-gray-700/30 last:border-r-0">'
+		'<th class="px-3 sm:px-6 py-2 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-900 dark:text-white/95 border-r border-gray-300 dark:border-gray-700/30 last:border-r-0">'
 	);
 	html = html.replace(
 		/<td>/g,
-		'<td class="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-white/80 border-r border-gray-700/20 last:border-r-0">'
+		'<td class="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-gray-700 dark:text-white/80 border-r border-gray-300 dark:border-gray-700/20 last:border-r-0">'
 	);
 	html = html.replace(
 		/<tr>/g,
-		'<tr class="hover:bg-gray-700/30 transition-all duration-200 border-b border-gray-700/20 last:border-b-0">'
+		'<tr class="hover:bg-gray-100 dark:hover:bg-gray-700/30 transition-all duration-200 border-b border-gray-200 dark:border-gray-700/20 last:border-b-0">'
 	);
 
-	// Paragraphs - Enhanced with better typography for mobile
+	// Paragraphs - Enhanced with better typography for mobile and both themes
 	html = html.replace(
 		/<p>/g,
-		'<p class="text-white/75 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">'
+		'<p class="text-gray-700 dark:text-white/75 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">'
 	);
 
-	// Blockquotes - Enhanced styling for mobile
+	// Blockquotes - Enhanced styling for mobile and both themes
 	html = html.replace(
 		/<blockquote>/g,
-		'<blockquote class="border-l-4 border-orange-500 bg-orange-500/10 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 rounded-r-lg">'
+		'<blockquote class="border-l-4 border-orange-500 bg-orange-100 dark:bg-orange-500/10 pl-4 sm:pl-6 py-3 sm:py-4 my-4 sm:my-6 rounded-r-lg text-gray-800 dark:text-white/90">'
 	);
 	html = html.replace(/<\/blockquote>/g, "</blockquote>");
 
@@ -218,7 +218,7 @@ if (content) {
 ---
 
 <div
-	class="prose prose-invert max-w-none space-y-4 sm:space-y-6"
+	class="prose prose-gray dark:prose-invert max-w-none space-y-4 sm:space-y-6"
 	set:html={html}
 />
 
