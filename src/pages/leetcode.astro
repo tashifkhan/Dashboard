@@ -8,7 +8,7 @@ import { Trophy, Target, Award, ArrowLeft } from "lucide-react";
 
 <Layout title="LeetCode - Tashif Ahmad Khan">
 	<div
-		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 py-8 text-gray-900 dark:text-gray-100"
+		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 py-8 text-gray-900 dark:text-gray-100 transition-colors duration-300"
 	>
 		<div
 			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
@@ -22,24 +22,24 @@ import { Trophy, Target, Award, ArrowLeft } from "lucide-react";
 			<div class="mb-8">
 				<a
 					href="/"
-					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-4 transition-colors"
+					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-6 transition-colors duration-300 font-medium"
 				>
 					<ArrowLeft size={20} className="mr-2" />
 					Back to Home
 				</a>
-				<div class="flex items-center space-x-3 mb-4">
+				<div class="flex items-center space-x-4 mb-6">
 					<div
-						class="p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
+						class="p-4 bg-gradient-to-br from-orange-500/90 to-orange-600/90 backdrop-blur rounded-2xl shadow-lg"
 					>
-						<Trophy className="w-6 h-6 text-white" />
+						<Trophy className="w-8 h-8 text-white" />
 					</div>
 					<div>
 						<h1
-							class="text-4xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+							class="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
 						>
 							LeetCode Profile
 						</h1>
-						<p class="text-gray-600 dark:text-gray-300">
+						<p class="text-gray-600 dark:text-gray-300 text-lg">
 							Competitive programming achievements and statistics
 						</p>
 					</div>
@@ -49,47 +49,77 @@ import { Trophy, Target, Award, ArrowLeft } from "lucide-react";
 			<div class="space-y-8">
 				<!-- Stats Section -->
 				<div
-					class="rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6"
+					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
 				>
-					<div class="flex items-center space-x-3 mb-4 sm:mb-6">
-						<Target className="w-5 h-5 text-orange-500" />
-						<h2
-							class="text-2xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							Statistics
-						</h2>
+					<div
+						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-green-200/40 dark:bg-green-900/20 blur-3xl"
+					>
 					</div>
-					<LeetCodeStats />
+					<div class="relative z-10">
+						<div class="flex items-center space-x-3 mb-6">
+							<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-xl">
+								<Target
+									className="w-6 h-6 text-green-600 dark:text-green-400"
+								/>
+							</div>
+							<h2
+								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+							>
+								Statistics
+							</h2>
+						</div>
+						<LeetCodeStats />
+					</div>
 				</div>
 
 				<!-- Contests Section -->
 				<div
-					class="rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6"
+					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
 				>
-					<div class="flex items-center space-x-3 mb-4 sm:mb-6">
-						<Trophy className="w-5 h-5 text-orange-500" />
-						<h2
-							class="text-2xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							Recent Contests
-						</h2>
+					<div
+						class="absolute -top-20 -left-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-yellow-200/40 dark:bg-yellow-900/20 blur-3xl"
+					>
 					</div>
-					<LeetCodeContests />
+					<div class="relative z-10">
+						<div class="flex items-center space-x-3 mb-6">
+							<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
+								<Trophy
+									className="w-6 h-6 text-yellow-600 dark:text-yellow-400"
+								/>
+							</div>
+							<h2
+								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+							>
+								Recent Contests
+							</h2>
+						</div>
+						<LeetCodeContests />
+					</div>
 				</div>
 
 				<!-- Badges Section -->
 				<div
-					class="rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6"
+					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
 				>
-					<div class="flex items-center space-x-3 mb-4 sm:mb-6">
-						<Award className="w-5 h-5 text-orange-500" />
-						<h2
-							class="text-2xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							Achievement Badges
-						</h2>
+					<div
+						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-purple-200/40 dark:bg-purple-900/20 blur-3xl"
+					>
 					</div>
-					<LeetCodeBadges />
+					<div class="relative z-10">
+						<div class="flex items-center space-x-3 mb-6">
+							<div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+								<Award
+									className="w-6 h-6 text-purple-600 dark:text-purple-400"
+								/>
+							</div>
+							<h2
+								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+							>
+								Achievement Badges
+							</h2>
+						</div>
+						<LeetCodeBadges />
+					</div>
 				</div>
 			</div>
 		</div>

@@ -5,17 +5,30 @@ import { Trophy, Target, Calendar, Award } from "lucide-react";
 const { stats, profile } = leetCodeData;
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+<div
+	class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8"
+>
 	<!-- Total Solved -->
 	<div
 		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between">
 			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">Total Solved</p>
-				<p class="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent">{stats.totalSolved}</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">of {stats.totalQuestions} problems</p>
+				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
+					Total Solved
+				</p>
+				<p
+					class="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent"
+				>
+					{stats.totalSolved}
+				</p>
+				<p class="text-gray-500 dark:text-gray-500 text-sm">
+					of {stats.totalQuestions} problems
+				</p>
 			</div>
 			<div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
 				<Trophy className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -27,11 +40,20 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between">
 			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">Global Ranking</p>
-				<p class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">#{stats.ranking.toLocaleString()}</p>
+				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
+					Global Ranking
+				</p>
+				<p
+					class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent"
+				>
+					#{stats.ranking.toLocaleString()}
+				</p>
 				<p class="text-gray-500 dark:text-gray-500 text-sm">out of millions</p>
 			</div>
 			<div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
@@ -44,12 +66,23 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between">
 			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">Reputation</p>
-				<p class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-400 dark:to-purple-500 bg-clip-text text-transparent">{stats.reputation}</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">contribution points</p>
+				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
+					Reputation
+				</p>
+				<p
+					class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-400 dark:to-purple-500 bg-clip-text text-transparent"
+				>
+					{stats.reputation}
+				</p>
+				<p class="text-gray-500 dark:text-gray-500 text-sm">
+					contribution points
+				</p>
 			</div>
 			<div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
 				<Award className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -61,11 +94,20 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between">
 			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">Contribution</p>
-				<p class="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent">{stats.contributionPoints}</p>
+				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
+					Contribution
+				</p>
+				<p
+					class="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent"
+				>
+					{stats.contributionPoints}
+				</p>
 				<p class="text-gray-500 dark:text-gray-500 text-sm">points earned</p>
 			</div>
 			<div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
@@ -81,16 +123,24 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between mb-4">
-			<h3 class="text-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent">
+			<h3
+				class="text-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent"
+			>
 				Easy
 			</h3>
-			<span class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent"
+			<span
+				class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent"
 				>{stats.easySolved}/{stats.totalEasy}</span
 			>
 		</div>
-		<div class="w-full bg-green-100/60 dark:bg-green-900/30 rounded-full h-3 mb-3">
+		<div
+			class="w-full bg-green-100/60 dark:bg-green-900/30 rounded-full h-3 mb-3"
+		>
 			<div
 				class="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500"
 				style={`width: ${(stats.easySolved / stats.totalEasy) * 100}%`}
@@ -106,16 +156,24 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between mb-4">
-			<h3 class="text-lg font-semibold bg-gradient-to-r from-yellow-600 to-yellow-700 dark:from-yellow-400 dark:to-yellow-500 bg-clip-text text-transparent">
+			<h3
+				class="text-lg font-semibold bg-gradient-to-r from-yellow-600 to-yellow-700 dark:from-yellow-400 dark:to-yellow-500 bg-clip-text text-transparent"
+			>
 				Medium
 			</h3>
-			<span class="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-700 dark:from-yellow-400 dark:to-yellow-500 bg-clip-text text-transparent"
+			<span
+				class="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-700 dark:from-yellow-400 dark:to-yellow-500 bg-clip-text text-transparent"
 				>{stats.mediumSolved}/{stats.totalMedium}</span
 			>
 		</div>
-		<div class="w-full bg-yellow-100/60 dark:bg-yellow-900/30 rounded-full h-3 mb-3">
+		<div
+			class="w-full bg-yellow-100/60 dark:bg-yellow-900/30 rounded-full h-3 mb-3"
+		>
 			<div
 				class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-3 rounded-full transition-all duration-500"
 				style={`width: ${(stats.mediumSolved / stats.totalMedium) * 100}%`}
@@ -131,10 +189,18 @@ const { stats, profile } = leetCodeData;
 	<div
 		class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
 	>
-		<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-red-600 rounded-t-2xl"></div>
+		<div
+			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-red-600 rounded-t-2xl"
+		>
+		</div>
 		<div class="flex items-center justify-between mb-4">
-			<h3 class="text-lg font-semibold bg-gradient-to-r from-red-600 to-red-700 dark:from-red-400 dark:to-red-500 bg-clip-text text-transparent">Hard</h3>
-			<span class="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-700 dark:from-red-400 dark:to-red-500 bg-clip-text text-transparent"
+			<h3
+				class="text-lg font-semibold bg-gradient-to-r from-red-600 to-red-700 dark:from-red-400 dark:to-red-500 bg-clip-text text-transparent"
+			>
+				Hard
+			</h3>
+			<span
+				class="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-700 dark:from-red-400 dark:to-red-500 bg-clip-text text-transparent"
 				>{stats.hardSolved}/{stats.totalHard}</span
 			>
 		</div>
