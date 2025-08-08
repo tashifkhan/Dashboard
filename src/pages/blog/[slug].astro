@@ -28,32 +28,47 @@ if (post.readme) {
 
 <Layout title={post.title}>
 	<div
-		class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
+		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
 	>
-		<header
-			class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300"
+		<div
+			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
 		>
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<div
+				class="h-40 bg-gradient-to-b from-orange-200/40 to-transparent dark:from-orange-900/20"
+			>
+			</div>
+		</div>
+		<header
+			class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 				<a
-					href="/"
-					class="text-orange-600 dark:text-orange-400 cream:text-[var(--accent-color)] hover:underline mb-6 inline-block"
+					href="/#blog-tab"
+					class="text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 hover:underline mb-6 inline-block font-medium"
 				>
-					&larr; Back to Dashboard
+					&larr; Back to Blog
 				</a>
+				<div class="mb-4">
+					<span
+						class="px-3 py-1.5 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-950/30 dark:to-orange-950/30 text-orange-700 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-lg text-sm font-medium"
+					>
+						{post.category}
+					</span>
+				</div>
 				<h1
-					class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2"
+					class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4"
 				>
 					{post.title}
 				</h1>
-				<p class="text-gray-600 dark:text-gray-400 text-sm">
-					Category: {post.category} &bull; Published: {post.date}
+				<p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
+					Published on {post.date}
 				</p>
 			</div>
 		</header>
 
-		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 			<article
-				class="prose prose-lg dark:prose-invert max-w-none"
+				class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 sm:p-8 lg:p-10 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg prose prose-lg dark:prose-invert max-w-none prose-headings:bg-gradient-to-r prose-headings:from-gray-900 prose-headings:to-gray-600 dark:prose-headings:from-white dark:prose-headings:to-gray-300 prose-headings:bg-clip-text prose-headings:text-transparent prose-a:text-orange-600 dark:prose-a:text-orange-400 prose-a:no-underline hover:prose-a:underline prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded"
 				set:html={htmlContent}
 			/>
 		</main>
