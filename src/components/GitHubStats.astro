@@ -11,6 +11,92 @@ import {
 } from "lucide-react";
 
 const { stats, prs, stars, commits } = githubStats;
+
+// Function to get language icon URL from Simple Icons
+function getLanguageIcon(languageName: string): string {
+	const iconMap: { [key: string]: string } = {
+		JavaScript: "javascript",
+		TypeScript: "typescript",
+		Python: "python",
+		Java: "openjdk",
+		"C++": "cplusplus",
+		"C#": "csharp",
+		C: "c",
+		PHP: "php",
+		Ruby: "ruby",
+		Go: "go",
+		Rust: "rust",
+		Swift: "swift",
+		Kotlin: "kotlin",
+		Dart: "dart",
+		HTML: "html5",
+		CSS: "css3",
+		SCSS: "sass",
+		Vue: "vuedotjs",
+		React: "react",
+		Angular: "angular",
+		"Node.js": "nodedotjs",
+		Express: "express",
+		"Next.js": "nextdotjs",
+		"Nuxt.js": "nuxtdotjs",
+		Svelte: "svelte",
+		Flutter: "flutter",
+		"React Native": "react",
+		Ionic: "ionic",
+		Electron: "electron",
+		MongoDB: "mongodb",
+		PostgreSQL: "postgresql",
+		MySQL: "mysql",
+		Redis: "redis",
+		Docker: "docker",
+		Kubernetes: "kubernetes",
+		AWS: "amazonaws",
+		GCP: "googlecloud",
+		Azure: "microsoftazure",
+		Firebase: "firebase",
+		Vercel: "vercel",
+		Netlify: "netlify",
+		Shell: "gnubash",
+		PowerShell: "powershell",
+		"Vim script": "vim",
+		Lua: "lua",
+		R: "r",
+		MATLAB: "matlab",
+		"Objective-C": "objectivec",
+		Scala: "scala",
+		Haskell: "haskell",
+		Clojure: "clojure",
+		Elixir: "elixir",
+		Erlang: "erlang",
+		"F#": "fsharp",
+		Assembly: "assemblyscript",
+		WebAssembly: "webassembly",
+		Solidity: "solidity",
+		YAML: "yaml",
+		JSON: "json",
+		XML: "xml",
+		Markdown: "markdown",
+		LaTeX: "latex",
+		"Jupyter Notebook": "jupyter",
+		Notebook: "jupyter",
+		IPython: "jupyter",
+		Astro: "astro",
+	};
+
+	const iconName =
+		iconMap[languageName] ||
+		languageName.toLowerCase().replace(/[^a-z0-9]/g, "");
+	return `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${iconName}.svg`;
+}
+
+// Function to get fallback icon for unknown languages
+function getFallbackIcon(): string {
+	return `data:image/svg+xml,${encodeURIComponent(`
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+		</svg>
+	`)}`;
+}
 ---
 
 <div
@@ -190,19 +276,35 @@ const { stats, prs, stars, commits } = githubStats;
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 		{
 			stats.topLanguages.slice(0, 6).map((lang) => (
-				<div class="flex items-center justify-between p-3 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300">
+				<div class="flex items-center justify-between p-3 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300 group">
 					<div class="flex items-center space-x-3">
-						<div
-							class="w-4 h-4 rounded-full shadow-sm"
-							style={`background-color: ${lang.color}`}
-						/>
+						<div class="relative flex items-center justify-center w-8 h-8 rounded-lg bg-white dark:bg-gray-700 shadow-sm border border-gray-200/50 dark:border-gray-600/50 group-hover:shadow-md transition-all duration-300">
+							<img
+								src={getLanguageIcon(lang.name)}
+								alt={`${lang.name} icon`}
+								class="w-5 h-5 object-contain language-icon"
+								data-fallback={getFallbackIcon()}
+							/>
+							<div
+								class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full shadow-sm border border-white dark:border-gray-700"
+								style={`background-color: ${lang.color}`}
+							/>
+						</div>
 						<span class="font-medium text-gray-900 dark:text-white">
 							{lang.name}
 						</span>
 					</div>
-					<span class="text-sm text-gray-600 dark:text-gray-300 font-medium">
-						{lang.percentage}%
-					</span>
+					<div class="flex flex-col items-end">
+						<span class="text-sm font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+							{lang.percentage}%
+						</span>
+						<div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mt-1 overflow-hidden">
+							<div
+								class="h-full rounded-full transition-all duration-500"
+								style={`width: ${lang.percentage}%; background-color: ${lang.color}`}
+							/>
+						</div>
+					</div>
 				</div>
 			))
 		}
@@ -281,3 +383,65 @@ const { stats, prs, stars, commits } = githubStats;
 		</div>
 	</div>
 </div>
+
+<script>
+	// Handle language icon loading and styling
+	document.addEventListener("DOMContentLoaded", function () {
+		const languageIcons = document.querySelectorAll(".language-icon");
+
+		languageIcons.forEach((icon) => {
+			const img = icon as HTMLImageElement;
+
+			// Function to apply correct theme styling
+			function applyThemeStyle() {
+				const isDark = document.documentElement.classList.contains("dark");
+
+				// Don't apply filter if this is a fallback icon
+				if (img.src.startsWith("data:image/svg+xml")) {
+					img.style.filter = "none";
+					img.style.color = isDark ? "#9CA3AF" : "#6B7280";
+					return;
+				}
+
+				// Simple Icons are typically black SVGs, so we need to handle them properly
+				if (isDark) {
+					// For dark mode, invert the black icons to white
+					img.style.filter = "invert(1) brightness(0.9)";
+				} else {
+					// For light mode, keep icons darker but not completely black
+					img.style.filter = "brightness(0.7)";
+				}
+			}
+
+			// Set initial styling
+			img.style.opacity = "0.9";
+			img.style.transition = "all 0.3s ease";
+			applyThemeStyle();
+
+			// Handle successful load
+			img.addEventListener("load", function () {
+				this.style.opacity = "1";
+				applyThemeStyle();
+			});
+
+			// Handle error loading
+			img.addEventListener("error", function () {
+				const fallbackUrl = this.dataset.fallback;
+				if (fallbackUrl && this.src !== fallbackUrl) {
+					this.src = fallbackUrl;
+					applyThemeStyle();
+				}
+			});
+
+			// Apply dark mode styling when theme changes
+			const observer = new MutationObserver(() => {
+				applyThemeStyle();
+			});
+
+			observer.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ["class"],
+			});
+		});
+	});
+</script>
