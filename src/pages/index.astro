@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-// import ThemeToggle from "../components/ThemeToggle";
 import ProjectFilters from "../components/ProjectFilters";
 import BlogFilters from "../components/BlogFilters";
 import LeetCodeStats from "../components/LeetCodeStats.astro";
@@ -28,7 +27,12 @@ import { githubStats } from "../data/github";
 const projects: Project[] = allProjects;
 const blogPosts: BlogPost[] = allBlogPosts;
 const { profile } = leetCodeData;
-const { stats } = githubStats;
+const { stats, stars } = githubStats;
+
+const numProjects = projects.length;
+const numBlogPosts = blogPosts.length;
+const totalCommits = stats?.totalCommits ?? 0;
+const totalSolved = leetCodeData?.stats?.totalSolved ?? 0;
 
 const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
 
@@ -47,13 +51,21 @@ const socials = [
 
 <Layout title="Tashif Ahmad Khan - Personal Dashboard">
 	<div
-		class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
+		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans scroll-smooth"
 	>
+		<div
+			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
+		>
+			<div
+				class="h-40 bg-gradient-to-b from-orange-200/40 to-transparent dark:from-orange-900/20"
+			>
+			</div>
+		</div>
 		<!-- Header -->
 		<header
-			class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300"
+			class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 shadow-sm"
 		>
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
 				<div
 					class="flex flex-col sm:flex-row justify-between items-center gap-4"
 				>
@@ -61,11 +73,11 @@ const socials = [
 						<img
 							src="https://avatars.githubusercontent.com/u/75897907?v=4"
 							alt="Tashif Ahmad Khan"
-							class="w-16 h-16 rounded-full border-2 border-orange-500 dark:border-orange-400 ring-orange-200 dark:ring-orange-800"
+							class="w-14 h-14 sm:w-16 sm:h-16 rounded-full ring-2 ring-orange-400/70 dark:ring-orange-500/60 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 shadow-md"
 						/>
 						<div>
 							<h1
-								class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-sans"
+								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
 							>
 								Tashif Ahmad Khan
 							</h1>
@@ -74,7 +86,7 @@ const socials = [
 							</p>
 						</div>
 					</div>
-					<div class="flex items-center space-x-3 sm:space-x-4">
+					<div class="flex items-center space-x-1.5 sm:space-x-2">
 						<!-- <ThemeToggle client:load /> -->
 						{
 							socials.map((social) => (
@@ -82,7 +94,7 @@ const socials = [
 									href={social.link}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+									class="inline-flex p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
 									aria-label={social.label}
 								>
 									<social.icon size={20} />
@@ -96,48 +108,48 @@ const socials = [
 
 		<!-- Navigation -->
 		<nav
-			class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300 overflow-x-auto font-sans"
+			class="sticky top-[56px] sm:top-[64px] z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300 overflow-x-auto font-sans"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div class="flex space-x-4 sm:space-x-8 min-w-max">
+				<div class="flex space-x-1 sm:space-x-2 min-w-max py-2">
 					<button
 						id="projects-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 whitespace-nowrap bg-orange-50/60 dark:bg-orange-950/20"
 					>
 						<Code2 size={20} />
 						<span>Projects</span>
 					</button>
 					<button
 						id="blog-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
 					>
 						<BookOpen size={20} />
 						<span>Blog</span>
 					</button>
 					<button
 						id="leetcode-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
 					>
 						<Code2 size={20} />
 						<span>LeetCode</span>
 					</button>
 					<button
 						id="github-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
 					>
 						<Github size={20} />
 						<span>GitHub</span>
 					</button>
 					<button
 						id="resume-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
 					>
 						<FileText size={20} />
 						<span>Resume</span>
 					</button>
 					<button
 						id="community-tab"
-						class="py-3 sm:py-4 px-2 sm:px-3 inline-flex items-center space-x-2 border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
 					>
 						<Users size={20} />
 						<span>Community</span>
@@ -148,10 +160,82 @@ const socials = [
 
 		<!-- Main Content -->
 		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+			<!-- Hero / Summary -->
+			<section class="mb-10">
+				<div
+					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-gradient-to-br from-white/80 to-gray-50/60 dark:from-gray-900/70 dark:to-gray-950/50 backdrop-blur p-6 sm:p-8"
+				>
+					<div
+						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-orange-200/40 dark:bg-orange-900/20 blur-3xl"
+					>
+					</div>
+					<div class="relative z-10 flex items-center justify-between mb-4">
+						<h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+							Welcome
+						</h2>
+						<button
+							id="hero-toggle"
+							aria-expanded="true"
+							class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium border bg-white/70 dark:bg-gray-900/60 hover:bg-white dark:hover:bg-gray-800/70 text-gray-700 dark:text-gray-200 border-gray-200/60 dark:border-gray-700/60 shadow-sm"
+							>Hide</button
+						>
+					</div>
+					<div class="relative z-10" data-hero-content>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">
+							A snapshot of your activity across projects, GitHub, and LeetCode.
+						</p>
+						<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+							<div
+								class="rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-gray-900/60 p-4"
+							>
+								<div
+									class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
+								>
+									Projects
+								</div>
+								<div class="mt-1 text-2xl font-bold">{numProjects}</div>
+							</div>
+							<div
+								class="rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-gray-900/60 p-4"
+							>
+								<div
+									class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
+								>
+									Blog Posts
+								</div>
+								<div class="mt-1 text-2xl font-bold">{numBlogPosts}</div>
+							</div>
+							<div
+								class="rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-gray-900/60 p-4"
+							>
+								<div
+									class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
+								>
+									Commits
+								</div>
+								<div class="mt-1 text-2xl font-bold">{totalCommits}</div>
+							</div>
+							<div
+								class="rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/60 dark:bg-gray-900/60 p-4"
+							>
+								<div
+									class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400"
+								>
+									LC Solved
+								</div>
+								<div class="mt-1 text-2xl font-bold">{totalSolved}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<!-- Projects Section -->
 			<div id="projects-section">
 				<div class="mb-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2
+						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					>
 						Projects
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
@@ -174,7 +258,7 @@ const socials = [
 							}) => (
 								<a
 									href={`/projects/${project.slug}`}
-									class="block bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300 hover:shadow-lg no-underline group"
+									class="block bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 no-underline group"
 									data-project-item-card
 									data-has-live-link={!!project.live_website_url}
 								>
@@ -193,7 +277,7 @@ const socials = [
 									<div class="mt-4 flex flex-wrap gap-2">
 										{project.languages.map((lang) => (
 											<span
-												class="px-2 sm:px-3 py-1 bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-400 rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
+												class="px-2 sm:px-3 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-full text-xs sm:text-sm font-mono transition-colors duration-300"
 												data-project-language
 											>
 												{lang}
@@ -228,7 +312,9 @@ const socials = [
 			<!-- Blog Section -->
 			<div id="blog-section" class="hidden">
 				<div class="mb-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2
+						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					>
 						Blog
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
@@ -257,14 +343,14 @@ const socials = [
 				{
 					blogPosts.map((post) => (
 						<div
-							class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300"
+							class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
 							data-blog-card
 							data-blog-category={post.category}
 						>
 							<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
 								<div>
 									<span
-										class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-orange-600 dark:text-orange-400 rounded-full text-sm font-mono transition-colors duration-300"
+										class="px-3 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-full text-sm font-mono transition-colors duration-300"
 										data-blog-category
 									>
 										{post.category}
@@ -294,7 +380,9 @@ const socials = [
 			<!-- LeetCode Section -->
 			<div id="leetcode-section" class="hidden">
 				<div class="mb-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2
+						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					>
 						LeetCode Profile
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
@@ -313,7 +401,9 @@ const socials = [
 			<!-- GitHub Section -->
 			<div id="github-section" class="hidden">
 				<div class="mb-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2
+						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					>
 						GitHub Profile
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
@@ -332,7 +422,9 @@ const socials = [
 			<!-- Community Section -->
 			<div id="community-section" class="hidden">
 				<div class="mb-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2
+						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					>
 						Community
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
@@ -342,7 +434,7 @@ const socials = [
 
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div
-						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
 					>
 						<div class="flex items-center space-x-3 mb-4">
 							<Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
@@ -364,7 +456,7 @@ const socials = [
 					</div>
 
 					<div
-						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
 					>
 						<div class="flex items-center space-x-3 mb-4">
 							<Twitter className="w-6 h-6 text-gray-600 dark:text-gray-400" />
@@ -386,7 +478,7 @@ const socials = [
 					</div>
 
 					<div
-						class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700"
+						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
 					>
 						<div class="flex items-center space-x-3 mb-4">
 							<Linkedin className="w-6 h-6 text-gray-600 dark:text-gray-400" />
@@ -432,11 +524,9 @@ const socials = [
 		community: document.getElementById("community-section"),
 	};
 
-	// Function to activate a tab
 	function activateTab(
 		tabId: "projects" | "blog" | "leetcode" | "github" | "resume" | "community"
 	) {
-		// Update tab styles
 		Object.values(tabs).forEach((tab) => {
 			if (!tab) return;
 			tab.classList.remove(
@@ -465,7 +555,6 @@ const socials = [
 			);
 		}
 
-		// Show corresponding section
 		Object.values(sections).forEach((section) => {
 			if (!section) return;
 			section.classList.add("hidden");
@@ -477,7 +566,6 @@ const socials = [
 		}
 	}
 
-	// Add event listeners to tabs
 	tabs.projects?.addEventListener("click", () => activateTab("projects"));
 	tabs.blog?.addEventListener("click", () => activateTab("blog"));
 	tabs.leetcode?.addEventListener("click", () => activateTab("leetcode"));
@@ -695,5 +783,22 @@ const socials = [
 				}
 			});
 		});
+
+		// Welcome banner toggle
+		const heroToggle = document.getElementById("hero-toggle");
+		const heroContent = document.querySelector(
+			"[data-hero-content]"
+		) as HTMLElement | null;
+		if (heroToggle && heroContent) {
+			heroToggle.addEventListener("click", () => {
+				const expanded = heroToggle.getAttribute("aria-expanded") === "true";
+				heroToggle.setAttribute("aria-expanded", (!expanded).toString());
+				heroToggle.textContent = expanded ? "Show" : "Hide";
+				heroContent.style.display = expanded ? "none" : "";
+			});
+		}
+
+		// Default to projects tab on load
+		activateTab("projects");
 	});
 </script>
