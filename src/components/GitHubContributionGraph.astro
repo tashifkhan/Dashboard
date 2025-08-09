@@ -141,42 +141,57 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 	</div>
 
 	{contributionData ? (
-		<div class="relative overflow-x-auto">
-			<!-- Month labels -->
-			<div class="flex justify-start mb-2 pl-12" style="min-width: 800px;">
-				{monthLabels.map(month => (
-					<span class="text-xs text-gray-500 dark:text-gray-400" style="width: 66px; text-align: center;">{month}</span>
-				))}
+		<div class="relative">
+			<!-- Custom Tooltip -->
+			<div 
+				id="contribution-tooltip" 
+				class="absolute z-50 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg border border-gray-700 pointer-events-none opacity-0 transition-opacity duration-200"
+				style="transform: translate(-50%, -100%); margin-top: -8px;"
+			>
+				<div id="tooltip-content"></div>
+				<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
 			</div>
-			
-			<div class="flex" style="min-width: 800px;">
-				<!-- Day labels -->
-				<div class="flex flex-col justify-around text-xs text-gray-500 dark:text-gray-400 pr-2 h-28">
-					<span>Sun</span>
-					<span>Mon</span>
-					<span>Tue</span>
-					<span>Wed</span>
-					<span>Thu</span>
-					<span>Fri</span>
-					<span>Sat</span>
-				</div>
-				
-				<!-- Contribution grid -->
-				<div class="flex space-x-1" id="contribution-grid">
-					{weeks.map((week: any) => (
-						<div class="flex flex-col space-y-1">
-							{week.contributionDays.map((day: any) => {
-								const level = getContributionLevel(day.contributionCount);
-								const colorClass = getContributionColor(level);
-								return (
-									<div
-										class={`w-3 h-3 rounded-sm ${colorClass} hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-help`}
-										title={`${day.contributionCount} contributions on ${formatDate(day.date)}`}
-									></div>
-								);
-							})}
+
+			<div class="contribution-container overflow-x-auto pb-2">
+				<div class="contribution-content">
+					<!-- Month labels -->
+					<div class="flex justify-start mb-2 pl-12">
+						{monthLabels.map(month => (
+							<span class="text-xs text-gray-500 dark:text-gray-400 month-label">{month}</span>
+						))}
+					</div>
+					
+					<div class="flex">
+						<!-- Day labels -->
+						<div class="flex flex-col justify-around text-xs text-gray-500 dark:text-gray-400 pr-2 h-28 flex-shrink-0">
+							<span>Sun</span>
+							<span>Mon</span>
+							<span>Tue</span>
+							<span>Wed</span>
+							<span>Thu</span>
+							<span>Fri</span>
+							<span>Sat</span>
 						</div>
-					))}
+						
+						<!-- Contribution grid -->
+						<div class="flex space-x-1" id="contribution-grid">
+							{weeks.map((week: any) => (
+								<div class="flex flex-col space-y-1">
+									{week.contributionDays.map((day: any) => {
+										const level = getContributionLevel(day.contributionCount);
+										const colorClass = getContributionColor(level);
+										return (
+											<div
+												class={`contribution-day w-3 h-3 rounded-sm ${colorClass} hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-pointer hover:scale-110`}
+												data-date={day.date}
+												data-count={day.contributionCount}
+											></div>
+										);
+									})}
+								</div>
+							))}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -193,32 +208,153 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 </div>
 
 <style>
+	/* Contribution container styles */
+	.contribution-container {
+		min-width: 100%;
+		max-width: 100%;
+	}
+
+	.contribution-content {
+		min-width: 800px;
+		width: max-content;
+	}
+
+	.month-label {
+		width: 66px;
+		text-align: center;
+		flex-shrink: 0;
+	}
+
 	/* Custom scrollbar for the contribution grid */
-	.overflow-x-auto::-webkit-scrollbar {
-		height: 4px;
+	.contribution-container::-webkit-scrollbar {
+		height: 6px;
 	}
 	
-	.overflow-x-auto::-webkit-scrollbar-track {
-		background: transparent;
+	.contribution-container::-webkit-scrollbar-track {
+		background: rgba(156, 163, 175, 0.1);
+		border-radius: 3px;
 	}
 	
-	.overflow-x-auto::-webkit-scrollbar-thumb {
+	.contribution-container::-webkit-scrollbar-thumb {
+		background: rgba(156, 163, 175, 0.4);
+		border-radius: 3px;
+		transition: background-color 0.2s ease;
+	}
+	
+	.contribution-container::-webkit-scrollbar-thumb:hover {
+		background: rgba(156, 163, 175, 0.6);
+	}
+
+	/* Dark mode scrollbar */
+	.dark .contribution-container::-webkit-scrollbar-track {
+		background: rgba(75, 85, 99, 0.2);
+	}
+	
+	.dark .contribution-container::-webkit-scrollbar-thumb {
+		background: rgba(156, 163, 175, 0.3);
+	}
+	
+	.dark .contribution-container::-webkit-scrollbar-thumb:hover {
 		background: rgba(156, 163, 175, 0.5);
-		border-radius: 2px;
 	}
-	
-	.overflow-x-auto::-webkit-scrollbar-thumb:hover {
-		background: rgba(156, 163, 175, 0.7);
+
+	/* Smooth scrolling for Firefox */
+	.contribution-container {
+		scrollbar-width: thin;
+		scrollbar-color: rgba(156, 163, 175, 0.4) rgba(156, 163, 175, 0.1);
+	}
+
+	/* Contribution day hover effects */
+	.contribution-day {
+		position: relative;
+		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.contribution-day:hover {
+		z-index: 10;
 	}
 </style>
 
 <script>
-	// Year selector functionality
+	// Year selector functionality and tooltip management
 	document.addEventListener('DOMContentLoaded', function() {
 		const yearSelector = document.getElementById('year-selector') as HTMLSelectElement;
 		const contributionGrid = document.getElementById('contribution-grid');
+		const tooltip = document.getElementById('contribution-tooltip');
+		const tooltipContent = document.getElementById('tooltip-content');
+		
+		// Initialize tooltip functionality
+		initializeTooltip();
 		
 		if (!yearSelector || !contributionGrid) return;
+		
+		function initializeTooltip() {
+			if (!tooltip || !tooltipContent) return;
+			
+			// Add event listeners to all contribution days
+			const contributionDays = document.querySelectorAll('.contribution-day');
+			
+			contributionDays.forEach(day => {
+				day.addEventListener('mouseenter', handleMouseEnter);
+				day.addEventListener('mouseleave', handleMouseLeave);
+				day.addEventListener('mousemove', handleMouseMove);
+			});
+		}
+		
+		function handleMouseEnter(event: Event) {
+			const target = event.target as HTMLElement;
+			const date = target.getAttribute('data-date');
+			const count = target.getAttribute('data-count');
+			
+			if (!date || !count || !tooltip || !tooltipContent) return;
+			
+			const formattedDate = formatDate(date);
+			const contributionText = count === '1' ? 'contribution' : 'contributions';
+			
+			tooltipContent.innerHTML = `
+				<div class="font-medium">${count} ${contributionText}</div>
+				<div class="text-gray-300 dark:text-gray-400">${formattedDate}</div>
+			`;
+			
+			tooltip.style.opacity = '1';
+			positionTooltip(event as MouseEvent);
+		}
+		
+		function handleMouseLeave() {
+			if (!tooltip) return;
+			tooltip.style.opacity = '0';
+		}
+		
+		function handleMouseMove(event: Event) {
+			positionTooltip(event as MouseEvent);
+		}
+		
+		function positionTooltip(event: MouseEvent) {
+			if (!tooltip) return;
+			
+			const container = document.querySelector('.contribution-container');
+			if (!container) return;
+			
+			const containerRect = container.getBoundingClientRect();
+			const targetRect = (event.target as HTMLElement).getBoundingClientRect();
+			
+			// Position tooltip above the day cell
+			const left = targetRect.left - containerRect.left + (targetRect.width / 2);
+			const top = targetRect.top - containerRect.top;
+			
+			tooltip.style.left = `${left}px`;
+			tooltip.style.top = `${top}px`;
+			
+			// Ensure tooltip doesn't go outside container bounds
+			const tooltipRect = tooltip.getBoundingClientRect();
+			const maxLeft = containerRect.width - tooltipRect.width;
+			
+			if (left < 0) {
+				tooltip.style.left = '0px';
+			} else if (left > maxLeft) {
+				tooltip.style.left = `${maxLeft}px`;
+			}
+		}
 		
 		yearSelector.addEventListener('change', async function() {
 			const selectedValue = this.value;
@@ -276,6 +412,9 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 				// Update the header info
 				updateHeaderInfo(filteredWeeks, fromDate, toDate);
 				
+				// Re-initialize tooltip for new elements
+				setTimeout(initializeTooltip, 100);
+				
 			} catch (error) {
 				console.error('Error fetching contribution data:', error);
 				contributionGrid.innerHTML = '<div class="flex items-center justify-center h-28 text-gray-500 dark:text-gray-400">Error loading data</div>';
@@ -320,8 +459,9 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 						const level = getContributionLevel(day.contributionCount);
 						const colorClass = getContributionColor(level);
 						return `<div
-							class="${colorClass} w-3 h-3 rounded-sm hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-help"
-							title="${day.contributionCount} contributions on ${formatDate(day.date)}"
+							class="contribution-day ${colorClass} w-3 h-3 rounded-sm hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-pointer hover:scale-110"
+							data-date="${day.date}"
+							data-count="${day.contributionCount}"
 						></div>`;
 					}).join('')}
 				</div>
