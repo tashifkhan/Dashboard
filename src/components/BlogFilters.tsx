@@ -2,27 +2,34 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 interface Props {
-	onSearch: (term: string) => void;
-	onCategoryChange: (category: string) => void;
 	categories: string[];
 }
 
-export default function BlogFilters({
-	onSearch,
-	onCategoryChange,
-	categories,
-}: Props) {
+export default function BlogFilters({ categories }: Props) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("all");
 
 	const handleSearch = (value: string) => {
 		setSearchTerm(value);
-		onSearch(value);
+		// Dispatch custom event for search
+		console.log("BlogFilters: Dispatching search event with term:", value);
+		const searchEvent = new CustomEvent("blog-search", {
+			detail: { term: value },
+		});
+		document.dispatchEvent(searchEvent);
 	};
 
 	const handleCategoryChange = (category: string) => {
 		setSelectedCategory(category);
-		onCategoryChange(category);
+		// Dispatch custom event for category change
+		console.log(
+			"BlogFilters: Dispatching category event with category:",
+			category
+		);
+		const categoryEvent = new CustomEvent("blog-category", {
+			detail: { category },
+		});
+		document.dispatchEvent(categoryEvent);
 	};
 
 	return (

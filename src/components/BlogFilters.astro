@@ -1,11 +1,6 @@
 ---
 import BlogFiltersComponent from "./BlogFilters.tsx";
-const { onSearch, onCategoryChange, categories } = Astro.props;
+const { categories } = Astro.props;
 ---
 
-<BlogFiltersComponent
-	client:load
-	onSearch={onSearch}
-	onCategoryChange={onCategoryChange}
-	categories={categories}
-/>
+<BlogFiltersComponent client:load categories={categories} />
