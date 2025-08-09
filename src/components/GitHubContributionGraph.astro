@@ -152,18 +152,18 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 				<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
 			</div>
 
-			<div class="contribution-container overflow-x-auto pb-2">
+			<div class="contribution-container">
 				<div class="contribution-content">
 					<!-- Month labels -->
 					<div class="flex justify-start mb-2 pl-12">
 						{monthLabels.map(month => (
-							<span class="text-xs text-gray-500 dark:text-gray-400 month-label">{month}</span>
+							<span class="month-label text-xs text-gray-500 dark:text-gray-400">{month}</span>
 						))}
 					</div>
 					
-					<div class="flex">
+					<div class="contribution-grid-wrapper">
 						<!-- Day labels -->
-						<div class="flex flex-col justify-around text-xs text-gray-500 dark:text-gray-400 pr-2 h-28 flex-shrink-0">
+						<div class="day-labels flex flex-col justify-around text-xs text-gray-500 dark:text-gray-400 h-28">
 							<span>Sun</span>
 							<span>Mon</span>
 							<span>Tue</span>
@@ -174,9 +174,9 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 						</div>
 						
 						<!-- Contribution grid -->
-						<div class="flex space-x-1" id="contribution-grid">
+						<div class="contribution-weeks flex space-x-1" id="contribution-grid">
 							{weeks.map((week: any) => (
-								<div class="flex flex-col space-y-1">
+								<div class="contribution-week flex flex-col space-y-1">
 									{week.contributionDays.map((day: any) => {
 										const level = getContributionLevel(day.contributionCount);
 										const colorClass = getContributionColor(level);
@@ -208,41 +208,75 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 </div>
 
 <style>
-	/* Contribution container styles */
+	/* Contribution container styles with proper overflow and min-width */
 	.contribution-container {
-		min-width: 100%;
-		max-width: 100%;
+		width: 100%;
+		overflow-x: auto;
+		overflow-y: hidden;
+		/* Ensure smooth scrolling on all browsers */
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.contribution-content {
-		min-width: 800px;
+		/* Minimum width to ensure all 52 weeks are visible */
+		min-width: 900px;
 		width: max-content;
+		/* Prevent content from shrinking */
+		flex-shrink: 0;
 	}
 
 	.month-label {
 		width: 66px;
 		text-align: center;
 		flex-shrink: 0;
+		display: inline-block;
+	}
+
+	/* Grid container with proper spacing */
+	.contribution-grid-wrapper {
+		min-width: 900px;
+		display: flex;
+		align-items: flex-start;
+	}
+
+	/* Day labels container */
+	.day-labels {
+		width: 48px;
+		flex-shrink: 0;
+		margin-right: 8px;
+	}
+
+	/* Contribution weeks container */
+	.contribution-weeks {
+		flex: 1;
+		min-width: calc(900px - 56px); /* Account for day labels width */
 	}
 
 	/* Custom scrollbar for the contribution grid */
 	.contribution-container::-webkit-scrollbar {
-		height: 6px;
+		height: 8px;
 	}
 	
 	.contribution-container::-webkit-scrollbar-track {
 		background: rgba(156, 163, 175, 0.1);
-		border-radius: 3px;
+		border-radius: 4px;
+		margin: 0 4px;
 	}
 	
 	.contribution-container::-webkit-scrollbar-thumb {
 		background: rgba(156, 163, 175, 0.4);
-		border-radius: 3px;
+		border-radius: 4px;
 		transition: background-color 0.2s ease;
+		min-width: 20px;
 	}
 	
 	.contribution-container::-webkit-scrollbar-thumb:hover {
 		background: rgba(156, 163, 175, 0.6);
+	}
+
+	.contribution-container::-webkit-scrollbar-thumb:active {
+		background: rgba(156, 163, 175, 0.8);
 	}
 
 	/* Dark mode scrollbar */
@@ -258,20 +292,47 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 		background: rgba(156, 163, 175, 0.5);
 	}
 
+	.dark .contribution-container::-webkit-scrollbar-thumb:active {
+		background: rgba(156, 163, 175, 0.7);
+	}
+
 	/* Smooth scrolling for Firefox */
 	.contribution-container {
 		scrollbar-width: thin;
 		scrollbar-color: rgba(156, 163, 175, 0.4) rgba(156, 163, 175, 0.1);
 	}
 
+	/* Ensure proper spacing for mobile */
+	@media (max-width: 640px) {
+		.contribution-content {
+			min-width: 900px; /* Maintain minimum width even on mobile */
+		}
+		
+		.contribution-container {
+			/* Show scrollbar on mobile for better UX */
+			scrollbar-width: auto;
+		}
+		
+		.contribution-container::-webkit-scrollbar {
+			height: 10px;
+		}
+	}
+
 	/* Contribution day hover effects */
 	.contribution-day {
 		position: relative;
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		flex-shrink: 0;
 	}
 
 	.contribution-day:hover {
 		z-index: 10;
+	}
+
+	/* Ensure week columns don't compress */
+	.contribution-week {
+		flex-shrink: 0;
+		width: 14px; /* Fixed width for each week column */
 	}
 </style>
 
@@ -454,7 +515,7 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 			if (!grid) return;
 			
 			grid.innerHTML = weeks.map(week => `
-				<div class="flex flex-col space-y-1">
+				<div class="contribution-week flex flex-col space-y-1">
 					${week.contributionDays.map((day: any) => {
 						const level = getContributionLevel(day.contributionCount);
 						const colorClass = getContributionColor(level);
