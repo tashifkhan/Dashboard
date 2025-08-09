@@ -146,7 +146,6 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 			<div 
 				id="contribution-tooltip" 
 				class="absolute z-50 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg border border-gray-700 pointer-events-none opacity-0 transition-opacity duration-200"
-				style="transform: translate(-50%, -100%); margin-top: -8px;"
 			>
 				<div id="tooltip-content"></div>
 				<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
@@ -399,14 +398,48 @@ const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Se
 			const containerRect = container.getBoundingClientRect();
 			const targetRect = (event.target as HTMLElement).getBoundingClientRect();
 			
-			// Position tooltip above the day cell
+			// Get the day of week from the target element's position
+			const target = event.target as HTMLElement;
+			const weekColumn = target.closest('.contribution-week');
+			if (!weekColumn) return;
+			
+			const dayElements = weekColumn.querySelectorAll('.contribution-day');
+			const dayIndex = Array.from(dayElements).indexOf(target);
+			
+			// Position tooltip above or below based on day of week
+			// Top 3 days (Sun=0, Mon=1, Tue=2) show tooltip below, others show above
+			const showBelow = dayIndex <= 2;
+			
 			const left = targetRect.left - containerRect.left + (targetRect.width / 2);
-			const top = targetRect.top - containerRect.top;
+			
+			if (showBelow) {
+				// Position tooltip below the day cell
+				const top = targetRect.bottom - containerRect.top + 8;
+				tooltip.style.top = `${top}px`;
+				tooltip.style.transform = 'translate(-50%, 0)';
+				
+				// Update arrow to point up (for bottom tooltip)
+				const arrow = tooltip.querySelector('.absolute.top-full');
+				if (arrow) {
+					arrow.className = 'absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-900 dark:border-b-gray-800';
+				}
+			} else {
+				// Position tooltip above the day cell (original behavior)
+				const top = targetRect.top - containerRect.top;
+				tooltip.style.top = `${top}px`;
+				tooltip.style.transform = 'translate(-50%, -100%)';
+				tooltip.style.marginTop = '-8px';
+				
+				// Update arrow to point down (for top tooltip)
+				const arrow = tooltip.querySelector('.absolute.bottom-full, .absolute.top-full');
+				if (arrow) {
+					arrow.className = 'absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800';
+				}
+			}
 			
 			tooltip.style.left = `${left}px`;
-			tooltip.style.top = `${top}px`;
 			
-			// Ensure tooltip doesn't go outside container bounds
+			// Ensure tooltip doesn't go outside container bounds horizontally
 			const tooltipRect = tooltip.getBoundingClientRect();
 			const maxLeft = containerRect.width - tooltipRect.width;
 			
