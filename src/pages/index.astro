@@ -20,12 +20,37 @@ import {
 	FileText,
 } from "lucide-react";
 import { allProjects, type Project } from "../data/projects";
-import { allBlogPosts, type BlogPost } from "../data/blog";
 import { leetCodeData } from "../data/leetcode";
 import { githubStats } from "../data/github";
 
 const projects: Project[] = allProjects;
-const blogPosts: BlogPost[] = allBlogPosts;
+
+// Fetch blog posts from external API
+type RemotePost = {
+	title: string;
+	date: string; // ISO date
+	author: string;
+	socials: string[];
+	tags: string[];
+	excerpt: string;
+	slug: string;
+};
+
+let blogPosts: RemotePost[] = [];
+try {
+	const res = await fetch("https://blog.tashif.codes/api/posts.json");
+	if (res.ok) {
+		blogPosts = (await res.json()) as RemotePost[];
+	} else {
+		console.error(
+			"Failed to fetch remote blog posts:",
+			res.status,
+			res.statusText
+		);
+	}
+} catch (err) {
+	console.error("Error fetching remote blog posts:", err);
+}
 const { profile } = leetCodeData;
 const { stats, stars } = githubStats;
 
@@ -34,7 +59,12 @@ const numBlogPosts = blogPosts.length;
 const totalCommits = stats?.totalCommits ?? 0;
 const totalSolved = leetCodeData?.stats?.totalSolved ?? 0;
 
-const blogCategories = [...new Set(blogPosts.map((post) => post.category))];
+// Use tags from remote posts as categories for filtering
+const blogCategories = [
+	...new Set(
+		blogPosts.flatMap((post) => (Array.isArray(post.tags) ? post.tags : []))
+	),
+];
 
 const socials = [
 	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
@@ -365,41 +395,61 @@ const socials = [
 						document.dispatchEvent(categoryEvent);
 					}}
 				/>
-				{
-					blogPosts.map((post) => (
-						<div
-							class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
-							data-blog-card
-							data-blog-category={post.category}
-						>
-							<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
-								<div>
-									<span
-										class="px-3 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-full text-sm font-mono transition-colors duration-300"
-										data-blog-category
-									>
-										{post.category}
-									</span>
-									<h3
-										class="mt-2 text-xl font-semibold text-gray-900 dark:text-white"
-										data-blog-title
-									>
-										{post.title}
-									</h3>
-								</div>
-								<span class="text-gray-500 dark:text-gray-400 text-sm">
-									{post.date}
-								</span>
-							</div>
-							<a
-								href={`/blog/${post.slug}`}
-								class="mt-4 inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
-							>
-								Read More <ExternalLink size={16} className="ml-1" />
-							</a>
+				<div class="space-y-6">
+					{
+						blogPosts.length > 0 ? (
+							blogPosts.map((post) => (
+								<a
+									href={`https://blog.tashif.codes/blog/${post.slug}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="block bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg hover:scale-[1.01] hover:border-orange-300/50 dark:hover:border-orange-400/50 no-underline"
+									data-blog-card
+									data-blog-tags={(post.tags || []).join(",")}
+								>
+									<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
+										<div>
+											<div class="flex flex-wrap gap-2" data-blog-tags-container>
+												{(post.tags || []).map((tag) => (
+													<span
+														class="px-3 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-full text-sm font-mono transition-colors duration-300"
+														data-blog-tag
+													>
+														{tag}
+													</span>
+												))}
+											</div>
+											<h3
+												class="mt-2 text-xl font-semibold text-gray-900 dark:text-white"
+												data-blog-title
+											>
+												{post.title}
+											</h3>
+											<p
+												class="mt-2 text-gray-600 dark:text-gray-300 text-sm"
+												data-blog-excerpt
+											>
+												{post.excerpt}
+											</p>
+										</div>
+										<span class="text-gray-500 dark:text-gray-400 text-sm">
+											{new Date(post.date).toLocaleDateString()}
+										</span>
+									</div>
+									<div class="mt-4 inline-flex items-center text-orange-600 dark:text-orange-400 group-hover:text-orange-800 dark:group-hover:text-orange-300">
+										View More <ExternalLink size={16} className="ml-1" />
+									</div>
+								</a>
+							))
+						) : (
+						<div class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 text-center">
+							<p class="text-gray-600 dark:text-gray-300">
+								Unable to load blog posts from external API.
+							</p>
 						</div>
-					))
+					)
 				}
+				</div>
 			</div>
 
 			<!-- LeetCode Section -->
@@ -724,21 +774,22 @@ const socials = [
 		);
 	});
 
-	// Blog search and filter functionality
+	// Blog search and filter functionality (title + tags)
 	document.addEventListener("blog-search", (e: Event) => {
 		const searchTerm = (e as CustomEvent).detail.term;
 		const blogCards = document.querySelectorAll("[data-blog-card]");
 
 		blogCards.forEach((card) => {
 			const title = card.querySelector("[data-blog-title]")?.textContent || "";
-			const category =
-				card.querySelector("[data-blog-category]")?.textContent || "";
+			const tags = Array.from(card.querySelectorAll("[data-blog-tag]")).map(
+				(el) => el.textContent || ""
+			);
 
 			// Use enhanced search for better matching
 			const titleMatch = enhancedSearch(title, searchTerm);
-			const categoryMatch = enhancedSearch(category, searchTerm);
+			const tagMatch = tags.some((t) => enhancedSearch(t, searchTerm));
 
-			const matches = titleMatch || categoryMatch;
+			const matches = titleMatch || tagMatch;
 			card.classList.toggle("hidden", !matches);
 		});
 	});
@@ -748,11 +799,11 @@ const socials = [
 		const blogCards = document.querySelectorAll("[data-blog-card]");
 
 		blogCards.forEach((card) => {
-			const blogCategory = card.getAttribute("data-blog-category");
-			card.classList.toggle(
-				"hidden",
-				category !== "all" && blogCategory !== category
-			);
+			const tags = (card.getAttribute("data-blog-tags") || "")
+				.split(",")
+				.filter(Boolean);
+			const matches = category === "all" || tags.includes(category);
+			card.classList.toggle("hidden", !matches);
 		});
 	});
 
