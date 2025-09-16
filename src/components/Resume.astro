@@ -20,7 +20,8 @@ import {
 	<!-- Navigation Sidebar -->
 	<div class="lg:w-64 flex-shrink-0">
 		<div
-			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg sticky top-6"
+			id="resume-sidebar"
+			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg sticky top-6 z-30 max-h-[calc(100vh-3rem)] overflow-y-auto transition-all duration-300"
 		>
 			<h3
 				class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4 flex items-center"
@@ -1311,14 +1312,19 @@ import {
 			}
 		}
 
-		// Function to scroll to section
+		// Function to scroll to section with proper offset
 		/** @param {string} sectionId */
 		function scrollToSection(sectionId) {
 			const section = document.getElementById(sectionId);
 			if (section) {
-				section.scrollIntoView({
+				// Calculate offset to account for sticky sidebar and spacing
+				const yOffset = -80;
+				const y =
+					section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+				window.scrollTo({
+					top: y,
 					behavior: "smooth",
-					block: "start",
 				});
 			}
 		}
@@ -1338,17 +1344,26 @@ import {
 		// Intersection Observer to update active nav link based on scroll position
 		const observerOptions = {
 			root: null,
-			rootMargin: "-20% 0px -70% 0px",
-			threshold: 0,
+			rootMargin: "-10% 0px -60% 0px", // Improved margins for better section detection
+			threshold: [0, 0.1, 0.5, 1],
 		};
 
 		const observer = new IntersectionObserver((entries) => {
+			// Find the entry with the highest intersection ratio
+			let maxEntry = null;
+			let maxRatio = 0;
+
 			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const sectionId = entry.target.id;
-					updateActiveNavLink(sectionId);
+				if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+					maxEntry = entry;
+					maxRatio = entry.intersectionRatio;
 				}
 			});
+
+			if (maxEntry) {
+				const sectionId = maxEntry.target.id;
+				updateActiveNavLink(sectionId);
+			}
 		}, observerOptions);
 
 		// Observe all sections
