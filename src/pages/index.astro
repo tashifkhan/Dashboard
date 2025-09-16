@@ -2,12 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import ProjectFilters from "../components/ProjectFilters";
 import BlogFilters from "../components/BlogFilters";
+import BlogCard from "../components/BlogCard.astro";
 import LeetCodeStats from "../components/LeetCodeStats.astro";
 import GitHubStats from "../components/GitHubStats.astro";
 import LeetCodeContests from "../components/LeetCodeContests.astro";
 import LeetCodeBadges from "../components/LeetCodeBadges.astro";
 import Resume from "../components/Resume.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
 import {
 	Github,
 	Twitter,
@@ -44,6 +44,10 @@ try {
 	const res = await fetch("https://blog.tashif.codes/api/posts.json");
 	if (res.ok) {
 		blogPosts = (await res.json()) as RemotePost[];
+		// Sort posts by date desc to ensure the latest is featured first
+		blogPosts.sort(
+			(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+		);
 	} else {
 		console.error(
 			"Failed to fetch remote blog posts:",
@@ -134,7 +138,6 @@ const socials = [
 						</div>
 					</div>
 					<div class="flex items-center space-x-1.5 sm:space-x-2">
-						<ThemeToggle client:load />
 						{
 							socials.map((social) => (
 								<a
@@ -329,72 +332,75 @@ const socials = [
 					<h2
 						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
 					>
-						Blog
+						Latest Articles
 					</h2>
 					<p class="text-gray-600 dark:text-gray-300">
-						Thoughts on technology and development
+						Insights, tutorials, and thoughts on modern development
 					</p>
 				</div>
 
 				<BlogFilters client:load categories={blogCategories} />
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					{
-						blogPosts.length > 0 ? (
-							blogPosts.map((post) => (
+				{
+					blogPosts.length > 0 ? (
+						<div class="space-y-8">
+							{/* Featured post */}
+							<section class="mb-8">
+								<BlogCard post={blogPosts[0]} variant="featured" index={0} />
+							</section>
+
+							{/* Remaining posts in mixed layout */}
+							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+								{blogPosts.slice(1).map((post, idx) => (
+									<BlogCard post={post} variant="default" index={idx + 1} />
+								))}
+							</div>
+
+							{/* Enhanced CTA */}
+							<div class="mt-12 text-center">
+								<div class="inline-flex flex-col items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 border border-orange-200/60 dark:border-orange-800/60">
+									<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+										Want to read more?
+									</h3>
+									<p class="text-gray-600 dark:text-gray-300 text-sm max-w-md">
+										Explore all articles on my blog for deeper insights into web
+										development, programming, and tech insights.
+									</p>
+									<a
+										href="https://blog.tashif.codes"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-medium hover:from-orange-600 hover:to-red-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 transform-gpu"
+									>
+										Visit Blog <ExternalLink size={18} />
+									</a>
+								</div>
+							</div>
+						</div>
+					) : (
+						<div class="text-center py-12">
+							<div class="inline-flex flex-col items-center gap-4 p-8 rounded-2xl bg-white/70 dark:bg-gray-900/50 backdrop-blur border border-gray-200/60 dark:border-gray-700/60">
+								<div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+									<ExternalLink className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+								</div>
+								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+									No posts available
+								</h3>
+								<p class="text-gray-600 dark:text-gray-300 text-sm max-w-md">
+									Unable to load blog posts from the external API. Please check
+									your connection or try again later.
+								</p>
 								<a
-									href={`https://blog.tashif.codes/blog/${post.slug}`}
+									href="https://blog.tashif.codes"
 									target="_blank"
 									rel="noopener noreferrer"
-									class="block bg-white/70 dark:bg-gray-900/50 backdrop-blur p-4 sm:p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg hover:scale-[1.01] hover:border-orange-300/50 dark:hover:border-orange-400/50 no-underline"
-									data-blog-card
-									data-blog-tags={(post.tags || []).join(",")}
+									class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 font-medium transition-colors"
 								>
-									<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
-										<div>
-											<div
-												class="flex flex-wrap gap-2"
-												data-blog-tags-container
-											>
-												{(post.tags || []).map((tag) => (
-													<span
-														class="px-3 py-1 bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300 border border-orange-200/60 dark:border-orange-800/60 rounded-full text-sm font-mono transition-colors duration-300"
-														data-blog-tag
-													>
-														{tag}
-													</span>
-												))}
-											</div>
-											<h3
-												class="mt-2 text-xl font-semibold text-gray-900 dark:text-white"
-												data-blog-title
-											>
-												{post.title}
-											</h3>
-											<p
-												class="mt-2 text-gray-600 dark:text-gray-300 text-sm"
-												data-blog-excerpt
-											>
-												{post.excerpt}
-											</p>
-										</div>
-										<span class="text-gray-500 dark:text-gray-400 text-sm">
-											{new Date(post.date).toLocaleDateString()}
-										</span>
-									</div>
-									<div class="mt-4 inline-flex items-center text-orange-600 dark:text-orange-400 group-hover:text-orange-800 dark:group-hover:text-orange-300">
-										View More <ExternalLink size={16} className="ml-1" />
-									</div>
+									Visit blog directly <ExternalLink size={16} />
 								</a>
-							))
-						) : (
-							<div class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 text-center">
-								<p class="text-gray-600 dark:text-gray-300">
-									Unable to load blog posts from external API.
-								</p>
 							</div>
-						)
-					}
-				</div>
+						</div>
+					)
+				}
 			</div>
 
 			<!-- LeetCode Section -->

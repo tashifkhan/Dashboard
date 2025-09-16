@@ -1,0 +1,209 @@
+---
+import { Calendar, Clock, ExternalLink, Star, TrendingUp, ArrowRight } from "lucide-react";
+
+type RemotePost = {
+	title: string;
+	date: string; // ISO date
+	author: string;
+	socials: string[];
+	tags: string[];
+	excerpt: string;
+	slug: string;
+};
+
+type Props = {
+	post: RemotePost;
+	variant?: "default" | "featured" | "compact" | "spotlight";
+	index?: number;
+};
+
+const { post, variant = "default", index = 0 } = Astro.props as Props;
+
+const url = `https://blog.tashif.codes/blog/${post.slug}`;
+const dateObj = new Date(post.date);
+const dateText = dateObj.toLocaleDateString('en-US', { 
+	month: 'short', 
+	day: 'numeric', 
+	year: 'numeric' 
+});
+
+// Simplified color palette with fewer, more subtle options
+const gradientSets = [
+	{
+		bg: "from-gray-600 to-gray-800",
+		accent: "from-gray-400 to-gray-600",
+		text: "text-gray-100"
+	},
+	{
+		bg: "from-orange-500 to-orange-700",
+		accent: "from-orange-300 to-orange-500",
+		text: "text-orange-100"
+	},
+	{
+		bg: "from-blue-600 to-blue-800",
+		accent: "from-blue-400 to-blue-600",
+		text: "text-blue-100"
+	}
+];
+
+const hash = Array.from(post.slug).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+const gradientSet = gradientSets[hash % gradientSets.length];
+
+// Estimated read time (rough approximation)
+const readTime = Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
+---
+
+{variant === "featured" ? (
+	<!-- Featured Compact Card -->
+	<article 
+		class="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 transform-gpu animate-in"
+		data-blog-card
+		data-blog-tags={(post.tags || []).join(",")}
+		style={`animation-delay: ${index * 100}ms`}
+	>
+		<a href={url} target="_blank" rel="noopener noreferrer" class="block">
+			<!-- Simplified gradient background -->
+			<div class={`relative h-48 bg-gradient-to-r ${gradientSet.bg} overflow-hidden`}>
+				<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+				
+				<!-- Article metadata overlay -->
+				<div class="absolute bottom-4 left-4 right-4">
+					<div class="flex flex-wrap gap-1.5 mb-3" data-blog-tags-container>
+						{post.tags?.slice(0, 2).map((tag) => (
+							<span
+								class="px-2 py-1 rounded-md text-xs font-medium bg-white/20 backdrop-blur-sm text-white border border-white/30"
+								data-blog-tag
+							>
+								{tag}
+							</span>
+						))}
+					</div>
+					<h2 class="text-white text-xl sm:text-2xl font-bold mb-2 leading-tight" data-blog-title>
+						{post.title}
+					</h2>
+					<div class="flex items-center gap-3 text-white/80 text-sm">
+						<div class="flex items-center gap-1">
+							<Calendar className="w-4 h-4" />
+							<span>{dateText}</span>
+						</div>
+						<div class="flex items-center gap-1">
+							<Clock className="w-4 h-4" />
+							<span>{readTime} min</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Content section -->
+			<div class="p-5">
+				{post.excerpt && (
+					<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 line-clamp-2">
+						{post.excerpt}
+					</p>
+				)}
+				<div class="flex items-center justify-between">
+					<span class="text-gray-500 dark:text-gray-400 text-sm">
+						{post.author || "Tashif Ahmad Khan"}
+					</span>
+					<div class="flex items-center gap-2 text-orange-600 dark:text-orange-400 group-hover:gap-3 transition-all">
+						<span class="font-medium text-sm">Read Article</span>
+						<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+) : (
+	<!-- Default Modern Card -->
+	<article 
+		class="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-800/60 hover:border-orange-300/60 dark:hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 transform-gpu animate-in"
+		data-blog-card
+		data-blog-tags={(post.tags || []).join(",")}
+		style={`animation-delay: ${index * 100}ms`}
+	>
+		<a href={url} target="_blank" rel="noopener noreferrer" class="block">
+			<!-- Compact gradient header -->
+			<div class={`relative h-24 bg-gradient-to-r ${gradientSet.bg} overflow-hidden`}>
+				<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-white/20 transition-all duration-300"></div>
+				<div class="absolute bottom-3 left-4 right-4">
+					<div class="flex items-center justify-between">
+						<div class="flex items-center gap-2 text-white/90 text-xs">
+							<Calendar className="w-3 h-3" />
+							<span>{dateText}</span>
+						</div>
+						<div class="flex items-center gap-1 text-white/90 text-xs">
+							<Clock className="w-3 h-3" />
+							<span>{readTime}m</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Content -->
+			<div class="p-4">
+				<div class="flex flex-wrap gap-1.5 mb-2" data-blog-tags-container>
+					{post.tags?.slice(0, 3).map((tag) => (
+						<span
+							class="px-2 py-0.5 text-xs font-medium rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 group-hover:bg-orange-50 dark:group-hover:bg-orange-950/30 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors"
+							data-blog-tag
+						>
+							{tag}
+						</span>
+					))}
+				</div>
+				
+				<h3 class="text-base font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors" data-blog-title>
+					{post.title}
+				</h3>
+				
+				{post.excerpt && (
+					<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+						{post.excerpt}
+					</p>
+				)}
+				
+				<div class="mt-3 flex items-center justify-between">
+					<span class="text-gray-500 dark:text-gray-400 text-xs">
+						{post.author || "Tashif Ahmad Khan"}
+					</span>
+					<div class="flex items-center gap-1 text-orange-600 dark:text-orange-400 opacity-0 group-hover:opacity-100 transition-all">
+						<span class="text-xs font-medium">Read</span>
+						<ExternalLink className="w-3 h-3" />
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+)}
+
+<style>
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	.animate-in {
+		animation: fadeInUp 0.6s ease-out forwards;
+		opacity: 0;
+	}
+	
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>
