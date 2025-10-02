@@ -629,7 +629,11 @@ const socials = [
 		return queryIndex === queryLower.length;
 	}
 
-	function enhancedSearch(text: string, query: string): boolean {
+	function enhancedSearch(
+		text: string,
+		query: string,
+		exactOnly: boolean
+	): boolean {
 		if (!query.trim()) return true;
 
 		const textLower = text.toLowerCase();
@@ -642,6 +646,9 @@ const socials = [
 			console.log("  -> Exact match found");
 			return true;
 		}
+
+		// If exactOnly flag, skip deeper fuzzy logic
+		if (exactOnly) return false;
 
 		// 2. Word boundary match (matches whole words)
 		const words = textLower.split(/\s+/);
@@ -662,21 +669,16 @@ const socials = [
 		return fuzzyResult;
 	}
 
-	// Project search and filter functionality
+	// Project search and filter functionality (exact matches first, then fuzzy)
 	document.addEventListener("project-search", (e: Event) => {
-		const { term: searchTerm, showLiveOnly } = (e as CustomEvent).detail;
-		console.log(
-			"Project search triggered with term:",
-			searchTerm,
-			"showLiveOnly:",
-			showLiveOnly
+		const { term: searchTerm, showLiveOnly, list } = (e as CustomEvent).detail;
+		const query = (searchTerm || "").trim().toLowerCase();
+		const projectCards = Array.from(
+			document.querySelectorAll("[data-project-item-card]")
 		);
-
-		const projectCards = document.querySelectorAll("[data-project-item-card]");
-		console.log("Found project cards:", projectCards.length);
-
-		let visibleCount = 0;
 		let liveProjectCount = 0;
+		const exactMatches: HTMLElement[] = [];
+		const fuzzyMatches: HTMLElement[] = [];
 
 		projectCards.forEach((cardEl, index) => {
 			const card = cardEl as HTMLElement;
@@ -686,47 +688,65 @@ const socials = [
 				card.querySelector("[data-project-description]")?.textContent || "";
 			const languages = Array.from(
 				card.querySelectorAll("[data-project-language]")
-			).map((lang) => lang.textContent || "");
-
-			// Check if this project has a live link
+			).map((l) => l.textContent || "");
+			const fields = [title, description, ...languages].map((f) =>
+				f.toLowerCase()
+			);
 			const hasLiveLink =
 				card.querySelector("[data-live-link]") !== null ||
 				card.getAttribute("data-has-live-link") === "true";
 			if (hasLiveLink) liveProjectCount++;
 
-			console.log(`Card ${index}:`, {
-				title,
-				description,
-				languages,
-				hasLiveLink,
-				hasLiveLinkElement: card.querySelector("[data-live-link]") !== null,
-				dataHasLiveLink: card.getAttribute("data-has-live-link"),
-			});
+			// Star list filtering
+			let listFilter = true;
+			if (list && list !== "all-projects") {
+				const repoName = card
+					.querySelector("[data-github-link]")
+					?.getAttribute("data-url")
+					?.split("/")
+					?.pop();
+				// @ts-ignore
+				const starLists = window.__STAR_LISTS__ as
+					| { name: string; repositories?: string[] }[]
+					| undefined;
+				const selected = starLists?.find((l) => l.name === list);
+				const repoNames = (selected?.repositories || []).map((r) =>
+					r.split("/").pop()
+				);
+				listFilter = repoName ? repoNames.includes(repoName) : false;
+			}
 
-			// Use enhanced search for better matching
-			const titleMatch = enhancedSearch(title, searchTerm);
-			const descriptionMatch = enhancedSearch(description, searchTerm);
-			const languageMatch = languages.some((lang) =>
-				enhancedSearch(lang, searchTerm)
-			);
+			let isExact = false;
+			let isFuzzy = false;
+			if (!query) {
+				isExact = true; // treat empty query as exact so we skip reordering
+			} else {
+				isExact = fields.some((f) => f.includes(query));
+				if (!isExact) {
+					isFuzzy = fields.some((f) => fuzzySearch(f, query));
+				}
+			}
 
-			const searchMatches = titleMatch || descriptionMatch || languageMatch;
 			const liveFilter = !showLiveOnly || hasLiveLink;
-			const matches = searchMatches && liveFilter;
-
-			console.log(`Card ${index} matches:`, {
-				searchMatches,
-				liveFilter,
-				matches,
-			});
-
-			if (matches) visibleCount++;
+			const matches = (isExact || isFuzzy) && liveFilter && listFilter;
 			card.style.display = matches ? "" : "none";
+
+			if (matches) {
+				if (isExact) exactMatches.push(card);
+				else if (isFuzzy) fuzzyMatches.push(card);
+			}
 		});
 
-		console.log(
-			`Filter results: ${visibleCount} visible cards, ${liveProjectCount} total live projects`
-		);
+		// Re-order DOM for non-empty queries: exact first then fuzzy
+		if (query && projectCards.length) {
+			const gridContainer = (projectCards[0] as HTMLElement).parentElement;
+			if (gridContainer) {
+				const frag = document.createDocumentFragment();
+				exactMatches.forEach((card) => frag.appendChild(card));
+				fuzzyMatches.forEach((card) => frag.appendChild(card));
+				gridContainer.appendChild(frag);
+			}
+		}
 	});
 
 	// Blog search and filter functionality (title + tags)
@@ -748,8 +768,8 @@ const socials = [
 			);
 
 			// Use enhanced search for better matching
-			const titleMatch = enhancedSearch(title, searchTerm);
-			const tagMatch = tags.some((t) => enhancedSearch(t, searchTerm));
+			const titleMatch = enhancedSearch(title, searchTerm, false);
+			const tagMatch = tags.some((t) => enhancedSearch(t, searchTerm, false));
 
 			const matches = titleMatch || tagMatch;
 			console.log(

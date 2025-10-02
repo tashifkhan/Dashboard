@@ -1,22 +1,47 @@
 import { useState, useEffect } from "react";
-import { Search, ExternalLink } from "lucide-react";
+import { Search, ExternalLink, ListFilter } from "lucide-react";
+import { starLists } from "../data/starLists";
+
+interface StarListOption {
+	key: string; // identifier
+	label: string; // display label
+	repos?: string[]; // owner/repo slugs
+}
 
 export default function ProjectFilters() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [showLiveOnly, setShowLiveOnly] = useState(false);
+	const [selectedList, setSelectedList] = useState<string>("all-projects");
+	const [lists, setLists] = useState<StarListOption[]>([]);
+
+	// Initialize from pre-fetched build-time starLists module
+	useEffect(() => {
+		const mapped: StarListOption[] = [
+			{ key: "all-projects", label: "All Projects" },
+			...starLists.map((l) => ({
+				key: l.name,
+				label: l.name,
+				repos: (l.repositories || []).map((r) => r.split("/").pop() || r),
+			})),
+		];
+		setLists(mapped);
+		// Expose globally for existing filter handler referencing window.__STAR_LISTS__
+		// @ts-ignore
+		window.__STAR_LISTS__ = starLists;
+	}, []);
 
 	// Dispatch initial filter state when component mounts
 	useEffect(() => {
 		// Small delay to ensure component is fully hydrated
 		const timer = setTimeout(() => {
 			const searchEvent = new CustomEvent("project-search", {
-				detail: { term: searchTerm, showLiveOnly },
+				detail: { term: searchTerm, showLiveOnly, list: selectedList },
 			});
 			document.dispatchEvent(searchEvent);
 		}, 100);
 
 		return () => clearTimeout(timer);
-	}, []); // Empty dependency array means this runs once on mount
+	}, []); // run once
 
 	const handleSearch = (value: string) => {
 		console.log("ProjectFilters: handleSearch called with:", value);
@@ -24,7 +49,7 @@ export default function ProjectFilters() {
 
 		// Dispatch custom event with current state
 		const searchEvent = new CustomEvent("project-search", {
-			detail: { term: value, showLiveOnly },
+			detail: { term: value, showLiveOnly, list: selectedList },
 		});
 		document.dispatchEvent(searchEvent);
 	};
@@ -37,14 +62,27 @@ export default function ProjectFilters() {
 
 		// Dispatch custom event with both search term and live filter
 		const searchEvent = new CustomEvent("project-search", {
-			detail: { term: searchTerm, showLiveOnly: newShowLiveOnly },
+			detail: {
+				term: searchTerm,
+				showLiveOnly: newShowLiveOnly,
+				list: selectedList,
+			},
+		});
+		document.dispatchEvent(searchEvent);
+	};
+
+	const handleListChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = e.target.value;
+		setSelectedList(value);
+		const searchEvent = new CustomEvent("project-search", {
+			detail: { term: searchTerm, showLiveOnly, list: value },
 		});
 		document.dispatchEvent(searchEvent);
 	};
 
 	return (
 		<div className="mb-6 sm:mb-8">
-			<div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+			<div className="flex flex-col lg:flex-row gap-3 sm:gap-4">
 				<div className="relative flex-1">
 					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 						<Search size={20} className="text-gray-400" />
@@ -57,6 +95,27 @@ export default function ProjectFilters() {
 						className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] rounded-lg bg-white dark:bg-gray-900 cream:bg-[var(--primary-color)] text-gray-900 dark:text-white cream:text-[var(--text-color)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 cream:focus:ring-[var(--accent-color)]"
 					/>
 				</div>
+
+				{/* Star list selector */}
+				<div className="flex items-stretch gap-2">
+					<div className="relative">
+						<select
+							value={selectedList}
+							onChange={handleListChange}
+							className="h-full px-3 py-2 pr-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none"
+						>
+							{lists.map((l) => (
+								<option key={l.key} value={l.key}>
+									{l.label}
+								</option>
+							))}
+						</select>
+						<ListFilter
+							size={16}
+							className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+						/>
+					</div>
+				</div>
 				<button
 					onClick={handleLiveFilter}
 					className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-mono transition-colors flex items-center space-x-1 whitespace-nowrap ${
@@ -68,6 +127,7 @@ export default function ProjectFilters() {
 					<ExternalLink size={14} />
 					<span>Live Only</span>
 				</button>
+				{/* Exact toggle removed: exact matches always prioritized, then fuzzy results appended */}
 			</div>
 		</div>
 	);

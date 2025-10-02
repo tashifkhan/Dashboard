@@ -102,10 +102,16 @@ const projects: Project[] = allProjects;
 		return fuzzySearch(textLower, queryLower);
 	}
 
-	// Listen for filter events from the ProjectFilters component
+	// Listen for filter events: exact matches first then fuzzy; reorders DOM
 	document.addEventListener("project-search", (e: Event) => {
 		const { term: searchTerm, showLiveOnly } = (e as CustomEvent).detail;
-		const projectCards = document.querySelectorAll("[data-project-item-card]");
+		const query = (searchTerm || "").trim().toLowerCase();
+		const projectCards = Array.from(
+			document.querySelectorAll("[data-project-item-card]")
+		);
+		const exactMatches: HTMLElement[] = [];
+		const fuzzyMatches: HTMLElement[] = [];
+
 		projectCards.forEach((el) => {
 			const card = el as HTMLElement;
 			const title =
@@ -115,19 +121,42 @@ const projects: Project[] = allProjects;
 			const languages = Array.from(
 				card.querySelectorAll("[data-project-language]")
 			).map((n) => n.textContent || "");
+			const fields = [title, description, ...languages].map((f) =>
+				f.toLowerCase()
+			);
 			const hasLiveLink =
 				card.querySelector("[data-live-link]") !== null ||
 				card.getAttribute("data-has-live-link") === "true";
-			const titleMatch = enhancedSearch(title, searchTerm);
-			const descriptionMatch = enhancedSearch(description, searchTerm);
-			const languageMatch = languages.some((lang) =>
-				enhancedSearch(lang, searchTerm)
-			);
-			const searchMatches = titleMatch || descriptionMatch || languageMatch;
+
+			let isExact = false;
+			let isFuzzy = false;
+			if (!query) {
+				isExact = true; // keep original order when no query
+			} else {
+				isExact = fields.some((f) => f.includes(query));
+				if (!isExact) {
+					isFuzzy = fields.some((f) => fuzzySearch(f, query));
+				}
+			}
+
 			const liveFilter = !showLiveOnly || hasLiveLink;
-			const matches = searchMatches && liveFilter;
+			const matches = (isExact || isFuzzy) && liveFilter;
 			card.style.display = matches ? "" : "none";
+			if (matches) {
+				if (isExact) exactMatches.push(card);
+				else if (isFuzzy) fuzzyMatches.push(card);
+			}
 		});
+
+		if (query && projectCards.length) {
+			const gridContainer = (projectCards[0] as HTMLElement).parentElement;
+			if (gridContainer) {
+				const frag = document.createDocumentFragment();
+				exactMatches.forEach((c) => frag.appendChild(c));
+				fuzzyMatches.forEach((c) => frag.appendChild(c));
+				gridContainer.appendChild(frag);
+			}
+		}
 	});
 
 	document.addEventListener("DOMContentLoaded", () => {
