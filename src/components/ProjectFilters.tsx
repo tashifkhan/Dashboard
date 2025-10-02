@@ -107,54 +107,51 @@ export default function ProjectFilters() {
 	};
 
 	return (
-		<div className="mb-6 sm:mb-8">
+		<div className="mb-6 sm:mb-8 neo-section bg-background p-4 sm:p-5 border-2">
 			<div className="flex flex-col lg:flex-row gap-3 sm:gap-4">
 				<div className="relative flex-1">
-					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-						<Search size={20} className="text-gray-400" />
+					<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+						<Search size={18} />
 					</div>
 					<input
 						type="text"
-						placeholder="Search projects by title, description, or language..."
+						placeholder="Search projects..."
 						value={searchTerm}
 						onChange={(e) => handleSearch(e.target.value)}
-						className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] rounded-lg bg-white dark:bg-gray-900 cream:bg-[var(--primary-color)] text-gray-900 dark:text-white cream:text-[var(--text-color)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 cream:focus:ring-[var(--accent-color)]"
+						className="neo-input pl-10 w-full rounded-none focus:ring-0 focus:outline-none placeholder:text-muted-foreground/60"
 					/>
 				</div>
-
-				{/* Star list selector */}
 				<div className="flex items-stretch gap-2">
 					<div className="relative">
 						<select
 							data-project-list-select
 							value={selectedList}
 							onChange={handleListChange}
-							className="h-full px-3 py-2 pr-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none"
+							className="neo-input pr-8 h-full rounded-none appearance-none cursor-pointer text-sm font-medium"
 						>
 							{lists.map((l) => (
-								<option key={l.key} value={l.key}>
+								<option key={l.key} value={l.key} className="bg-background">
 									{l.label}
 								</option>
 							))}
 						</select>
 						<ListFilter
 							size={16}
-							className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+							className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
 						/>
 					</div>
+					<button
+						onClick={handleLiveFilter}
+						className={`neo-btn !px-3 !py-2 rounded-none text-xs sm:text-sm font-mono gap-1 ${
+							showLiveOnly
+								? "!bg-primary !text-primary-foreground"
+								: "!bg-accent !text-accent-foreground"
+						}`}
+					>
+						<ExternalLink size={14} />
+						<span>Live</span>
+					</button>
 				</div>
-				<button
-					onClick={handleLiveFilter}
-					className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-mono transition-colors flex items-center space-x-1 whitespace-nowrap ${
-						showLiveOnly
-							? "bg-orange-500 text-white dark:bg-orange-600 cream:bg-[var(--accent-color)] cream:text-white"
-							: "bg-gray-200 dark:bg-gray-800 cream:bg-[var(--primary-color)] text-gray-700 dark:text-gray-300 cream:text-[var(--text-color)] hover:bg-gray-300 dark:hover:bg-gray-700 cream:hover:bg-[var(--accent-color-hover)]"
-					}`}
-				>
-					<ExternalLink size={14} />
-					<span>Live Only</span>
-				</button>
-				{/* Exact toggle removed: exact matches always prioritized, then fuzzy results appended */}
 			</div>
 		</div>
 	);

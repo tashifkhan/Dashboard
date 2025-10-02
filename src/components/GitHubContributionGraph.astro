@@ -1,632 +1,166 @@
 ---
-import { Calendar, ChevronDown, Star, List as ListIcon } from "lucide-react";
+import { Calendar, Star, List as ListIcon } from "lucide-react";
 import { starLists } from "../data/starLists";
 
-// Calculate date range (last 365 days from today)
+// Time range (rolling 365 days)
 const today = new Date();
 const oneYearAgo = new Date(today);
 oneYearAgo.setFullYear(today.getFullYear() - 1);
 
-// Get available years for selector
-const currentYear = today.getFullYear();
-const availableYears = Array.from({length: 6}, (_, i) => currentYear - i);
-
-// Fetch contribution data for the last year
-let contributionData: any = null;
-let totalContributions = 0;
-
+// Fetch raw contribution data (covers multiple years in payload)
+let raw: any = null;
 try {
-	const response = await fetch(`https://github-stats.tashif.codes/tashifkhan/contributions`);
-	if (response.ok) {
-		const data = await response.json();
-		// We need to process data from multiple years if the date range spans across years
-		const yearsToFetch = [oneYearAgo.getFullYear(), today.getFullYear()];
-		const allWeeks: any[] = [];
-		
-		for (const year of yearsToFetch) {
-			if (data.contributions[year]?.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
-				allWeeks.push(...data.contributions[year].data.user.contributionsCollection.contributionCalendar.weeks);
-			}
-		}
-		
-		// Filter weeks to only include the last 365 days
-		const filteredWeeks = allWeeks.map(week => ({
-			...week,
-			contributionDays: week.contributionDays.filter((day: any) => {
-				const dayDate = new Date(day.date);
-				return dayDate >= oneYearAgo && dayDate <= today;
-			})
-		})).filter(week => week.contributionDays.length > 0);
-		
-		// Calculate total contributions
-		totalContributions = filteredWeeks.reduce((total: number, week: any) => 
-			total + week.contributionDays.reduce((weekTotal: number, day: any) => weekTotal + day.contributionCount, 0), 0
-		);
-		
-		contributionData = { weeks: filteredWeeks };
-	}
-} catch (error) {
-	console.error("Failed to fetch contribution data:", error);
+  const res = await fetch("https://github-stats.tashif.codes/tashifkhan/contributions");
+  if (res.ok) raw = await res.json();
+} catch (e) {
+  raw = null;
 }
 
-// Helper function to get contribution level (0-4) based on count
-function getContributionLevel(count: number): number {
-	if (count === 0) return 0;
-	if (count <= 3) return 1;
-	if (count <= 6) return 2;
-	if (count <= 9) return 3;
-	return 4;
+// Flatten weeks across the two possible years spanned by the rolling window
+function collectWeeks(): any[] {
+  if (!raw) return [];
+  const yrs = [oneYearAgo.getFullYear(), today.getFullYear()];
+  const out: any[] = [];
+  for (const y of yrs) {
+    const weeks = raw?.contributions?.[y]?.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
+    if (Array.isArray(weeks)) out.push(...weeks);
+  }
+  return out;
 }
 
-// Helper function to get color class based on contribution level
-function getContributionColor(level: number): string {
-	const colors = [
-		"bg-gray-100 dark:bg-gray-800/50", // 0 contributions
-		"bg-emerald-200 dark:bg-emerald-900/60", // 1-3 contributions
-		"bg-emerald-300 dark:bg-emerald-700/70", // 4-6 contributions
-		"bg-emerald-400 dark:bg-emerald-600/80", // 7-9 contributions
-		"bg-emerald-500 dark:bg-emerald-500/90", // 10+ contributions
-	];
-	return colors[level] || colors[0];
+const allWeeks = collectWeeks();
+
+// Filter days to rolling range & discard empty weeks
+const weeks = allWeeks
+  .map((w) => ({
+    firstDay: w.firstDay,
+    contributionDays: w.contributionDays.filter((d: any) => {
+      const dDate = new Date(d.date);
+      return dDate >= oneYearAgo && dDate <= today;
+    }),
+  }))
+  .filter((w) => w.contributionDays.length > 0);
+
+// Total contributions
+const totalContributions = weeks.reduce(
+  (acc, w) => acc + w.contributionDays.reduce((s: number, d: any) => s + d.contributionCount, 0),
+  0
+);
+
+// Month labels: pick first week where month starts in visible range
+const monthSet = new Set<string>();
+const monthLabels: { label: string; index: number }[] = [];
+weeks.forEach((week, wi) => {
+  for (const day of week.contributionDays) {
+    const date = new Date(day.date);
+    if (date.getDate() === 1) {
+      const key = date.getMonth() + "-" + date.getFullYear();
+      if (!monthSet.has(key)) {
+        monthSet.add(key);
+        monthLabels.push({ label: date.toLocaleString("en-US", { month: "short" }), index: wi });
+      }
+    }
+  }
+});
+// Ensure first month label if none landed exactly on day 1
+if (monthLabels.length === 0 && weeks.length) {
+  const firstDate = new Date(weeks[0].contributionDays[0].date);
+  monthLabels.push({ label: firstDate.toLocaleString("en-US", { month: "short" }), index: 0 });
 }
 
-// Helper function to format date for tooltip
-function formatDate(dateString: string): string {
-	return new Date(dateString).toLocaleDateString('en-US', {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	});
+function level(count: number) {
+  if (count === 0) return 0;
+  if (count < 3) return 1;
+  if (count < 6) return 2;
+  if (count < 10) return 3;
+  return 4;
 }
 
-// Helper function to format date range
-function formatDateRange(): string {
-	const fromDate = oneYearAgo.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-	const toDate = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-	return `${fromDate} - ${toDate}`;
-}
+const legendLevels = [0, 1, 2, 3, 4];
 
-const weeks = contributionData?.weeks || [];
-const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const starredLists = starLists || [];
+const rangeLabel = `${oneYearAgo.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} – ${today.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
 ---
+<div class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+    <div>
+      <h3 class="text-lg font-semibold tracking-tight">Contribution Activity</h3>
+      <p class="text-[11px] text-muted-foreground">{rangeLabel} • {totalContributions.toLocaleString()} contributions</p>
+    </div>
+    <div class="flex items-center gap-2 text-[10px] text-muted-foreground">
+      <span>Less</span>
+      <div class="flex gap-1">
+        {legendLevels.map((l) => (
+          <span class={`w-3 h-3 border-2 ${l === 0 ? 'bg-background' : l===1 ? 'bg-muted' : l===2 ? 'bg-secondary' : l===3 ? 'bg-accent' : 'bg-primary'}`}></span>
+        ))}
+      </div>
+      <span>More</span>
+    </div>
+  </div>
 
-<div
-	class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg mb-6 sm:mb-8"
->
-	<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-t-2xl"></div>
-	
-	<div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-		<div class="flex items-center space-x-3">
-			<div class="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-				<Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-			</div>
-			<div>
-				<h3 class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-					Contribution Activity
-				</h3>
-				<p class="text-sm text-gray-600 dark:text-gray-400">
-					{formatDateRange()} • {totalContributions.toLocaleString()} contributions
-				</p>
-			</div>
-		</div>
-		
-		<div class="flex items-center space-x-4">
-			<!-- Year Selector -->
-			<div class="relative">
-				<select 
-					id="year-selector"
-					class="appearance-none bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur border border-gray-200/50 dark:border-gray-700/50 rounded-lg px-3 py-2 pr-8 text-sm font-medium text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-				>
-					<option value="last-year">Last 365 days</option>
-					{availableYears.map(year => (
-						<option value={year}>{year}</option>
-					))}
-				</select>
-				<ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-			</div>
-			
-			<!-- Legend -->
-			<div class="flex items-center space-x-2 text-xs text-gray-600 dark:text-gray-400">
-				<span>Less</span>
-				<div class="flex space-x-1">
-					<div class="w-3 h-3 rounded-sm bg-gray-100 dark:bg-gray-800/50"></div>
-					<div class="w-3 h-3 rounded-sm bg-emerald-200 dark:bg-emerald-900/60"></div>
-					<div class="w-3 h-3 rounded-sm bg-emerald-300 dark:bg-emerald-700/70"></div>
-					<div class="w-3 h-3 rounded-sm bg-emerald-400 dark:bg-emerald-600/80"></div>
-					<div class="w-3 h-3 rounded-sm bg-emerald-500 dark:bg-emerald-500/90"></div>
-				</div>
-				<span>More</span>
-			</div>
-		</div>
-	</div>
+  {raw ? (
+    <div class="overflow-x-auto border-2 bg-card p-4">
+      <div class="min-w-[760px] flex flex-col gap-2">
+        <!-- Month labels -->
+        <div class="flex text-[10px] text-muted-foreground font-medium pl-6">
+          {monthLabels.map(m => (
+            <span style={`margin-left: ${m.index * 14}px`} class="w-14 block">{m.label}</span>
+          ))}
+        </div>
+        <!-- Grid -->
+        <div class="flex gap-[2px]" id="gh-contrib-grid">
+          {weeks.map((week: any) => (
+            <div class="flex flex-col gap-[2px]" style="min-width:14px">
+              {week.contributionDays.map((day: any) => (
+                <div
+                  class={`gh-day w-3 h-3 border-2 ${level(day.contributionCount) === 0 ? 'bg-background' : level(day.contributionCount)===1 ? 'bg-muted' : level(day.contributionCount)===2 ? 'bg-secondary' : level(day.contributionCount)===3 ? 'bg-accent' : 'bg-primary'}`}
+                  data-date={day.date}
+                  data-count={day.contributionCount}
+                  title={`${day.contributionCount} on ${new Date(day.date).toLocaleDateString('en-US')}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="neo-card flex items-center gap-3 text-sm">
+      <Calendar className="w-4 h-4" />
+      <span class="text-muted-foreground">Unable to load contributions right now.</span>
+    </div>
+  )}
 
-	{contributionData ? (
-		<div class="relative">
-			<!-- Custom Tooltip -->
-			<div 
-				id="contribution-tooltip" 
-				class="absolute z-50 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg border border-gray-700 pointer-events-none opacity-0 transition-opacity duration-200"
-			>
-				<div id="tooltip-content"></div>
-				<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
-			</div>
-
-			<div class="contribution-container">
-				<div class="contribution-content">
-					<!-- Month labels -->
-					<div class="flex justify-start mb-2 pl-12">
-						{monthLabels.map(month => (
-							<span class="month-label text-xs text-gray-500 dark:text-gray-400">{month}</span>
-						))}
-					</div>
-					
-					<div class="contribution-grid-wrapper">
-						<!-- Day labels -->
-						<div class="day-labels flex flex-col justify-around text-xs text-gray-500 dark:text-gray-400 h-28">
-							<span>Sun</span>
-							<span>Mon</span>
-							<span>Tue</span>
-							<span>Wed</span>
-							<span>Thu</span>
-							<span>Fri</span>
-							<span>Sat</span>
-						</div>
-						
-						<!-- Contribution grid -->
-						<div class="contribution-weeks flex space-x-1" id="contribution-grid">
-							{weeks.map((week: any) => (
-								<div class="contribution-week flex flex-col space-y-1">
-									{week.contributionDays.map((day: any) => {
-										const level = getContributionLevel(day.contributionCount);
-										const colorClass = getContributionColor(level);
-										return (
-											<div
-												class={`contribution-day w-3 h-3 rounded-sm ${colorClass} hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-pointer hover:scale-110`}
-												data-date={day.date}
-												data-count={day.contributionCount}
-											></div>
-										);
-									})}
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	) : (
-		<div class="text-center py-8">
-			<div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl w-fit mx-auto mb-4">
-				<Calendar className="w-8 h-8 text-gray-400 mx-auto" />
-			</div>
-			<p class="text-gray-500 dark:text-gray-400">
-				Unable to load contribution data
-			</p>
-		</div>
-	)}
+  {starLists.length > 0 && (
+    <div class="space-y-3">
+      <h4 class="text-sm font-semibold tracking-tight flex items-center gap-2"><Star className="w-4 h-4" /> Star Lists</h4>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {starLists.map(list => (
+          <button type="button" data-star-list-select={list.name} class="neo-card text-left flex flex-col gap-2 !p-3 hover:bg-accent hover:text-accent-foreground transition-colors">
+            <div class="flex items-start justify-between gap-2">
+              <span class="font-medium text-sm leading-tight line-clamp-1">{list.name}</span>
+              <span class="inline-flex items-center gap-1 text-[10px] font-mono">
+                <ListIcon className="w-3 h-3" />{(list.num_repos ?? list.repositories?.length ?? 0)}
+              </span>
+            </div>
+            {list.description && (<p class="text-[11px] text-muted-foreground line-clamp-3 leading-snug">{list.description}</p>)}
+            <span class="mt-auto text-[10px] opacity-70 group-hover:opacity-100">Filter →</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )}
 </div>
 
-{starredLists.length > 0 && (
-			<div class="mt-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-				<div class="flex items-center gap-3 mb-5">
-					<div class="p-2 rounded-xl bg-amber-100 dark:bg-amber-900/30">
-						<Star className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-					</div>
-					<div>
-						<h3 class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Starred Lists</h3>
-						<p class="text-sm text-gray-600 dark:text-gray-400">Click a list to view matching projects</p>
-					</div>
-				</div>
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{starredLists.map(list => (
-						<button type="button" data-star-list-select={list.name} class="group text-left flex flex-col h-full rounded-xl border border-gray-200/60 dark:border-gray-700/60 bg-white/70 dark:bg-gray-900/60 p-4 hover:border-amber-300 dark:hover:border-amber-600 hover:shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/60">
-							<div class="flex items-start justify-between gap-3 mb-2">
-								<h4 class="font-medium text-gray-900 dark:text-gray-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 line-clamp-1">{list.name}</h4>
-								<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60">
-									<ListIcon className="w-3.5 h-3.5" />
-									{(list.num_repos ?? list.repositories?.length ?? 0)}
-								</span>
-							</div>
-							{list.description && (
-								<p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-3 mb-3">{list.description}</p>
-							)}
-							<div class="mt-auto flex items-center justify-between pt-2 text-[11px] text-gray-500 dark:text-gray-500">
-								<span class="inline-flex items-center gap-1">
-									<Star className="w-3.5 h-3.5 text-amber-500" />
-									{(list.repositories?.length ?? list.num_repos ?? 0)} repos
-								</span>
-								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-amber-600 dark:text-amber-400">Filter →</span>
-							</div>
-						</button>
-					))}
-				</div>
-			</div>
-		)}
-
-<style>
-	/* Contribution container styles with proper overflow and min-width */
-	.contribution-container {
-		width: 100%;
-		overflow-x: auto;
-		overflow-y: hidden;
-		/* Ensure smooth scrolling on all browsers */
-		scroll-behavior: smooth;
-		-webkit-overflow-scrolling: touch;
-	}
-
-	.contribution-content {
-		/* Minimum width to ensure all 52 weeks are visible */
-		min-width: 900px;
-		width: max-content;
-		/* Prevent content from shrinking */
-		flex-shrink: 0;
-	}
-
-	.month-label {
-		width: 66px;
-		text-align: center;
-		flex-shrink: 0;
-		display: inline-block;
-	}
-
-	/* Grid container with proper spacing */
-	.contribution-grid-wrapper {
-		min-width: 900px;
-		display: flex;
-		align-items: flex-start;
-	}
-
-	/* Day labels container */
-	.day-labels {
-		width: 48px;
-		flex-shrink: 0;
-		margin-right: 8px;
-	}
-
-	/* Contribution weeks container */
-	.contribution-weeks {
-		flex: 1;
-		min-width: calc(900px - 56px); /* Account for day labels width */
-	}
-
-	/* Custom scrollbar for the contribution grid */
-	.contribution-container::-webkit-scrollbar {
-		height: 8px;
-	}
-	
-	.contribution-container::-webkit-scrollbar-track {
-		background: rgba(156, 163, 175, 0.1);
-		border-radius: 4px;
-		margin: 0 4px;
-	}
-	
-	.contribution-container::-webkit-scrollbar-thumb {
-		background: rgba(156, 163, 175, 0.4);
-		border-radius: 4px;
-		transition: background-color 0.2s ease;
-		min-width: 20px;
-	}
-	
-	.contribution-container::-webkit-scrollbar-thumb:hover {
-		background: rgba(156, 163, 175, 0.6);
-	}
-
-	.contribution-container::-webkit-scrollbar-thumb:active {
-		background: rgba(156, 163, 175, 0.8);
-	}
-
-	/* Dark mode scrollbar */
-	.dark .contribution-container::-webkit-scrollbar-track {
-		background: rgba(75, 85, 99, 0.2);
-	}
-	
-	.dark .contribution-container::-webkit-scrollbar-thumb {
-		background: rgba(156, 163, 175, 0.3);
-	}
-	
-	.dark .contribution-container::-webkit-scrollbar-thumb:hover {
-		background: rgba(156, 163, 175, 0.5);
-	}
-
-	.dark .contribution-container::-webkit-scrollbar-thumb:active {
-		background: rgba(156, 163, 175, 0.7);
-	}
-
-	/* Smooth scrolling for Firefox */
-	.contribution-container {
-		scrollbar-width: thin;
-		scrollbar-color: rgba(156, 163, 175, 0.4) rgba(156, 163, 175, 0.1);
-	}
-
-	/* Ensure proper spacing for mobile */
-	@media (max-width: 640px) {
-		.contribution-content {
-			min-width: 900px; /* Maintain minimum width even on mobile */
-		}
-		
-		.contribution-container {
-			/* Show scrollbar on mobile for better UX */
-			scrollbar-width: auto;
-		}
-		
-		.contribution-container::-webkit-scrollbar {
-			height: 10px;
-		}
-	}
-
-	/* Contribution day hover effects */
-	.contribution-day {
-		position: relative;
-		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-		flex-shrink: 0;
-	}
-
-	.contribution-day:hover {
-		z-index: 10;
-	}
-
-	/* Ensure week columns don't compress */
-	.contribution-week {
-		flex-shrink: 0;
-		width: 14px; /* Fixed width for each week column */
-	}
-</style>
-
 <script>
-	// Year selector functionality and tooltip management
-	document.addEventListener('DOMContentLoaded', function() {
-		const yearSelector = document.getElementById('year-selector') as HTMLSelectElement;
-		const contributionGrid = document.getElementById('contribution-grid');
-		const tooltip = document.getElementById('contribution-tooltip');
-		const tooltipContent = document.getElementById('tooltip-content');
-		
-		// Initialize tooltip functionality
-		initializeTooltip();
-		
-		if (!yearSelector || !contributionGrid) return;
-		
-		function initializeTooltip() {
-			if (!tooltip || !tooltipContent) return;
-			
-			// Add event listeners to all contribution days
-			const contributionDays = document.querySelectorAll('.contribution-day');
-			
-			contributionDays.forEach(day => {
-				day.addEventListener('mouseenter', handleMouseEnter);
-				day.addEventListener('mouseleave', handleMouseLeave);
-				day.addEventListener('mousemove', handleMouseMove);
-			});
-		}
-		
-		function handleMouseEnter(event: Event) {
-			const target = event.target as HTMLElement;
-			const date = target.getAttribute('data-date');
-			const count = target.getAttribute('data-count');
-			
-			if (!date || !count || !tooltip || !tooltipContent) return;
-			
-			const formattedDate = formatDate(date);
-			const contributionText = count === '1' ? 'contribution' : 'contributions';
-			
-			tooltipContent.innerHTML = `
-				<div class="font-medium">${count} ${contributionText}</div>
-				<div class="text-gray-300 dark:text-gray-400">${formattedDate}</div>
-			`;
-			
-			tooltip.style.opacity = '1';
-			positionTooltip(event as MouseEvent);
-		}
-		
-		function handleMouseLeave() {
-			if (!tooltip) return;
-			tooltip.style.opacity = '0';
-		}
-		
-		function handleMouseMove(event: Event) {
-			positionTooltip(event as MouseEvent);
-		}
-		
-		function positionTooltip(event: MouseEvent) {
-			if (!tooltip) return;
-			
-			const container = document.querySelector('.contribution-container');
-			if (!container) return;
-			
-			const containerRect = container.getBoundingClientRect();
-			const targetRect = (event.target as HTMLElement).getBoundingClientRect();
-			
-			// Get the day of week from the target element's position
-			const target = event.target as HTMLElement;
-			const weekColumn = target.closest('.contribution-week');
-			if (!weekColumn) return;
-			
-			const dayElements = weekColumn.querySelectorAll('.contribution-day');
-			const dayIndex = Array.from(dayElements).indexOf(target);
-			
-			// Position tooltip above or below based on day of week
-			// Top 3 days (Sun=0, Mon=1, Tue=2) show tooltip below, others show above
-			const showBelow = dayIndex <= 2;
-			
-			const left = targetRect.left - containerRect.left + (targetRect.width / 2);
-			
-			if (showBelow) {
-				// Position tooltip below the day cell
-				const top = targetRect.bottom - containerRect.top + 8;
-				tooltip.style.top = `${top}px`;
-				tooltip.style.transform = 'translate(-50%, 0)';
-				
-				// Update arrow to point up (for bottom tooltip)
-				const arrow = tooltip.querySelector('.absolute.top-full');
-				if (arrow) {
-					arrow.className = 'absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-900 dark:border-b-gray-800';
-				}
-			} else {
-				// Position tooltip above the day cell (original behavior)
-				const top = targetRect.top - containerRect.top;
-				tooltip.style.top = `${top}px`;
-				tooltip.style.transform = 'translate(-50%, -100%)';
-				tooltip.style.marginTop = '-8px';
-				
-				// Update arrow to point down (for top tooltip)
-				const arrow = tooltip.querySelector('.absolute.bottom-full, .absolute.top-full');
-				if (arrow) {
-					arrow.className = 'absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800';
-				}
-			}
-			
-			tooltip.style.left = `${left}px`;
-			
-			// Ensure tooltip doesn't go outside container bounds horizontally
-			const tooltipRect = tooltip.getBoundingClientRect();
-			const maxLeft = containerRect.width - tooltipRect.width;
-			
-			if (left < 0) {
-				tooltip.style.left = '0px';
-			} else if (left > maxLeft) {
-				tooltip.style.left = `${maxLeft}px`;
-			}
-		}
-		
-		yearSelector.addEventListener('change', async function() {
-			const selectedValue = this.value;
-			
-			// Show loading state
-			contributionGrid.innerHTML = '<div class="flex items-center justify-center h-28 text-gray-500 dark:text-gray-400">Loading...</div>';
-			
-			try {
-				// Calculate date range based on selection
-				let fromDate: Date, toDate: Date;
-				
-				if (selectedValue === 'last-year') {
-					toDate = new Date();
-					fromDate = new Date(toDate);
-					fromDate.setFullYear(toDate.getFullYear() - 1);
-				} else {
-					// Full calendar year
-					const year = parseInt(selectedValue);
-					fromDate = new Date(year, 0, 1);
-					toDate = new Date(year, 11, 31);
-				}
-				
-				// Fetch new data
-				const response = await fetch(`https://github-stats.tashif.codes/tashifkhan/contributions`);
-				
-				if (!response.ok) throw new Error('Failed to fetch data');
-				
-				const data = await response.json();
-				
-				// Process data for the selected range
-				const yearsToFetch = selectedValue === 'last-year' 
-					? [fromDate.getFullYear(), toDate.getFullYear()]
-					: [parseInt(selectedValue)];
-				
-				const allWeeks: any[] = [];
-				
-				for (const year of yearsToFetch) {
-					if (data.contributions[year]?.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
-						allWeeks.push(...data.contributions[year].data.user.contributionsCollection.contributionCalendar.weeks);
-					}
-				}
-				
-				// Filter weeks for the date range
-				const filteredWeeks = allWeeks.map(week => ({
-					...week,
-					contributionDays: week.contributionDays.filter((day: any) => {
-						const dayDate = new Date(day.date);
-						return dayDate >= fromDate && dayDate <= toDate;
-					})
-				})).filter(week => week.contributionDays.length > 0);
-				
-				// Update the grid
-				updateContributionGrid(filteredWeeks);
-				
-				// Update the header info
-				updateHeaderInfo(filteredWeeks, fromDate, toDate);
-				
-				// Re-initialize tooltip for new elements
-				setTimeout(initializeTooltip, 100);
-				
-			} catch (error) {
-				console.error('Error fetching contribution data:', error);
-				contributionGrid.innerHTML = '<div class="flex items-center justify-center h-28 text-gray-500 dark:text-gray-400">Error loading data</div>';
-			}
-		});
-		
-		function getContributionLevel(count: number): number {
-			if (count === 0) return 0;
-			if (count <= 3) return 1;
-			if (count <= 6) return 2;
-			if (count <= 9) return 3;
-			return 4;
-		}
-		
-		function getContributionColor(level: number): string {
-			const colors = [
-				"bg-gray-100 dark:bg-gray-800/50",
-				"bg-emerald-200 dark:bg-emerald-900/60",
-				"bg-emerald-300 dark:bg-emerald-700/70",
-				"bg-emerald-400 dark:bg-emerald-600/80",
-				"bg-emerald-500 dark:bg-emerald-500/90",
-			];
-			return colors[level] || colors[0];
-		}
-		
-		function formatDate(dateString: string): string {
-			return new Date(dateString).toLocaleDateString('en-US', {
-				weekday: 'long',
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric'
-			});
-		}
-		
-		function updateContributionGrid(weeks: any[]) {
-			const grid = document.getElementById('contribution-grid');
-			if (!grid) return;
-			
-			grid.innerHTML = weeks.map(week => `
-				<div class="contribution-week flex flex-col space-y-1">
-					${week.contributionDays.map((day: any) => {
-						const level = getContributionLevel(day.contributionCount);
-						const colorClass = getContributionColor(level);
-						return `<div
-							class="contribution-day ${colorClass} w-3 h-3 rounded-sm hover:ring-2 hover:ring-emerald-300 dark:hover:ring-emerald-600 transition-all duration-200 cursor-pointer hover:scale-110"
-							data-date="${day.date}"
-							data-count="${day.contributionCount}"
-						></div>`;
-					}).join('')}
-				</div>
-			`).join('');
-		}
-		
-		function updateHeaderInfo(weeks: any[], fromDate: Date, toDate: Date) {
-			const totalContributions = weeks.reduce((total: number, week: any) => 
-				total + week.contributionDays.reduce((weekTotal: number, day: any) => weekTotal + day.contributionCount, 0), 0
-			);
-			
-			const dateRange = `${fromDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} - ${toDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-			
-			const headerInfo = document.querySelector('.text-sm.text-gray-600.dark\\:text-gray-400');
-			if (headerInfo) {
-				headerInfo.textContent = `${dateRange} • ${totalContributions.toLocaleString()} contributions`;
-			}
-		}
-	});
-</script>
-
-<script>
-// Star list buttons -> switch to Projects tab & apply list filter
-document.addEventListener('DOMContentLoaded', () => {
-	const buttons = document.querySelectorAll('[data-star-list-select]');
-	buttons.forEach(btn => {
-		btn.addEventListener('click', () => {
-			const name = (btn as HTMLElement).getAttribute('data-star-list-select');
-			if (!name) return;
-			localStorage.setItem('pending_star_list_select', name);
-			document.dispatchEvent(new CustomEvent('open-star-list', { detail: { name } }));
-		});
-	});
-});
+  document.addEventListener('DOMContentLoaded', () => {
+    // Star list selection -> bubble to project filters
+    document.querySelectorAll('[data-star-list-select]')?.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-star-list-select');
+        if (!name) return;
+        localStorage.setItem('pending_star_list_select', name);
+        document.dispatchEvent(new CustomEvent('open-star-list', { detail: { name } }));
+      });
+    });
+  });
 </script>

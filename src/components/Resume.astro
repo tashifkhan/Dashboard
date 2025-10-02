@@ -21,82 +21,64 @@ import {
 	<div class="lg:w-64 flex-shrink-0">
 		<div
 			id="resume-sidebar"
-			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg sticky top-6 z-30 max-h-[calc(100vh-3rem)] overflow-y-auto transition-all duration-300"
+			class="border-2 p-4 bg-card sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto"
 		>
 			<h3
-				class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4 flex items-center"
+				class="text-sm font-semibold tracking-tight mb-4 flex items-center gap-2"
 			>
-				<FileText className="w-5 h-5 mr-2 text-orange-500" />
-				Resume Sections
+				<FileText className="w-4 h-4" />Sections
 			</h3>
-			<nav class="space-y-2">
+			<nav class="space-y-1 text-[13px] font-medium">
 				<a
 					href="#skills"
-					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
 					data-section="skills"
+					class="block px-2 py-1.5 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+					>Skills</a
 				>
-					<Award className="w-4 h-4" />
-					<span>Skills</span>
-				</a>
 				<a
 					href="#experience"
-					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
 					data-section="experience"
+					class="block px-2 py-1.5 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+					>Experience</a
 				>
-					<Calendar className="w-4 h-4" />
-					<span>Experience</span>
-				</a>
 				<a
 					href="#projects"
-					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
 					data-section="projects"
+					class="block px-2 py-1.5 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+					>Projects</a
 				>
-					<BookOpen className="w-4 h-4" />
-					<span>Notable Projects</span>
-				</a>
 				<a
 					href="#education"
-					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
 					data-section="education"
+					class="block px-2 py-1.5 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+					>Education</a
 				>
-					<MapPin className="w-4 h-4" />
-					<span>Education</span>
-				</a>
 				<a
 					href="#positions"
-					class="resume-nav-link flex items-center space-x-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300"
 					data-section="positions"
+					class="block px-2 py-1.5 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+					>Positions</a
 				>
-					<Users className="w-4 h-4" />
-					<span>Positions of Responsibility</span>
-				</a>
 			</nav>
 		</div>
 	</div>
 
 	<!-- Main Resume Content -->
 	<div class="flex-1">
-		<div
-			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 sm:p-6 lg:p-8 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg"
-			id="resume-content"
-		>
+		<div id="resume-content">
 			<!-- Header with Download Button -->
 			<div
 				class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 gap-4"
 			>
 				<div class="flex items-center space-x-3">
 					<div
-						class="p-2 sm:p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl"
+						class="h-10 w-10 border-2 flex items-center justify-center bg-card"
 					>
-						<FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+						<FileText className="w-5 h-5" />
 					</div>
 					<div>
-						<h2
-							class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							Resume
-						</h2>
-						<p class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
+						<h2 class="text-xl sm:text-2xl font-bold tracking-tight">Resume</h2>
+						<p class="text-muted-foreground text-xs sm:text-sm">
 							Professional experience and achievements
 						</p>
 					</div>
@@ -104,27 +86,22 @@ import {
 				<button
 					type="button"
 					data-download-resume
-					class="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+					class="neo-btn !px-3 !py-2 text-xs sm:text-sm"
 				>
-					<Download className="w-4 h-4" />
-					<span class="font-medium">Download PDF</span>
+					<Download className="w-4 h-4" /> PDF
 				</button>
 			</div>
 
 			<div class="prose prose-gray dark:prose-invert max-w-none">
 				<!-- Enhanced Header -->
-				<div
-					class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-2xl border border-gray-200/50 dark:border-gray-700/50"
-				>
+				<div class="mb-8 sm:mb-10 p-4 sm:p-5 border-2 bg-card">
 					<h1
-						class="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-3 sm:mb-4 text-center"
+						class="text-center font-bold tracking-tight text-2xl sm:text-3xl lg:text-4xl mb-3"
 					>
 						TASHIF AHMAD KHAN
 					</h1>
-					<p
-						class="text-center text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg"
-					>
-						Engineering Undergrade | Tech Enthusiast | Full Stack Engineer
+					<p class="text-center text-muted-foreground mb-4 text-xs sm:text-sm">
+						Engineering Undergrad | Tech Enthusiast | Full Stack Engineer
 					</p>
 
 					<!-- Contact Information -->
@@ -153,131 +130,86 @@ import {
 						</div>
 					</div>
 					<!-- Social Links -->
-					<div class="flex flex-wrap justify-center gap-1 sm:gap-2">
+					<div class="flex flex-wrap justify-center gap-2">
 						<a
 							href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 transition-all duration-300"
+							rel="noopener"
+							class="neo-btn !px-2.5 !py-1.5 text-xs"
+							><Linkedin className="w-4 h-4" /></a
 						>
-							<Linkedin className="w-4 h-4" />
-						</a>
 						<a
 							href="https://github.com/tashifkhan"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
+							rel="noopener"
+							class="neo-btn !px-2.5 !py-1.5 text-xs !bg-accent !text-accent-foreground"
+							><Github className="w-4 h-4" /></a
 						>
-							<Github className="w-4 h-4" />
-						</a>
 						<a
 							href="https://portfolio.tashif.codes"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 hover:text-green-700 dark:hover:text-green-400 transition-all duration-300"
+							rel="noopener"
+							class="neo-btn !px-2.5 !py-1.5 text-xs"
+							><Globe className="w-4 h-4" /></a
 						>
-							<Globe className="w-4 h-4" />
-						</a>
 					</div>
 				</div>
 			</div>
 
 			<!-- Skills -->
 			<div id="skills" class="resume-section mb-8 sm:mb-10">
-				<h2
-					class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-				>
-					<div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-						<Award
-							className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400"
-						/>
-					</div>
-					<span>SKILLS</span>
-				</h2>
+				<h2 class="neo-heading !text-2xl !mb-4">Skills</h2>
 				<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-					<div class="space-y-4">
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+					<div class="space-y-3">
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
 								Programming Languages
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
-								Python, JavaScript, Go
-							</p>
+							<p class="text-[13px]">Python, JavaScript, Go</p>
 						</div>
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
 								Frameworks & Libraries
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
-								Next.js, React.js, React Native, Node.js, Astro, Express.js,
-								Flask, FastAPI, Redux Toolkit, LangChain, LangGraph, Framer
-								Motion
+							<p class="text-[13px] leading-snug">
+								Next.js, React (Native), Node.js, Astro, Express, Flask,
+								FastAPI, Redux Toolkit, LangChain / LangGraph, Framer Motion
 							</p>
 						</div>
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
 								Databases
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
+							<p class="text-[13px]">
 								MySQL, MongoDB, PostgreSQL, FAISS, ChromaDB, SQLite
 							</p>
 						</div>
 					</div>
-					<div class="space-y-4">
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+					<div class="space-y-3">
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
 								Tools & Platforms
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
-								Git/GitHub, Docker, Docker Compose, Vercel, Pyodide, Tailscale,
-								Nginx Proxy Manager, Browser WebExtension APIs
+							<p class="text-[13px] leading-snug">
+								Git/GitHub, Docker (& Compose), Vercel, Pyodide, Tailscale,
+								Nginx Proxy Manager, WebExtension APIs
 							</p>
 						</div>
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
 								Systems & Networking
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
+							<p class="text-[13px]">
 								System Administration, Network Configuration, VPN
 							</p>
 						</div>
-						<div
-							class="p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50"
-						>
-							<h3
-								class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
-							>
-								<span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
-								Additional Skills
+						<div class="border-2 p-3 bg-card">
+							<h3 class="text-xs font-semibold mb-1 tracking-wide">
+								Additional
 							</h3>
-							<p class="text-gray-700 dark:text-gray-300">
-								UI/UX Design, Technical Content Writing, Data Analysis (MS
-								Excel), Presentation Design (MS PowerPoint)
+							<p class="text-[13px] leading-snug">
+								UI/UX Design, Technical Writing, Data Analysis (Excel),
+								Presentation Design (PowerPoint)
 							</p>
 						</div>
 					</div>
@@ -286,86 +218,43 @@ import {
 
 			<!-- Experience -->
 			<div id="experience" class="resume-section mb-8 sm:mb-10">
-				<h2
-					class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4 sm:mb-6 flex items-center space-x-2 sm:space-x-3"
-				>
-					<div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-						<Calendar
-							className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400"
-						/>
-					</div>
-					<span>EXPERIENCE</span>
-				</h2>
+				<h2 class="neo-heading !text-2xl !mb-4">Experience</h2>
 				<div class="space-y-4 sm:space-y-6">
-					<div
-						class="relative p-4 sm:p-6 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border-l-4 border-blue-500"
-					>
+					<div class="border-2 p-4 sm:p-5 bg-card">
 						<div
-							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2"
+							class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-2"
 						>
-							<h3
-								class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+							<h3 class="text-base sm:text-lg font-semibold">UNICLOUD</h3>
+							<div
+								class="text-[11px] sm:text-xs uppercase tracking-wide font-mono flex items-center gap-3"
 							>
-								UNICLOUD
-							</h3>
-							<div class="flex items-center space-x-2">
-								<span
-									class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium"
-								>
-									June - July 2026
-								</span>
+								<span>Jun–Jul 2026</span>
 								<a
 									href="https://drive.tashif.codes/s/RsaiDWGCEoXjt2K"
 									target="_blank"
-									rel="noopener noreferrer"
-									class="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+									rel="noopener"
+									class="underline">Certificate</a
 								>
-									Certificate
-								</a>
 							</div>
 						</div>
-						<p
-							class="text-base sm:text-lg text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 font-medium"
-						>
+						<p class="text-sm sm:text-base font-medium mb-3">
 							Software Development Intern
 						</p>
-						<ul
-							class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base"
-						>
-							<li class="flex items-start">
-								<span
-									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-								></span>
-								<span
-									>Engineered and deployed 3 critical React modules for a
-									<a
-										href="https://irgvap.ircep.gov.in"
-										target="_blank"
-										class="text-blue-600 dark:text-blue-400 hover:underline"
-										>high-profile IRCTC project</a
-									>, significantly enhancing vendor progress monitoring and data
-									visualization capabilities.</span
-								>
+						<ul class="space-y-2 text-[13px] leading-snug">
+							<li>
+								Engineered and deployed 3 React modules for a <a
+									href="https://irgvap.ircep.gov.in"
+									target="_blank"
+									class="underline">high‑profile IRCTC project</a
+								>, enhancing vendor progress monitoring & visualization.
 							</li>
-							<li class="flex items-start">
-								<span
-									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-								></span>
-								<span
-									>Developed robust NestJS REST APIs, securing data transactions
-									with JWT authentication and optimizing CRUD operations with
-									PostgreSQL.</span
-								>
+							<li>
+								Built NestJS REST APIs with JWT auth; optimized PostgreSQL CRUD
+								paths.
 							</li>
-							<li class="flex items-start">
-								<span
-									class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"
-								></span>
-								<span
-									>Automated and improved Database Migration Cron jobs to
-									dispatch real-time Block Change Alerts to approvers via SMTP
-									mail server and browser webpush notifications.</span
-								>
+							<li>
+								Automated DB migration cron jobs sending real‑time change alerts
+								via SMTP + web push.
 							</li>
 						</ul>
 					</div>

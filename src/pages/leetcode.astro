@@ -7,121 +7,40 @@ import { Trophy, Target, Award, ArrowLeft } from "lucide-react";
 ---
 
 <Layout title="LeetCode - Tashif Ahmad Khan">
-	<div
-		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 py-8 text-gray-900 dark:text-gray-100 transition-colors duration-300"
-	>
-		<div
-			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
-		>
-			<div
-				class="h-40 bg-gradient-to-b from-orange-200/40 to-transparent dark:from-orange-900/20"
-			>
-			</div>
-		</div>
-		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="mb-8">
-				<a
-					href="/"
-					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-6 transition-colors duration-300 font-medium"
-				>
-					<ArrowLeft size={20} className="mr-2" />
-					Back to Home
-				</a>
-				<div class="flex items-center space-x-4 mb-6">
-					<div
-						class="p-4 bg-gradient-to-br from-orange-500/90 to-orange-600/90 backdrop-blur rounded-2xl shadow-lg"
-					>
-						<Trophy className="w-8 h-8 text-white" />
-					</div>
-					<div>
-						<h1
-							class="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-						>
-							LeetCode Profile
-						</h1>
-						<p class="text-gray-600 dark:text-gray-300 text-lg">
-							Competitive programming achievements and statistics
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="space-y-8">
-				<!-- Stats Section -->
+	<div class="py-10 text-foreground">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<a href="/" class="neo-btn neo-btn--ghost mb-8 text-sm">
+				<ArrowLeft size={18} className="mr-1" /> Back
+			</a>
+			<header class="mb-10 flex items-start gap-5">
 				<div
-					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
+					class="neo-card p-4 flex items-center justify-center"
+					style="width:4.25rem;height:4.25rem;"
 				>
-					<div
-						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-green-200/40 dark:bg-green-900/20 blur-3xl"
-					>
-					</div>
-					<div class="relative z-10">
-						<div class="flex items-center space-x-3 mb-6">
-							<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-xl">
-								<Target
-									className="w-6 h-6 text-green-600 dark:text-green-400"
-								/>
-							</div>
-							<h2
-								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-							>
-								Statistics
-							</h2>
-						</div>
-						<LeetCodeStats />
-					</div>
+					<Trophy className="w-8 h-8 text-primary-foreground" />
 				</div>
+				<div class="flex-1">
+					<h1 class="neo-heading m-0 mb-3">LeetCode Profile</h1>
+					<p class="text-sm sm:text-base max-w-prose text-muted-foreground">
+						Competitive programming achievements and statistics
+					</p>
+				</div>
+			</header>
 
-				<!-- Contests Section -->
-				<div
-					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
-				>
-					<div
-						class="absolute -top-20 -left-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-yellow-200/40 dark:bg-yellow-900/20 blur-3xl"
-					>
-					</div>
-					<div class="relative z-10">
-						<div class="flex items-center space-x-3 mb-6">
-							<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
-								<Trophy
-									className="w-6 h-6 text-yellow-600 dark:text-yellow-400"
-								/>
-							</div>
-							<h2
-								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-							>
-								Recent Contests
-							</h2>
-						</div>
-						<LeetCodeContests />
-					</div>
-				</div>
+			<section class="neo-section mb-10">
+				<h2 class="text-xl font-bold mb-6">Statistics</h2>
+				<LeetCodeStats />
+			</section>
 
-				<!-- Badges Section -->
-				<div
-					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 sm:p-8 shadow-lg"
-				>
-					<div
-						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-purple-200/40 dark:bg-purple-900/20 blur-3xl"
-					>
-					</div>
-					<div class="relative z-10">
-						<div class="flex items-center space-x-3 mb-6">
-							<div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-								<Award
-									className="w-6 h-6 text-purple-600 dark:text-purple-400"
-								/>
-							</div>
-							<h2
-								class="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
-							>
-								Achievement Badges
-							</h2>
-						</div>
-						<LeetCodeBadges />
-					</div>
-				</div>
-			</div>
+			<section class="neo-section mb-10">
+				<h2 class="text-xl font-bold mb-6">Recent Contests</h2>
+				<LeetCodeContests />
+			</section>
+
+			<section class="neo-section mb-10">
+				<h2 class="text-xl font-bold mb-6">Achievement Badges</h2>
+				<LeetCodeBadges />
+			</section>
 		</div>
 	</div>
 </Layout>

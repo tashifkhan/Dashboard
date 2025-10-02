@@ -20,14 +20,12 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="bg-background text-foreground tracking-tight">
 		<slot />
 		<Analytics />
 		<script>
 			const theme = localStorage.getItem("theme") || "dark";
-			document.documentElement.classList.remove("dark", "cream");
-			if (theme === "dark") document.documentElement.classList.add("dark");
-			if (theme === "cream") document.documentElement.classList.add("cream");
+			document.documentElement.classList.toggle("dark", theme === "dark");
 		</script>
 	</body>
 </html>

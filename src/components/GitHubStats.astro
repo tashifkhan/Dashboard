@@ -1,6 +1,5 @@
 ---
 import { githubStats } from "../data/github";
-import GitHubContributionGraph from "./GitHubContributionGraph.astro";
 import {
 	GitCommit,
 	Star,
@@ -10,438 +9,146 @@ import {
 	Calendar,
 } from "lucide-react";
 
-const { stats, prs, stars, commits } = githubStats;
+const { stats, prs, stars } = githubStats;
 
-// Function to get language icon URL from Simple Icons
-function getLanguageIcon(languageName: string): string {
-	const iconMap: { [key: string]: string } = {
-		JavaScript: "javascript",
-		TypeScript: "typescript",
-		Python: "python",
-		Java: "openjdk",
-		"C++": "cplusplus",
-		"C#": "csharp",
-		C: "c",
-		PHP: "php",
-		Ruby: "ruby",
-		Go: "go",
-		Rust: "rust",
-		Swift: "swift",
-		Kotlin: "kotlin",
-		Dart: "dart",
-		HTML: "html5",
-		CSS: "css3",
-		SCSS: "sass",
-		Vue: "vuedotjs",
-		React: "react",
-		Angular: "angular",
-		"Node.js": "nodedotjs",
-		Express: "express",
-		"Next.js": "nextdotjs",
-		"Nuxt.js": "nuxtdotjs",
-		Svelte: "svelte",
-		Flutter: "flutter",
-		"React Native": "react",
-		Ionic: "ionic",
-		Electron: "electron",
-		MongoDB: "mongodb",
-		PostgreSQL: "postgresql",
-		MySQL: "mysql",
-		Redis: "redis",
-		Docker: "docker",
-		Kubernetes: "kubernetes",
-		AWS: "amazonaws",
-		GCP: "googlecloud",
-		Azure: "microsoftazure",
-		Firebase: "firebase",
-		Vercel: "vercel",
-		Netlify: "netlify",
-		Shell: "gnubash",
-		PowerShell: "powershell",
-		"Vim script": "vim",
-		Lua: "lua",
-		R: "r",
-		MATLAB: "matlab",
-		"Objective-C": "objectivec",
-		Scala: "scala",
-		Haskell: "haskell",
-		Clojure: "clojure",
-		Elixir: "elixir",
-		Erlang: "erlang",
-		"F#": "fsharp",
-		Assembly: "assemblyscript",
-		WebAssembly: "webassembly",
-		Solidity: "solidity",
-		YAML: "yaml",
-		JSON: "json",
-		XML: "xml",
-		Markdown: "markdown",
-		LaTeX: "latex",
-		"Jupyter Notebook": "jupyter",
-		Notebook: "jupyter",
-		IPython: "jupyter",
-		Astro: "astro",
-	};
-
-	const iconName =
-		iconMap[languageName] ||
-		languageName.toLowerCase().replace(/[^a-z0-9]/g, "");
-	return `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${iconName}.svg`;
+interface MetricCard {
+	label: string;
+	value: string | number;
+	icon: any;
 }
+const metricCards: MetricCard[] = [
+	{
+		label: "Commits",
+		value: stats.totalCommits.toLocaleString(),
+		icon: GitCommit,
+	},
+	{ label: "Stars", value: stars.total_stars.toLocaleString(), icon: Star },
+	{ label: "PRs", value: prs.length, icon: GitPullRequest },
+	{ label: "Current Streak", value: stats.currentStreak, icon: TrendingUp },
+	{ label: "Longest Streak", value: stats.longestStreak, icon: Calendar },
+	{
+		label: "Views",
+		value: stats.profile_visitors.toLocaleString(),
+		icon: Users,
+	},
+];
 
-// Function to get fallback icon for unknown languages
-function getFallbackIcon(): string {
-	return `data:image/svg+xml,${encodeURIComponent(`
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-			<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-		</svg>
-	`)}`;
-}
+const languageUsage = stats.topLanguages
+	.slice(0, 8)
+	.map((l) => ({ name: l.name, value: l.percentage }));
+const starredRepos = stars.repositories.slice(0, 6);
+const organizationStats = [
+	{ label: "Orgs", value: githubStats.orgContributions.length },
+	{ label: "PRs", value: prs.length },
+];
 ---
 
-<div
-	class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8"
->
-	<!-- Total Commits -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Total Commits
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 dark:from-emerald-400 dark:to-emerald-500 bg-clip-text text-transparent"
-				>
-					{stats.totalCommits.toLocaleString()}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">lifetime commits</p>
-			</div>
-			<div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-				<GitCommit className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-			</div>
-		</div>
-	</div>
-
-	<!-- Current Streak -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Current Streak
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent"
-				>
-					{stats.currentStreak}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">days in a row</p>
-			</div>
-			<div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-				<TrendingUp className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-			</div>
-		</div>
-	</div>
-
-	<!-- Longest Streak -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Longest Streak
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-400 dark:to-purple-500 bg-clip-text text-transparent"
-				>
-					{stats.longestStreak}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">best streak</p>
-			</div>
-			<div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-				<Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-			</div>
-		</div>
-	</div>
-
-	<!-- Total Stars -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Total Stars
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-700 dark:from-yellow-400 dark:to-yellow-500 bg-clip-text text-transparent"
-				>
-					{stars.total_stars.toLocaleString()}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">
-					repositories starred
-				</p>
-			</div>
-			<div class="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
-				<Star className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
-			</div>
-		</div>
-	</div>
-
-	<!-- Pull Requests -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Pull Requests
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent"
-				>
-					{prs.length}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">contributions</p>
-			</div>
-			<div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-				<GitPullRequest className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-			</div>
-		</div>
-	</div>
-
-	<!-- Profile Visitors -->
-	<div
-		class="group relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-t-2xl"
-		>
-		</div>
-		<div class="flex items-center justify-between">
-			<div>
-				<p class="text-gray-600 dark:text-gray-400 text-sm font-medium">
-					Profile Views
-				</p>
-				<p
-					class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-400 dark:to-indigo-500 bg-clip-text text-transparent"
-				>
-					{stats.profile_visitors.toLocaleString()}
-				</p>
-				<p class="text-gray-500 dark:text-gray-500 text-sm">total visitors</p>
-			</div>
-			<div class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl">
-				<Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- GitHub Contribution Graph -->
-<GitHubContributionGraph />
-
-<!-- Top Languages -->
-<div
-	class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg mb-6 sm:mb-8"
->
-	<h3
-		class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4"
-	>
-		Top Programming Languages
-	</h3>
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="space-y-10">
+	<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
 		{
-			stats.topLanguages.slice(0, 6).map((lang) => (
-				<div class="flex items-center justify-between p-3 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300 group">
-					<div class="flex items-center space-x-3">
-						<div class="relative flex items-center justify-center w-8 h-8 rounded-lg bg-white dark:bg-gray-700 shadow-sm border border-gray-200/50 dark:border-gray-600/50 group-hover:shadow-md transition-all duration-300">
-							<img
-								src={getLanguageIcon(lang.name)}
-								alt={`${lang.name} icon`}
-								class="w-5 h-5 object-contain language-icon"
-								data-fallback={getFallbackIcon()}
-							/>
-							<div
-								class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full shadow-sm border border-white dark:border-gray-700"
-								style={`background-color: ${lang.color}`}
-							/>
-						</div>
-						<span class="font-medium text-gray-900 dark:text-white">
-							{lang.name}
-						</span>
+			metricCards.map((m) => (
+				<div class="flex flex-col gap-1 border-2 p-3 bg-card">
+					<div class="h-8 w-8 flex items-center justify-center border-2 mb-1">
+						<m.icon className="h-4 w-4" />
 					</div>
-					<div class="flex flex-col items-end">
-						<span class="text-sm font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-							{lang.percentage}%
-						</span>
-						<div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mt-1 overflow-hidden">
-							<div
-								class="h-full rounded-full transition-all duration-500"
-								style={`width: ${lang.percentage}%; background-color: ${lang.color}`}
-							/>
-						</div>
-					</div>
+					<p class="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+						{m.label}
+					</p>
+					<p class="text-lg font-bold leading-none">{m.value}</p>
 				</div>
 			))
 		}
 	</div>
-</div>
 
-<!-- Recent Activity -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-	<!-- Recent Commits -->
-	<div
-		class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-t-2xl"
-		>
-		</div>
-		<h3
-			class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4"
-		>
-			Recent Commits
-		</h3>
-		<div class="space-y-3">
-			{
-				commits.slice(0, 5).map((commit) => (
-					<div class="flex items-start space-x-3 p-3 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300">
-						<div class="p-1.5 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
-							<GitCommit className="w-3 h-3 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+	<div class="space-y-4">
+		<h2 class="text-sm font-semibold tracking-tight">Language Usage</h2>
+		<div class="flex flex-col md:flex-row gap-8">
+			<div class="flex-1 space-y-3">
+				{
+					languageUsage.map((lang) => (
+						<div class="flex items-center gap-3">
+							<div class="w-full h-2 border-2 bg-muted relative overflow-hidden">
+								<div
+									class="absolute inset-y-0 left-0 bg-primary"
+									style={{ width: `${lang.value}%` }}
+								/>
+							</div>
+							<div class="flex items-center gap-2 w-40">
+								<span class="text-xs font-medium">{lang.name}</span>
+								<span class="text-[10px] text-muted-foreground">
+									{lang.value}%
+								</span>
+							</div>
 						</div>
-						<div class="flex-1 min-w-0">
-							<p class="text-sm font-medium text-gray-900 dark:text-white truncate">
-								{commit.message}
-							</p>
-							<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-								{commit.repo} •{" "}
-								{new Date(commit.timestamp).toLocaleDateString()}
-							</p>
-						</div>
+					))
+				}
+			</div>
+			<div class="w-full md:w-1/4">
+				<div class="aspect-square flex items-center justify-center border-2">
+					<div class="text-center p-4">
+						<p class="text-[11px] text-muted-foreground">Languages</p>
+						<p class="text-2xl font-bold leading-none">
+							{languageUsage.length}
+						</p>
 					</div>
-				))
-			}
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<!-- Recent PRs -->
-	<div
-		class="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
-	>
-		<div
-			class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl"
-		>
-		</div>
-		<h3
-			class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4"
-		>
-			Recent Pull Requests
-		</h3>
-		<div class="space-y-3">
-			{
-				prs.slice(0, 5).map((pr) => (
-					<div class="flex items-start space-x-3 p-3 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300">
-						<div class="p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-							<GitPullRequest className="w-3 h-3 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-						</div>
-						<div class="flex-1 min-w-0">
-							<p class="text-sm font-medium text-gray-900 dark:text-white truncate">
-								{pr.title}
+	{
+		starredRepos.length > 0 && (
+			<div class="space-y-4">
+				<h2 class="text-sm font-semibold tracking-tight">
+					Starred Repositories
+				</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+					{starredRepos.map((repo) => (
+						<a
+							href={repo.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex flex-col gap-3 border-2 p-4 bg-card hover:bg-accent/30 transition-colors"
+						>
+							<div class="flex items-start justify-between gap-2">
+								<h3 class="text-sm font-semibold leading-tight line-clamp-2">
+									{repo.name}
+								</h3>
+								<div class="flex items-center gap-1 text-muted-foreground text-[10px]">
+									<Star size={12} />
+									<span>{repo.stars}</span>
+								</div>
+							</div>
+							{repo.description && (
+								<p class="text-[11px] text-muted-foreground line-clamp-3 leading-snug">
+									{repo.description}
+								</p>
+							)}
+							<p class="text-[10px] text-muted-foreground mt-auto">
+								{repo.language || "—"}
 							</p>
-							<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-								{pr.repo} • {pr.state} •{" "}
-								{new Date(pr.created_at).toLocaleDateString()}
+						</a>
+					))}
+				</div>
+			</div>
+		)
+	}
+
+	{
+		organizationStats.length > 0 && (
+			<div class="space-y-4">
+				<h2 class="text-sm font-semibold tracking-tight">Organization</h2>
+				<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+					{organizationStats.map((s) => (
+						<div class="flex flex-col gap-1 border-2 p-3 bg-card">
+							<p class="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+								{s.label}
 							</p>
+							<p class="text-lg font-bold leading-none">{s.value}</p>
 						</div>
-					</div>
-				))
-			}
-		</div>
-	</div>
+					))}
+				</div>
+			</div>
+		)
+	}
 </div>
-
-<script>
-	// Handle language icon loading and styling
-	document.addEventListener("DOMContentLoaded", function () {
-		const languageIcons = document.querySelectorAll(".language-icon");
-
-		languageIcons.forEach((icon) => {
-			const img = icon as HTMLImageElement;
-
-			// Function to apply correct theme styling
-			function applyThemeStyle() {
-				const isDark = document.documentElement.classList.contains("dark");
-
-				// Don't apply filter if this is a fallback icon
-				if (img.src.startsWith("data:image/svg+xml")) {
-					img.style.filter = "none";
-					img.style.color = isDark ? "#9CA3AF" : "#6B7280";
-					return;
-				}
-
-				// Simple Icons are typically black SVGs, so we need to handle them properly
-				if (isDark) {
-					// For dark mode, invert the black icons to white
-					img.style.filter = "invert(1) brightness(0.9)";
-				} else {
-					// For light mode, keep icons darker but not completely black
-					img.style.filter = "brightness(0.7)";
-				}
-			}
-
-			// Set initial styling
-			img.style.opacity = "0.9";
-			img.style.transition = "all 0.3s ease";
-			applyThemeStyle();
-
-			// Handle successful load
-			img.addEventListener("load", function () {
-				this.style.opacity = "1";
-				applyThemeStyle();
-			});
-
-			// Handle error loading
-			img.addEventListener("error", function () {
-				const fallbackUrl = this.dataset.fallback;
-				if (fallbackUrl && this.src !== fallbackUrl) {
-					this.src = fallbackUrl;
-					applyThemeStyle();
-				}
-			});
-
-			// Apply dark mode styling when theme changes
-			const observer = new MutationObserver(() => {
-				applyThemeStyle();
-			});
-
-			observer.observe(document.documentElement, {
-				attributes: true,
-				attributeFilter: ["class"],
-			});
-		});
-	});
-</script>

@@ -88,7 +88,7 @@ const socials = [
 
 <Layout title="Tashif Ahmad Khan - Personal Dashboard">
 	<div
-		class="relative min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans scroll-smooth"
+		class="relative min-h-screen bg-background text-foreground font-sans scroll-smooth"
 	>
 		<div
 			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(80%_60%_at_50%_0%,black,transparent)]"
@@ -99,9 +99,7 @@ const socials = [
 			</div>
 		</div>
 		<!-- Header -->
-		<header
-			class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 shadow-sm"
-		>
+		<header class="sticky top-0 z-40 bg-background border-b-2 border-border">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
 				<div
 					class="flex flex-col sm:flex-row justify-between items-center gap-4"
@@ -152,48 +150,48 @@ const socials = [
 
 		<!-- Navigation -->
 		<nav
-			class="sticky top-[56px] sm:top-[64px] z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300 overflow-x-auto font-sans"
+			class="sticky top-[56px] sm:top-[64px] z-30 bg-background border-b-2 border-border overflow-x-auto font-sans"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex space-x-1 sm:space-x-2 min-w-max py-2">
 					<button
 						id="projects-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 whitespace-nowrap bg-orange-50/60 dark:bg-orange-950/20"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-primary text-primary-foreground font-semibold whitespace-nowrap"
 					>
 						<Code2 size={20} />
 						<span>Projects</span>
 					</button>
 					<button
 						id="blog-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap"
 					>
 						<BookOpen size={20} />
 						<span>Blog</span>
 					</button>
 					<button
 						id="leetcode-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap"
 					>
 						<Code2 size={20} />
 						<span>LeetCode</span>
 					</button>
 					<button
 						id="github-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap"
 					>
 						<Github size={20} />
 						<span>GitHub</span>
 					</button>
 					<button
 						id="resume-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap"
 					>
 						<FileText size={20} />
 						<span>Resume</span>
 					</button>
 					<button
 						id="community-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 border-2 border-border bg-card hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap"
 					>
 						<Users size={20} />
 						<span>Community</span>
@@ -292,11 +290,7 @@ const socials = [
 			<!-- Projects Section -->
 			<div id="projects-section">
 				<div class="mb-8">
-					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-					>
-						Projects
-					</h2>
+					<h2 class="neo-heading !text-3xl !mb-2">Projects</h2>
 					<p class="text-gray-600 dark:text-gray-300">
 						Explore my latest projects and contributions
 					</p>
@@ -323,11 +317,7 @@ const socials = [
 			<!-- Blog Section -->
 			<div id="blog-section" class="hidden">
 				<div class="mb-8">
-					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-					>
-						Latest Articles
-					</h2>
+					<h2 class="neo-heading !text-3xl !mb-2">Latest Articles</h2>
 					<p class="text-gray-600 dark:text-gray-300">
 						Insights, tutorials, and thoughts on modern development
 					</p>
@@ -400,11 +390,7 @@ const socials = [
 			<!-- LeetCode Section -->
 			<div id="leetcode-section" class="hidden">
 				<div class="mb-8">
-					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-					>
-						LeetCode Profile
-					</h2>
+					<h2 class="neo-heading !text-3xl !mb-2">LeetCode Profile</h2>
 					<p class="text-gray-600 dark:text-gray-300">
 						Your coding challenge journey
 					</p>
@@ -421,11 +407,7 @@ const socials = [
 			<!-- GitHub Section -->
 			<div id="github-section" class="hidden">
 				<div class="mb-8">
-					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-					>
-						GitHub Profile
-					</h2>
+					<h2 class="neo-heading !text-3xl !mb-2">GitHub Profile</h2>
 					<p class="text-gray-600 dark:text-gray-300">
 						Your open source contributions
 					</p>
@@ -442,80 +424,64 @@ const socials = [
 			<!-- Community Section -->
 			<div id="community-section" class="hidden">
 				<div class="mb-8">
-					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-					>
-						Community
-					</h2>
-					<p class="text-gray-600 dark:text-gray-300">
+					<h2 class="neo-heading !text-3xl !mb-2">Community</h2>
+					<p class="text-muted-foreground">
 						Connect with the developer community
 					</p>
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					<div
-						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
-					>
-						<div class="flex items-center space-x-3 mb-4">
-							<Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-								GitHub
-							</h3>
+					<div class="border-2 p-5 bg-card">
+						<div class="flex items-center gap-3 mb-3">
+							<Github className="w-5 h-5" />
+							<h3 class="text-base font-semibold tracking-tight">GitHub</h3>
 						</div>
-						<p class="text-gray-600 dark:text-gray-300 mb-4">
+						<p class="text-sm text-muted-foreground mb-4">
 							Follow my open source projects and contributions
 						</p>
 						<a
 							href="https://github.com/tashifkhan"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+							rel="noopener"
+							class="neo-btn !px-3 !py-1.5 text-xs inline-flex items-center gap-1"
 						>
-							Visit Profile <ExternalLink size={16} className="ml-1" />
+							<span>Visit Profile</span><ExternalLink size={14} />
 						</a>
 					</div>
 
-					<div
-						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
-					>
-						<div class="flex items-center space-x-3 mb-4">
-							<Twitter className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-								Twitter
-							</h3>
+					<div class="border-2 p-5 bg-card">
+						<div class="flex items-center gap-3 mb-3">
+							<Twitter className="w-5 h-5" />
+							<h3 class="text-base font-semibold tracking-tight">Twitter</h3>
 						</div>
-						<p class="text-gray-600 dark:text-gray-300 mb-4">
+						<p class="text-sm text-muted-foreground mb-4">
 							Follow for tech updates and coding insights
 						</p>
 						<a
 							href="https://twitter.com/khan_tashif_"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+							rel="noopener"
+							class="neo-btn !px-3 !py-1.5 text-xs inline-flex items-center gap-1"
 						>
-							Follow <ExternalLink size={16} className="ml-1" />
+							<span>Follow</span><ExternalLink size={14} />
 						</a>
 					</div>
 
-					<div
-						class="bg-white/70 dark:bg-gray-900/50 backdrop-blur p-6 rounded-xl border border-gray-200/60 dark:border-gray-700/60 transition-all duration-300 hover:shadow-lg"
-					>
-						<div class="flex items-center space-x-3 mb-4">
-							<Linkedin className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-								LinkedIn
-							</h3>
+					<div class="border-2 p-5 bg-card">
+						<div class="flex items-center gap-3 mb-3">
+							<Linkedin className="w-5 h-5" />
+							<h3 class="text-base font-semibold tracking-tight">LinkedIn</h3>
 						</div>
-						<p class="text-gray-600 dark:text-gray-300 mb-4">
+						<p class="text-sm text-muted-foreground mb-4">
 							Connect professionally and view my experience
 						</p>
 						<a
 							href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
 							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+							rel="noopener"
+							class="neo-btn !px-3 !py-1.5 text-xs inline-flex items-center gap-1"
 						>
-							Connect <ExternalLink size={16} className="ml-1" />
+							<span>Connect</span><ExternalLink size={14} />
 						</a>
 					</div>
 				</div>

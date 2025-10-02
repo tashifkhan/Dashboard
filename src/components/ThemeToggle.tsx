@@ -1,45 +1,54 @@
 import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 
-const themes = ["dark", "light", "cream"];
-
+// Segmented light/dark toggle (recommended set option 3B). Removed legacy "cream" theme.
 export default function ThemeToggle() {
-	const [theme, setTheme] = useState("dark");
+	const [theme, setTheme] = useState<"light" | "dark">("dark");
 
 	useEffect(() => {
-		const saved = localStorage.getItem("theme") || "dark";
-		setTheme(saved);
-		document.documentElement.classList.toggle("dark", saved === "dark");
-		document.documentElement.classList.toggle("cream", saved === "cream");
+		const saved =
+			(localStorage.getItem("theme") as "light" | "dark" | null) || "dark";
+		applyTheme(saved);
 	}, []);
 
-	const toggleTheme = () => {
-		const idx = themes.indexOf(theme);
-		const next = themes[(idx + 1) % themes.length];
+	function applyTheme(next: "light" | "dark") {
 		setTheme(next);
 		document.documentElement.classList.toggle("dark", next === "dark");
-		document.documentElement.classList.toggle("cream", next === "cream");
-		if (next !== "dark") document.documentElement.classList.remove("dark");
-		if (next !== "cream") document.documentElement.classList.remove("cream");
 		localStorage.setItem("theme", next);
-	};
+	}
 
 	return (
-		<button
-			onClick={toggleTheme}
-			className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 cream:bg-[var(--primary-color)] text-gray-700 dark:text-gray-300 cream:text-[var(--text-color)] hover:text-gray-900 dark:hover:text-white transition-colors"
-			aria-label="Toggle theme"
-			title={`Switch theme (current: ${theme})`}
+		<div
+			role="group"
+			aria-label="Theme toggle"
+			className="inline-flex border-2 border-border shadow-neo-xs select-none"
 		>
-			{theme === "dark" ? (
-				<Sun size={20} />
-			) : theme === "cream" ? (
-				<span style={{ color: "#A47551" }}>
-					<Moon size={20} />
-				</span>
-			) : (
-				<Moon size={20} />
-			)}
-		</button>
+			<button
+				type="button"
+				onClick={() => applyTheme("light")}
+				aria-pressed={theme === "light"}
+				className={`px-3 py-1.5 text-xs font-semibold tracking-tight transition-colors focus:outline-none focus-visible:outline-none ${
+					theme === "light"
+						? "bg-primary text-primary-foreground"
+						: "bg-card text-foreground hover:bg-accent hover:text-accent-foreground"
+				}`}
+			>
+				<Sun className="w-4 h-4" />
+				<span className="sr-only">Light theme</span>
+			</button>
+			<button
+				type="button"
+				onClick={() => applyTheme("dark")}
+				aria-pressed={theme === "dark"}
+				className={`px-3 py-1.5 text-xs font-semibold tracking-tight border-l-2 border-border transition-colors focus:outline-none focus-visible:outline-none ${
+					theme === "dark"
+						? "bg-primary text-primary-foreground"
+						: "bg-card text-foreground hover:bg-accent hover:text-accent-foreground"
+				}`}
+			>
+				<Moon className="w-4 h-4" />
+				<span className="sr-only">Dark theme</span>
+			</button>
+		</div>
 	);
 }
