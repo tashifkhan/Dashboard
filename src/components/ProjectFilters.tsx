@@ -30,6 +30,32 @@ export default function ProjectFilters() {
 		window.__STAR_LISTS__ = starLists;
 	}, []);
 
+	// External star list selection (triggered from GitHub contribution section)
+	useEffect(() => {
+		function applyList(listName: string) {
+			if (!listName) return;
+			if (!lists.some((l) => l.key === listName)) return; // ensure exists
+			setSelectedList(listName);
+			const searchEvent = new CustomEvent("project-search", {
+				detail: { term: searchTerm, showLiveOnly, list: listName },
+			});
+			document.dispatchEvent(searchEvent);
+		}
+		function handleIncoming(e: Event) {
+			const name = (e as CustomEvent).detail?.list as string | undefined;
+			if (name) applyList(name);
+		}
+		document.addEventListener("project-list-select", handleIncoming);
+		// Pending selection from navigation (set before component mounted)
+		const pending = localStorage.getItem("pending_star_list_select");
+		if (pending) {
+			applyList(pending);
+			localStorage.removeItem("pending_star_list_select");
+		}
+		return () =>
+			document.removeEventListener("project-list-select", handleIncoming);
+	}, [lists.length]);
+
 	// Dispatch initial filter state when component mounts
 	useEffect(() => {
 		// Small delay to ensure component is fully hydrated
@@ -100,6 +126,7 @@ export default function ProjectFilters() {
 				<div className="flex items-stretch gap-2">
 					<div className="relative">
 						<select
+							data-project-list-select
 							value={selectedList}
 							onChange={handleListChange}
 							className="h-full px-3 py-2 pr-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none"

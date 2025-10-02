@@ -749,6 +749,25 @@ const socials = [
 		}
 	});
 
+	// When a starred list is requested from GitHub section
+	document.addEventListener("open-star-list", (e: Event) => {
+		const name = (e as CustomEvent).detail?.name as string | undefined;
+		if (!name) return;
+		activateTab("projects");
+		// store temporarily for ProjectFilters hydration listener
+		localStorage.setItem("pending_star_list_select", name);
+		// Attempt to update select if already mounted
+		setTimeout(() => {
+			const select = document.querySelector(
+				"[data-project-list-select]"
+			) as HTMLSelectElement | null;
+			if (select) {
+				select.value = name;
+				select.dispatchEvent(new Event("change", { bubbles: true }));
+			}
+		}, 80);
+	});
+
 	// Blog search and filter functionality (title + tags)
 	document.addEventListener("blog-search", (e: Event) => {
 		const searchTerm = (e as CustomEvent).detail.term;
