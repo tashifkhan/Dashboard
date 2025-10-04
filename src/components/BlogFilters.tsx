@@ -43,7 +43,7 @@ export default function BlogFilters({ categories }: Props) {
 					placeholder="Search blog posts by title or category... (supports exact and fuzzy matching)"
 					value={searchTerm}
 					onChange={(e) => handleSearch(e.target.value)}
-					className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 cream:border-[var(--accent-color)] rounded-lg bg-white dark:bg-gray-900 cream:bg-[var(--primary-color)] text-gray-900 dark:text-white cream:text-[var(--text-color)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 cream:focus:ring-[var(--accent-color)]"
+					className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
 				/>
 			</div>
 			<div className="flex flex-wrap gap-2">
@@ -51,8 +51,8 @@ export default function BlogFilters({ categories }: Props) {
 					onClick={() => handleCategoryChange("all")}
 					className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
 						selectedCategory === "all"
-							? "bg-orange-500 text-white dark:bg-orange-600 cream:bg-[var(--accent-color)] cream:text-white"
-							: "bg-gray-200 dark:bg-gray-800 cream:bg-[var(--primary-color)] text-gray-700 dark:text-gray-300 cream:text-[var(--text-color)] hover:bg-gray-300 dark:hover:bg-gray-700 cream:hover:bg-[var(--accent-color-hover)]"
+							? "bg-rose-500 text-white dark:bg-rose-600"
+							: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
 					}`}
 				>
 					All
@@ -63,8 +63,8 @@ export default function BlogFilters({ categories }: Props) {
 						onClick={() => handleCategoryChange(category)}
 						className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
 							selectedCategory === category
-								? "bg-orange-500 text-white dark:bg-orange-600 cream:bg-[var(--accent-color)] cream:text-white"
-								: "bg-gray-200 dark:bg-gray-800 cream:bg-[var(--primary-color)] text-gray-700 dark:text-gray-300 cream:text-[var(--text-color)] hover:bg-gray-300 dark:hover:bg-gray-700 cream:hover:bg-[var(--accent-color-hover)]"
+								? "bg-rose-500 text-white dark:bg-rose-600"
+								: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
 						}`}
 					>
 						{category}

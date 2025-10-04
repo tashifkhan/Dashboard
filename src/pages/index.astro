@@ -14,13 +14,13 @@ import {
 	Linkedin,
 	Mail,
 	Code2,
+	FolderOpen,
 	BookOpen,
 	Users,
 	ExternalLink,
 	Globe,
 	FileText,
 	ArrowUp,
-	Pen,
 	Trophy,
 	Target,
 	Award,
@@ -167,26 +167,26 @@ const socials = [
 						id="projects-tab"
 						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-orange-500 text-orange-600 dark:text-orange-400 whitespace-nowrap bg-orange-50/60 dark:bg-orange-950/20"
 					>
-						<Code2 size={20} />
+						<FolderOpen size={20} />
 						<span>Projects</span>
 					</button>
 					<button
 						id="blog-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-rose-700 dark:hover:text-rose-300 hover:border-rose-300/70 dark:hover:border-rose-700/60 transition-colors whitespace-nowrap hover:bg-rose-50/60 dark:hover:bg-rose-900/20"
 					>
 						<BookOpen size={20} />
 						<span>Blog</span>
 					</button>
 					<button
 						id="leetcode-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-purple-700 dark:hover:text-purple-300 hover:border-purple-300/70 dark:hover:border-purple-700/60 transition-colors whitespace-nowrap hover:bg-purple-50/60 dark:hover:bg-purple-900/20"
 					>
 						<Code2 size={20} />
 						<span>LeetCode</span>
 					</button>
 					<button
 						id="github-tab"
-						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800/60"
+						class="py-2.5 sm:py-3 px-3 sm:px-4 inline-flex items-center space-x-2 rounded-lg border-b-2 border-transparent text-gray-600 dark:text-gray-300 hover:text-emerald-700 dark:hover:text-emerald-300 hover:border-emerald-300/70 dark:hover:border-emerald-700/60 transition-colors whitespace-nowrap hover:bg-emerald-50/60 dark:hover:bg-emerald-900/20"
 					>
 						<Github size={20} />
 						<span>GitHub</span>
@@ -251,27 +251,27 @@ const socials = [
 					<div class="mt-3 flex flex-wrap items-center gap-2">
 						<!-- Compact stats pills -->
 						<span
-							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-gray-50/70 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
+							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-gray-900/60 text-gray-700 dark:text-gray-200"
 						>
 							<Code2 size={14} className="text-orange-500" />
 							{numProjects} Projects
 						</span>
 						<span
-							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-gray-50/70 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
+							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-gray-900/60 text-gray-700 dark:text-gray-200"
 						>
-							<BookOpen size={14} className="text-orange-500" />
+							<BookOpen size={14} className="text-rose-500" />
 							{numBlogPosts} Posts
 						</span>
 						<span
-							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-gray-50/70 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
+							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-gray-900/60 text-gray-700 dark:text-gray-200"
 						>
-							<Github size={14} className="text-orange-500" />
+							<Github size={14} className="text-emerald-600" />
 							{totalCommits} Commits
 						</span>
 						<span
-							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-gray-50/70 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300"
+							class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-gray-900/60 text-gray-700 dark:text-gray-200"
 						>
-							<Code2 size={14} className="text-orange-500" />
+							<Code2 size={14} className="text-purple-600" />
 							{totalSolved} Solved
 						</span>
 
@@ -470,7 +470,7 @@ const socials = [
 										href="https://blog.tashif.codes"
 										target="_blank"
 										rel="noopener noreferrer"
-										class="inline-flex items-center gap-2 rounded-md border border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300 px-4 py-2 text-sm font-medium hover:bg-orange-500/15 dark:border-orange-600/40 transition-colors"
+										class="inline-flex items-center gap-2 rounded-md border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 px-4 py-2 text-sm font-medium hover:bg-rose-500/15 dark:border-rose-600/40 transition-colors"
 									>
 										Visit Blog <ExternalLink size={16} />
 									</a>
@@ -494,7 +494,7 @@ const socials = [
 									href="https://blog.tashif.codes"
 									target="_blank"
 									rel="noopener noreferrer"
-									class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium transition-colors text-sm"
+									class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium transition-colors text-sm"
 								>
 									Visit blog <ExternalLink size={15} />
 								</a>
@@ -508,10 +508,10 @@ const socials = [
 			<div id="leetcode-section" class="hidden space-y-8">
 				<!-- Header Card -->
 				<div
-					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-gradient-to-br from-white/90 via-white/70 to-green-50/70 dark:from-gray-900/80 dark:via-gray-900/60 dark:to-gray-900/70 backdrop-blur p-6"
+					class="relative overflow-hidden rounded-2xl border border-purple-200/60 dark:border-purple-800/40 bg-gradient-to-br from-white/90 via-purple-50/70 to-purple-100/60 dark:from-gray-900/80 dark:via-purple-950/40 dark:to-gray-900/70 backdrop-blur p-6"
 				>
 					<div
-						class="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-green-200/40 dark:bg-green-900/20 blur-3xl"
+						class="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-purple-300/30 dark:bg-purple-900/30 blur-3xl"
 					>
 					</div>
 					<div
@@ -519,7 +519,7 @@ const socials = [
 					>
 						<div class="flex items-start gap-4">
 							<div
-								class="p-4 rounded-2xl bg-gradient-to-br from-green-500/90 to-green-600/90 shadow-md"
+								class="p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-md"
 							>
 								<Trophy className="w-8 h-8 text-white" />
 							</div>
@@ -538,7 +538,7 @@ const socials = [
 						<div class="flex flex-col sm:flex-row gap-3">
 							<a
 								href="/leetcode"
-								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium bg-green-600 text-white hover:bg-green-500 shadow-sm transition-colors"
+								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium bg-purple-600 text-white hover:bg-purple-500 shadow-sm transition-colors"
 							>
 								Full LeetCode Page <ExternalLink size={16} />
 							</a>
@@ -546,7 +546,7 @@ const socials = [
 								href="https://leetcode.com/"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium border border-green-500/40 text-green-700 dark:text-green-300 bg-green-50/60 dark:bg-green-900/20 hover:bg-green-100/70 dark:hover:bg-green-900/30 transition-colors"
+								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium border border-purple-500/40 text-purple-700 dark:text-purple-300 bg-purple-50/60 dark:bg-purple-900/20 hover:bg-purple-100/70 dark:hover:bg-purple-900/30 transition-colors"
 							>
 								Visit LeetCode <ExternalLink size={16} />
 							</a>
@@ -607,10 +607,10 @@ const socials = [
 			<div id="github-section" class="hidden space-y-8">
 				<!-- Header Card -->
 				<div
-					class="relative overflow-hidden rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-gradient-to-br from-white/90 via-white/70 to-emerald-50/70 dark:from-gray-900/80 dark:via-gray-900/60 dark:to-gray-900/70 backdrop-blur p-6"
+					class="relative overflow-hidden rounded-2xl border border-emerald-200/60 dark:border-emerald-800/40 bg-gradient-to-br from-white/90 via-emerald-50/70 to-emerald-100/60 dark:from-gray-900/80 dark:via-emerald-950/40 dark:to-gray-900/70 backdrop-blur p-6"
 				>
 					<div
-						class="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-emerald-200/40 dark:bg-emerald-900/20 blur-3xl"
+						class="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-emerald-300/30 dark:bg-emerald-900/30 blur-3xl"
 					>
 					</div>
 					<div
@@ -618,7 +618,7 @@ const socials = [
 					>
 						<div class="flex items-start gap-4">
 							<div
-								class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/90 to-emerald-600/90 shadow-md"
+								class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-md"
 							>
 								<Github className="w-8 h-8 text-white" />
 							</div>
@@ -644,7 +644,7 @@ const socials = [
 								href="https://github.com/tashifkhan"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50/60 dark:bg-emerald-900/20 hover:bg-emerald-100/70 dark:hover:bg-emerald-900/30 transition-colors"
+								class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 bg-emerald-50/70 dark:bg-emerald-900/20 hover:bg-emerald-100/80 dark:hover:bg-emerald-900/30 transition-colors"
 							>
 								Visit Profile <ExternalLink size={16} />
 							</a>
@@ -657,7 +657,7 @@ const socials = [
 
 				<!-- Callout: View Starred Lists in Projects -->
 				<div
-					class="rounded-2xl border border-dashed border-emerald-400/40 dark:border-emerald-600/40 bg-emerald-50/40 dark:bg-emerald-900/10 backdrop-blur p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+					class="rounded-2xl border border-emerald-300/50 dark:border-emerald-700/40 bg-emerald-50/60 dark:bg-emerald-900/20 backdrop-blur p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
 				>
 					<div class="flex items-center gap-3">
 						<BarChart3
@@ -807,12 +807,57 @@ const socials = [
 	function activateTab(
 		tabId: "projects" | "blog" | "leetcode" | "github" | "resume" | "community"
 	) {
-		Object.values(tabs).forEach((tab) => {
+		// Map tab to its accent color classes
+		const accentMap: Record<
+			string,
+			{ border: string; text: string; darkText: string; bg?: string }
+		> = {
+			projects: {
+				border: "border-orange-500",
+				text: "text-orange-600",
+				darkText: "dark:text-orange-400",
+			},
+			blog: {
+				border: "border-rose-500",
+				text: "text-rose-600",
+				darkText: "dark:text-rose-400",
+			},
+			leetcode: {
+				border: "border-purple-500",
+				text: "text-purple-600",
+				darkText: "dark:text-purple-400",
+			},
+			github: {
+				border: "border-emerald-500",
+				text: "text-emerald-600",
+				darkText: "dark:text-emerald-400",
+			},
+			resume: {
+				border: "border-gray-500",
+				text: "text-gray-700",
+				darkText: "dark:text-gray-300",
+			},
+			community: {
+				border: "border-gray-500",
+				text: "text-gray-700",
+				darkText: "dark:text-gray-300",
+			},
+		};
+
+		Object.entries(tabs).forEach(([key, tab]) => {
 			if (!tab) return;
+			const accent = accentMap[key] || accentMap.projects;
+			tab.classList.remove(accent.border, accent.text, accent.darkText);
 			tab.classList.remove(
-				"border-orange-500",
-				"text-orange-600",
-				"dark:text-orange-400"
+				"border-rose-500",
+				"text-rose-600",
+				"dark:text-rose-400",
+				"border-purple-500",
+				"text-purple-600",
+				"dark:text-purple-400",
+				"border-emerald-500",
+				"text-emerald-600",
+				"dark:text-emerald-400"
 			);
 			tab.classList.add(
 				"border-transparent",
@@ -823,16 +868,13 @@ const socials = [
 
 		const activeTab = tabs[tabId];
 		if (activeTab) {
+			const accent = accentMap[tabId];
 			activeTab.classList.remove(
 				"border-transparent",
 				"text-gray-600",
 				"dark:text-gray-300"
 			);
-			activeTab.classList.add(
-				"border-orange-500",
-				"text-orange-600",
-				"dark:text-orange-400"
-			);
+			activeTab.classList.add(accent.border, accent.text, accent.darkText);
 		}
 
 		Object.values(sections).forEach((section) => {
