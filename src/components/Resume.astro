@@ -354,43 +354,55 @@ const tocMain = [
 
 <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
 	<!-- Table of Contents Sidebar -->
-	<aside class="lg:w-64 flex-shrink-0">
+	<aside class="lg:w-72 flex-shrink-0 lg:sticky lg:top-6 self-start z-30">
 		<nav
 			id="resume-sidebar"
-			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/60 dark:border-gray-800/60 shadow-lg sticky top-6 z-30 max-h-[calc(100vh-3rem)] overflow-y-auto transition-all text-sm"
+			class="relative group bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/60 dark:border-gray-800/60 shadow-lg max-h-[calc(100vh-3rem)] overflow-y-auto transition-all text-[13px]"
 			aria-label="On this page navigation"
 		>
+			<!-- Vertical decorative gradient line -->
+			<span
+				aria-hidden="true"
+				class="pointer-events-none absolute left-3 top-10 bottom-4 w-px bg-gradient-to-b from-orange-400/40 via-orange-400/10 to-orange-400/40 dark:from-orange-500/40 dark:via-orange-500/10 dark:to-orange-500/40"
+			></span>
+			<!-- Active indicator (moved by script) -->
+			<span
+				id="toc-active-indicator"
+				aria-hidden="true"
+				class="hidden lg:block absolute left-[11px] w-[3px] rounded-full bg-orange-500/90 shadow-[0_0_0_1px_rgba(255,255,255,0.4)] dark:shadow-[0_0_0_1px_rgba(0,0,0,0.6)] transition-all duration-300 ease-out"
+			></span>
 			<h3
-				class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3"
+				class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4 pl-2"
 			>
 				<FileText className="w-4 h-4 text-orange-500" /> On this page
 			</h3>
-			<ol class="space-y-2">
+			<ol class="space-y-1 relative">
 				{
 					tocMain.map((sec) => (
-						<li>
+						<li class="relative pl-7">
 							<a
 								href={`#${sec.id}`}
 								data-section={sec.id}
-								class="resume-nav-link block px-3 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/70 dark:hover:bg-orange-900/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40 transition-colors"
+								class="resume-nav-link group flex items-center gap-2 px-2 py-1.5 rounded-md text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium"
 							>
+								<span class="relative flex items-center justify-center w-2.5 h-2.5">
+									<span class="absolute inset-0 rounded-full bg-gray-300 dark:bg-gray-600 group-hover:bg-orange-500/80 transition-colors" />
+								</span>
 								{sec.label}
 							</a>
 							{sec.children.length > 0 && (
-								<ol class="mt-1 ml-3 border-l border-gray-200 dark:border-gray-800 pl-3 space-y-1">
+								<div class="mt-1 mb-2 ml-1 flex flex-wrap gap-1.5 pl-6">
 									{sec.children.map((child) => (
-										<li>
-											<a
-												href={`#${child.id}`}
-												data-subsection={child.id}
-												class="resume-sub-link group flex items-center gap-2 rounded-md px-2 py-1 text-[12px] font-normal text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/10 transition-colors"
-											>
-												<span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-orange-500 dark:bg-gray-600" />
-												{child.label}
-											</a>
-										</li>
+										<a
+											data-subsection={child.id}
+											href={`#${child.id}`}
+											class="resume-sub-link inline-flex items-center gap-1 px-2 py-1 rounded-md border border-gray-200/60 dark:border-gray-700/60 bg-gray-50/60 dark:bg-gray-800/60 text-[11px] text-gray-600 dark:text-gray-400 hover:border-orange-400/50 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/60 dark:hover:bg-orange-900/20 transition-colors"
+										>
+											<span class="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600 group-hover:bg-orange-500" />
+											{child.label}
+										</a>
 									))}
-								</ol>
+								</div>
 							)}
 						</li>
 					))
@@ -809,74 +821,128 @@ const tocMain = [
 
 <script>
 	// @ts-nocheck
-	// Resume navigation and download functionality (preserved from previous implementation)
+	// Resume navigation & print handling + refined TOC highlight
 	const setupResumeInteractions = () => {
-		const navLinks = document.querySelectorAll(".resume-nav-link");
-		const sections = document.querySelectorAll(".resume-section");
+		const sidebar = document.getElementById("resume-sidebar");
+		const indicator = document.getElementById("toc-active-indicator");
+		const mainLinks = Array.from(document.querySelectorAll(".resume-nav-link"));
+		const subLinks = Array.from(document.querySelectorAll(".resume-sub-link"));
+		const subsectionTargets = Array.from(
+			document.querySelectorAll("[data-toc-item]")
+		);
+		const sectionTargets = Array.from(
+			document.querySelectorAll(".resume-section")
+		);
 
-		function updateActiveNavLink(targetId) {
-			navLinks.forEach((link) => {
-				link.classList.remove(
-					"bg-orange-50",
-					"dark:bg-orange-900/20",
+		const clearMain = () =>
+			mainLinks.forEach((l) =>
+				l.classList.remove(
+					"bg-orange-100/40",
+					"dark:bg-orange-900/30",
+					"text-orange-700",
+					"dark:text-orange-300",
+					"shadow-sm"
+				)
+			);
+		const clearSubs = () =>
+			subLinks.forEach((l) =>
+				l.classList.remove(
+					"border-orange-400/70",
 					"text-orange-600",
-					"dark:text-orange-400"
-				);
-				link.classList.add("text-gray-700", "dark:text-gray-300");
-			});
-			const activeLink = document.querySelector(`[data-section="${targetId}"]`);
-			if (activeLink) {
-				activeLink.classList.remove("text-gray-700", "dark:text-gray-300");
-				activeLink.classList.add(
-					"bg-orange-50",
-					"dark:bg-orange-900/20",
-					"text-orange-600",
-					"dark:text-orange-400"
-				);
+					"dark:text-orange-400",
+					"bg-orange-50/70",
+					"dark:bg-orange-900/30"
+				)
+			);
+
+		function activateMain(id) {
+			const link = document.querySelector(`[data-section="${id}"]`);
+			if (!link) return;
+			clearMain();
+			link.classList.add(
+				"bg-orange-100/40",
+				"dark:bg-orange-900/30",
+				"text-orange-700",
+				"dark:text-orange-300",
+				"shadow-sm"
+			);
+			// Move indicator (desktop only)
+			if (indicator && window.innerWidth >= 1024) {
+				const r = link.getBoundingClientRect();
+				const s = sidebar.getBoundingClientRect();
+				indicator.style.top = `${r.top - s.top + 4}px`;
+				indicator.style.height = `${r.height - 8}px`;
+				indicator.style.opacity = "1";
 			}
 		}
 
-		function scrollToSection(sectionId) {
-			const section = document.getElementById(sectionId);
-			if (section) {
-				const yOffset = -80;
-				const y =
-					section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-				window.scrollTo({ top: y, behavior: "smooth" });
-			}
+		function activateSub(id) {
+			const link = document.querySelector(`[data-subsection="${id}"]`);
+			if (!link) return;
+			clearSubs();
+			link.classList.add(
+				"border-orange-400/70",
+				"text-orange-600",
+				"dark:text-orange-400",
+				"bg-orange-50/70",
+				"dark:bg-orange-900/30"
+			);
 		}
 
-		navLinks.forEach((link) => {
-			link.addEventListener("click", (e) => {
+		function smoothScrollTo(targetId) {
+			const el = document.getElementById(targetId);
+			if (!el) return;
+			const yOffset = -72; // align under sticky header space
+			const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+			window.scrollTo({ top: y, behavior: "smooth" });
+		}
+
+		mainLinks.forEach((l) =>
+			l.addEventListener("click", (e) => {
 				e.preventDefault();
-				const targetId = link.getAttribute("data-section");
-				if (targetId) {
-					scrollToSection(targetId);
-					updateActiveNavLink(targetId);
-				}
-			});
-		});
+				const id = l.getAttribute("data-section");
+				if (id) smoothScrollTo(id);
+			})
+		);
+		subLinks.forEach((l) =>
+			l.addEventListener("click", (e) => {
+				e.preventDefault();
+				const id = l.getAttribute("data-subsection");
+				if (id) smoothScrollTo(id);
+			})
+		);
 
-		const observerOptions = {
-			root: null,
-			rootMargin: "-10% 0px -60% 0px",
-			threshold: [0, 0.1, 0.5, 1],
-		};
+		// IntersectionObservers
+		const sectionObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) activateMain(entry.target.id);
+				});
+			},
+			{ rootMargin: "-55% 0px -35% 0px", threshold: [0, 0.25, 0.51, 1] }
+		);
+		sectionTargets.forEach((s) => sectionObserver.observe(s));
 
-		const observer = new IntersectionObserver((entries) => {
-			let maxEntry = null;
-			let maxRatio = 0;
-			entries.forEach((entry) => {
-				if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-					maxEntry = entry;
-					maxRatio = entry.intersectionRatio;
-				}
-			});
-			if (maxEntry) updateActiveNavLink(maxEntry.target.id);
-		}, observerOptions);
-		sections.forEach((section) => observer.observe(section));
-		if (sections.length > 0) updateActiveNavLink(sections[0].id);
+		const subObserver = new IntersectionObserver(
+			(entries) => {
+				let best = null;
+				let ratio = 0;
+				entries.forEach((e) => {
+					if (e.isIntersecting && e.intersectionRatio > ratio) {
+						ratio = e.intersectionRatio;
+						best = e;
+					}
+				});
+				if (best) activateSub(best.target.id);
+			},
+			{ rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+		);
+		subsectionTargets.forEach((n) => subObserver.observe(n));
 
+		// Initial state
+		if (sectionTargets.length) activateMain(sectionTargets[0].id);
+
+		// Download resume button (unchanged core logic)
 		const downloadBtn = document.querySelector("[data-download-resume]");
 		if (downloadBtn) {
 			downloadBtn.addEventListener("click", async () => {
