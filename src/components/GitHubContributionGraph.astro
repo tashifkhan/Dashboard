@@ -1,6 +1,14 @@
 ---
 import { Calendar, ChevronDown, Star, List as ListIcon } from "lucide-react";
 import { starLists } from "../data/starLists";
+import {
+	Select,
+	SelectTrigger,
+	SelectValue,
+	SelectContent,
+	SelectItem,
+} from "./ui/select";
+import YearSelect from "./YearSelect";
 
 // Calculate date range (last 365 days from today)
 const today = new Date();
@@ -110,16 +118,7 @@ const starredLists = starLists || [];
 		<div class="flex items-center space-x-4">
 			<!-- Year Selector -->
 			<div class="relative">
-				<select 
-					id="year-selector"
-					class="appearance-none bg-white/70 dark:bg-gray-800/70 border border-emerald-200/40 dark:border-emerald-700/40 rounded-lg px-3 py-2 pr-8 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60 transition-colors"
-				>
-					<option value="last-year">Last 365 days</option>
-					{availableYears.map(year => (
-						<option value={year}>{year}</option>
-					))}
-				</select>
-				<ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-emerald-400/60 pointer-events-none" />
+				<YearSelect client:load availableYears={availableYears} defaultValue={String(availableYears[0])} />
 			</div>
 			
 			<!-- Legend -->

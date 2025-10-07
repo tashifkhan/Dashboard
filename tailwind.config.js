@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './src/components/ui/**/*.{ts,tsx,js,jsx,astro}'
+  ],
   darkMode: 'class',
   theme: {
     extend: {
@@ -12,5 +15,14 @@ export default {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    // optional utility used by some shadcn components
+    // install with: npm install tailwindcss-animate
+    (function () {
+      try {
+        return require('tailwindcss-animate');
+      } catch (e) {
+        return () => {};
+      }
+    })(),
   ],
 };

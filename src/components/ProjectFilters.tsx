@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
 import { Search, ExternalLink, ListFilter } from "lucide-react";
+import {
+	Select,
+	SelectTrigger,
+	SelectValue,
+	SelectContent,
+	SelectItem,
+} from "@/components/ui/select";
 import { starLists } from "../data/starLists";
 
 interface StarListOption {
@@ -125,18 +132,32 @@ export default function ProjectFilters() {
 				{/* Star list selector */}
 				<div className="flex items-stretch gap-2">
 					<div className="relative">
-						<select
-							data-project-list-select
+						<Select
 							value={selectedList}
-							onChange={handleListChange}
-							className="h-full px-3 py-2 pr-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none"
+							onValueChange={(v: string) => {
+								// emulate the original change handler
+								setSelectedList(v);
+								const searchEvent = new CustomEvent("project-search", {
+									detail: { term: searchTerm, showLiveOnly, list: v },
+								});
+								document.dispatchEvent(searchEvent);
+							}}
 						>
-							{lists.map((l) => (
-								<option key={l.key} value={l.key}>
-									{l.label}
-								</option>
-							))}
-						</select>
+							<SelectTrigger
+								data-project-list-select
+								hideIcon
+								className="h-full pr-10"
+							>
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{lists.map((l) => (
+									<SelectItem key={l.key} value={l.key}>
+										{l.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 						<ListFilter
 							size={16}
 							className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
