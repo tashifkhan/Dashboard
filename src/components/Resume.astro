@@ -13,14 +13,14 @@ import {
 	Download,
 	MapPin as LocationIcon,
 } from "lucide-react";
+import { slugify } from "../utils/slugify";
+// @ts-nocheck
 
 // Design system helpers (light abstraction to keep template clean)
 const cardBase =
 	"group relative rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-900/70 backdrop-blur-xl shadow-sm transition-all duration-400 hover:shadow-md hover:-translate-y-0.5";
-// Thin luminous vertical accent line inside card + optional gradient end color
 const leftBar = (from: string, to?: string) =>
 	`pointer-events-none absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-gradient-to-b from-${from} ${to ? `to-${to}` : `to-${from}`} opacity-95`;
-// Soft glow plume behind the line for depth
 const glowBar = (color: string) =>
 	`pointer-events-none absolute left-0 top-4 bottom-4 w-10 -translate-x-1 bg-gradient-to-b from-${color}-500/25 via-${color}-500/0 to-${color}-500/25 blur-xl`;
 
@@ -30,9 +30,8 @@ interface ExperienceItem {
 	period: string;
 	certificate?: string;
 	points: string[];
-	color: string; // tailwind color name (e.g. blue, green)
+	color: string;
 }
-
 interface ProjectItem {
 	title: string;
 	stack: string;
@@ -40,7 +39,6 @@ interface ProjectItem {
 	points: string[];
 	color: string;
 }
-
 interface EducationItem {
 	institute: string;
 	period: string;
@@ -48,7 +46,6 @@ interface EducationItem {
 	details?: string[];
 	color: string;
 }
-
 interface PositionItem {
 	title: string;
 	org: string;
@@ -324,46 +321,81 @@ const skillCategories: { label: string; color: string; items: string[] }[] = [
 	},
 ];
 
-const navItems = [
-	{ id: "skills", label: "Skills", icon: Award },
-	{ id: "experience", label: "Experience", icon: Calendar },
-	{ id: "projects", label: "Notable Projects", icon: BookOpen },
-	{ id: "education", label: "Education", icon: MapPin },
-	{ id: "positions", label: "Positions", icon: Users },
+// Table of Contents configuration (main sections + dynamic children)
+const tocMain = [
+	{ id: "skills", label: "Skills", children: [] },
+	{
+		id: "experience",
+		label: "Experience",
+		children: experiences.map((e) => ({
+			id: `exp-${slugify(e.company)}`,
+			label: e.company,
+		})),
+	},
+	{
+		id: "projects",
+		label: "Projects",
+		children: projects.map((p) => ({
+			id: `proj-${slugify(p.title)}`,
+			label: p.title,
+		})),
+	},
+	{ id: "education", label: "Education", children: [] },
+	{
+		id: "positions",
+		label: "Positions",
+		children: positions.map((p) => ({
+			id: `pos-${slugify(p.title)}`,
+			label: p.title,
+		})),
+	},
 ];
 ---
 
 <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
-	<!-- Navigation Sidebar -->
+	<!-- Table of Contents Sidebar -->
 	<aside class="lg:w-64 flex-shrink-0">
 		<nav
 			id="resume-sidebar"
-			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/60 dark:border-gray-800/60 shadow-lg sticky top-6 z-30 max-h-[calc(100vh-3rem)] overflow-y-auto transition-all"
-			aria-label="Resume Section Navigation"
+			class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-4 rounded-2xl border border-gray-200/60 dark:border-gray-800/60 shadow-lg sticky top-6 z-30 max-h-[calc(100vh-3rem)] overflow-y-auto transition-all text-sm"
+			aria-label="On this page navigation"
 		>
 			<h3
-				class="text-sm font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-3 flex items-center"
+				class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3"
 			>
-				<FileText className="w-4 h-4 mr-2 text-orange-500" /> Overview
+				<FileText className="w-4 h-4 text-orange-500" /> On this page
 			</h3>
-			<ul class="space-y-1">
+			<ol class="space-y-2">
 				{
-					navItems.map((item) => {
-						const Icon = item.icon;
-						return (
-							<li>
-								<a
-									href={`#${item.id}`}
-									data-section={item.id}
-									class="resume-nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/70 dark:hover:bg-orange-900/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/50 transition-colors"
-								>
-									<Icon className="w-4 h-4" /> {item.label}
-								</a>
-							</li>
-						);
-					})
+					tocMain.map((sec) => (
+						<li>
+							<a
+								href={`#${sec.id}`}
+								data-section={sec.id}
+								class="resume-nav-link block px-3 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/70 dark:hover:bg-orange-900/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40 transition-colors"
+							>
+								{sec.label}
+							</a>
+							{sec.children.length > 0 && (
+								<ol class="mt-1 ml-3 border-l border-gray-200 dark:border-gray-800 pl-3 space-y-1">
+									{sec.children.map((child) => (
+										<li>
+											<a
+												href={`#${child.id}`}
+												data-subsection={child.id}
+												class="resume-sub-link group flex items-center gap-2 rounded-md px-2 py-1 text-[12px] font-normal text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-900/10 transition-colors"
+											>
+												<span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-orange-500 dark:bg-gray-600" />
+												{child.label}
+											</a>
+										</li>
+									))}
+								</ol>
+							)}
+						</li>
+					))
 				}
-			</ul>
+			</ol>
 		</nav>
 	</aside>
 
@@ -531,8 +563,12 @@ const navItems = [
 				<ol class="space-y-6 relative">
 					{
 						experiences.map((exp) => (
-							<li class="relative">
-								<div class={cardBase + " pl-7 pr-5 sm:pr-6 py-5"}>
+							<li
+								class="relative"
+								id={`exp-${slugify(exp.company)}`}
+								data-toc-item
+							>
+								<div class={cardBase + " pl-7 pr-5 sm:pr-6 py-5"} data-card>
 									<span
 										class={leftBar(`${exp.color}-500`, `${exp.color}-400`)}
 									/>
@@ -601,7 +637,11 @@ const navItems = [
 				<div class="space-y-6">
 					{
 						projects.map((p) => (
-							<div class={cardBase + " p-5 sm:p-6 pl-7"}>
+							<div
+								class={cardBase + " p-5 sm:p-6 pl-7"}
+								id={`proj-${slugify(p.title)}`}
+								data-toc-item
+							>
 								<span class={leftBar(`${p.color}-500`, `${p.color}-400`)} />
 								<span class={glowBar(p.color)} />
 								<div class="relative z-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-2">
@@ -662,7 +702,11 @@ const navItems = [
 				<div class="space-y-6">
 					{
 						education.map((ed) => (
-							<div class={cardBase + " p-5 sm:p-6 pl-7"}>
+							<div
+								class={cardBase + " p-5 sm:p-6 pl-7"}
+								id={`ed-${slugify(ed.institute)}`}
+								data-toc-item
+							>
 								<span class={leftBar(`${ed.color}-500`, `${ed.color}-400`)} />
 								<span class={glowBar(ed.color)} />
 								<div class="relative z-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-2">
@@ -715,7 +759,11 @@ const navItems = [
 				<div class="space-y-6">
 					{
 						positions.map((pos) => (
-							<div class={cardBase + " p-5 sm:p-6 pl-7"}>
+							<div
+								class={cardBase + " p-5 sm:p-6 pl-7"}
+								id={`pos-${slugify(pos.title)}`}
+								data-toc-item
+							>
 								<span class={leftBar(`${pos.color}-500`, `${pos.color}-400`)} />
 								<span class={glowBar(pos.color)} />
 								<div class="relative z-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-2">
