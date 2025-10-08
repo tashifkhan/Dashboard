@@ -1,5 +1,5 @@
 ---
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Pin } from "lucide-react";
 import type { Project } from "../data/projects";
 
 interface Props {
@@ -14,10 +14,24 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 <a
 	href={`/projects/${project.slug}`}
 	class="group block h-full no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 dark:focus-visible:ring-orange-400/60 rounded-xl"
+	data-project-card
+	data-pinned={project.pinned ? "true" : "false"}
 >
 	<div
-		class="relative h-full rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-900/70 backdrop-blur-xl p-6 sm:p-7 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-orange-300/50 dark:hover:border-orange-400/40"
+		class="relative h-full rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-900/70 backdrop-blur-xl p-6 sm:p-7 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-orange-300/50 dark:hover:border-orange-400/40"
 	>
+		{
+			project.pinned && (
+				<span
+					class="absolute -top-2 -left-0.5 inline-flex items-center gap-1 px-2 py-1 pt-2 rounded-md bg-orange-600 text-white text-[10px] font-medium shadow-sm"
+					aria-label="Pinned repository"
+					data-pinned-indicator
+				>
+					<Pin size={12} className="opacity-90" />
+					Pinned
+				</span>
+			)
+		}
 		<!-- Background orange overlay -->
 		<div
 			class="pointer-events-none absolute inset-0 rounded-2xl bg-orange-500/10 dark:bg-orange-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
