@@ -42,6 +42,8 @@ type RemotePost = {
 	tags: string[];
 	excerpt: string;
 	slug: string;
+	wordCount?: number;
+	readingTimeMinutes?: number;
 };
 
 let blogPosts: RemotePost[] = [];
@@ -79,6 +81,18 @@ const blogCategories = [
 		blogPosts.flatMap((post) => (Array.isArray(post.tags) ? post.tags : []))
 	),
 ];
+
+// Aggregate metrics from the remote posts (new API includes wordCount & readingTimeMinutes)
+const totalBlogWords = blogPosts.reduce(
+	(sum, p) => sum + (p.wordCount || 0),
+	0
+);
+const avgReadingMinutes = blogPosts.length
+	? Math.round(
+			blogPosts.reduce((s, p) => s + (p.readingTimeMinutes || 0), 0) /
+				blogPosts.length
+		)
+	: 0;
 
 const socials = [
 	{ icon: Github, link: "https://github.com/tashifkhan", label: "GitHub" },
@@ -400,6 +414,14 @@ const socials = [
 									<span
 										class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30"
 										>{numBlogPosts} Posts</span
+									>
+									<span
+										class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-100/10 text-rose-700 dark:text-rose-300 border border-rose-100/30"
+										>{totalBlogWords.toLocaleString()} words</span
+									>
+									<span
+										class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-50/10 text-rose-700 dark:text-rose-300 border border-rose-50/30"
+										>Avg {avgReadingMinutes} min read</span
 									>
 									{
 										latestBlogDate && (

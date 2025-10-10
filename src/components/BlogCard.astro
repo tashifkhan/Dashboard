@@ -6,9 +6,11 @@ type RemotePost = {
 	date: string; // ISO date
 	author: string;
 	socials: string[];
-	tags: string[];
-	excerpt: string;
-	slug: string;
+  tags: string[];
+  excerpt: string;
+  slug: string;
+  wordCount?: number;
+  readingTimeMinutes?: number;
 };
 
 type Props = {
@@ -43,8 +45,10 @@ const accent = {
   hover: "group-hover:border-rose-400/60"
 };
 
-// Estimated read time (rough approximation)
-const readTime = Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
+// Prefer API-provided reading time & word count; fall back to heuristics
+const readTime = post.readingTimeMinutes ?? Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
+const wordCount = post.wordCount ?? 0;
+const wordCountText = wordCount ? wordCount.toLocaleString('en-US') + ' words' : '';
 ---
 
 {variant === "featured" ? (
@@ -78,7 +82,7 @@ const readTime = Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
         </header>
         <div class="mt-auto pt-2 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
           <span class="inline-flex items-center gap-1"><Calendar className="w-4 h-4" />{dateText}</span>
-          <span class="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{readTime} min read</span>
+          <span class="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{readTime} min read{wordCount ? ` • ${wordCountText}` : ''}</span>
           <span class="ml-auto inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-medium group-hover:translate-x-0.5 transition-transform">Read Article <ArrowRight className="w-4 h-4" /></span>
         </div>
       </div>
@@ -104,7 +108,7 @@ const readTime = Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
         )}
         <div class="mt-auto pt-2 flex items-center gap-3 text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
           <span class="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{dateText}</span>
-          <span class="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{readTime}m</span>
+          <span class="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{readTime}m{wordCount ? ` • ${wordCountText}` : ''}</span>
           <span class="ml-auto inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-medium">Read <ExternalLink className="w-3 h-3" /></span>
         </div>
       </div>
