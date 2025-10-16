@@ -1,8 +1,12 @@
 {
-	"crons": [
+	"rewrites": [
 		{
-			"path": "/api/cron/deploy",
-			"schedule": "0 2 * * *"
+			"source": "/ph/static/(.*)",
+			"destination": "https://eu-assets.i.posthog.com/static/$1"
+		},
+		{
+			"source": "/ph/(.*)",
+			"destination": "https://eu.i.posthog.com/$1"
 		}
 	],
 	"redirects": [
@@ -20,17 +24,6 @@
 			"source": "/blog/:slug",
 			"destination": "https://blog.tashif.codes/blog/:slug",
 			"permanent": true
-		}
-	],
-	"headers": [
-		{
-			"source": "/api/cron/(.*)",
-			"headers": [
-				{
-					"key": "Cache-Control",
-					"value": "no-cache, no-store, must-revalidate"
-				}
-			]
 		}
 	]
 }
