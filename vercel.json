@@ -7,9 +7,7 @@
 		{
 			"source": "/ph/(.*)",
 			"destination": "https://eu.i.posthog.com/$1"
-		}
-	],
-	"redirects": [
+		},
 		{
 			"source": "/blog",
 			"destination": "https://blog.tashif.codes",
