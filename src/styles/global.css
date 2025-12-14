@@ -176,9 +176,22 @@ nav::-webkit-scrollbar-thumb:hover {
 .prose pre,
 .prose code {
   max-width: 100%;
-  overflow-x: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+/* Updated Markdown Styles */
+.prose pre {
+  padding: 1rem;
+  overflow: auto;
+  border-radius: 0.5rem; /* Matches existing border-radius theme */
+}
+
+.prose :not(pre) > code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  background-color: var(--muted); /* Ensure inline code has background */
+  font-weight: 500;
 }
 
 /* Enhanced Code Block Styling */
@@ -256,8 +269,7 @@ nav::-webkit-scrollbar-thumb:hover {
 /* Copy Button */
 .copy-button {
   position: absolute;
-  top: 0.75rem;
-  right: 4rem;
+  /* top/right controlled by utility classes in component */
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #e2e8f0;
