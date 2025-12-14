@@ -447,28 +447,35 @@ const socials = [
 								))}
 							</div>
 							<div class="pt-10">
-								<Card className="mx-auto max-w-xl text-center border-dashed border-gray-300/60 dark:border-gray-700/60 bg-white/60 dark:bg-gray-900/50 backdrop-blur">
-									<CardContent className="p-6 space-y-4">
-										<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-											Want to read more?
-										</h3>
-										<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-											Explore the full archive for in‑depth guides &
-											architecture notes. New posts are published regularly.
-										</p>
-										<Button
-											variant="outline"
-											className="border-primary/40 bg-primary/10 text-primary dark:text-primary hover:bg-primary/15 dark:border-primary/40"
-											asChild
-										>
-											<a
-												href="https://blog.tashif.codes"
-												target="_blank"
-												rel="noopener noreferrer"
+								<Card className="w-full text-center border-0 shadow-lg bg-gradient-to-br from-primary/5 via-transparent to-primary/5 dark:from-primary/10 dark:via-transparent dark:to-primary/10">
+									<CardContent className="p-8 sm:p-10 space-y-6 relative overflow-hidden">
+										<div class="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-800/50 [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] pointer-events-none" />
+										<div class="space-y-3 relative z-10">
+											<h3 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+												Want to read more?
+											</h3>
+											<p class="text-gray-600 dark:text-gray-300 max-w-lg mx-auto leading-relaxed">
+												Explore the full archive for in‑depth guides &
+												architecture notes. New posts are published regularly.
+											</p>
+										</div>
+										<div class="flex justify-center">
+											<Button
+												size="lg"
+												className="relative z-10 rounded-full px-8 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all hover:scale-105"
+												asChild
 											>
-												Visit Blog <ExternalLink size={16} className="ml-2" />
-											</a>
-										</Button>
+												<a
+													href="https://blog.tashif.codes"
+													target="_blank"
+													rel="noopener noreferrer"
+													class="flex items-center gap-2 text-primary-foreground opacity-70 hover:text-primary transition-colors"
+												>
+													Visit Full Blog
+													<ExternalLink size={16} className="ml-2" />
+												</a>
+											</Button>
+										</div>
 									</CardContent>
 								</Card>
 							</div>
