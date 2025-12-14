@@ -723,3 +723,13 @@ nav::-webkit-scrollbar-thumb:hover {
     letter-spacing: var(--tracking-normal);
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

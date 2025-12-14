@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ProjectFilters from "../components/ProjectFilters.astro";
+import ProjectFilters from "../components/ProjectFilters.tsx";
+import { starLists } from "../data/starLists";
 import BlogFilters from "../components/BlogFilters";
 import BlogCard from "../components/BlogCard.astro";
 import LeetCodeStats from "../components/LeetCodeStats.astro";
@@ -189,15 +190,15 @@ const socials = [
 
 		<!-- Navigation (Styled as Shadcn Tabs) -->
 		<div
-			class="sticky top-[56px] sm:top-[64px] z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300 overflow-x-auto font-sans"
+			class="sticky top-[56px] sm:top-[64px] z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300 overflow-x-auto font-sans no-scrollbar"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
 				<div
-					class="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground w-full sm:w-auto"
+					class="inline-flex h-10 items-center justify-start sm:justify-center rounded-md bg-muted p-1 text-muted-foreground w-full sm:w-auto overflow-x-auto no-scrollbar"
 				>
 					<button
 						id="projects-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="active"
 					>
 						<FolderOpen size={16} className="mr-2" />
@@ -205,7 +206,7 @@ const socials = [
 					</button>
 					<button
 						id="blog-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<BookOpen size={16} className="mr-2" />
@@ -213,7 +214,7 @@ const socials = [
 					</button>
 					<button
 						id="leetcode-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<Code2 size={16} className="mr-2" />
@@ -221,7 +222,7 @@ const socials = [
 					</button>
 					<button
 						id="github-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<Github size={16} className="mr-2" />
@@ -229,7 +230,7 @@ const socials = [
 					</button>
 					<button
 						id="resume-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<FileText size={16} className="mr-2" />
@@ -237,7 +238,7 @@ const socials = [
 					</button>
 					<button
 						id="community-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<Users size={16} className="mr-2" />
@@ -379,7 +380,7 @@ const socials = [
 					</CardContent>
 				</Card>
 
-				<ProjectFilters client:load />
+				<ProjectFilters client:load starLists={starLists} />
 				<div
 					class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr"
 				>
