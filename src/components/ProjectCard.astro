@@ -44,10 +44,14 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 			}
 			<CardTitle
 				className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors"
+				data-project-title
 			>
 				{project.title}
 			</CardTitle>
-			<CardDescription className="line-clamp-3 leading-relaxed">
+			<CardDescription
+				className="line-clamp-3 leading-relaxed"
+				data-project-description
+			>
 				{project.description}
 			</CardDescription>
 		</CardHeader>
@@ -59,6 +63,7 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 						<Badge
 							variant="secondary"
 							className="text-[10px] font-medium bg-secondary/50 hover:bg-secondary/70 transition-colors"
+							data-project-language
 						>
 							{lang}
 						</Badge>
