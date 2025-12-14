@@ -57,6 +57,32 @@ async function fetchAllProjects(): Promise<Project[]> {
 		console.error("Error fetching repos", e);
 	}
 
+	// Fetch stars
+	const starMap = new Map<string, number>();
+	try {
+		const starsRes = await fetch(
+			"https://github-stats.tashif.codes/tashifkhan/stars"
+		);
+		if (starsRes.ok) {
+			const starsData = await starsRes.json();
+			if (starsData.repositories && Array.isArray(starsData.repositories)) {
+				starsData.repositories.forEach((repo: any) => {
+					// Map by name (lowercase for safety)
+					starMap.set(repo.name.toLowerCase(), repo.stars);
+					// Also map by full URL if needed, but name is usually enough
+				});
+			}
+		} else {
+			console.error(
+				"Failed to fetch stars:",
+				starsRes.status,
+				starsRes.statusText
+			);
+		}
+	} catch (e) {
+		console.error("Error fetching stars:", e);
+	}
+
 	// Fetch pinned in parallel / earlier
 	const pinnedProjects = await fetchPinnedProjects();
 	const pinnedNames = new Set(
@@ -67,7 +93,17 @@ async function fetchAllProjects(): Promise<Project[]> {
 	const repoProjects: Project[] = repos.map((project: any) => {
 		const titleFormatted = formatTitle(project.title);
 		const isPinned = pinnedNames.has(titleFormatted.toLowerCase());
-		const stars = project.stars ?? project.stargazers ?? project.stargazers_count ?? 0;
+		
+		// Priority: Star map -> project.stars -> project.stargazers -> 0
+		let stars = starMap.get(project.title.toLowerCase());
+		if (stars === undefined) {
+			stars =
+				project.stars ??
+				project.stargazers ??
+				project.stargazers_count ??
+				0;
+		}
+
 		const forks = project.forks ?? project.forks_count ?? 0;
 		return {
 			title: titleFormatted,
@@ -87,6 +123,13 @@ async function fetchAllProjects(): Promise<Project[]> {
 	const existingSlugs = new Set(repoProjects.map((p) => p.slug));
 	for (const pinned of pinnedProjects) {
 		if (!existingSlugs.has(pinned.slug)) {
+			// Try to update stars for pinned projects if available in starMap
+             // pinnedProjects might rely on the pinned API's star count, 
+             // but let's check our starMap too just in case it's fresher.
+            const freshStars = starMap.get(pinned.title.toLowerCase());
+            if (freshStars !== undefined) {
+                pinned.stars = freshStars;
+            }
 			repoProjects.push(pinned);
 		}
 	}
@@ -96,8 +139,12 @@ async function fetchAllProjects(): Promise<Project[]> {
 		const aPinned = a.pinned ? 1 : 0;
 		const bPinned = b.pinned ? 1 : 0;
 		if (aPinned !== bPinned) return bPinned - aPinned;
-		if (a.pinned && b.pinned) return (b.stars ?? 0) - (a.stars ?? 0);
-		return 0; // keep original order for non-pinned items
+		// If both pinned or both not pinned, sort by stars descending
+        const starsA = a.stars ?? 0;
+        const starsB = b.stars ?? 0;
+        if (starsA !== starsB) return starsB - starsA;
+
+		return 0; 
 	});
 
 	return repoProjects;
