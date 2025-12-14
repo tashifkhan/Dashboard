@@ -534,7 +534,10 @@ const socials = [
 								className="bg-primary hover:bg-primary/90 text-primary-foreground"
 								asChild
 							>
-								<a href="/leetcode">
+								<a
+									href="/leetcode"
+									class="flex items-center gap-2 hover:text-primary"
+								>
 									Full Page <ExternalLink size={14} className="ml-1.5" />
 								</a>
 							</Button>
@@ -585,7 +588,10 @@ const socials = [
 								className="bg-primary hover:bg-primary/90 text-primary-foreground"
 								asChild
 							>
-								<a href="/github">
+								<a
+									href="/github"
+									class="flex items-center gap-2 hover:text-primary"
+								>
 									Full Page <ExternalLink size={14} className="ml-1.5" />
 								</a>
 							</Button>
@@ -635,202 +641,230 @@ const socials = [
 
 			<!-- Community Section -->
 			<div id="community-section" class="hidden">
-				<div class="mb-8">
+				<div class="mb-10">
 					<h2
-						class="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+						class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-4"
 					>
-						Community
+						Let's Connect
 					</h2>
-					<p class="text-gray-600 dark:text-gray-300">
-						Connect with the developer community
+					<p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+						I'm always open to discussing new projects, creative ideas or
+						opportunities to be part of your visions.
 					</p>
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					<Card className="hover:shadow-lg transition-all duration-300">
-						<CardContent className="p-6">
-							<div class="flex items-center space-x-3 mb-4">
-								<Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-									GitHub
-								</h3>
-							</div>
-							<p class="text-gray-600 dark:text-gray-300 mb-4">
-								Follow my open source projects and contributions
-							</p>
-							<Button
-								variant="link"
-								className="text-primary dark:text-primary p-0 h-auto"
-								asChild
-							>
-								<a
-									href="https://github.com/tashifkhan"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Visit Profile <ExternalLink size={16} className="ml-1" />
-								</a>
-							</Button>
-						</CardContent>
-					</Card>
-
-					<Card className="hover:shadow-lg transition-all duration-300">
-						<CardContent className="p-6">
-							<div class="flex items-center space-x-3 mb-4">
-								<Twitter className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-									Twitter
-								</h3>
-							</div>
-							<p class="text-gray-600 dark:text-gray-300 mb-4">
-								Follow for tech updates and coding insights
-							</p>
-							<Button
-								variant="link"
-								className="text-primary dark:text-primary p-0 h-auto"
-								asChild
-							>
-								<a
-									href="https://twitter.com/khan_tashif_"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Follow <ExternalLink size={16} className="ml-1" />
-								</a>
-							</Button>
-						</CardContent>
-					</Card>
-
-					<Card className="hover:shadow-lg transition-all duration-300">
-						<CardContent className="p-6">
-							<div class="flex items-center space-x-3 mb-4">
-								<Linkedin
-									className="w-6 h-6 text-gray-600 dark:text-gray-400"
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+					<!-- GitHub -->
+					<a
+						href="https://github.com/tashifkhan"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group relative overflow-hidden rounded-3xl bg-gray-900 p-8 transition-all hover:scale-[1.02] hover:shadow-xl lg:col-span-2 aspect-[2/1] md:aspect-auto"
+					>
+						<div
+							class="absolute inset-0 bg-gradient-to-br from-gray-800 to-black opacity-50"
+						>
+						</div>
+						<div class="relative z-10 h-full flex flex-col justify-between">
+							<div class="flex justify-between items-start">
+								<div class="p-3 bg-white/10 rounded-2xl backdrop-blur-md">
+									<Github className="w-8 h-8 text-white" />
+								</div>
+								<ExternalLink
+									className="w-6 h-6 text-gray-500 group-hover:text-white transition-colors"
 								/>
-								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-									LinkedIn
-								</h3>
 							</div>
-							<p class="text-gray-600 dark:text-gray-300 mb-4">
-								Connect professionally and view my experience
-							</p>
-							<Button
-								variant="link"
-								className="text-orange-600 dark:text-orange-400 p-0 h-auto"
-								asChild
-							>
-								<a
-									href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									Connect <ExternalLink size={16} className="ml-1" />
-								</a>
-							</Button>
-						</CardContent>
-					</Card>
+							<div>
+								<h3 class="text-2xl font-bold text-white mb-2">GitHub</h3>
+								<p class="text-gray-400 font-medium">
+									Check out my open source contributions and latest code.
+								</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- Twitter -->
+					<a
+						href="https://twitter.com/khan_tashif_"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group relative overflow-hidden rounded-3xl bg-sky-500 p-8 transition-all hover:scale-[1.02] hover:shadow-xl lg:col-span-1"
+					>
+						<div
+							class="absolute inset-0 bg-gradient-to-br from-sky-400 to-sky-600 opacity-90"
+						>
+						</div>
+						<div class="absolute -right-4 -bottom-4 opacity-20 rotate-12">
+							<Twitter className="w-32 h-32 text-white" />
+						</div>
+						<div class="relative z-10 h-full flex flex-col justify-between">
+							<div class="p-3 bg-white/20 rounded-2xl w-fit backdrop-blur-md">
+								<Twitter className="w-6 h-6 text-white" />
+							</div>
+							<div class="mt-8">
+								<h3 class="text-xl font-bold text-white mb-1">Twitter</h3>
+								<p class="text-sky-100 text-sm">Tech insights & updates</p>
+							</div>
+						</div>
+					</a>
+
+					<!-- LinkedIn -->
+					<a
+						href="https://www.linkedin.com/in/tashif-ahmad-khan-982304244/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="group relative overflow-hidden rounded-3xl bg-[#0077b5] p-8 transition-all hover:scale-[1.02] hover:shadow-xl lg:col-span-1"
+					>
+						<div
+							class="absolute inset-0 bg-gradient-to-br from-[#0077b5] to-[#005582] opacity-90"
+						>
+						</div>
+						<div class="absolute -right-4 -bottom-4 opacity-20 rotate-12">
+							<Linkedin className="w-32 h-32 text-white" />
+						</div>
+						<div class="relative z-10 h-full flex flex-col justify-between">
+							<div class="p-3 bg-white/20 rounded-2xl w-fit backdrop-blur-md">
+								<Linkedin className="w-6 h-6 text-white" />
+							</div>
+							<div class="mt-8">
+								<h3 class="text-xl font-bold text-white mb-1">LinkedIn</h3>
+								<p class="text-blue-100 text-sm">Professional network</p>
+							</div>
+						</div>
+					</a>
 				</div>
 
-				<!-- Contact Me Form -->
-				<div class="mt-12">
-					<div class="max-w-2xl">
-						<h3
-							class="text-2xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-3"
-						>
-							Contact Me
-						</h3>
-						<p
-							class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6"
-						>
-							Have a question, collaboration idea or just want to say hi? Drop a
-							quick note below. Submitting will open your default email client
-							with a pre‑filled message (no data is stored here).
-						</p>
-						<Card
-							className="bg-white/70 dark:bg-gray-900/60 backdrop-blur border-gray-200/60 dark:border-gray-800/60"
-						>
-							<CardContent className="p-6">
-								<form id="contact-form" class="space-y-5" autocomplete="on">
-									<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-										<div class="flex flex-col gap-1.5">
-											<Label htmlFor="contact-name">Name</Label>
-											<Input
-												id="contact-name"
-												name="name"
-												type="text"
-												placeholder="Jane Doe"
-												className="bg-white/80 dark:bg-gray-900/70"
-											/>
-										</div>
-										<div class="flex flex-col gap-1.5">
-											<Label htmlFor="contact-email">Email</Label>
-											<Input
-												id="contact-email"
-												name="email"
-												type="email"
-												required
-												placeholder="you@example.com"
-												className="bg-white/80 dark:bg-gray-900/70"
-											/>
-										</div>
-									</div>
-									<div class="flex flex-col gap-1.5">
-										<Label htmlFor="contact-subject">Subject</Label>
-										<Input
-											id="contact-subject"
-											name="subject"
-											type="text"
-											placeholder="Opportunity to collaborate"
-											className="bg-white/80 dark:bg-gray-900/70"
-										/>
-									</div>
-									<div class="flex flex-col gap-1.5">
-										<Label htmlFor="contact-message">Message</Label>
-										<Textarea
-											id="contact-message"
-											name="message"
-											required
-											rows={5}
-											placeholder="Hi Tashif, I wanted to reach out because..."
-											className="resize-y bg-white/80 dark:bg-gray-900/70"
-										/>
-									</div>
-									<div
-										class="flex items-center justify-between gap-4 flex-wrap"
-									>
-										<p
-											id="contact-status"
-											class="text-xs text-gray-500 dark:text-gray-500"
-										>
-										</p>
-										<Button
-											type="submit"
-											className="bg-orange-600 hover:bg-orange-500 text-white"
-										>
-											<span>Open Email Client</span>
-											<Mail size={16} className="ml-2" />
-										</Button>
-									</div>
-								</form>
-							</CardContent>
-						</Card>
+				<!-- Contact Me Form & Email CTA -->
+				<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+					<!-- Email Card -->
+					<div
+						class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 p-8 text-white lg:col-span-1 flex flex-col justify-center"
+					>
+						<div class="absolute inset-0 bg-black/5"></div>
+						<div class="relative z-10">
+							<div
+								class="p-3 bg-white/20 rounded-2xl w-fit backdrop-blur-md mb-6"
+							>
+								<Mail className="w-8 h-8 text-white" />
+							</div>
+							<h3 class="text-2xl font-bold mb-4">Email Me</h3>
+							<p class="text-orange-100 mb-8 leading-relaxed">
+								Prefer email? Send me a direct message and I'll get back to you
+								as soon as possible.
+							</p>
+							<a
+								href="mailto:tashif@duck.com"
+								class="inline-flex items-center justify-center w-full px-6 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-orange-50 transition-colors"
+							>
+								Send Email
+							</a>
+						</div>
 					</div>
+
+					<!-- Form -->
+					<Card
+						className="lg:col-span-2 border-0 shadow-lg bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl"
+					>
+						<CardContent className="p-8">
+							<div class="mb-6">
+								<h3
+									class="text-2xl font-bold text-gray-900 dark:text-white mb-2"
+								>
+									Send a Message
+								</h3>
+								<p class="text-gray-500 dark:text-gray-400">
+									Drop a quick note below.
+								</p>
+							</div>
+							<form id="contact-form" class="space-y-6" autocomplete="on">
+								<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+									<div class="space-y-2">
+										<Label
+											htmlFor="contact-name"
+											className="text-sm font-medium text-gray-700 dark:text-gray-300"
+											>Name</Label
+										>
+										<Input
+											id="contact-name"
+											name="name"
+											type="text"
+											placeholder="Your name"
+											className="h-11 rounded-xl bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20"
+										/>
+									</div>
+									<div class="space-y-2">
+										<Label
+											htmlFor="contact-email"
+											className="text-sm font-medium text-gray-700 dark:text-gray-300"
+											>Email</Label
+										>
+										<Input
+											id="contact-email"
+											name="email"
+											type="email"
+											required
+											placeholder="you@example.com"
+											className="h-11 rounded-xl bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20"
+										/>
+									</div>
+								</div>
+								<div class="space-y-2">
+									<Label
+										htmlFor="contact-subject"
+										className="text-sm font-medium text-gray-700 dark:text-gray-300"
+										>Subject</Label
+									>
+									<Input
+										id="contact-subject"
+										name="subject"
+										type="text"
+										placeholder="What's this about?"
+										className="h-11 rounded-xl bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20"
+									/>
+								</div>
+								<div class="space-y-2">
+									<Label
+										htmlFor="contact-message"
+										className="text-sm font-medium text-gray-700 dark:text-gray-300"
+										>Message</Label
+									>
+									<Textarea
+										id="contact-message"
+										name="message"
+										required
+										rows={5}
+										placeholder="Write your message here..."
+										className="resize-y rounded-xl bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 p-4"
+									/>
+								</div>
+								<div class="flex justify-end">
+									<Button
+										type="submit"
+										size="lg"
+										className="rounded-xl px-8 bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25"
+									>
+										Send Message
+									</Button>
+								</div>
+							</form>
+						</CardContent>
+					</Card>
 				</div>
 			</div>
 		</main>
-
-		<!-- Scroll to top button -->
-		<Button
-			id="scroll-top-btn"
-			type="button"
-			size="icon"
-			className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full shadow-md opacity-0 pointer-events-none transition-all"
-			aria-label="Scroll to top"
-		>
-			<ArrowUp size={18} />
-		</Button>
 	</div>
 </Layout>
+
+<!-- Scroll to top button -->
+<Button
+	id="scroll-top-btn"
+	type="button"
+	size="icon"
+	className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full shadow-md opacity-0 pointer-events-none transition-all"
+	aria-label="Scroll to top"
+>
+	<ArrowUp size={18} />
+</Button>
 
 <script>
 	// Tab switching logic
