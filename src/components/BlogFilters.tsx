@@ -10,7 +10,9 @@ interface Props {
 
 export default function BlogFilters({ categories }: Props) {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [selectedCategory, setSelectedCategory] = useState("all");
+	const [selectedCategories, setSelectedCategories] = useState<string[]>([
+		"all",
+	]);
 
 	const handleSearch = (value: string) => {
 		setSearchTerm(value);
@@ -21,9 +23,29 @@ export default function BlogFilters({ categories }: Props) {
 	};
 
 	const handleCategoryChange = (category: string) => {
-		setSelectedCategory(category);
+		let newCategories: string[];
+
+		if (category === "all") {
+			newCategories = ["all"];
+		} else {
+			// If "all" was selected, remove it
+			const current = selectedCategories.filter((c) => c !== "all");
+
+			if (current.includes(category)) {
+				newCategories = current.filter((c) => c !== category);
+			} else {
+				newCategories = [...current, category];
+			}
+
+			// If no categories left, revert to "all"
+			if (newCategories.length === 0) {
+				newCategories = ["all"];
+			}
+		}
+
+		setSelectedCategories(newCategories);
 		const categoryEvent = new CustomEvent("blog-category", {
-			detail: { category },
+			detail: { categories: newCategories },
 		});
 		document.dispatchEvent(categoryEvent);
 	};
@@ -42,10 +64,10 @@ export default function BlogFilters({ categories }: Props) {
 			</div>
 			<div className="flex flex-wrap gap-2">
 				<Badge
-					variant={selectedCategory === "all" ? "default" : "outline"}
+					variant={selectedCategories.includes("all") ? "default" : "outline"}
 					className={cn(
 						"cursor-pointer px-4 py-1.5 text-sm transition-all hover:scale-105",
-						selectedCategory !== "all" && "hover:bg-muted"
+						!selectedCategories.includes("all") && "hover:bg-muted"
 					)}
 					onClick={() => handleCategoryChange("all")}
 				>
@@ -54,10 +76,12 @@ export default function BlogFilters({ categories }: Props) {
 				{categories.map((category) => (
 					<Badge
 						key={category}
-						variant={selectedCategory === category ? "default" : "outline"}
+						variant={
+							selectedCategories.includes(category) ? "default" : "outline"
+						}
 						className={cn(
 							"cursor-pointer px-4 py-1.5 text-sm transition-all hover:scale-105",
-							selectedCategory !== category && "hover:bg-muted"
+							!selectedCategories.includes(category) && "hover:bg-muted"
 						)}
 						onClick={() => handleCategoryChange(category)}
 					>
