@@ -189,12 +189,13 @@ const socials = [
 		</header>
 
 		<!-- Navigation (Styled as Shadcn Tabs) -->
-		<div
+		<nav
 			class="sticky top-[56px] sm:top-[64px] z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/60 bg-white/80 dark:bg-gray-900/70 border-b border-gray-200/60 dark:border-gray-800/60 transition-colors duration-300 overflow-x-auto font-sans no-scrollbar"
 		>
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
 				<div
-					class="inline-flex h-10 items-center justify-start sm:justify-center rounded-md bg-muted p-1 text-muted-foreground w-full sm:w-auto overflow-x-auto no-scrollbar"
+					class="flex h-10 items-center justify-start sm:justify-center rounded-md bg-muted p-1 text-muted-foreground w-full sm:w-auto overflow-x-auto no-scrollbar"
+					style="overflow-x: auto !important;"
 				>
 					<button
 						id="projects-tab"
@@ -246,7 +247,7 @@ const socials = [
 					</button>
 				</div>
 			</div>
-		</div>
+		</nav>
 
 		<!-- Main Content -->
 		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
