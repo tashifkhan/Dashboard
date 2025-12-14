@@ -8,20 +8,28 @@ export default function ThemeToggle() {
 	const [theme, setTheme] = useState("dark");
 
 	useEffect(() => {
-		const saved = localStorage.getItem("theme") || "dark";
-		setTheme(saved);
-		document.documentElement.classList.toggle("dark", saved === "dark");
-		document.documentElement.classList.toggle("cream", saved === "cream");
+		const saved = localStorage.getItem("theme");
+		if (saved) {
+			setTheme(saved);
+		} else {
+			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+				.matches
+				? "dark"
+				: "light";
+			setTheme(systemTheme);
+		}
 	}, []);
 
 	const toggleTheme = () => {
 		const idx = themes.indexOf(theme);
 		const next = themes[(idx + 1) % themes.length];
 		setTheme(next);
-		document.documentElement.classList.toggle("dark", next === "dark");
-		document.documentElement.classList.toggle("cream", next === "cream");
-		if (next !== "dark") document.documentElement.classList.remove("dark");
-		if (next !== "cream") document.documentElement.classList.remove("cream");
+		document.documentElement.classList.remove("dark", "cream");
+		if (next === "dark") {
+			document.documentElement.classList.add("dark");
+		} else if (next === "cream") {
+			document.documentElement.classList.add("cream");
+		}
 		localStorage.setItem("theme", next);
 	};
 

@@ -26,10 +26,33 @@ const { title } = Astro.props;
 		<PostHog />
 		<Analytics />
 		<script>
-			const theme = localStorage.getItem("theme") || "dark";
-			document.documentElement.classList.remove("dark", "cream");
-			if (theme === "dark") document.documentElement.classList.add("dark");
-			if (theme === "cream") document.documentElement.classList.add("cream");
+			// Check for saved theme or use system preference
+			const getTheme = () => {
+				if (typeof localStorage !== "undefined") {
+					const storedTheme = localStorage.getItem("theme");
+					if (storedTheme) {
+						return storedTheme;
+					}
+				}
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
+				}
+				return "light";
+			};
+
+			const theme = getTheme();
+			if (theme === "light") {
+				document.documentElement.classList.remove("dark");
+				document.documentElement.classList.remove("cream");
+			} else if (theme === "cream") {
+				document.documentElement.classList.remove("dark");
+				document.documentElement.classList.add("cream");
+			} else {
+				document.documentElement.classList.add("dark");
+				document.documentElement.classList.remove("cream");
+			}
+
+			window.localStorage.setItem("theme", theme);
 		</script>
 	</body>
 </html>
