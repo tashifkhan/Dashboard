@@ -1,5 +1,6 @@
 ---
 import ProjectFiltersComponent from "./ProjectFilters.tsx";
+import { starLists } from "../data/starLists";
 ---
 
-<ProjectFiltersComponent client:load />
+<ProjectFiltersComponent client:load starLists={starLists} />

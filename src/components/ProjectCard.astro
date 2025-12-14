@@ -1,6 +1,17 @@
 ---
 import { Github, ExternalLink, Pin } from "lucide-react";
 import type { Project } from "../data/projects";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Props {
 	project: Project;
@@ -13,114 +24,81 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 
 <a
 	href={`/projects/${project.slug}`}
-	class="group block h-full no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 dark:focus-visible:ring-orange-400/60 rounded-xl"
+	class="block h-full group focus:outline-none"
 	data-project-card
 	data-pinned={project.pinned ? "true" : "false"}
 >
-	<div
-		class="relative h-full rounded-xl border border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-900/70 backdrop-blur-xl p-6 sm:p-7 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-orange-300/50 dark:hover:border-orange-400/40"
+	<Card
+		className={cn(
+			"h-full flex flex-col overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-primary/5 hover:border-primary/20",
+			project.pinned && "border-primary/30 dark:border-primary/20"
+		)}
 	>
-		{
-			project.pinned && (
-				<span
-					class="absolute -top-2 -left-0.5 inline-flex items-center gap-1 px-2 py-1 pt-2 rounded-md bg-orange-600 text-white text-[10px] font-medium shadow-sm"
-					aria-label="Pinned repository"
-					data-pinned-indicator
-				>
-					<Pin size={12} className="opacity-90" />
-					Pinned
-				</span>
-			)
-		}
-		<!-- Background orange overlay -->
-		<div
-			class="pointer-events-none absolute inset-0 rounded-2xl bg-orange-500/10 dark:bg-orange-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-			aria-hidden="true"
-		>
-		</div>
-
-		<!-- Top accent line -->
-		<div
-			class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-orange-500 dark:bg-orange-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-			aria-hidden="true"
-		>
-		</div>
-
-		<!-- Content -->
-		<div class="relative z-10 flex h-full flex-col">
-			<h3
-				class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white tracking-tight group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors"
-				data-project-title
+		<CardHeader className="p-6 pb-2 space-y-2.5 relative">
+			{
+				project.pinned && (
+					<div class="absolute top-0 right-0 p-3">
+						<Pin className="w-4 h-4 text-primary rotate-45" />
+					</div>
+				)
+			}
+			<CardTitle
+				className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors"
 			>
 				{project.title}
-			</h3>
-
-			<p
-				class="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300/90"
-				data-project-description
-				style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;"
-			>
+			</CardTitle>
+			<CardDescription className="line-clamp-3 leading-relaxed">
 				{project.description}
-			</p>
+			</CardDescription>
+		</CardHeader>
 
-			<!-- Tech stack -->
-			<div class="mt-4 flex flex-wrap gap-2">
+		<CardContent className="p-6 py-2 flex-1">
+			<div class="flex flex-wrap gap-1.5 mt-2">
 				{
 					languagesToShow.map((lang) => (
-						<span
-							class="px-2.5 py-1 rounded-lg bg-gradient-to-b from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200/70 dark:border-gray-700/60 text-[11px] font-medium transition-colors duration-300 hover:border-orange-300/60 dark:hover:border-orange-400/60 hover:text-orange-700 dark:hover:text-orange-300"
-							data-project-language
+						<Badge
+							variant="secondary"
+							className="text-[10px] font-medium bg-secondary/50 hover:bg-secondary/70 transition-colors"
 						>
 							{lang}
-						</span>
+						</Badge>
 					))
 				}
 				{
 					moreLanguages > 0 && (
-						<span
-							class="px-2.5 py-1 rounded-lg bg-gradient-to-b from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200/70 dark:border-gray-700/60 text-[11px] font-medium"
-							aria-label={`${moreLanguages} more languages`}
-						>
+						<Badge variant="outline" className="text-[10px] font-medium">
 							+{moreLanguages}
-						</span>
+						</Badge>
 					)
 				}
-				<span class="sr-only" data-project-language>
-					{project.languages.join(" ")}
-				</span>
 			</div>
+		</CardContent>
 
-			<!-- Actions -->
-			<div class="mt-auto pt-5 flex items-center gap-3 sm:gap-4">
-				{
-					project.live_website_url && (
-						<span
-							class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-medium shadow-sm transition-all duration-300 hover:shadow-md hover:from-orange-600 hover:to-orange-700 cursor-pointer"
-							data-live-link
-							data-url={project.live_website_url}
-							role="button"
-							tabindex="0"
-							aria-label="Open live demo"
-							title="Open live demo"
-						>
-							<ExternalLink size={16} className="opacity-90" />
-							Live Demo
-						</span>
-					)
-				}
-				<span
-					class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-					data-github-link
-					data-url={project.github_link}
-					role="button"
-					tabindex="0"
-					aria-label="Open source on GitHub"
-					title="Open source on GitHub"
-				>
-					<Github size={16} className="opacity-90" />
-					Source
-				</span>
-			</div>
-		</div>
-	</div>
+		<CardFooter className="p-6 pt-2 mt-auto flex items-center gap-3">
+			{
+				project.live_website_url && (
+					<Button
+						variant="default"
+						size="sm"
+						className="h-8 text-xs gap-1.5 shadow-sm"
+						data-live-link
+						data-url={project.live_website_url}
+					>
+						<ExternalLink className="w-3.5 h-3.5" />
+						Live Demo
+					</Button>
+				)
+			}
+			<Button
+				variant="outline"
+				size="sm"
+				className="h-8 text-xs gap-1.5 bg-background/50 backdrop-blur-sm"
+				data-github-link
+				data-url={project.github_link}
+			>
+				<Github className="w-3.5 h-3.5" />
+				Source
+			</Button>
+		</CardFooter>
+	</Card>
 </a>

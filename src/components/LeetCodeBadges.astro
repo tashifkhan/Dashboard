@@ -1,50 +1,50 @@
 ---
 import { leetCodeData } from "../data/leetcode";
 import { Award, Star } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const { badges } = leetCodeData;
 ---
 
-<div
-	class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg"
->
-	<h3
-		class="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4"
-	>
-		Achievement Badges
-	</h3>
-
-	{
-		badges.length > 0 ? (
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{badges.slice(0, 6).map((badge) => (
-					<div class="flex items-center space-x-3 p-4 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur rounded-xl border border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/80 dark:hover:bg-gray-700/80 transition-all duration-300">
-						<div class="flex-shrink-0">
-							<div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-								<Award className="w-5 h-5 text-white" />
+<Card className="bg-card/50 backdrop-blur-xl border-border/50 shadow-lg">
+	<CardHeader>
+		<CardTitle className="text-lg font-semibold text-foreground">
+			Achievement Badges
+		</CardTitle>
+	</CardHeader>
+	<CardContent>
+		{
+			badges.length > 0 ? (
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+					{badges.slice(0, 6).map((badge) => (
+						<div class="flex items-center space-x-3 p-4 bg-card/60 backdrop-blur rounded-xl border border-border/50 hover:bg-card/80 transition-all duration-300">
+							<div class="flex-shrink-0">
+								<div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shadow-lg">
+									<Award className="w-5 h-5 text-primary" />
+								</div>
+							</div>
+							<div class="flex-1 min-w-0">
+								<h4 class="font-medium text-foreground truncate mb-1">
+									{badge.displayName}
+								</h4>
+								<p class="text-sm text-muted-foreground truncate mb-1">
+									{badge.description}
+								</p>
+								<p class="text-xs text-muted-foreground/70">
+									{new Date(badge.createdDate).toLocaleDateString()}
+								</p>
 							</div>
 						</div>
-						<div class="flex-1 min-w-0">
-							<h4 class="font-medium text-gray-900 dark:text-white truncate mb-1">
-								{badge.displayName}
-							</h4>
-							<p class="text-sm text-gray-600 dark:text-gray-300 truncate mb-1">
-								{badge.description}
-							</p>
-							<p class="text-xs text-gray-500 dark:text-gray-400">
-								{new Date(badge.createdDate).toLocaleDateString()}
-							</p>
-						</div>
-					</div>
-				))}
-			</div>
-		) : (
-			<div class="text-center py-8">
-				<div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl w-fit mx-auto mb-4">
-					<Award className="w-8 h-8 text-gray-400 mx-auto" />
+					))}
 				</div>
-				<p class="text-gray-500 dark:text-gray-400">No badges earned yet</p>
-			</div>
-		)
-	}
-</div>
+			) : (
+				<div class="text-center py-8">
+					<div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl w-fit mx-auto mb-4">
+						<Award className="w-8 h-8 text-gray-400 mx-auto" />
+					</div>
+					<p class="text-gray-500 dark:text-gray-400">No badges earned yet</p>
+				</div>
+			)
+		}
+	</CardContent>
+</Card>

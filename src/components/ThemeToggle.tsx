@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const themes = ["dark", "light", "cream"];
 
@@ -25,21 +26,23 @@ export default function ThemeToggle() {
 	};
 
 	return (
-		<button
+		<Button
+			variant="ghost"
+			size="icon"
 			onClick={toggleTheme}
-			className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 cream:bg-[var(--primary-color)] text-gray-700 dark:text-gray-300 cream:text-[var(--text-color)] hover:text-gray-900 dark:hover:text-white transition-colors"
+			className="rounded-full hover:bg-muted"
 			aria-label="Toggle theme"
 			title={`Switch theme (current: ${theme})`}
 		>
 			{theme === "dark" ? (
-				<Sun size={20} />
+				<Sun className="h-5 w-5" />
 			) : theme === "cream" ? (
 				<span style={{ color: "#A47551" }}>
-					<Moon size={20} />
+					<Moon className="h-5 w-5" />
 				</span>
 			) : (
-				<Moon size={20} />
+				<Moon className="h-5 w-5" />
 			)}
-		</button>
+		</Button>
 	);
 }

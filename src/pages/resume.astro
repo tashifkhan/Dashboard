@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import ResumeComponent from "../components/Resume.astro";
 import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 ---
 
 <Layout title="Resume - Tashif Ahmad Khan">
@@ -17,29 +19,65 @@ import { ArrowLeft } from "lucide-react";
 			</div>
 		</div>
 		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="mb-6 sm:mb-8">
-				<a
-					href="/"
-					class="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 mb-4 transition-colors text-sm sm:text-base"
+			<div class="mb-6">
+				<Button
+					variant="ghost"
+					className="mb-4 pl-0 hover:pl-2 transition-all"
+					asChild
 				>
-					<ArrowLeft size={18} className="mr-2" />
-					Back to Home
-				</a>
-				<h1
-					class="text-3xl sm:text-4xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
+					<a href="/">
+						<ArrowLeft size={18} className="mr-2" />
+						Back to Home
+					</a>
+				</Button>
+
+				<Card
+					className="bg-white/70 dark:bg-gray-900/50 backdrop-blur border-gray-200/60 dark:border-gray-800/60"
 				>
-					Resume
-				</h1>
-				<p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
-					Professional experience and achievements
-				</p>
+					<CardContent className="p-5 flex items-center gap-4">
+						<div
+							class="p-2.5 rounded-xl bg-orange-500/10 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 ring-1 ring-orange-500/20"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-5 h-5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><path
+									d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+								></path><polyline points="14 2 14 8 20 8"></polyline><line
+									x1="16"
+									y1="13"
+									x2="8"
+									y2="13"></line><line x1="16" y1="17" x2="8" y2="17"
+								></line><polyline points="10 9 9 9 8 9"></polyline></svg
+							>
+						</div>
+						<div class="flex-1">
+							<h1
+								class="text-xl font-semibold text-gray-900 dark:text-white mb-1"
+							>
+								Resume
+							</h1>
+							<p class="text-sm text-gray-600 dark:text-gray-400">
+								Professional experience and achievements
+							</p>
+						</div>
+					</CardContent>
+				</Card>
 			</div>
 
-			<div
-				class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg p-4 sm:p-6"
+			<Card
+				className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-gray-200/50 dark:border-gray-700/50 shadow-lg"
 			>
-				<ResumeComponent />
-			</div>
+				<CardContent className="p-4 sm:p-6">
+					<ResumeComponent />
+				</CardContent>
+			</Card>
 		</div>
 	</div>
 </Layout>

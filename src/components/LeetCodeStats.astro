@@ -1,6 +1,7 @@
 ---
 import { leetCodeData } from "../data/leetcode";
 import { Trophy, Target, Calendar, Award } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const { stats, profile } = leetCodeData;
 ---
@@ -34,28 +35,24 @@ const { stats, profile } = leetCodeData;
 				icon: Calendar,
 			},
 		].map((card) => (
-			<div class="group relative overflow-hidden rounded-xl border border-purple-500/15 dark:border-purple-400/15 bg-gradient-to-br from-purple-500/5 via-purple-500/0 to-transparent dark:from-purple-400/10 dark:via-purple-400/0 p-5 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/30">
-				<div class="absolute inset-0 pointer-events-none [mask-image:radial-gradient(circle_at_60%_0%,rgba(255,255,255,0.5),transparent_70%)]" />
-				<div class="flex items-start justify-between gap-4">
+			<Card className="group relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/20 hover:shadow-sm">
+				<CardContent className="p-5 flex items-start justify-between gap-4">
 					<div class="space-y-2 min-w-0">
-						<p class="text-[11px] uppercase tracking-wide font-medium text-purple-700/70 dark:text-purple-300/60">
+						<p class="text-[11px] uppercase tracking-wide font-medium text-muted-foreground">
 							{card.label}
 						</p>
-						<p class="text-2xl font-semibold text-purple-600 dark:text-purple-300 tabular-nums">
+						<p class="text-2xl font-semibold text-foreground tabular-nums">
 							{card.value}
 						</p>
-						<p class="text-xs text-purple-900/50 dark:text-purple-200/40 truncate">
-							{card.sub}
-						</p>
+						<p class="text-xs text-muted-foreground/70 truncate">{card.sub}</p>
 					</div>
 					<div class="shrink-0">
-						<div class="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-600 to-fuchsia-600 dark:from-purple-500 dark:to-fuchsia-500 flex items-center justify-center text-white shadow-sm ring-1 ring-white/10 dark:ring-inset dark:ring-purple-300/10">
+						<div class="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-sm">
 							<card.icon className="w-5 h-5" />
 						</div>
 					</div>
-				</div>
-				<div class="mt-4 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
-			</div>
+				</CardContent>
+			</Card>
 		))
 	}
 </div>
@@ -68,71 +65,70 @@ const { stats, profile } = leetCodeData;
 				label: "Easy",
 				solved: stats.easySolved,
 				total: stats.totalEasy,
-				hue: "from-violet-500 to-violet-600",
+				hue: "from-primary/60 to-primary/70",
 			},
 			{
 				label: "Medium",
 				solved: stats.mediumSolved,
 				total: stats.totalMedium,
-				hue: "from-purple-500 to-purple-600",
+				hue: "from-primary/70 to-primary/80",
 			},
 			{
 				label: "Hard",
 				solved: stats.hardSolved,
 				total: stats.totalHard,
-				hue: "from-fuchsia-500 to-fuchsia-600",
+				hue: "from-primary/80 to-primary",
 			},
 		].map((diff) => {
 			const pct = Math.round((diff.solved / diff.total) * 100);
 			return (
-				<div class="relative overflow-hidden rounded-xl border border-purple-500/10 dark:border-purple-400/10 bg-gradient-to-br from-purple-500/5 to-transparent p-5 backdrop-blur-sm group transition-all duration-300 hover:border-purple-400/25">
-					<div class="flex items-center justify-between mb-3">
-						<h3 class="text-sm font-medium text-purple-800/70 dark:text-purple-200/70 tracking-wide">
-							{diff.label}
-						</h3>
-						<span class="text-base font-semibold text-purple-600 dark:text-purple-300 tabular-nums">
-							{diff.solved}/{diff.total}
-						</span>
-					</div>
-					<div class="h-2.5 relative rounded-full bg-purple-900/10 dark:bg-purple-100/5 overflow-hidden">
-						<div
-							class={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${diff.hue}`}
-							style={`width:${(diff.solved / diff.total) * 100}%`}
-						/>
-						<div class="absolute inset-0 rounded-full ring-1 ring-inset ring-purple-500/10" />
-					</div>
-					<div class="mt-2 flex items-center justify-between text-[11px] text-purple-900/50 dark:text-purple-300/40">
-						<span>{pct}% completed</span>
-						<span class="inline-flex items-center gap-1">
-							<span class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 animate-pulse" />
-							progress
-						</span>
-					</div>
-				</div>
+				<Card className="relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm group transition-all duration-300 hover:border-primary/20 hover:shadow-sm">
+					<CardContent className="p-5">
+						<div class="flex items-center justify-between mb-3">
+							<h3 class="text-sm font-medium text-foreground tracking-wide">
+								{diff.label}
+							</h3>
+							<span class="text-base font-semibold text-foreground tabular-nums">
+								{diff.solved}/{diff.total}
+							</span>
+						</div>
+						<div class="h-2.5 relative rounded-full bg-secondary overflow-hidden">
+							<div
+								class={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${diff.hue}`}
+								style={`width:${(diff.solved / diff.total) * 100}%`}
+							/>
+						</div>
+						<div class="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
+							<span>{pct}% completed</span>
+							<span class="inline-flex items-center gap-1">
+								<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+								progress
+							</span>
+						</div>
+					</CardContent>
+				</Card>
 			);
 		})
 	}
 </div>
 
 <!-- Legend / Meta -->
-<div
-	class="mb-8 text-[11px] text-purple-900/40 dark:text-purple-200/30 flex items-center gap-3"
->
+<div class="mb-8 text-[11px] text-muted-foreground flex items-center gap-3">
 	<div class="flex items-center gap-1.5">
 		<span
-			class="w-3 h-3 rounded-full bg-gradient-to-br from-violet-500 to-violet-600"
+			class="w-3 h-3 rounded-full bg-gradient-to-br from-primary/60 to-primary/70"
 		></span>
 		<span>Easy</span>
 	</div>
 	<div class="flex items-center gap-1.5">
 		<span
-			class="w-3 h-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-600"
+			class="w-3 h-3 rounded-full bg-gradient-to-br from-primary/70 to-primary/80"
 		></span>
 		<span>Medium</span>
 	</div>
 	<div class="flex items-center gap-1.5">
 		<span
-			class="w-3 h-3 rounded-full bg-gradient-to-br from-fuchsia-500 to-fuchsia-600"
+			class="w-3 h-3 rounded-full bg-gradient-to-br from-primary/80 to-primary"
 		></span>
 		<span>Hard</span>
 	</div>

@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 interface Props {
 	categories: string[];
@@ -11,8 +14,6 @@ export default function BlogFilters({ categories }: Props) {
 
 	const handleSearch = (value: string) => {
 		setSearchTerm(value);
-		// Dispatch custom event for search
-		console.log("BlogFilters: Dispatching search event with term:", value);
 		const searchEvent = new CustomEvent("blog-search", {
 			detail: { term: value },
 		});
@@ -21,11 +22,6 @@ export default function BlogFilters({ categories }: Props) {
 
 	const handleCategoryChange = (category: string) => {
 		setSelectedCategory(category);
-		// Dispatch custom event for category change
-		console.log(
-			"BlogFilters: Dispatching category event with category:",
-			category
-		);
 		const categoryEvent = new CustomEvent("blog-category", {
 			detail: { category },
 		});
@@ -33,42 +29,40 @@ export default function BlogFilters({ categories }: Props) {
 	};
 
 	return (
-		<div className="mb-6 sm:mb-8 space-y-4">
-			<div className="relative">
-				<div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-					<Search size={20} className="text-gray-400" />
-				</div>
-				<input
+		<div className="mb-8 space-y-6">
+			<div className="relative max-w-xl">
+				<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+				<Input
 					type="text"
-					placeholder="Search blog posts by title or category... (supports exact and fuzzy matching)"
+					placeholder="Search posts..."
 					value={searchTerm}
 					onChange={(e) => handleSearch(e.target.value)}
-					className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-rose-400"
+					className="pl-9 bg-background/50 backdrop-blur-sm"
 				/>
 			</div>
 			<div className="flex flex-wrap gap-2">
-				<button
+				<Badge
+					variant={selectedCategory === "all" ? "default" : "outline"}
+					className={cn(
+						"cursor-pointer px-4 py-1.5 text-sm transition-all hover:scale-105",
+						selectedCategory !== "all" && "hover:bg-muted"
+					)}
 					onClick={() => handleCategoryChange("all")}
-					className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
-						selectedCategory === "all"
-							? "bg-rose-500 text-white dark:bg-rose-600"
-							: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
-					}`}
 				>
 					All
-				</button>
+				</Badge>
 				{categories.map((category) => (
-					<button
+					<Badge
 						key={category}
+						variant={selectedCategory === category ? "default" : "outline"}
+						className={cn(
+							"cursor-pointer px-4 py-1.5 text-sm transition-all hover:scale-105",
+							selectedCategory !== category && "hover:bg-muted"
+						)}
 						onClick={() => handleCategoryChange(category)}
-						className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono transition-colors ${
-							selectedCategory === category
-								? "bg-rose-500 text-white dark:bg-rose-600"
-								: "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
-						}`}
 					>
 						{category}
-					</button>
+					</Badge>
 				))}
 			</div>
 		</div>

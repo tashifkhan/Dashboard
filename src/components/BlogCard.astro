@@ -1,16 +1,25 @@
 ---
 import { Calendar, Clock, ExternalLink, ArrowRight } from "lucide-react";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 type RemotePost = {
 	title: string;
 	date: string; // ISO date
 	author: string;
 	socials: string[];
-  tags: string[];
-  excerpt: string;
-  slug: string;
-  wordCount?: number;
-  readingTimeMinutes?: number;
+	tags: string[];
+	excerpt: string;
+	slug: string;
+	wordCount?: number;
+	readingTimeMinutes?: number;
 };
 
 type Props = {
@@ -23,136 +32,131 @@ const { post, variant = "default", index = 0 } = Astro.props as Props;
 
 const url = `https://blog.tashif.codes/blog/${post.slug}`;
 const dateObj = new Date(post.date);
-const dateText = dateObj.toLocaleDateString('en-US', { 
-	month: 'short', 
-	day: 'numeric', 
-	year: 'numeric' 
+const dateText = dateObj.toLocaleDateString("en-US", {
+	month: "short",
+	day: "numeric",
+	year: "numeric",
 });
 
-// Soft neutral accent palette (deterministic via slug hash)
-const accentPalette = [
-  { ring: "ring-orange-400/30", dot: "bg-orange-500", chip: "bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-300", hover: "group-hover:border-orange-400/60" },
-  { ring: "ring-blue-400/30", dot: "bg-blue-500", chip: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-300", hover: "group-hover:border-blue-400/60" },
-  { ring: "ring-emerald-400/30", dot: "bg-emerald-500", chip: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300", hover: "group-hover:border-emerald-400/60" },
-  { ring: "ring-purple-400/30", dot: "bg-purple-500", chip: "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-300", hover: "group-hover:border-purple-400/60" },
-  // { ring: "ring-rose-400/30", dot: "bg-rose-500", chip: "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300", hover: "group-hover:border-rose-400/60" }
-];
-const hash = Array.from(post.slug).reduce((a,c)=>a + c.charCodeAt(0),0);
-const accent = {
-  ring: "ring-rose-400/30",
-  dot: "bg-rose-500",
-  chip: "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300",
-  hover: "group-hover:border-rose-400/60"
-};
-
 // Prefer API-provided reading time & word count; fall back to heuristics
-const readTime = post.readingTimeMinutes ?? Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
+const readTime =
+	post.readingTimeMinutes ??
+	Math.max(1, Math.round((post.excerpt?.length || 200) / 200));
 const wordCount = post.wordCount ?? 0;
-const wordCountText = wordCount ? wordCount.toLocaleString('en-US') + ' words' : '';
+const wordCountText = wordCount
+	? wordCount.toLocaleString("en-US") + " words"
+	: "";
 ---
 
-{variant === "featured" ? (
-  <article
-    class={`group relative overflow-hidden rounded-2xl border border-gray-200/70 dark:border-gray-800/70 bg-white/80 dark:bg-gray-900/70 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 focus-within:shadow-md focus-within:ring-2 ${accent.ring} focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-gray-950 animate-in`}
-    data-blog-card
-    data-blog-tags={(post.tags || []).join(",")}
-    style={`animation-delay: ${index * 80}ms`}
-  >
-    <a href={url} target="_blank" rel="noopener noreferrer" class="flex flex-col md:flex-row h-full">
-      <!-- Accent side bar -->
-      <div class="relative md:w-1/3 flex items-end p-5 pt-6 md:p-6 bg-gradient-to-br from-gray-100 to-gray-50 dark:from-gray-800/60 dark:to-gray-900/40 border-b md:border-b-0 md:border-r border-gray-200/70 dark:border-gray-800/70 overflow-hidden">
-        <div class={`absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(0,0,0,0.06),transparent_60%)] dark:bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.06),transparent_60%)]`}></div>
-        <div class="absolute -top-10 -right-10 h-28 w-28 rounded-full opacity-70 blur-xl bg-gradient-to-tr from-orange-400/20 via-transparent to-transparent dark:from-orange-500/10"></div>
-  <div class="absolute -top-10 -right-10 h-28 w-28 rounded-full opacity-70 blur-xl bg-gradient-to-tr from-rose-400/25 via-transparent to-transparent dark:from-rose-500/15"></div>
-        <div class="flex flex-wrap gap-1.5 z-10" data-blog-tags-container>
-          {post.tags?.slice(0,3).map(tag => (
-            <span class={`px-2 py-0.5 rounded-md text-[11px] font-medium tracking-wide ${accent.chip} border border-transparent`} data-blog-tag>{tag}</span>
-          ))}
-        </div>
-        <div class="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-transparent via-gray-300/70 dark:via-gray-600/60 to-transparent"></div>
-        <span class={`absolute left-0 top-0 h-full w-1 ${accent.dot}`}></span>
-      </div>
-      <!-- Content -->
-      <div class="flex-1 flex flex-col p-5 md:p-6 gap-4">
-        <header class="space-y-2">
-          <h2 class="text-xl sm:text-2xl font-semibold leading-snug tracking-tight text-gray-900 dark:text-white group-hover:underline underline-offset-4 decoration-2 decoration-transparent group-hover:decoration-rose-400/60 transition-colors" data-blog-title>{post.title}</h2>
-          {post.excerpt && (
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">{post.excerpt}</p>
-          )}
-        </header>
-        <div class="mt-auto pt-2 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-          <span class="inline-flex items-center gap-1"><Calendar className="w-4 h-4" />{dateText}</span>
-          <span class="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{readTime} min read{wordCount ? ` • ${wordCountText}` : ''}</span>
-          <span class="ml-auto inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-medium group-hover:translate-x-0.5 transition-transform">Read Article <ArrowRight className="w-4 h-4" /></span>
-        </div>
-      </div>
-    </a>
-  </article>
-) : (
-  <article
-    class={`group relative overflow-hidden rounded-xl border border-gray-200/70 dark:border-gray-800/70 bg-white/70 dark:bg-gray-900/60 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 focus-within:shadow-md focus-within:ring-2 ${accent.ring} focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-gray-950 animate-in`}
-    data-blog-card
-    data-blog-tags={(post.tags || []).join(",")}
-    style={`animation-delay: ${index * 70}ms`}
-  >
-    <a href={url} target="_blank" rel="noopener noreferrer" class="flex flex-col h-full">
-      <div class="px-4 pt-4 flex flex-wrap gap-1.5" data-blog-tags-container>
-        {post.tags?.slice(0,3).map(tag => (
-          <span class={`px-2 py-0.5 rounded-md text-[11px] font-medium tracking-wide ${accent.chip} border border-transparent`} data-blog-tag>{tag}</span>
-        ))}
-      </div>
-      <div class="p-4 pt-2 flex flex-col gap-2 flex-1">
-        <h3 class="text-base font-semibold leading-snug text-gray-900 dark:text-white line-clamp-2" data-blog-title>{post.title}</h3>
-        {post.excerpt && (
-          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">{post.excerpt}</p>
-        )}
-        <div class="mt-auto pt-2 flex items-center gap-3 text-[11px] sm:text-xs text-gray-500 dark:text-gray-400">
-          <span class="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{dateText}</span>
-          <span class="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{readTime}m{wordCount ? ` • ${wordCountText}` : ''}</span>
-          <span class="ml-auto inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-medium">Read <ExternalLink className="w-3 h-3" /></span>
-        </div>
-      </div>
-      <div class={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.08),transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.12),transparent_70%)]"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.10),transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.18),transparent_70%)]"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.10),transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.18),transparent_70%)]"></div>
-      </div>
-    </a>
-  </article>
-)}
-
-<style>
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-	
-	.animate-in {
-		animation: fadeInUp 0.6s ease-out forwards;
-		opacity: 0;
-	}
-	
-	.line-clamp-2 {
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-	
-	.line-clamp-3 {
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
-
-  a:focus-visible {
-    outline: none;
-  }
-</style>
+{
+	variant === "featured" ? (
+		<a
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="block h-full group focus:outline-none"
+		>
+			<Card
+				className={cn(
+					"h-full overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-primary/5 hover:border-primary/20",
+					"animate-in fade-in slide-in-from-bottom-4"
+				)}
+				style={{ animationDelay: `${index * 100}ms` }}
+			>
+				<div class="flex flex-col md:flex-row h-full">
+					<div class="relative md:w-1/3 p-6 flex flex-col justify-between bg-muted/30 border-b md:border-b-0 md:border-r border-border/50">
+						<div class="flex flex-wrap gap-2 z-10">
+							{post.tags?.slice(0, 3).map((tag) => (
+								<Badge
+									variant="secondary"
+									className="text-[10px] font-medium tracking-wide"
+								>
+									{tag}
+								</Badge>
+							))}
+						</div>
+						<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-50" />
+					</div>
+					<div class="flex-1 flex flex-col p-6 gap-4">
+						<div class="space-y-2">
+							<h2 class="text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+								{post.title}
+							</h2>
+							{post.excerpt && (
+								<p class="text-muted-foreground leading-relaxed line-clamp-3">
+									{post.excerpt}
+								</p>
+							)}
+						</div>
+						<div class="mt-auto pt-4 flex items-center gap-4 text-sm text-muted-foreground">
+							<span class="flex items-center gap-1.5">
+								<Calendar className="w-4 h-4" />
+								{dateText}
+							</span>
+							<span class="flex items-center gap-1.5">
+								<Clock className="w-4 h-4" />
+								{readTime} min read
+							</span>
+							<span class="ml-auto flex items-center gap-1.5 text-primary font-medium group-hover:translate-x-1 transition-transform">
+								Read Article <ArrowRight className="w-4 h-4" />
+							</span>
+						</div>
+					</div>
+				</div>
+			</Card>
+		</a>
+	) : (
+		<a
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="block h-full group focus:outline-none"
+		>
+			<Card
+				className={cn(
+					"h-full flex flex-col overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-primary/5 hover:border-primary/20",
+					"animate-in fade-in slide-in-from-bottom-4"
+				)}
+				style={{ animationDelay: `${index * 100}ms` }}
+			>
+				<CardHeader className="p-5 pb-2 space-y-3">
+					<div class="flex flex-wrap gap-2">
+						{post.tags?.slice(0, 3).map((tag) => (
+							<Badge
+								variant="outline"
+								className="text-[10px] font-normal bg-background/50 backdrop-blur-sm"
+							>
+								{tag}
+							</Badge>
+						))}
+					</div>
+					<CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors line-clamp-2">
+						{post.title}
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="p-5 py-2 flex-1">
+					{post.excerpt && (
+						<p class="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+							{post.excerpt}
+						</p>
+					)}
+				</CardContent>
+				<CardFooter className="p-5 pt-2 text-xs text-muted-foreground flex items-center justify-between border-t border-border/30 mt-auto bg-muted/20">
+					<div class="flex items-center gap-3">
+						<span class="flex items-center gap-1.5">
+							<Calendar className="w-3.5 h-3.5" />
+							{dateText}
+						</span>
+						<span class="flex items-center gap-1.5">
+							<Clock className="w-3.5 h-3.5" />
+							{readTime}m
+						</span>
+					</div>
+					<span class="flex items-center gap-1.5 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
+						Read <ExternalLink className="w-3 h-3" />
+					</span>
+				</CardFooter>
+			</Card>
+		</a>
+	)
+}
