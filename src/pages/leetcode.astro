@@ -27,7 +27,10 @@ import { Button } from "@/components/ui/button";
 					className="mb-4 pl-0 hover:pl-2 transition-all"
 					asChild
 				>
-					<a href="/">
+					<a
+						href="/"
+						class="flex items-center gap-2 hover:text-primary transition-colors duration-300"
+					>
 						<ArrowLeft size={20} className="mr-2" />
 						Back to Home
 					</a>
@@ -38,7 +41,7 @@ import { Button } from "@/components/ui/button";
 				>
 					<CardContent className="p-5 flex items-center gap-4">
 						<div
-							class="p-2.5 rounded-xl bg-purple-500/10 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 ring-1 ring-purple-500/20"
+							class="p-2.5 rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
 						>
 							<Trophy className="w-5 h-5" />
 						</div>
@@ -62,15 +65,13 @@ import { Button } from "@/components/ui/button";
 					className="relative overflow-hidden border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-lg"
 				>
 					<div
-						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-green-200/40 dark:bg-green-900/20 blur-3xl pointer-events-none"
+						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/5 blur-3xl pointer-events-none"
 					>
 					</div>
 					<CardHeader className="relative z-10">
 						<div class="flex items-center space-x-3">
-							<div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-xl">
-								<Target
-									className="w-6 h-6 text-green-600 dark:text-green-400"
-								/>
+							<div class="p-2 bg-primary/10 rounded-xl">
+								<Target className="w-6 h-6 text-primary" />
 							</div>
 							<CardTitle className="text-2xl sm:text-3xl">Statistics</CardTitle>
 						</div>
@@ -85,15 +86,13 @@ import { Button } from "@/components/ui/button";
 					className="relative overflow-hidden border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-lg"
 				>
 					<div
-						class="absolute -top-20 -left-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-yellow-200/40 dark:bg-yellow-900/20 blur-3xl pointer-events-none"
+						class="absolute -top-20 -left-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/5 blur-3xl pointer-events-none"
 					>
 					</div>
 					<CardHeader className="relative z-10">
 						<div class="flex items-center space-x-3">
-							<div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl">
-								<Trophy
-									className="w-6 h-6 text-yellow-600 dark:text-yellow-400"
-								/>
+							<div class="p-2 bg-primary/10 rounded-xl">
+								<Trophy className="w-6 h-6 text-primary" />
 							</div>
 							<CardTitle className="text-2xl sm:text-3xl"
 								>Recent Contests</CardTitle
@@ -110,15 +109,13 @@ import { Button } from "@/components/ui/button";
 					className="relative overflow-hidden border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-900/50 backdrop-blur shadow-lg"
 				>
 					<div
-						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-purple-200/40 dark:bg-purple-900/20 blur-3xl pointer-events-none"
+						class="absolute -top-20 -right-16 h-48 w-48 sm:h-64 sm:w-64 rounded-full bg-primary/5 blur-3xl pointer-events-none"
 					>
 					</div>
 					<CardHeader className="relative z-10">
 						<div class="flex items-center space-x-3">
-							<div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-								<Award
-									className="w-6 h-6 text-purple-600 dark:text-purple-400"
-								/>
+							<div class="p-2 bg-primary/10 rounded-xl">
+								<Award className="w-6 h-6 text-primary" />
 							</div>
 							<CardTitle className="text-2xl sm:text-3xl"
 								>Achievement Badges</CardTitle
