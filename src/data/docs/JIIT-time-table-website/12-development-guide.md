@@ -1,9 +1,5 @@
 # Development Guide
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/12-development-guide
-
-# Development Guide
-
 Relevant source files
 
 * [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore)

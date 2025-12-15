@@ -1,9 +1,5 @@
 # Build & Deployment
 
-> Source: https://deepwiki.com/codeblech/jportal/6-build-and-deployment
-
-# Build & Deployment
-
 Relevant source files
 
 * [.gitignore](https://github.com/codeblech/jportal/blob/4df0fde4/.gitignore)

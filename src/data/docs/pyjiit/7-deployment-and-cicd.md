@@ -1,9 +1,5 @@
 # Deployment and CI/CD
 
-> Source: https://deepwiki.com/codelif/pyjiit/7-deployment-and-cicd
-
-# Deployment and CI/CD
-
 Relevant source files
 
 * [.github/workflows/python-publish.yml](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/python-publish.yml)

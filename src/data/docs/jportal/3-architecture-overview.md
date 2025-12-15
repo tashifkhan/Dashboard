@@ -1,9 +1,5 @@
 # Architecture Overview
 
-> Source: https://deepwiki.com/codeblech/jportal/3-architecture-overview
-
-# Architecture Overview
-
 Relevant source files
 
 * [jportal/index.html](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/index.html)

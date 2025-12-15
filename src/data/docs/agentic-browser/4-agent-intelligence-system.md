@@ -1,9 +1,5 @@
 # Agent Intelligence System
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/4-agent-intelligence-system
-
-# Agent Intelligence System
-
 Relevant source files
 
 * [agents/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/__init__.py)

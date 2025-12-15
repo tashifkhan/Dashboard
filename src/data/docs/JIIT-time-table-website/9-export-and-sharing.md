@@ -1,9 +1,5 @@
 # Export & Sharing
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/9-export-and-sharing
-
-# Export & Sharing
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

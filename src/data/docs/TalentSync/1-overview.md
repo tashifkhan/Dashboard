@@ -1,9 +1,5 @@
 # Overview
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/1-overview
-
-# Overview
-
 Relevant source files
 
 * [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)

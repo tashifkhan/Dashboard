@@ -1,9 +1,5 @@
 # Overview
 
-> Source: https://deepwiki.com/codeblech/jportal/1-overview
-
-# Overview
-
 Relevant source files
 
 * [README.md](https://github.com/codeblech/jportal/blob/4df0fde4/README.md)

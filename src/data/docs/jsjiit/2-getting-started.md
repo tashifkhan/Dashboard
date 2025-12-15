@@ -1,9 +1,5 @@
 # Getting Started
 
-> Source: https://deepwiki.com/codeblech/jsjiit/2-getting-started
-
-# Getting Started
-
 Relevant source files
 
 * [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)

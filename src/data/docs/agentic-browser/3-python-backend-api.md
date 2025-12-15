@@ -1,9 +1,5 @@
 # Python Backend API
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/3-python-backend-api
-
-# Python Backend API
-
 Relevant source files
 
 * [api/main.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/api/main.py)

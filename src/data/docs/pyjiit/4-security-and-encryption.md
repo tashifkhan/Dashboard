@@ -1,9 +1,5 @@
 # Security and Encryption
 
-> Source: https://deepwiki.com/codelif/pyjiit/4-security-and-encryption
-
-# Security and Encryption
-
 Relevant source files
 
 * [pyjiit/encryption.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py)

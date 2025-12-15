@@ -1,9 +1,5 @@
 # Documentation System
 
-> Source: https://deepwiki.com/codelif/pyjiit/6-documentation-system
-
-# Documentation System
-
 Relevant source files
 
 * [.github/workflows/documentation.yml](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/documentation.yml)

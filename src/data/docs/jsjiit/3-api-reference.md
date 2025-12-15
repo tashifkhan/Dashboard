@@ -1,9 +1,5 @@
 # API Reference
 
-> Source: https://deepwiki.com/codeblech/jsjiit/3-api-reference
-
-# API Reference
-
 Relevant source files
 
 * [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)

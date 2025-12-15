@@ -1,9 +1,5 @@
 # Browser Extension
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/5-browser-extension
-
-# Browser Extension
-
 Relevant source files
 
 * [extension/.env.example](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/.env.example)

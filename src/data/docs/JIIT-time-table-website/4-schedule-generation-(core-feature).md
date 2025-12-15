@@ -1,9 +1,5 @@
 # Schedule Generation (Core Feature)
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)
-
-# Schedule Generation (Core Feature)
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

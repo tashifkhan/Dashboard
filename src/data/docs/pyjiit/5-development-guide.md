@@ -1,9 +1,5 @@
 # Development Guide
 
-> Source: https://deepwiki.com/codelif/pyjiit/5-development-guide
-
-# Development Guide
-
 Relevant source files
 
 * [.gitignore](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore)

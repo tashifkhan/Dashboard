@@ -1,9 +1,5 @@
 # Backend Services
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/3-backend-services
-
-# Backend Services
-
 Relevant source files
 
 * [backend/app/agents/\_\_init\_\_.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/__init__.py)

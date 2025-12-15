@@ -1,9 +1,5 @@
 # Getting Started
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/2-getting-started
-
-# Getting Started
-
 Relevant source files
 
 * [.python-version](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version)

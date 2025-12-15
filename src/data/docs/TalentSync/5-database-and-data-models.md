@@ -1,9 +1,5 @@
 # Database & Data Models
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/5-database-and-data-models
-
-# Database & Data Models
-
 Relevant source files
 
 * [backend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile)

@@ -1,9 +1,5 @@
 # Data Models and API Contracts
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/6-data-models-and-api-contracts
-
-# Data Models and API Contracts
-
 Relevant source files
 
 * [agents/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/__init__.py)

@@ -1,9 +1,5 @@
 # Getting Started
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/2-getting-started
-
-# Getting Started
-
 Relevant source files
 
 * [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore)

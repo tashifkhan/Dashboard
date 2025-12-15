@@ -1,22 +1,18 @@
 # Overview
 
-> Source: https://deepwiki.com/tashifkhan/agentic-browser/1-overview
-
-# Overview
-
 Relevant source files
 
-* [.gitignore](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.gitignore)
-* [.python-version](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version)
-* [LICENSE](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/LICENSE)
-* [README.md](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md)
-* [core/config.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py)
-* [main.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py)
-* [pyproject.toml](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml)
-* [routers/browser\_use.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py)
-* [tools/google\_search/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/__init__.py)
-* [tools/google\_search/seach\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py)
-* [uv.lock](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/uv.lock)
+- [.gitignore](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.gitignore)
+- [.python-version](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version)
+- [LICENSE](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/LICENSE)
+- [README.md](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md)
+- [core/config.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py)
+- [main.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py)
+- [pyproject.toml](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml)
+- [routers/browser_use.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py)
+- [tools/google_search/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/__init__.py)
+- [tools/google_search/seach_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py)
+- [uv.lock](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/uv.lock)
 
 ## Purpose and Scope
 
@@ -24,10 +20,10 @@ This document provides a high-level introduction to the **Agentic Browser** syst
 
 For detailed information about specific components:
 
-* Installation and setup procedures: see [Getting Started](/tashifkhan/agentic-browser/2-getting-started)
-* FastAPI backend implementation: see [Python Backend API](/tashifkhan/agentic-browser/3-python-backend-api)
-* AI agent architecture and reasoning: see [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system)
-* Browser extension implementation: see [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension)
+- Installation and setup procedures: see [Getting Started](/tashifkhan/agentic-browser/2-getting-started)
+- FastAPI backend implementation: see [Python Backend API](/tashifkhan/agentic-browser/3-python-backend-api)
+- AI agent architecture and reasoning: see [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system)
+- Browser extension implementation: see [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension)
 
 **Sources:** [README.md1-118](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L1-L118) [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [pyproject.toml1-33](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L1-L33)
 
@@ -41,14 +37,15 @@ The Agentic Browser implements a modular architecture with three primary operati
 
 The system is designed around two key architectural principles:
 
-* **Model Agnosticism**: Support for multiple LLM providers (Google Gemini, OpenAI, Anthropic, Ollama, Deepseek, OpenRouter) through a unified abstraction layer
-* **Bring Your Own Keys (BYOKeys)**: No vendor lock-in; users supply their own API keys via environment variables
+- **Model Agnosticism**: Support for multiple LLM providers (Google Gemini, OpenAI, Anthropic, Ollama, Deepseek, OpenRouter) through a unified abstraction layer
+- **Bring Your Own Keys (BYOKeys)**: No vendor lock-in; users supply their own API keys via environment variables
 
 **Sources:** [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [README.md20-33](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L20-L33) [pyproject.toml7-28](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L7-L28)
 
 ## System Entry Points and Modes
 
 ![Architecture Diagram](images/1-overview_diagram_1.png)
+
 ```
 
 **Diagram: Entry Point Architecture**
@@ -67,7 +64,9 @@ The application entry point is defined in [main.py11-57](https://github.com/tash
 ## Core Dependencies and Technology Stack
 
 ```
+
 ![Architecture Diagram](images/1-overview_diagram_2.png)
+
 ```
 
 **Diagram: Dependency Graph by Category**
@@ -110,6 +109,7 @@ When launched with `--mcp`, the system starts a Model Context Protocol server th
 ## Core Capabilities
 
 ```
+
 ![Architecture Diagram](images/1-overview_diagram_3.png)
 
 **Diagram: Core Capabilities by Category**
@@ -118,51 +118,51 @@ The system provides the following integrated capabilities:
 
 ### 1. AI-Assisted Web Automation
 
-* **Conversational Agent**: React Agent with multi-turn reasoning using LangGraph state machines
-* **Script Generation**: Browser Use Agent generates structured JSON action plans for browser automation
-* **Tool Orchestration**: Dynamic tool selection based on available authentication context
+- **Conversational Agent**: React Agent with multi-turn reasoning using LangGraph state machines
+- **Script Generation**: Browser Use Agent generates structured JSON action plans for browser automation
+- **Tool Orchestration**: Dynamic tool selection based on available authentication context
 
 ### 2. Content Extraction and Processing
 
-* **Web Search**: Integration with TavilySearch API for web search and content retrieval ([tools/google\_search/seach\_agent.py11-62](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L11-L62))
-* **Website Processing**: HTML to Markdown conversion with BeautifulSoup for content extraction
-* **GitHub Repository Analysis**: Repository crawling and Q&A using gitingest
-* **YouTube Video Processing**: Subtitle/transcript extraction using yt-dlp and faster-whisper
+- **Web Search**: Integration with TavilySearch API for web search and content retrieval ([tools/google_search/seach_agent.py11-62](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L11-L62))
+- **Website Processing**: HTML to Markdown conversion with BeautifulSoup for content extraction
+- **GitHub Repository Analysis**: Repository crawling and Q&A using gitingest
+- **YouTube Video Processing**: Subtitle/transcript extraction using yt-dlp and faster-whisper
 
 ### 3. External Service Integration
 
-* **Gmail**: Email reading, sending, and management via Google API with OAuth token handling
-* **Google Calendar**: Event listing and creation
-* **PyJIIT Webportal**: Encrypted session management and attendance data retrieval
+- **Gmail**: Email reading, sending, and management via Google API with OAuth token handling
+- **Google Calendar**: Event listing and creation
+- **PyJIIT Webportal**: Encrypted session management and attendance data retrieval
 
 ### 4. Model-Agnostic LLM Support
 
 The system implements a unified `LargeLanguageModel` abstraction layer supporting:
 
-* Google Gemini (via `langchain-google-genai`)
-* OpenAI GPT models (via `langchain-openai`)
-* Anthropic Claude (via `langchain-anthropic`)
-* Ollama local models (via `langchain-ollama`)
-* Deepseek and OpenRouter (via OpenAI-compatible API)
+- Google Gemini (via `langchain-google-genai`)
+- OpenAI GPT models (via `langchain-openai`)
+- Anthropic Claude (via `langchain-anthropic`)
+- Ollama local models (via `langchain-ollama`)
+- Deepseek and OpenRouter (via OpenAI-compatible API)
 
 All API keys are managed through environment variables defined in `.env` files, ensuring no vendor lock-in.
 
-**Sources:** [pyproject.toml7-28](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L7-L28) [README.md34-55](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L34-L55) [tools/google\_search/seach\_agent.py1-84](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L1-L84) [routers/browser\_use.py1-51](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py#L1-L51)
+**Sources:** [pyproject.toml7-28](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L7-L28) [README.md34-55](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L34-L55) [tools/google_search/seach_agent.py1-84](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L1-L84) [routers/browser_use.py1-51](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py#L1-L51)
 
 ## Configuration and Environment
 
 The system loads configuration from environment variables using `python-dotenv`. Key configuration parameters include:
 
-| Variable | Purpose | Default | Source |
-| --- | --- | --- | --- |
-| `ENV` | Environment (development/production) | `development` | [core/config.py8](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L8-L8) |
-| `DEBUG` | Debug logging level | `True` in development | [core/config.py9](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L9-L9) |
-| `BACKEND_HOST` | API server host | `0.0.0.0` | [core/config.py10](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L10-L10) |
-| `BACKEND_PORT` | API server port | `5454` | [core/config.py11](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L11-L11) |
-| `GOOGLE_API_KEY` | Google services API key | Required for Gemini/Gmail/Calendar | [core/config.py14](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L14-L14) |
-| `TAVILY_API_KEY` | Web search API key | Required for web search | Implicit in tavily-search |
-| `OPENAI_API_KEY` | OpenAI API access | Required for GPT models | LangChain convention |
-| `ANTHROPIC_API_KEY` | Anthropic API access | Required for Claude models | LangChain convention |
+| Variable            | Purpose                              | Default                            | Source                                                                                                 |
+| ------------------- | ------------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `ENV`               | Environment (development/production) | `development`                      | [core/config.py8](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L8-L8)    |
+| `DEBUG`             | Debug logging level                  | `True` in development              | [core/config.py9](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L9-L9)    |
+| `BACKEND_HOST`      | API server host                      | `0.0.0.0`                          | [core/config.py10](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L10-L10) |
+| `BACKEND_PORT`      | API server port                      | `5454`                             | [core/config.py11](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L11-L11) |
+| `GOOGLE_API_KEY`    | Google services API key              | Required for Gemini/Gmail/Calendar | [core/config.py14](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L14-L14) |
+| `TAVILY_API_KEY`    | Web search API key                   | Required for web search            | Implicit in tavily-search                                                                              |
+| `OPENAI_API_KEY`    | OpenAI API access                    | Required for GPT models            | LangChain convention                                                                                   |
+| `ANTHROPIC_API_KEY` | Anthropic API access                 | Required for Claude models         | LangChain convention                                                                                   |
 
 Logging is configured based on the `DEBUG` setting, with `logging.DEBUG` level in development and `logging.INFO` in production ([core/config.py17-18](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L17-L18)).
 
@@ -210,4 +210,4 @@ The architecture follows a layered pattern:
 4. **Tool Layer**: Reusable utilities in `tools/` directory
 5. **Model Layer**: Pydantic schemas in `models/` directory
 
-**Sources:** [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [routers/browser\_use.py1-51](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py#L1-L51) [tools/google\_search/seach\_agent.py1-84](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L1-L84)
+**Sources:** [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [routers/browser_use.py1-51](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/browser_use.py#L1-L51) [tools/google_search/seach_agent.py1-84](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L1-L84)

@@ -1,9 +1,5 @@
 # Documentation System
 
-> Source: https://deepwiki.com/codeblech/jsjiit/6-documentation-system
-
-# Documentation System
-
 Relevant source files
 
 * [.github/workflows/jsdoc-build.yaml](https://github.com/codeblech/jsjiit/blob/d123b782/.github/workflows/jsdoc-build.yaml)

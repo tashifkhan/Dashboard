@@ -1,9 +1,5 @@
 # Getting Started
 
-> Source: https://deepwiki.com/codeblech/jportal/2-getting-started
-
-# Getting Started
-
 Relevant source files
 
 * [README.md](https://github.com/codeblech/jportal/blob/4df0fde4/README.md)

@@ -1,9 +1,5 @@
 # Home
 
-> Source: https://deepwiki.com/codeblech/jsjiit/1-home
-
-# Home
-
 Relevant source files
 
 * [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)

@@ -1,9 +1,5 @@
 # Academic Calendar
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/6-academic-calendar
-
-# Academic Calendar
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

@@ -1,9 +1,5 @@
 # Frontend Application
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/4-frontend-application
-
-# Frontend Application
-
 Relevant source files
 
 * [frontend/app/page.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/page.tsx)

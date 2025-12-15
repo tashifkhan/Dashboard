@@ -1,9 +1,5 @@
 # Timeline View
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/5-timeline-view
-
-# Timeline View
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

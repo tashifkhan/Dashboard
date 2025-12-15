@@ -1,9 +1,5 @@
 # Build and Distribution
 
-> Source: https://deepwiki.com/codeblech/jsjiit/5-build-and-distribution
-
-# Build and Distribution
-
 Relevant source files
 
 * [build.mjs](https://github.com/codeblech/jsjiit/blob/d123b782/build.mjs)

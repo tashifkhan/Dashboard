@@ -1,9 +1,5 @@
 # Overview
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/1-overview
-
-# Overview
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

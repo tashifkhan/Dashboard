@@ -1,9 +1,5 @@
 # Core API Reference
 
-> Source: https://deepwiki.com/codelif/pyjiit/3-core-api-reference
-
-# Core API Reference
-
 Relevant source files
 
 * [docs/apiref.rst](https://github.com/codelif/pyjiit/blob/0fe02955/docs/apiref.rst)

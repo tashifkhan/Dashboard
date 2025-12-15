@@ -1,9 +1,5 @@
 # Feature Modules
 
-> Source: https://deepwiki.com/codeblech/jportal/4-feature-modules
-
-# Feature Modules
-
 Relevant source files
 
 * [jportal/src/App.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx)

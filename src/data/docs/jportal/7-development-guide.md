@@ -1,9 +1,5 @@
 # Development Guide
 
-> Source: https://deepwiki.com/codeblech/jportal/7-development-guide
-
-# Development Guide
-
 Relevant source files
 
 * [.gitignore](https://github.com/codeblech/jportal/blob/4df0fde4/.gitignore)

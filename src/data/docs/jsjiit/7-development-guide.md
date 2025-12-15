@@ -1,9 +1,5 @@
 # Development Guide
 
-> Source: https://deepwiki.com/codeblech/jsjiit/7-development-guide
-
-# Development Guide
-
 Relevant source files
 
 * [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)

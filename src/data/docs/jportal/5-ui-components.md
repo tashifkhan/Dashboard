@@ -1,9 +1,5 @@
 # UI Components
 
-> Source: https://deepwiki.com/codeblech/jportal/5-ui-components
-
-# UI Components
-
 Relevant source files
 
 * [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)

@@ -1,9 +1,5 @@
 # Compare Timetables
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/7-compare-timetables
-
-# Compare Timetables
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

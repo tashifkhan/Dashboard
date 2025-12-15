@@ -1,9 +1,5 @@
 # System Architecture
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/2-system-architecture
-
-# System Architecture
-
 Relevant source files
 
 * [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)

@@ -1,9 +1,5 @@
 # Architecture and Design
 
-> Source: https://deepwiki.com/codeblech/jsjiit/4-architecture-and-design
-
-# Architecture and Design
-
 Relevant source files
 
 * [src/encryption.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/encryption.js)

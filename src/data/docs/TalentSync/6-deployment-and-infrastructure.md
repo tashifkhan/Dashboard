@@ -1,9 +1,5 @@
 # Deployment & Infrastructure
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure
-
-# Deployment & Infrastructure
-
 Relevant source files
 
 * [.github/workflows/deploy.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.github/workflows/deploy.yaml)

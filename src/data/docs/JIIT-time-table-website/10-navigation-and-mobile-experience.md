@@ -1,9 +1,5 @@
 # Navigation & Mobile Experience
 
-> Source: https://deepwiki.com/tashifkhan/JIIT-time-table-website/10-navigation-and-mobile-experience
-
-# Navigation & Mobile Experience
-
 Relevant source files
 
 * [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)

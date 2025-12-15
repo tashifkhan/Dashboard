@@ -1,9 +1,5 @@
 # Development Guide
 
-> Source: https://deepwiki.com/harleenkaur28/AI-Resume-Parser/7-development-guide
-
-# Development Guide
-
 Relevant source files
 
 * [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)

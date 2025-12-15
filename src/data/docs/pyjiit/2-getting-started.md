@@ -1,9 +1,5 @@
 # Getting Started
 
-> Source: https://deepwiki.com/codelif/pyjiit/2-getting-started
-
-# Getting Started
-
 Relevant source files
 
 * [docs/usage.rst](https://github.com/codelif/pyjiit/blob/0fe02955/docs/usage.rst)

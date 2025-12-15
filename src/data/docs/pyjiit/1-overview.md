@@ -1,9 +1,5 @@
 # Overview
 
-> Source: https://deepwiki.com/codelif/pyjiit/1-overview
-
-# Overview
-
 Relevant source files
 
 * [.gitignore](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore)
