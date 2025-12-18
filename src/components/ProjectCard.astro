@@ -103,8 +103,13 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 						data-docs-link
 						data-url={`/docs/${project.docs_slug}`}
 					>
-						<FileText className="w-3.5 h-3.5" />
-						Docs
+						<a
+							href={`/docs/${project.docs_slug}`}
+							class="flex items-center gap-1"
+						>
+							<FileText className="w-3.5 h-3.5" />
+							Docs
+						</a>
 					</Button>
 				)
 			}
