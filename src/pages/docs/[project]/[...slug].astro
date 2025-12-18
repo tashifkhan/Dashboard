@@ -44,7 +44,7 @@ const isActive = (itemSlug: string) => {
 ---
 
 <Layout
-	title={`${project.replace(/-/g, " ")} Docs | ${title.replace(/^[\d.\s]+/, "")}`}
+	title={`${currentProject?.title || project.replace(/-/g, " ")} Docs | ${title.replace(/^[\d.\s]+/, "")}`}
 >
 	<div class="flex h-screen overflow-hidden bg-background text-foreground">
 		<aside
@@ -58,7 +58,7 @@ const isActive = (itemSlug: string) => {
 						class="font-semibold text-lg tracking-tight capitalize flex items-center gap-2"
 					>
 						<FileText className="w-5 h-5 text-muted-foreground" />
-						{project.replace(/-/g, " ")}
+						{currentProject?.title || project.replace(/-/g, " ")}
 					</h2>
 					<p class="text-xs text-muted-foreground mt-1 ml-7">Documentation</p>
 
@@ -196,7 +196,7 @@ const isActive = (itemSlug: string) => {
 						class="font-semibold text-lg tracking-tight capitalize flex items-center gap-2"
 					>
 						<FileText className="w-5 h-5 text-muted-foreground" />
-						{project.replace(/-/g, " ")}
+						{currentProject?.title || project.replace(/-/g, " ")}
 					</h2>
 					<Button variant="ghost" size="icon" id="close-sidebar">
 						<X className="h-4 w-4" />
@@ -355,7 +355,7 @@ const isActive = (itemSlug: string) => {
 					>
 					<ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" />
 					<span class="font-medium text-foreground/80 capitalize"
-						>{project.replace(/-/g, " ")}</span
+						>{currentProject?.title || project.replace(/-/g, " ")}</span
 					>
 					{
 						(() => {
