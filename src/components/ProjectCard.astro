@@ -94,16 +94,6 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 					</Button>
 				)
 			}
-			<Button
-				variant="outline"
-				size="sm"
-				className="h-8 text-xs gap-1.5 bg-background/50 backdrop-blur-sm"
-				data-github-link
-				data-url={project.github_link}
-			>
-				<Github className="w-3.5 h-3.5" />
-				Source
-			</Button>
 			{
 				project.docs_slug && (
 					<Button
@@ -118,6 +108,16 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 					</Button>
 				)
 			}
+			<Button
+				variant="outline"
+				size="sm"
+				className="h-8 text-xs gap-1.5 bg-background/50 backdrop-blur-sm"
+				data-github-link
+				data-url={project.github_link}
+			>
+				<Github className="w-3.5 h-3.5" />
+				Source
+			</Button>
 			{
 				(project.stars ?? 0) > 0 && (
 					<div class="flex items-center gap-1 text-xs text-muted-foreground ml-auto">
