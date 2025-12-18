@@ -1,12 +1,5 @@
 # Development Guide
 
-Relevant source files
-
-* [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)
-* [run\_server](https://github.com/codeblech/jsjiit/blob/d123b782/run_server)
-* [src/feedback.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/feedback.js)
-* [test.html](https://github.com/codeblech/jsjiit/blob/d123b782/test.html)
-
 ## Purpose and Scope
 
 This guide is intended for developers who want to contribute to, modify, or extend the jsjiit library. It covers the complete development workflow from initial setup through testing and release.
@@ -51,18 +44,14 @@ This workflow represents the iterative development cycle. The edit-test loop is 
 ### 1. Clone the Repository
 
 ```
-```
 git clone https://github.com/codeblech/jsjiit.git
 cd jsjiit
-```
 ```
 
 ### 2. Install Dependencies
 
 ```
-```
 npm install
-```
 ```
 
 This installs the development dependencies defined in [package.json57-60](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L57-L60):
@@ -109,9 +98,7 @@ The `dist/` and `docs/` directories are generated during the build process and e
 The jsjiit library requires HTTPS to interact with the JIIT WebPortal (due to CORS and secure context requirements). Use the provided test server:
 
 ```
-```
 ./run_server
-```
 ```
 
 This script ([run\_server1-24](https://github.com/codeblech/jsjiit/blob/d123b782/run_server#L1-L24)):
@@ -138,9 +125,7 @@ The test interface ([test.html10-15](https://github.com/codeblech/jsjiit/blob/d1
 * Imports the library directly from source: [test.html20](https://github.com/codeblech/jsjiit/blob/d123b782/test.html#L20-L20)
 
 ```
-```
 import { WebPortal, LoginError } from "./src/index.js"
-```
 ```
 
 This direct source import allows testing changes immediately without rebuilding.
@@ -153,9 +138,7 @@ This direct source import allows testing changes immediately without rebuilding.
 
 ### Manual Testing Workflow
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_2.png)
-```
 
 **Diagram: Testing cycle showing immediate feedback without rebuild**
 
@@ -164,14 +147,12 @@ This direct source import allows testing changes immediately without rebuilding.
 The test file includes commented examples of all major API methods ([test.html36-86](https://github.com/codeblech/jsjiit/blob/d123b782/test.html#L36-L86)):
 
 ```
-```
 // Example: Testing attendance retrieval
 const meta = await w.get_attendance_meta()
 let sem = meta.semesters[1];
 let header = meta.latest_header();
 let attendance = await w.get_attendance(header, sem);
 console.log(attendance);
-```
 ```
 
 Uncomment and modify these sections to test specific functionality. Add your own test cases as needed.
@@ -193,9 +174,7 @@ All test results are logged to the browser console. Use browser DevTools to:
 
 ### Module Organization
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_3.png)
-```
 
 **Diagram: Source module dependency graph showing code entities**
 
@@ -213,7 +192,6 @@ When adding features:
 Reference [src/feedback.js1-12](https://github.com/codeblech/jsjiit/blob/d123b782/src/feedback.js#L1-L12) for the pattern:
 
 ```
-```
 const MyEnum = {
   OPTION_A: "OPTION_A",
   OPTION_B: "OPTION_B",
@@ -222,7 +200,6 @@ const MyEnum = {
 Object.freeze(MyEnum);
 
 export default MyEnum;
-```
 ```
 
 **Sources:** [src/feedback.js1-12](https://github.com/codeblech/jsjiit/blob/d123b782/src/feedback.js#L1-L12)
@@ -234,9 +211,7 @@ export default MyEnum;
 ### Running the Build
 
 ```
-```
 npm run build
-```
 ```
 
 This executes the `build` script defined in [package.json15](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L15-L15) which runs `node build.mjs`.
@@ -265,9 +240,7 @@ The `build.mjs` script uses esbuild with these key settings:
 The build automatically runs before publishing due to the `prepare` script in [package.json16](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L16-L16):
 
 ```
-```
 "prepare": "npm run build"
-```
 ```
 
 This ensures the `dist/` directory is always up-to-date when publishing to npm.
@@ -281,17 +254,13 @@ This ensures the `dist/` directory is always up-to-date when publishing to npm.
 ### Running JSDoc
 
 ```
-```
 npm run docs
-```
 ```
 
 This executes the `docs` script ([package.json14](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L14-L14)), which runs:
 
 ```
-```
 jsdoc -c jsdoc.conf.json --verbose
-```
 ```
 
 ### Documentation Output
@@ -302,7 +271,6 @@ Generated documentation is placed in `./docs/jsjiit/{version}/` where `{version}
 
 All public APIs must include JSDoc comments. Example structure:
 
-```
 ```
 /**
  * Brief description of the function.
@@ -315,7 +283,6 @@ async function myFunction(paramName) {
   // implementation
 }
 ```
-```
 
 For detailed JSDoc configuration, see [JSDoc Configuration](/codeblech/jsjiit/6.1-jsdoc-configuration).
 
@@ -327,9 +294,7 @@ For detailed JSDoc configuration, see [JSDoc Configuration](/codeblech/jsjiit/6.
 
 ### Version Management
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_4.png)
-```
 
 **Diagram: Release pipeline from version bump to distribution**
 
@@ -434,10 +399,8 @@ Before committing changes:
 **Solution:**
 
 ```
-```
 chmod +x run_server
 ./run_server
-```
 ```
 
 ### Browser Can't Load Modules

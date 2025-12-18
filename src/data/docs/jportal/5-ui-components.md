@@ -1,18 +1,5 @@
 # UI Components
 
-Relevant source files
-
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/src/App.css](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.css)
-* [jportal/src/components/AttendanceCard.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx)
-* [jportal/src/components/CircleProgress.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/CircleProgress.jsx)
-* [jportal/src/components/Navbar.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Navbar.jsx)
-* [jportal/src/components/Profile.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Profile.jsx)
-* [jportal/src/components/SubjectInfoCard.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/SubjectInfoCard.jsx)
-* [jportal/src/components/ui/tabs.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/ui/tabs.jsx)
-* [jportal/src/index.css](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/index.css)
-
 ## Purpose and Scope
 
 This document provides an overview of JPortal's UI component architecture, including the component hierarchy, styling infrastructure, and integration patterns. For detailed documentation of specific component types, see:
@@ -55,7 +42,6 @@ JPortal implements a **three-layer component architecture** that combines access
 The codebase follows consistent import patterns across all feature components:
 
 ```
-```
 // Layer 1: Radix UI primitives (used internally by wrapper components)
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 
@@ -74,7 +60,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 // Utilities
 import { cn } from "@/lib/utils"
 ```
-```
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx1-5](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L1-L5) [jportal/src/components/ui/tabs.jsx1-4](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/ui/tabs.jsx#L1-L4) [jportal/src/components/Profile.jsx1-4](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Profile.jsx#L1-L4)
 
@@ -82,9 +67,7 @@ import { cn } from "@/lib/utils"
 
 ### Category Breakdown by Function
 
-```
 ![Architecture Diagram](images/5-ui-components_diagram_2.png)
-```
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx7-13](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L7-L13) [jportal/src/components/SubjectInfoCard.jsx1-26](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/SubjectInfoCard.jsx#L1-L26) [jportal/src/components/CircleProgress.jsx3](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/CircleProgress.jsx#L3-L3) [jportal/src/components/Navbar.jsx8-15](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Navbar.jsx#L8-L15)
 
@@ -106,9 +89,7 @@ JPortal components follow consistent prop patterns across feature modules:
 
 ### CSS Architecture Layers
 
-```
 ![Architecture Diagram](images/5-ui-components_diagram_3.png)
-```
 
 **Sources:** [jportal/src/index.css1-240](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/index.css#L1-L240)
 
@@ -133,7 +114,6 @@ The styling system defines several groups of CSS custom properties in [jportal/s
 The `CircleProgress` component demonstrates the integration of CSS variables with inline SVG styling:
 
 ```
-```
 // CSS variable usage in SVG
 <circle
   stroke="var(--primary)"
@@ -147,7 +127,6 @@ The `CircleProgress` component demonstrates the integration of CSS variables wit
 >
   {label ?? percentage}
 </text>
-```
 ```
 
 **Sources:** [jportal/src/components/CircleProgress.jsx23-48](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/CircleProgress.jsx#L23-L48)
@@ -169,7 +148,6 @@ Multiple feature components use the `Sheet` component (Radix Dialog) for display
 Components use Tailwind's responsive breakpoint modifiers extensively:
 
 ```
-```
 // From AttendanceCard - responsive text sizing
 <h2 className="text-sm font-semibold max-[390px]:text-xs">
   {displayName}
@@ -180,7 +158,6 @@ Components use Tailwind's responsive breakpoint modifiers extensively:
   {item.name}
 </p>
 ```
-```
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx109](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L109-L109) [jportal/src/components/Navbar.jsx39-41](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Navbar.jsx#L39-L41)
 
@@ -188,7 +165,6 @@ Components use Tailwind's responsive breakpoint modifiers extensively:
 
 Feature components integrate Recharts with theme variables for consistent styling:
 
-```
 ```
 // From AttendanceCard - themed chart configuration
 <LineChart data={processAttendanceData()}>
@@ -205,7 +181,6 @@ Feature components integrate Recharts with theme variables for consistent stylin
   <Line stroke="var(--chart-5)" />
 </LineChart>
 ```
-```
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx301-347](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L301-L347)
 
@@ -213,7 +188,6 @@ Feature components integrate Recharts with theme variables for consistent stylin
 
 All page-level components implement loading states while fetching data:
 
-```
 ```
 // From Profile - loading state pattern
 const [loading, setLoading] = useState(true);
@@ -229,7 +203,6 @@ if (loading) {
 // Render actual content
 return <div>...</div>
 ```
-```
 
 **Sources:** [jportal/src/components/Profile.jsx7-37](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Profile.jsx#L7-L37)
 
@@ -237,7 +210,6 @@ return <div>...</div>
 
 The `cn()` utility (from `@/lib/utils`) is used throughout wrapper components to merge Tailwind classes with Radix UI classes:
 
-```
 ```
 // From tabs.jsx - class merging pattern
 const TabsList = React.forwardRef(({ className, ...props }, ref) => (
@@ -250,7 +222,6 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
     {...props}
   />
 ))
-```
 ```
 
 **Sources:** [jportal/src/components/ui/tabs.jsx8-16](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/ui/tabs.jsx#L8-L16)

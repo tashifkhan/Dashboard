@@ -1,12 +1,5 @@
 # Documentation System
 
-Relevant source files
-
-* [.github/workflows/jsdoc-build.yaml](https://github.com/codeblech/jsjiit/blob/d123b782/.github/workflows/jsdoc-build.yaml)
-* [.gitignore](https://github.com/codeblech/jsjiit/blob/d123b782/.gitignore)
-* [jsdoc.conf.json](https://github.com/codeblech/jsjiit/blob/d123b782/jsdoc.conf.json)
-* [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)
-
 ## Purpose and Scope
 
 This document describes the documentation generation and deployment infrastructure for the jsjiit library. It covers how JSDoc is configured to extract API documentation from source code comments, how the `docs` npm script generates HTML documentation locally, and how the GitHub Actions workflow automatically builds and deploys versioned documentation to GitHub Pages on every push to the main branch.
@@ -52,13 +45,11 @@ The `jsdoc.conf.json` file provides the core configuration for documentation gen
 The `source.include` array specifies which files and directories JSDoc should process:
 
 ```
-```
 "include": [
     "src",
     "package.json",
     "README.md"
 ]
-```
 ```
 
 This configuration instructs JSDoc to:
@@ -76,12 +67,10 @@ The `source.includePattern` uses the regular expression `.+\\.js(doc|x)?$` to ma
 The `opts` section controls where and how documentation is generated:
 
 ```
-```
 "opts": {
     "destination": "./docs",
     "recurse": true
 }
-```
 ```
 
 The `destination` path `./docs` specifies the output directory. When combined with the GitHub Actions workflow's versioning logic, documentation is written to `./docs/jsjiit/{version}/` where `{version}` is extracted from `package.json`.
@@ -95,12 +84,10 @@ The `recurse: true` flag ensures JSDoc processes subdirectories within the `src/
 The `templates` section controls how JSDoc formats the generated HTML:
 
 ```
-```
 "templates": {
     "cleverLinks": true,
     "monospaceLinks": true
 }
-```
 ```
 
 * `cleverLinks`: Automatically creates hyperlinks between related API documentation pages
@@ -115,19 +102,15 @@ The `templates` section controls how JSDoc formats the generated HTML:
 The `package.json` file defines an npm script for local documentation generation:
 
 ```
-```
 "scripts": {
     "docs": "jsdoc -c jsdoc.conf.json --verbose"
 }
-```
 ```
 
 Developers can generate documentation locally by running:
 
 ```
-```
 npm run docs
-```
 ```
 
 This command executes the `jsdoc` CLI with the following flags:
@@ -135,9 +118,7 @@ This command executes the `jsdoc` CLI with the following flags:
 * `-c jsdoc.conf.json`: Specifies the configuration file
 * `--verbose`: Outputs detailed generation progress
 
-```
 ![Architecture Diagram](images/6-documentation-system_diagram_2.png)
-```
 
 **Diagram: Local Documentation Generation Flow**
 
@@ -150,12 +131,10 @@ The local generation process reads the configuration from `jsdoc.conf.json`, par
 The `jsdoc` package is listed as a development dependency in `package.json`:
 
 ```
-```
 "devDependencies": {
     "esbuild": "0.24.0",
     "jsdoc": "^4.0.4"
 }
-```
 ```
 
 This ensures that when developers run `npm install`, the JSDoc tool and its dependencies (including Babel parser and Markdown parsers) are installed in `node_modules/`.
@@ -171,11 +150,9 @@ The GitHub Actions workflow automates documentation generation and deployment on
 ### Workflow Trigger
 
 ```
-```
 on:
   push:
     branches: ["main"]
-```
 ```
 
 The workflow executes only when code is pushed to the `main` branch, ensuring that documentation stays synchronized with the latest stable codebase.
@@ -185,13 +162,11 @@ The workflow executes only when code is pushed to the `main` branch, ensuring th
 ### Workflow Permissions
 
 ```
-```
 jobs:
   build:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-```
 ```
 
 The workflow requires `contents: write` permission to push generated documentation to the `gh-pages` branch. It runs on the latest Ubuntu runner provided by GitHub Actions.
@@ -212,10 +187,8 @@ The workflow consists of four sequential steps that extract the version, generat
 ### Step 1: Repository Checkout
 
 ```
-```
 - name: Checkout repository
   uses: actions/checkout@v2
-```
 ```
 
 This step clones the repository code into the GitHub Actions runner environment, making source files and configuration available for subsequent steps.
@@ -225,11 +198,9 @@ This step clones the repository code into the GitHub Actions runner environment,
 ### Step 2: Version Extraction
 
 ```
-```
 - name: Get package version
   id: get_version
   run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-```
 ```
 
 This step extracts the `version` field from `package.json` using Node.js and stores it as a workflow output variable named `version`. This variable is later used to create version-specific documentation directories.
@@ -241,13 +212,11 @@ For example, if `package.json` contains `"version": "0.0.23"`, the output variab
 ### Step 3: Documentation Generation
 
 ```
-```
 - name: Build docs
   uses: andstor/jsdoc-action@v1
   with:
     recurse: true
     config_file: jsdoc.conf.json
-```
 ```
 
 This step uses the `andstor/jsdoc-action` GitHub Action to execute JSDoc. The action:
@@ -263,13 +232,11 @@ The generated documentation is written to `./docs/` based on the `destination` s
 ### Step 4: GitHub Pages Deployment
 
 ```
-```
 - name: Deploy to GitHub Pages
   uses: peaceiris/actions-gh-pages@v3
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     publish_dir: ./docs/jsjiit/${{ steps.get_version.outputs.version }}
-```
 ```
 
 This step deploys the generated documentation to GitHub Pages using the `peaceiris/actions-gh-pages` action. Key parameters:
@@ -353,14 +320,12 @@ All JavaScript files in the `src/` directory contain JSDoc comment blocks that d
 Example JSDoc comment structure (not actual code, but representing typical format):
 
 ```
-```
 /**
  * Description of the function
  * @param {Type} paramName - Parameter description
  * @returns {ReturnType} Return value description
  * @throws {ExceptionType} When this error occurs
  */
-```
 ```
 
 **Sources:** [jsdoc.conf.json3-5](https://github.com/codeblech/jsjiit/blob/d123b782/jsdoc.conf.json#L3-L5)

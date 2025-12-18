@@ -1,9 +1,5 @@
 # Timetable Data Format Reference
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-
 ## Purpose and Scope
 
 This document defines the JSON data formats used for timetable and academic calendar storage in the JIIT Time Table application. It covers the structure of timetable JSON files, academic calendar JSON files, directory organization, API endpoints for data access, and the data generation pipeline using `json_creater.py`.
@@ -65,9 +61,7 @@ Examples:
 
 ### Data Structure
 
-```
 ![Architecture Diagram](images/11-timetable-data-format-reference_diagram_2.png)
-```
 
 ### Subject Object Schema
 
@@ -91,7 +85,6 @@ Time slots use standard JIIT notation:
 
 ### Example Timetable JSON Structure
 
-```
 ```
 {
   "1": {
@@ -124,7 +117,6 @@ Time slots use standard JIIT notation:
     // Year 2 data
   }
 }
-```
 ```
 
 **Sources:** [README.md56-64](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L56-L64) [README.md68-97](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L68-L97)
@@ -167,7 +159,6 @@ Each event in the academic calendar follows this structure:
 ### Example Academic Calendar JSON Structure
 
 ```
-```
 [
   {
     "title": "Mid-Term Examination",
@@ -191,7 +182,6 @@ Each event in the academic calendar follows this structure:
   }
 ]
 ```
-```
 
 ### Event Categories
 
@@ -211,9 +201,7 @@ Common event categories include:
 
 The application serves timetable and calendar data as static JSON files through predictable URL patterns.
 
-```
 ![Architecture Diagram](images/11-timetable-data-format-reference_diagram_3.png)
-```
 
 ### Timetable Endpoints
 
@@ -232,25 +220,19 @@ The application serves timetable and calendar data as static JSON files through 
 Fetch 62 campus timetable for Odd 2025 semester:
 
 ```
-```
 curl https://simple-timetable.tashif.codes/data/time-table/ODD25/62.json
-```
 ```
 
 Fetch 128 campus timetable for Even 2025 semester:
 
 ```
-```
 curl https://simple-timetable.tashif.codes/data/time-table/EVEN25/128.json
-```
 ```
 
 Fetch academic calendar for 2025-26:
 
 ```
-```
 curl https://simple-timetable.tashif.codes/data/calender/2526/calender.json
-```
 ```
 
 **Sources:** [README.md53-64](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L53-L64)
@@ -299,9 +281,7 @@ The data generation relies on two external parser projects:
 
 The JSON data flows through multiple layers of the application from storage to display.
 
-```
 ![Architecture Diagram](images/11-timetable-data-format-reference_diagram_4.png)
-```
 
 ### Data Loading Process
 
@@ -339,7 +319,6 @@ While the application does not enforce strict schema validation, the expected st
 ### Timetable JSON Expected Structure
 
 ```
-```
 // TypeScript type definition (inferred from usage)
 type TimetableData = {
   [year: string]: {
@@ -357,11 +336,9 @@ type Subject = {
   slots: string[]
 }
 ```
-```
 
 ### Academic Calendar JSON Expected Structure
 
-```
 ```
 // TypeScript type definition (inferred from usage)
 type CalendarData = CalendarEvent[]
@@ -373,7 +350,6 @@ type CalendarEvent = {
   description?: string
   category: string
 }
-```
 ```
 
 ### Data Integrity Requirements
@@ -408,7 +384,6 @@ The service worker implements aggressive caching for JSON data to enable offline
 During build, Next.js with `@ducanh2912/next-pwa` generates a precache manifest that includes all JSON data files:
 
 ```
-```
 // Generated precache manifest (example)
 [
   {
@@ -424,7 +399,6 @@ During build, Next.js with `@ducanh2912/next-pwa` generates a precache manifest 
     "revision": "ghi789..."
   }
 ]
-```
 ```
 
 ### Offline Behavior
@@ -484,13 +458,11 @@ When new semester data becomes available, the update process is:
 Check JSON validity:
 
 ```
-```
 # Validate timetable JSON
 jq empty public/data/time-table/ODD25/62.json
 
 # Validate calendar JSON
 jq empty public/data/calender/2526/calender.json
-```
 ```
 
 **Sources:** [README.md215-223](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L215-L223)

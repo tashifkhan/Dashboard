@@ -1,7 +1,5 @@
 # Getting Started
 
-Relevant source files
-
 - [.python-version](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version)
 - [core/config.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py)
 - [main.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py)
@@ -35,8 +33,6 @@ The Agentic Browser requires Python 3.12 or higher. The project uses `uv` for de
 - Git (for cloning the repository)
 - API keys for LLM providers (at minimum one of: Google Gemini, OpenAI, Anthropic, or Ollama)
 
-Sources: [.python-version1](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version#L1-L1) [pyproject.toml6](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L6-L6)
-
 ---
 
 ## Installation Overview
@@ -50,8 +46,6 @@ Sources: [.python-version1](https://github.com/tashifkhan/agentic-browser/blob/e
    ```
 
    python --version # Should be 3.12 or higher
-
-
 
    ```
 
@@ -87,8 +81,6 @@ The project defines 28 core dependencies in [pyproject.toml7-28](https://github.
 - Specialized tools (gitingest, yt-dlp, faster-whisper, BeautifulSoup)
 
 For a complete dependency breakdown, see [Installation and Dependencies](/tashifkhan/agentic-browser/2.1-installation-and-dependencies).
-
-Sources: [pyproject.toml1-33](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L1-L33) [uv.lock1-59](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/uv.lock#L1-L59)
 
 ---
 
@@ -128,8 +120,6 @@ The configuration system loads environment variables through [core/config.py5-6]
 
 For complete environment variable documentation and service-specific configuration, see [Configuration and Environment Variables](/tashifkhan/agentic-browser/2.2-configuration-and-environment-variables).
 
-Sources: [core/config.py1-26](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L1-L26) [main.py7-8](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L7-L8)
-
 ---
 
 ## Running the Application
@@ -146,13 +136,11 @@ The application has two operational modes, selected via command-line arguments i
 
 ```
 
-
 # Explicit flag
 python main.py --api
 
 # OR short form
 python main.py -a
-
 
 ```
 
@@ -183,8 +171,6 @@ python main.py
 
 ```
 
-
-
 # Uses API mode by default without prompt
 
 python main.py --yes
@@ -204,8 +190,6 @@ The [main.py39-53](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/m
 3. Else if `--yes` flag present → Default to API server
 4. Else → Prompt user interactively
 
-Sources: [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58)
-
 ---
 
 ## Verification
@@ -223,8 +207,6 @@ curl http://localhost:5454/health
 # Expected response:
 
 # {"status": "ok"}
-
-
 
 ```
 
@@ -254,8 +236,6 @@ Verify configuration loading by checking the logs. The logging system configured
 
 - `DEBUG` level logs in development mode (`ENV=development`)
 - `INFO` level logs in production mode (`ENV=production`)
-
-Sources: [core/config.py8-25](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L8-L25) [main.py1-8](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L8)
 
 ---
 
@@ -302,5 +282,3 @@ After successfully starting the application:
 2. **Configure Integrations**: See [Configuration and Environment Variables](/tashifkhan/agentic-browser/2.2-configuration-and-environment-variables) for service-specific setup
 3. **Understand Agents**: Learn about the [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system) for AI capabilities
 4. **Try the Extension**: Set up the [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension) for frontend automation
-
-Sources: [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [core/config.py1-26](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L1-L26) [pyproject.toml1-33](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L1-L33)

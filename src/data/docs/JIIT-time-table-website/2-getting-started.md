@@ -1,10 +1,5 @@
 # Getting Started
 
-Relevant source files
-
-* [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore)
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-
 This document guides developers through setting up the JIIT Personalized Timetable Creator development environment, running the application locally, and understanding the core project structure and build system. For information about the overall system architecture and how components interact, see [System Architecture](/tashifkhan/JIIT-time-table-website/3-system-architecture). For specific feature implementation details, see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)).
 
 ## Purpose and Scope
@@ -31,17 +26,13 @@ The following tools are required before beginning development:
 
 **Note**: Python is NOT required for local development. The application uses Pyodide (Python compiled to WebAssembly) which runs entirely in the browser. The external Python Streamlit app mentioned in [README.md71](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L71-L71) is only used for data preparation and is not part of the development workflow.
 
-Sources: [README.md150-154](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L150-L154)
-
 ## Installation Steps
 
 ### 1. Clone the Repository
 
 ```
-```
 git clone https://github.com/tashifkhan/JIIT-time-table-website
 cd JIIT-time-table-website
-```
 ```
 
 This creates a local copy of the repository with the following structure:
@@ -55,24 +46,18 @@ JIIT-time-table-website/
 └── tsconfig.json    # TypeScript compiler settings
 ```
 
-Sources: [README.md157-160](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L157-L160)
-
 ### 2. Install Dependencies
 
 Using **bun** (recommended for faster installation):
 
 ```
-```
 bun i
-```
 ```
 
 Or using **npm**:
 
 ```
-```
 npm i
-```
 ```
 
 This command reads `package.json` and installs all required dependencies into `node_modules/`, including:
@@ -86,22 +71,16 @@ This command reads `package.json` and installs all required dependencies into `n
 
 The `node_modules/` directory is excluded from version control via [.gitignore10](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L10-L10)
 
-Sources: [README.md162-172](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L162-L172) [.gitignore10](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L10-L10)
-
 ### 3. Run the Development Server
 
 ```
-```
 bun dev
-```
 ```
 
 Or with npm:
 
 ```
-```
 npm run dev
-```
 ```
 
 This executes the `dev` script defined in `package.json`, which starts Vite's development server. The application will be available at:
@@ -116,8 +95,6 @@ The development server provides:
 * **Fast refresh**: React component state is preserved during updates
 * **TypeScript compilation**: Type checking occurs in real-time
 * **Asset serving**: Files in `public/` are served at the root path
-
-Sources: [README.md174-186](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L174-L186)
 
 ## Application Entry Point Flow
 
@@ -139,15 +116,11 @@ The following diagram shows how the application initializes when the development
 9. **[main.tsx33](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L33-L33)**: `Navbar` renders persistent navigation
 10. **[main.tsx35-49](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L35-L49)**: `Routes` defines path-to-component mappings
 
-Sources: [main.tsx1-72](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L1-L72)
-
 ## Project Structure
 
 The repository follows a standard React TypeScript project layout with specific directories for static assets and data:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_2.png)
-```
 
 ### Directory Breakdown
 
@@ -163,8 +136,6 @@ The repository follows a standard React TypeScript project layout with specific 
 | **`src/types/`** | TypeScript type definitions | Interfaces for schedules, events, and API responses |
 | **`src/App.tsx`** | Main schedule creator page component | Primary user interface (see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature))) |
 | **`src/main.tsx`** | Application entry point | Routing and provider setup |
-
-Sources: [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L66-L138)
 
 ## Build System Configuration
 
@@ -204,16 +175,12 @@ This configuration ensures:
 * Analytics tracking works without CORS issues
 * Direct URL access to routes like `/timeline` or `/compare-timetables` loads the SPA correctly
 
-Sources: [README.md174-186](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L174-L186) [vercel.json1-16](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/vercel.json#L1-L16) [.gitignore11](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L11-L11)
-
 ## Environment Variables
 
 The application uses environment variables for external service configuration. Create a `.env` file in the project root (excluded from version control via [.gitignore25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L25-L25)):
 
 ```
-```
 VITE_PUBLIC_POSTHOG_KEY=your_posthog_api_key_here
-```
 ```
 
 **Usage in code**: Environment variables prefixed with `VITE_` are accessible via `import.meta.env` [main.tsx25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L25-L25)
@@ -223,8 +190,6 @@ VITE_PUBLIC_POSTHOG_KEY=your_posthog_api_key_here
 | `VITE_PUBLIC_POSTHOG_KEY` | PostHog analytics API key | No | [main.tsx25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L25-L25) |
 
 **Note**: Google Calendar API credentials are configured client-side during the OAuth flow, not via environment variables. See [Google Calendar Integration](/tashifkhan/JIIT-time-table-website/9.1-google-calendar-integration) for details.
-
-Sources: [main.tsx25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L25-L25) [.gitignore25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L25-L25)
 
 ## Development Workflow
 
@@ -255,8 +220,6 @@ The typical development cycle follows this pattern:
    * `http://localhost:5173/academic-calendar` - Institutional calendar
    * `http://localhost:5173/mess-menu` - Dining schedule
 
-Sources: [main.tsx35-49](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L35-L49) [README.md174-186](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L174-L186)
-
 ## Accessing Static Data
 
 During development, static JSON files in `public/data/` are accessible at the root path:
@@ -272,16 +235,12 @@ Python modules in `public/modules/` and `public/_creator.py` are fetched by the 
 **External Access**: The production API allows external access to data [README.md56-64](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L56-L64):
 
 ```
-```
 # Timetable data
 curl https://simple-timetable.tashif.codes/data/time-table/ODD25/62.json
 
 # Calendar data
 curl https://simple-timetable.tashif.codes/data/calender/2526/calender.json
 ```
-```
-
-Sources: [README.md56-64](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L56-L64) [README.md89-96](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L89-L96)
 
 ## Troubleshooting Common Issues
 
@@ -296,8 +255,6 @@ Sources: [README.md56-64](https://github.com/tashifkhan/JIIT-time-table-website/
 
 **Browser Compatibility**: Modern browsers with WebAssembly support are required [README.md220](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L220-L220) Verify support at `chrome://flags` (Chrome) or `about:config` (Firefox).
 
-Sources: [README.md216-222](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L216-L222) [.gitignore27](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore#L27-L27)
-
 ## Next Steps
 
 After successfully running the development server:
@@ -307,5 +264,3 @@ After successfully running the development server:
 3. **Review Data Structures**: Consult [Data Model & Types](/tashifkhan/JIIT-time-table-website/3.3-pwa-and-offline-capabilities) for TypeScript interfaces
 4. **Learn State Management**: Study [State Management](/tashifkhan/JIIT-time-table-website/3.4-data-model-and-types) for context and persistence patterns
 5. **Explore Python Integration**: Read [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration) for client-side Python execution details
-
-Sources: [README.md1-268](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L1-L268) [main.tsx1-72](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L1-L72)

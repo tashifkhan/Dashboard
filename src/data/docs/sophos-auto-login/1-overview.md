@@ -4,6 +4,17 @@ This Python script automates the login process for a Sophos internet web authent
 
 [Download Latest Release](https://github.com/tashifkhan/sophos-auto-login/releases)
 
+## Documentation Sections
+
+- [Overview](1-overview)
+- [Quick Start](2-quick-start)
+- [Command-Line Usage](3-cli-usage)
+- [Interactive Menu](4-interactive-menu)
+- [Daemon Mode](5-daemon-mode)
+- [Advanced Features](6-advanced-features)
+- [Setup Guide](7-setup-guide)
+- [Screenshots](8-screenshots)
+
 ## Features
 
 - **SQLite Integration** - Credentials are securely stored in an SQLite database.

@@ -1,17 +1,5 @@
 # Compare Timetables
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/app/academic-calendar/calendar-content.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/app/academic-calendar/calendar-content.tsx)
-* [website/components/action-buttons.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/action-buttons.tsx)
-* [website/components/background.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/background.tsx)
-* [website/components/edit-event-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/edit-event-dialog.tsx)
-* [website/components/google-calendar-button.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/google-calendar-button.tsx)
-* [website/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-display.tsx)
-* [website/components/schedule-form.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-form.tsx)
-* [website/components/timeline-landing.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/timeline-landing.tsx)
-
 ## Purpose and Scope
 
 The Compare Timetables feature enables users to generate and compare two different class schedules to identify common free time slots and classes they attend together. This is useful for students coordinating study groups, planning meetups with friends, or identifying overlap in schedules across different batches or programs.
@@ -55,17 +43,13 @@ The `CompareTimetablePage` component manages two independent timetable configura
 
 The component generates both timetables in parallel using the same Python functions as the main application, with dynamic function selection based on campus and year.
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_2.png)
-```
 
 ### Function Selection Logic
 
 The component uses the same dynamic function selection as the main application:
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_3.png)
-```
 
 **Sources:** [website/components/compare-timetable.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/compare-timetable.tsx)
 
@@ -78,9 +62,7 @@ The `compare_timetables` Python function analyzes two timetable objects to ident
 ### Python Function Signature
 
 ```
-```
 def compare_timetables(timetable1: dict, timetable2: dict) -> dict
-```
 ```
 
 **Sources:** [public/\_creator.py900-946](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L900-L946)
@@ -95,18 +77,14 @@ The algorithm operates on a time-slot-by-time-slot basis:
    * If both timetables have no class → add to `common_free_slots`
    * If both have a class with identical `subject_name`, `type`, and `location` → add to `classes_together`
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_4.png)
-```
 
 ### Time Slot Generation
 
 The function generates hourly slots from 8:00 to 17:00 (5 PM):
 
 ```
-```
 all_slots = [f"{time}:00-{time+1}:00" for time in range(8, 17)]
-```
 ```
 
 This creates a standardized time grid: `['8:00-9:00', '9:00-10:00', ..., '16:00-17:00']`
@@ -121,7 +99,6 @@ The comparison returns a structured object with two main sections:
 
 ### TypeScript Interface (Inferred)
 
-```
 ```
 interface CompareResult {
   common_free_slots: {
@@ -138,11 +115,9 @@ interface CompareResult {
   };
 }
 ```
-```
 
 ### Example Result
 
-```
 ```
 {
   "common_free_slots": {
@@ -159,7 +134,6 @@ interface CompareResult {
     }
   }
 }
-```
 ```
 
 **Sources:** [public/\_creator.py907-911](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L907-L911) [public/\_creator.py913-944](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L913-L944)
@@ -185,9 +159,7 @@ The page displays two side-by-side forms for configuring timetables:
 
 Each configuration form includes a dropdown to load saved configs from `localStorage`:
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_5.png)
-```
 
 Configuration saving and loading is documented on page **9.3** (Shareable URLs & Configuration Saving).
 
@@ -198,13 +170,11 @@ Configuration saving and loading is documented on page **9.3** (Shareable URLs &
 The comparison is triggered by a button with validation:
 
 ```
-```
 disabled={
   !isConfigValid(config1) || 
   !isConfigValid(config2) || 
   loading
 }
-```
 ```
 
 Validation checks:
@@ -222,9 +192,7 @@ Validation checks:
 
 Displays free time slots grouped by day, sorted chronologically:
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_6.png)
-```
 
 **Sources:** [website/components/compare-timetable.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/compare-timetable.tsx)
 
@@ -248,7 +216,6 @@ The display adapts for mobile (stacked layout) vs desktop (horizontal layout).
 Both sections implement time-based sorting:
 
 ```
-```
 const getMinutes = (time: string) => {
   const [hours, minutes] = time.split(":").map(Number);
   return hours * 60 + minutes;
@@ -259,7 +226,6 @@ sortedSlots.sort((a, b) => {
   const timeB = b.split("-")[0];
   return getMinutes(timeA) - getMinutes(timeB);
 });
-```
 ```
 
 This ensures slots appear in chronological order regardless of the order they were added.
@@ -286,9 +252,7 @@ The component displays a loading message until all three mappings are loaded.
 The component reuses the `SubjectSelector` component from the main schedule form:
 
 ```
-```
 import { SubjectSelector, Subject } from "./schedule-form";
-```
 ```
 
 This provides:
@@ -311,13 +275,11 @@ The component handles errors at two levels:
 2. **Validation errors**: Button disabled until valid configuration
 
 ```
-```
 try {
   // Generation and comparison logic
 } catch (e) {
   setCompareResult({ error: "Failed to compare timetables." });
 }
-```
 ```
 
 **Sources:** [website/components/compare-timetable.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/compare-timetable.tsx)
@@ -329,13 +291,11 @@ try {
 The comparison uses direct Pyodide globals access to call the comparison function:
 
 ```
-```
 const pyodide = (await initializePyodide()) as PyodideInterface;
 const compareFn = pyodide.globals.get("compare_timetables");
 const pyTT1 = pyodide.toPy(tt1);
 const pyTT2 = pyodide.toPy(tt2);
 const result = compareFn(pyTT1, pyTT2).toJs();
-```
 ```
 
 This differs from the standard `callPythonFunction` approach because the comparison function takes timetable objects (not JSON) as arguments.

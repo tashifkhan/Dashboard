@@ -1,14 +1,5 @@
 # Feature Modules
 
-Relevant source files
-
-* [jportal/src/App.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx)
-* [jportal/src/components/Attendance.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Attendance.jsx)
-* [jportal/src/components/Exams.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Exams.jsx)
-* [jportal/src/components/Grades.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Grades.jsx)
-* [jportal/src/components/Login.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Login.jsx)
-* [jportal/src/components/Subjects.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Subjects.jsx)
-
 ## Purpose and Scope
 
 This page provides an overview of JPortal's five core feature modules: **Attendance**, **Grades**, **Exams**, **Subjects**, and **Profile**. It documents the common architecture patterns, integration mechanisms, and data flow shared across these modules. For detailed documentation of each individual module's functionality and components, see:
@@ -35,8 +26,6 @@ All feature modules are coordinated by the `AuthenticatedApp` component, which s
 ![Architecture Diagram](images/4-feature-modules_diagram_1.png)
 ```
 
-Sources: [src/App.jsx32-219](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L32-L219)
-
 ---
 
 ### Data Access Layer
@@ -45,11 +34,7 @@ All feature modules access data through the `w` prop, which contains either a `W
 
 **Data Access Pattern**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_2.png)
-```
-
-Sources: [src/App.jsx27-29](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L27-L29) [src/App.jsx250](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L250-L250) [src/App.jsx360](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L360-L360)
 
 ---
 
@@ -69,11 +54,7 @@ Feature modules follow a consistent state management pattern where state is lift
 
 **State Flow Pattern**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_3.png)
-```
-
-Sources: [src/App.jsx32-101](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L32-L101) [src/App.jsx110-214](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L110-L214)
 
 ---
 
@@ -88,11 +69,7 @@ All feature modules follow a similar data fetching lifecycle:
 
 **Common Data Fetching Flow**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_4.png)
-```
-
-Sources: [src/components/Attendance.jsx41-98](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Attendance.jsx#L41-L98) [src/components/Grades.jsx48-77](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Grades.jsx#L48-L77) [src/components/Exams.jsx24-47](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Exams.jsx#L24-L47) [src/components/Subjects.jsx15-61](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Subjects.jsx#L15-L61)
 
 ---
 
@@ -102,9 +79,7 @@ Four of the five modules (all except Profile) implement semester selection with 
 
 **Semester Selection Component Structure**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_5.png)
-```
 
 **Implementation Examples:**
 
@@ -114,8 +89,6 @@ Four of the five modules (all except Profile) implement semester selection with 
 | **Grades** | [Grades.jsx417-430](https://github.com/codeblech/jportal/blob/4df0fde4/Grades.jsx#L417-L430) | `handleSemesterChange` [211-233](https://github.com/codeblech/jportal/blob/4df0fde4/211-233) | `w.get_grade_card()` |
 | **Exams** | [Exams.jsx86-99](https://github.com/codeblech/jportal/blob/4df0fde4/Exams.jsx#L86-L99) | `handleSemesterChange` [36-48](https://github.com/codeblech/jportal/blob/4df0fde4/36-48) | `w.get_exam_events()` |
 | **Subjects** | [Subjects.jsx109-122](https://github.com/codeblech/jportal/blob/4df0fde4/Subjects.jsx#L109-L122) | `handleSemesterChange` [63-84](https://github.com/codeblech/jportal/blob/4df0fde4/63-84) | `w.get_registered_subjects_and_faculties()` |
-
-Sources: [src/components/Attendance.jsx100-132](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Attendance.jsx#L100-L132) [src/components/Grades.jsx211-233](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Grades.jsx#L211-L233) [src/components/Exams.jsx36-48](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Exams.jsx#L36-L48) [src/components/Subjects.jsx63-84](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Subjects.jsx#L63-L84)
 
 ---
 
@@ -132,11 +105,7 @@ Three modules (Attendance, Grades, and optionally others) use Radix UI Tabs for 
 
 **Tab Implementation Example (Attendance)**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_6.png)
-```
-
-Sources: [src/components/Attendance.jsx279-471](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Attendance.jsx#L279-L471) [src/components/Grades.jsx282-507](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Grades.jsx#L282-L507)
 
 ---
 
@@ -146,9 +115,7 @@ Feature modules implement consistent loading state patterns with separate loadin
 
 **Loading State Hierarchy**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_7.png)
-```
 
 **Module-Specific Loading States:**
 
@@ -158,8 +125,6 @@ Feature modules implement consistent loading state patterns with separate loadin
 | **Grades** | `gradesLoading`, `gradeCardLoading`, `marksLoading` | [App.jsx92-96](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L92-L96) |
 | **Exams** | `loading` (local state) | [Exams.jsx22](https://github.com/codeblech/jportal/blob/4df0fde4/Exams.jsx#L22-L22) |
 | **Subjects** | `loading`, `subjectsLoading` (local state) | [Subjects.jsx12-13](https://github.com/codeblech/jportal/blob/4df0fde4/Subjects.jsx#L12-L13) |
-
-Sources: [src/App.jsx92-100](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L92-L100) [src/components/Attendance.jsx274-278](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Attendance.jsx#L274-L278) [src/components/Grades.jsx272-278](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Grades.jsx#L272-L278) [src/components/Exams.jsx129-130](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Exams.jsx#L129-L130) [src/components/Subjects.jsx129-132](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Subjects.jsx#L129-L132)
 
 ---
 
@@ -175,19 +140,13 @@ Sources: [src/App.jsx92-100](https://github.com/codeblech/jportal/blob/4df0fde4/
 | **Subjects** | `/subjects` | `get_registered_semesters()`, `get_registered_subjects_and_faculties()` | `SubjectInfoCard` | By `registration_id` |
 | **Profile** | `/profile` | `get_profile()` | Profile display cards | Single profile object |
 
-Sources: [src/App.jsx107-215](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L107-L215)
-
 ---
 
 ### Module Dependencies
 
 **Common Dependencies Across All Modules:**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_8.png)
-```
-
-Sources: [src/components/Attendance.jsx3-9](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Attendance.jsx#L3-L9) [src/components/Grades.jsx2-11](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Grades.jsx#L2-L11) [src/components/Exams.jsx2-8](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Exams.jsx#L2-L8) [src/components/Subjects.jsx2-9](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/Subjects.jsx#L2-L9)
 
 ---
 
@@ -207,8 +166,6 @@ The `AuthenticatedApp` component coordinates all feature modules through:
 ```
 ![Architecture Diagram](images/4-feature-modules_diagram_9.png)
 
-Sources: [src/App.jsx32-219](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L32-L219)
-
 ---
 
 ### Props Drilling Architecture
@@ -217,7 +174,6 @@ The current architecture uses extensive props drilling from `AuthenticatedApp` t
 
 **Example: Attendance Module Props**
 
-```
 ```
 // From App.jsx:110-141
 <Attendance
@@ -250,8 +206,5 @@ The current architecture uses extensive props drilling from `AuthenticatedApp` t
   setSubjectCacheStatus={setAttendanceSubjectCacheStatus}  // Cache status setter
 />
 ```
-```
-
-Sources: [src/App.jsx110-141](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L110-L141)
 
 This pattern enables state persistence across route changes but creates tight coupling between `AuthenticatedApp` and feature modules. For potential refactoring approaches using context or state management libraries, see [State Management Strategy](/codeblech/jportal/3.2-state-management-strategy).

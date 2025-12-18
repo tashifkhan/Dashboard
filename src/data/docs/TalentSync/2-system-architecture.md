@@ -1,19 +1,5 @@
 # System Architecture
 
-Relevant source files
-
-* [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)
-* [backend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile)
-* [backend/app/main.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py)
-* [backend/app/model/best\_model.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/best_model.pkl)
-* [backend/app/model/tfidf.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/tfidf.pkl)
-* [backend/experiment/exp.ipynb](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/experiment/exp.ipynb)
-* [docker-compose.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml)
-* [frontend/bun.lock](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/bun.lock)
-* [frontend/components/pdf-resume/LoadingOverlay.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/pdf-resume/LoadingOverlay.tsx)
-* [frontend/next.config.js](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/next.config.js)
-* [frontend/package.json](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json)
-
 ## Purpose and Scope
 
 This document describes the overall system architecture of TalentSync, explaining how the frontend, backend, database, and external services interact to form a complete AI-powered hiring intelligence platform. It covers the three-tier architecture, service organization, API design patterns, and deployment configuration.
@@ -180,9 +166,7 @@ The application is deployed using Docker Compose with three main containers orch
 The frontend container startup command:
 
 ```
-```
 bunx prisma migrate deploy && bun prisma/seed.ts && bun run start
-```
 ```
 
 This ensures the database schema is up-to-date before the application starts.

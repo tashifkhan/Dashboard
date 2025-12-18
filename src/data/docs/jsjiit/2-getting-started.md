@@ -1,10 +1,5 @@
 # Getting Started
 
-Relevant source files
-
-* [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)
-* [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)
-
 This page provides an overview of how to install and begin using the jsjiit library. It covers prerequisites, the basic workflow for integrating jsjiit into your application, and the fundamental concepts you need to understand before making API calls to the JIIT Web Portal.
 
 For detailed installation instructions across different environments, see [Installation](/codeblech/jsjiit/2.1-installation). For working code examples and hands-on tutorials, see [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide).
@@ -82,9 +77,7 @@ The [package.json5-8](https://github.com/codeblech/jsjiit/blob/d123b782/package.
 
 The typical workflow for using jsjiit follows this sequence:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_2.png)
-```
 
 **Workflow Phases**
 
@@ -97,9 +90,7 @@ You import the `WebPortal` class from the distributed bundle. The library export
 Example import statement from [README.md23-24](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L23-L24):
 
 ```
-```
 import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.min.esm.js';
-```
 ```
 
 ### 2. Instantiation Phase
@@ -107,9 +98,7 @@ import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjii
 Create a new instance of the `WebPortal` class:
 
 ```
-```
 const portal = new WebPortal();
-```
 ```
 
 At this point, no network requests have been made. The instance is ready to authenticate.
@@ -119,9 +108,7 @@ At this point, no network requests have been made. The instance is ready to auth
 Call the `student_login()` method with credentials:
 
 ```
-```
 await portal.student_login('your_username', 'your_password');
-```
 ```
 
 This method:
@@ -136,11 +123,9 @@ This method:
 Once authenticated, use the session methods to retrieve data:
 
 ```
-```
 const meta = await portal.get_attendance_meta();
 const grades = await portal.get_grade_card(semester);
 const exams = await portal.get_exam_events(semester);
-```
 ```
 
 All data exchange with the portal is encrypted and automatically handled by the library.
@@ -151,9 +136,7 @@ All data exchange with the portal is encrypted and automatically handled by the 
 
 The library exposes several classes through [src/index.js1-8](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js#L1-L8) Understanding their relationships helps you use the library effectively:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_3.png)
-```
 
 **Primary Classes**
 
@@ -234,7 +217,6 @@ For complete installation instructions including environment-specific setup, see
 Here is the minimal code required to authenticate and retrieve data from the portal:
 
 ```
-```
 // 1. Import the WebPortal class
 import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.min.esm.js';
 
@@ -251,7 +233,6 @@ const header = meta.latest_header();
 const attendance = await portal.get_attendance(header, sem);
 
 console.log(attendance);
-```
 ```
 
 This pattern demonstrates:

@@ -1,16 +1,5 @@
 # Browser Extension
 
-Relevant source files
-
-* [extension/.env.example](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/.env.example)
-* [extension/README.md](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/README.md)
-* [extension/assets/react.svg](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/assets/react.svg)
-* [extension/backend\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/backend_service.py)
-* [extension/chat-example.md](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/chat-example.md)
-* [extension/entrypoints/background.ts](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts)
-* [tools/browser\_use/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/browser_use/__init__.py)
-* [tools/browser\_use/tool.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/browser_use/tool.py)
-
 The Browser Extension is a WXT-based TypeScript extension providing frontend browser automation capabilities. It operates independently from the main Python API server with its own Flask backend for secure credential management. The extension features a sidepanel chat interface, a background service worker with 26+ browser automation tools, and content scripts for DOM manipulation.
 
 The extension architecture consists of three main components:
@@ -166,9 +155,7 @@ User commands flow from the UI to external APIs:
 
 **Title: Extension to Backend API Flow**
 
-```
 ![Architecture Diagram](images/5-browser-extension_diagram_2.png)
-```
 
 The `executeAgent()` function at [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) handles credential injection, URL extraction, and payload construction. See [Extension Architecture Overview](/tashifkhan/agentic-browser/5.1-extension-architecture-overview) for detailed request flow.
 

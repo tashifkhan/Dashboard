@@ -1,19 +1,5 @@
 # Database & Data Models
 
-Relevant source files
-
-* [backend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile)
-* [docker-compose.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml)
-* [frontend/app/account/page.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/account/page.tsx)
-* [frontend/app/api/auth/delete-account/route.ts](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/api/auth/delete-account/route.ts)
-* [frontend/app/api/proxy-image/route.ts](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/api/proxy-image/route.ts)
-* [frontend/components/avatar-upload.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/avatar-upload.tsx)
-* [frontend/components/pdf-resume/LoadingOverlay.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/pdf-resume/LoadingOverlay.tsx)
-* [frontend/components/ui/avatar.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/ui/avatar.tsx)
-* [frontend/components/upload-resume.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/upload-resume.tsx)
-* [frontend/lib/image-validator.ts](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/lib/image-validator.ts)
-* [frontend/prisma/migrations/20250613172024\_replace\_file\_url\_with\_raw\_text/migration.sql](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/prisma/migrations/20250613172024_replace_file_url_with_raw_text/migration.sql)
-
 ## Purpose and Scope
 
 This document describes the PostgreSQL database schema, Prisma ORM integration, and data models used throughout the TalentSync platform. It covers the database tables, their relationships, field definitions, and validation strategies employed on both the frontend (Prisma) and backend (Pydantic).
@@ -47,9 +33,7 @@ postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema
 
 The database schema consists of 15+ interconnected tables organized around user authentication, resume management, and AI-generated content.
 
-```
 ![Architecture Diagram](images/5-database-and-data-models_diagram_2.png)
-```
 
 **Sources:** [frontend/app/api/auth/delete-account/route.ts42-134](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/api/auth/delete-account/route.ts#L42-L134) [frontend/prisma/migrations/20250613172024\_replace\_file\_url\_with\_raw\_text/migration.sql1-96](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/prisma/migrations/20250613172024_replace_file_url_with_raw_text/migration.sql#L1-L96)
 
@@ -112,7 +96,6 @@ The `Analysis` table stores the results of AI-powered resume analysis, including
 **Comprehensive Analysis JSON Structure:**
 
 ```
-```
 {
   "skills": {
     "technical": ["Python", "React", "PostgreSQL"],
@@ -141,7 +124,6 @@ The `Analysis` table stores the results of AI-powered resume analysis, including
     }
   ]
 }
-```
 ```
 
 **Sources:** Referenced from system architecture diagrams and backend processing logic
@@ -277,9 +259,7 @@ These tables store interview preparation questions and AI-generated answers.
 
 When a user account is deleted, all associated data is removed in a specific order to respect foreign key constraints. This is implemented as a Prisma transaction in the delete account endpoint.
 
-```
 ![Architecture Diagram](images/5-database-and-data-models_diagram_3.png)
-```
 
 **Deletion Order:**
 
@@ -309,7 +289,6 @@ The frontend uses Prisma Client for type-safe database operations. Prisma automa
 
 **Example Prisma Operations:**
 
-```
 ```
 // User lookup with related data
 const user = await prisma.user.findUnique({
@@ -344,7 +323,6 @@ const analysis = await prisma.analysis.create({
   }
 });
 ```
-```
 
 **Sources:** [frontend/app/api/auth/delete-account/route.ts20-33](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/api/auth/delete-account/route.ts#L20-L33) [frontend/components/upload-resume.tsx27-74](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/upload-resume.tsx#L27-L74)
 
@@ -378,9 +356,7 @@ These models ensure data consistency between frontend and backend services.
 Database schema changes are managed through Prisma migrations. The frontend container automatically runs migrations on startup:
 
 ```
-```
 bunx prisma migrate deploy && bun prisma/seed.ts && bun run start
-```
 ```
 
 **Migration Process:**
@@ -441,10 +417,8 @@ The FastAPI backend primarily receives processed data from the frontend API and 
 **File Uploads Directory:** The backend maintains an `uploads` directory for temporary file processing, mounted as a Docker volume:
 
 ```
-```
 volumes:
   - ./backend/uploads:/app/uploads
-```
 ```
 
 **Sources:** [frontend/prisma/migrations/20250613172024\_replace\_file\_url\_with\_raw\_text/migration.sql12-13](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/prisma/migrations/20250613172024_replace_file_url_with_raw_text/migration.sql#L12-L13) [docker-compose.yaml34](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml#L34-L34)
@@ -499,7 +473,6 @@ Prisma automatically generates optimized queries using:
 The migration from file-based storage to text-based storage demonstrates the schema evolution process:
 
 ```
-```
 -- Remove file URL column
 ALTER TABLE "Resume" DROP COLUMN "fileUrl";
 
@@ -514,7 +487,6 @@ ALTER TABLE "User" ALTER COLUMN "passwordHash" DROP NOT NULL;
 ALTER TABLE "User" ADD COLUMN "emailVerified" TIMESTAMP(3);
 ALTER TABLE "User" ADD COLUMN "image" TEXT;
 ALTER TABLE "User" ADD COLUMN "name" TEXT;
-```
 ```
 
 This migration enabled:

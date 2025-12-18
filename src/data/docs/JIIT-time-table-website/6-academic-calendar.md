@@ -1,17 +1,5 @@
 # Academic Calendar
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/app/academic-calendar/calendar-content.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/app/academic-calendar/calendar-content.tsx)
-* [website/components/action-buttons.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/action-buttons.tsx)
-* [website/components/background.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/background.tsx)
-* [website/components/edit-event-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/edit-event-dialog.tsx)
-* [website/components/google-calendar-button.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/google-calendar-button.tsx)
-* [website/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-display.tsx)
-* [website/components/schedule-form.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-form.tsx)
-* [website/components/timeline-landing.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/timeline-landing.tsx)
-
 ## Purpose and Scope
 
 The Academic Calendar feature displays institutional events, holidays, and important dates for JIIT academic sessions. It provides a chronological timeline view with filtering capabilities and Google Calendar synchronization. For information about personal timetable scheduling, see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)). For exporting personal schedules to Google Calendar, see [Google Calendar Integration](/tashifkhan/JIIT-time-table-website/9.1-google-calendar-integration).
@@ -46,14 +34,12 @@ The calendar system expects event data in the following structure:
 | `end.date` | `string` | ISO date string for event end | `"2025-01-27"` |
 
 ```
-```
 // Type definition from calendar-AC.ts
 type CalendarEvent = {
     summary: string;
     start: { date: string };
     end: { date: string };
 };
-```
 ```
 
 The component automatically detects holidays by checking if `summary.startsWith("Holiday -")` and applies special styling.
@@ -66,9 +52,7 @@ The component automatically detects holidays by checking if `summary.startsWith(
 
 ### State Variables
 
-```
 ![Architecture Diagram](images/6-academic-calendar_diagram_2.png)
-```
 
 | State Variable | Type | Purpose |
 | --- | --- | --- |
@@ -90,9 +74,7 @@ The component automatically detects holidays by checking if `summary.startsWith(
 
 ### Year Selection and Data Fetching
 
-```
 ![Architecture Diagram](images/6-academic-calendar_diagram_3.png)
-```
 
 The component uses different filename conventions based on the year:
 
@@ -109,13 +91,10 @@ The component uses different filename conventions based on the year:
 
 The component processes events through several transformations:
 
-```
 ![Architecture Diagram](images/6-academic-calendar_diagram_4.png)
-```
 
 **Code Implementation:**
 
-```
 ```
 // Sort events chronologically
 const sortedEvents = [...calendarData].sort(
@@ -147,7 +126,6 @@ const eventsToShow = [
     ...upcomingEvents,
 ];
 ```
-```
 
 **Sources:** [src/components/academic-calendar.tsx56-83](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L56-L83)
 
@@ -175,7 +153,6 @@ The timeline uses an alternating left-right layout for desktop (responsive singl
 On year change, the component automatically scrolls to the first upcoming event:
 
 ```
-```
 useEffect(() => {
     if (eventsToShow.length === 0) return;
 
@@ -189,7 +166,6 @@ useEffect(() => {
         eventRefs.current[targetIndex].scrollIntoView({ behavior: "smooth" });
     }
 }, [selectedYear]);
-```
 ```
 
 **Sources:** [src/components/academic-calendar.tsx85-104](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L85-L104)
@@ -210,7 +186,6 @@ useEffect(() => {
 The `addAcademicCalendarEvents` function transforms calendar events into Google Calendar API format:
 
 ```
-```
 const calendarEvents = events.map(event => ({
     summary: event.summary,
     start: {
@@ -226,7 +201,6 @@ const calendarEvents = events.map(event => ({
     visibility: 'public',
     colorId: event.summary.toLowerCase().includes('holiday') ? '11' : '1',
 }));
-```
 ```
 
 **Key Properties:**
@@ -247,7 +221,6 @@ const calendarEvents = events.map(event => ({
 ### Year Selector
 
 ```
-```
 <select
     value={selectedYear}
     onChange={(e) => {
@@ -264,7 +237,6 @@ const calendarEvents = events.map(event => ({
     ))}
 </select>
 ```
-```
 
 Changing the year triggers a complete data reload and resets the visible past events count.
 
@@ -274,7 +246,6 @@ Changing the year triggers a complete data reload and resets the visible past ev
 
 Fixed-position button that toggles between all events and holidays only:
 
-```
 ```
 <button
     onClick={() => {
@@ -291,7 +262,6 @@ Fixed-position button that toggles between all events and holidays only:
     <span>{showHolidaysOnly ? "All Events" : "Holidays Only"}</span>
 </button>
 ```
-```
 
 **Sources:** [src/components/academic-calendar.tsx381-397](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L381-L397)
 
@@ -299,7 +269,6 @@ Fixed-position button that toggles between all events and holidays only:
 
 Displays at the top of the timeline when past events exist but are hidden:
 
-```
 ```
 {pastEvents.length > visibleEventsCount && (
     <button
@@ -319,7 +288,6 @@ Displays at the top of the timeline when past events exist but are hidden:
     </button>
 )}
 ```
-```
 
 **Sources:** [src/components/academic-calendar.tsx211-236](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L211-L236)
 
@@ -331,7 +299,6 @@ Displays at the top of the timeline when past events exist but are hidden:
 
 The component includes basic error handling for year availability fetching:
 
-```
 ```
 fetch("/api/available-years")
     .then((res) => res.json())
@@ -345,17 +312,14 @@ fetch("/api/available-years")
         console.error("Failed to fetch available years:", error);
     });
 ```
-```
 
 If the years API fails, the component falls back to default years set in state initialization:
 
-```
 ```
 const [availableYears, setAvailableYears] = useState([
     { value: "2425", label: "2024-25" },
     { value: "2526", label: "2025-26" },
 ]);
-```
 ```
 
 **Sources:** [src/components/academic-calendar.tsx28-43](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L28-L43)
@@ -365,13 +329,11 @@ const [availableYears, setAvailableYears] = useState([
 The `addAcademicCalendarEvents` function returns detailed error information:
 
 ```
-```
 type GoogleCalendarResponse = {
     success: boolean;
     message: string;
     error?: string;
 };
-```
 ```
 
 Error scenarios handled:
@@ -390,7 +352,6 @@ All errors are caught and returned in the response object, with user-facing aler
 
 ### Initial Load
 
-```
 ```
 if (isDataLoading) {
     return (
@@ -418,7 +379,6 @@ if (isDataLoading) {
     );
 }
 ```
-```
 
 Displays animated bouncing dots with loading message while fetching calendar data.
 
@@ -427,14 +387,12 @@ Displays animated bouncing dots with loading message while fetching calendar dat
 ### Calendar Sync Loading
 
 ```
-```
 <button
     onClick={handleAddToCalendar}
     disabled={isLoading}
 >
     <span>{isLoading ? "Adding to Calendar..." : "Add to Calendar"}</span>
 </button>
-```
 ```
 
 Button text changes and becomes disabled during Google Calendar sync operation.

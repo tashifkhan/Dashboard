@@ -1,15 +1,5 @@
 # Architecture Overview
 
-Relevant source files
-
-* [jportal/index.html](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/index.html)
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/src/App.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx)
-* [jportal/src/components/DynamicFontLoader.tsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/DynamicFontLoader.tsx)
-* [jportal/src/components/Login.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Login.jsx)
-* [jportal/src/utils/fonts.ts](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/utils/fonts.ts)
-
 ## Purpose and Scope
 
 This document describes the high-level architecture of JPortal, including the technology stack, application structure, component organization, routing system, and key design patterns. For detailed information about specific subsystems, refer to:
@@ -55,9 +45,7 @@ The application bootstraps from `index.html`, which defines critical resources:
 
 The `main.jsx` file renders the root `App` component into the DOM:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_2.png)
-```
 
 **Sources:** [src/main.jsx1-10](https://github.com/codeblech/jportal/blob/4df0fde4/src/main.jsx#L1-L10) (implied from standard Vite React setup)
 
@@ -67,9 +55,7 @@ The `main.jsx` file renders the root `App` component into the DOM:
 
 The `App` component serves as the authentication gatekeeper and application shell:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_3.png)
-```
 
 **Key State Variables in App:**
 
@@ -84,9 +70,7 @@ The `App` component serves as the authentication gatekeeper and application shel
 
 Two portal instances are created at the module level and conditionally passed to child components:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_4.png)
-```
 
 **Sources:** [src/App.jsx18-30](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L18-L30) [src/App.jsx250](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L250-L250) [src/App.jsx350](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L350-L350) [src/App.jsx360](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L360-L360)
 
@@ -96,9 +80,7 @@ Two portal instances are created at the module level and conditionally passed to
 
 JPortal uses `HashRouter` for client-side routing with route guards based on authentication:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_5.png)
-```
 
 **Sources:** [src/App.jsx334-367](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L334-L367) [src/App.jsx107-216](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L107-L216)
 
@@ -106,9 +88,7 @@ JPortal uses `HashRouter` for client-side routing with route guards based on aut
 
 The `AuthenticatedApp` component defines protected routes and provides global UI chrome:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_6.png)
-```
 
 **Sources:** [src/App.jsx102-218](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L102-L218)
 
@@ -118,9 +98,7 @@ The `AuthenticatedApp` component defines protected routes and provides global UI
 
 JPortal implements a hierarchical state management pattern with extensive props drilling:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_7.png)
-```
 
 **State Persistence:**
 
@@ -133,9 +111,7 @@ JPortal implements a hierarchical state management pattern with extensive props 
 
 All feature states are passed as props to their respective components:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_8.png)
-```
 
 **Sources:** [src/App.jsx110-214](https://github.com/codeblech/jportal/blob/4df0fde4/src/App.jsx#L110-L214)
 
@@ -145,9 +121,7 @@ All feature states are passed as props to their respective components:
 
 The application uses a strategy pattern through the `w` prop to abstract data access:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_9.png)
-```
 
 **Common Portal Methods:**
 
@@ -164,9 +138,7 @@ The application uses a strategy pattern through the `w` prop to abstract data ac
 
 ### Login Flow
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_10.png)
-```
 
 **Auto-Login on Mount:**
 The `App` component attempts auto-login using stored credentials in `localStorage`:
@@ -179,9 +151,7 @@ The `App` component attempts auto-login using stored credentials in `localStorag
 
 The theme system uses Zustand for global state, separate from React component state:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_11.png)
-```
 
 **Sources:** [src/stores/theme-store.ts1-50](https://github.com/codeblech/jportal/blob/4df0fde4/src/stores/theme-store.ts#L1-L50) (implied), [src/components/DynamicFontLoader.tsx1-34](https://github.com/codeblech/jportal/blob/4df0fde4/src/components/DynamicFontLoader.tsx#L1-L34)
 
@@ -189,9 +159,7 @@ The theme system uses Zustand for global state, separate from React component st
 
 The `DynamicFontLoader` component monitors theme changes and loads Google Fonts dynamically:
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_12.png)
-```
 
 **Key Functions:**
 
@@ -234,9 +202,7 @@ isTrackerOpen, setIsTrackerOpen, subjectCacheStatus, setSubjectCacheStatus
 
 ### Global UI Components
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_13.png)
-```
 
 The `Header` component handles theme switching and logout. The `Navbar` provides bottom navigation to feature routes.
 
@@ -246,9 +212,7 @@ The `Header` component handles theme switching and logout. The `Navbar` provides
 
 ### Service Dependencies
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_14.png)
-```
 
 **jsjiit Library Usage:**
 

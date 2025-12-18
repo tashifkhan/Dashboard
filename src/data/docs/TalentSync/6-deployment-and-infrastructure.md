@@ -1,19 +1,5 @@
 # Deployment & Infrastructure
 
-Relevant source files
-
-* [.github/workflows/deploy.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.github/workflows/deploy.yaml)
-* [backend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile)
-* [docker-compose.prod.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.prod.yaml)
-* [docker-compose.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml)
-* [frontend/.dockerignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/.dockerignore)
-* [frontend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/Dockerfile)
-* [frontend/app/layout-content.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/layout-content.tsx)
-* [frontend/components/pdf-resume/LoadingOverlay.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/pdf-resume/LoadingOverlay.tsx)
-* [frontend/instrumentation-client.ts](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/instrumentation-client.ts)
-* [frontend/public/sw.js](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/public/sw.js)
-* [frontend/public/workbox-1bb06f5e.js](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/public/workbox-1bb06f5e.js)
-
 This document describes the deployment strategy, containerization setup, CI/CD pipeline, Progressive Web App (PWA) implementation, and infrastructure configuration for the TalentSync platform. It covers how the application is packaged, deployed, and served in production environments.
 
 For information about the database schema and migrations, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models). For frontend and backend architecture details, see [System Architecture](/harleenkaur28/AI-Resume-Parser/2-system-architecture).
@@ -76,9 +62,7 @@ The application uses two Docker Compose files:
 
 ### Network Architecture
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_2.png)
-```
 
 **Network Strategy:**
 
@@ -90,9 +74,7 @@ The application uses two Docker Compose files:
 
 ### Environment Variables Flow
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_3.png)
-```
 
 **Key Environment Overrides in Production:**
 
@@ -109,9 +91,7 @@ The application uses two Docker Compose files:
 
 ### Frontend Image (Next.js)
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_4.png)
-```
 
 **Multi-Stage Build Benefits:**
 
@@ -138,9 +118,7 @@ These `NEXT_PUBLIC_*` variables are baked into the client bundle during build an
 
 ### Backend Image (FastAPI)
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_5.png)
-```
 
 **Single-Stage Build Rationale:**
 
@@ -164,9 +142,7 @@ These `NEXT_PUBLIC_*` variables are baked into the client bundle during build an
 
 ### GitHub Actions Workflow
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_6.png)
-```
 
 **Workflow Configuration:**
 
@@ -185,12 +161,10 @@ These `NEXT_PUBLIC_*` variables are baked into the client bundle during build an
 **Deployment Commands:**
 
 ```
-```
 cd $VPS_PROJECT_PATH
 git pull origin main
 docker compose -f docker-compose.prod.yaml build
 docker compose -f docker-compose.prod.yaml up -d --force-recreate
-```
 ```
 
 **`--force-recreate` Flag:**
@@ -206,9 +180,7 @@ docker compose -f docker-compose.prod.yaml up -d --force-recreate
 When containers start, the frontend executes a startup command:
 
 ```
-```
 sh -c "bunx prisma migrate deploy && bun prisma/seed.ts && bun run start"
-```
 ```
 
 **Startup Tasks:**
@@ -225,9 +197,7 @@ sh -c "bunx prisma migrate deploy && bun prisma/seed.ts && bun run start"
 
 ### Service Worker Architecture
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_7.png)
-```
 
 **Service Worker Lifecycle:**
 
@@ -287,9 +257,7 @@ The PWA manifest is located at `/manifest.json` and defines the app metadata:
 
 ### Variable Categories
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_8.png)
-```
 
 ### Security Considerations
 
@@ -336,22 +304,18 @@ The PWA manifest is located at `/manifest.json` and defines the app metadata:
 
 ### PostHog Integration
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_9.png)
-```
 
 **PostHog Configuration:**
 
 The PostHog client is initialized on the client side:
 
 ```
-```
 // frontend/instrumentation-client.ts
 posthog.init(key, {
   api_host: '/ph',      // Proxy to avoid CORS
   ui_host: 'https://eu.posthog.com'
 })
-```
 ```
 
 **Proxy Strategy:**
@@ -380,9 +344,7 @@ PostHog automatically tracks:
 Custom events can be tracked using:
 
 ```
-```
 posthog.capture('event_name', { property: 'value' })
-```
 ```
 
 **Sources:** [frontend/instrumentation-client.ts1-12](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/instrumentation-client.ts#L1-L12)
@@ -420,9 +382,7 @@ posthog.capture('event_name', { property: 'value' })
 Docker Compose does not define explicit health checks in the current configuration. However, Docker's restart policy ensures service availability:
 
 ```
-```
 restart: always
-```
 ```
 
 This policy:
@@ -486,7 +446,6 @@ This policy:
 ### Viewing Logs
 
 ```
-```
 # All services
 docker compose -f docker-compose.prod.yaml logs -f
 
@@ -495,15 +454,12 @@ docker compose -f docker-compose.prod.yaml logs -f frontend
 docker compose -f docker-compose.prod.yaml logs -f backend
 docker compose -f docker-compose.prod.yaml logs -f db
 ```
-```
 
 ### Rebuilding Specific Service
 
 ```
-```
 # Rebuild and restart specific service
 docker compose -f docker-compose.prod.yaml up -d --build --force-recreate frontend
-```
 ```
 
 **Sources:** [.github/workflows/deploy.yaml35-39](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.github/workflows/deploy.yaml#L35-L39)

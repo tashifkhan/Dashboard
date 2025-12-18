@@ -1,15 +1,5 @@
 # Development Guide
 
-Relevant source files
-
-* [.gitignore](https://github.com/codeblech/jportal/blob/4df0fde4/.gitignore)
-* [LICENSE](https://github.com/codeblech/jportal/blob/4df0fde4/LICENSE)
-* [helpful.md](https://github.com/codeblech/jportal/blob/4df0fde4/helpful.md)
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/src/App.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx)
-* [jportal/src/components/Login.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Login.jsx)
-
 This guide provides information for developers contributing to JPortal. It covers code organization patterns, architectural decisions, development workflow, and best practices used throughout the codebase. For information about building and deploying the application, see [Build & Deployment](/codeblech/jportal/6-build-and-deployment). For details about the mock data system used in demo mode, see [Mock Data System](/codeblech/jportal/7.1-mock-data-system). For step-by-step instructions on adding new features, see [Adding New Features](/codeblech/jportal/7.2-adding-new-features).
 
 ---
@@ -25,11 +15,9 @@ JPortal requires Node.js and npm to run. The project uses modern JavaScript/Type
 Clone the repository and install dependencies:
 
 ```
-```
 git clone https://github.com/codeblech/jportal
 cd jportal
 npm install
-```
 ```
 
 ### Development Commands
@@ -134,13 +122,11 @@ The application uses `HashRouter` for GitHub Pages compatibility. The `App` comp
 JPortal uses a **dual-mode architecture** with two portal instances created at module level:
 
 ```
-```
 const realPortal = new WebPortal();    // jsjiit library
 const mockPortal = new MockWebPortal(); // Local mock implementation
 
 // Select active portal based on authentication mode
 const activePortal = isDemoMode ? mockPortal : realPortal;
-```
 ```
 
 Both portals implement the same interface (methods like `get_attendance()`, `get_grades()`, etc.), allowing seamless mode switching.
@@ -149,9 +135,7 @@ Both portals implement the same interface (methods like `get_attendance()`, `get
 
 ### Authentication State Flow
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_2.png)
-```
 
 The authentication flow automatically attempts login on mount if credentials exist in `localStorage`. Manual login stores credentials for future auto-login. Demo mode bypasses authentication and uses `MockWebPortal`.
 
@@ -167,9 +151,7 @@ JPortal uses a **centralized state hub** pattern where `AuthenticatedApp` mainta
 
 #### State Layers Diagram
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_3.png)
-```
 
 This pattern involves **extensive props drilling** where state and setter functions are passed through component hierarchies. All feature components receive the `w` prop (portal instance) as their primary data source.
 
@@ -187,7 +169,6 @@ Feature modules follow a consistent pattern for state initialization:
 Example state management in `AuthenticatedApp` for Attendance:
 
 ```
-```
 const [attendanceData, setAttendanceData] = useState({});
 const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
 const [selectedAttendanceSem, setSelectedAttendanceSem] = useState(null);
@@ -195,7 +176,6 @@ const [attendanceGoal, setAttendanceGoal] = useState(() => {
   const savedGoal = localStorage.getItem("attendanceGoal");
   return savedGoal ? parseInt(savedGoal) : 75;
 });
-```
 ```
 
 **Sources:** [App.jsx33-56](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L33-L56)
@@ -208,9 +188,7 @@ const [attendanceGoal, setAttendanceGoal] = useState(() => {
 
 All feature modules follow a similar structure:
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_4.png)
-```
 
 ### Common Props Pattern
 
@@ -235,15 +213,12 @@ Every feature module receives:
 
 All feature components receive a `w` prop which is either `realPortal` or `mockPortal`. This abstraction allows identical code to work in both real and demo modes.
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_5.png)
-```
 
 ### API Call Pattern
 
 Feature modules typically follow this pattern when fetching data:
 
-```
 ```
 useEffect(() => {
   const fetchData = async () => {
@@ -264,7 +239,6 @@ useEffect(() => {
   }
 }, [selectedOption, w]);
 ```
-```
 
 **Sources:** [App.jsx250](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L250-L250)
 
@@ -276,15 +250,12 @@ useEffect(() => {
 
 JPortal uses **props drilling** for component communication. State is maintained in `AuthenticatedApp` and passed down to feature components and their children.
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_6.png)
-```
 
 ### Alternative: Global State (Theme)
 
 The theme system uses **Zustand** for global state, avoiding props drilling:
 
-```
 ```
 // lib/theme-store.ts
 export const useThemeStore = create((set) => ({
@@ -294,7 +265,6 @@ export const useThemeStore = create((set) => ({
 
 // Any component can access theme
 const { themeState, setThemeState } = useThemeStore();
-```
 ```
 
 This demonstrates that JPortal uses **different patterns for different concerns**: props drilling for feature state, Zustand for theme, and potential for TanStack Query for server state.
@@ -317,7 +287,6 @@ This demonstrates that JPortal uses **different patterns for different concerns*
 ### Credential Storage Pattern
 
 ```
-```
 // Store on successful login
 localStorage.setItem("username", enrollmentNumber);
 localStorage.setItem("password", password);
@@ -330,7 +299,6 @@ const password = localStorage.getItem("password");
 localStorage.removeItem("username");
 localStorage.removeItem("password");
 ```
-```
 
 **Sources:** [Login.jsx54-55](https://github.com/codeblech/jportal/blob/4df0fde4/Login.jsx#L54-L55) [App.jsx253-280](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L253-L280)
 
@@ -342,7 +310,6 @@ localStorage.removeItem("password");
 
 The application uses custom error types from the `jsjiit` library:
 
-```
 ```
 try {
   await w.student_login(username, password);
@@ -358,13 +325,11 @@ try {
   }
 }
 ```
-```
 
 ### User Feedback
 
 JPortal uses **Sonner** for toast notifications with custom styling:
 
-```
 ```
 <Toaster
   richColors
@@ -380,7 +345,6 @@ JPortal uses **Sonner** for toast notifications with custom styling:
     },
   }}
 />
-```
 ```
 
 **Sources:** [Login.jsx64-76](https://github.com/codeblech/jportal/blob/4df0fde4/Login.jsx#L64-L76) [App.jsx320-333](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L320-L333)
@@ -402,7 +366,6 @@ JPortal uses **Sonner** for toast notifications with custom styling:
 
 Follow this pattern for feature components:
 
-```
 ```
 export default function FeatureName({ 
   w, 
@@ -435,13 +398,11 @@ export default function FeatureName({
   );
 }
 ```
-```
 
 ### Prop Passing
 
 When passing many props to a component, use object destructuring and group related props:
 
-```
 ```
 <Attendance
   // Portal
@@ -461,7 +422,6 @@ When passing many props to a component, use object destructuring and group relat
 
   // ... grouped props
 />
-```
 ```
 
 **Sources:** [App.jsx110-141](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L110-L141)
@@ -501,9 +461,7 @@ The project uses ESLint with React-specific plugins:
 Run linting with:
 
 ```
-```
 npm run lint
-```
 ```
 
 **Sources:** [package.json45-51](https://github.com/codeblech/jportal/blob/4df0fde4/package.json#L45-L51)
@@ -573,7 +531,6 @@ To verify feature compatibility with both portal implementations:
 When adding new data fetching:
 
 ```
-```
 // In feature component
 useEffect(() => {
   const fetchData = async () => {
@@ -586,7 +543,6 @@ useEffect(() => {
   };
   fetchData();
 }, [params, w]);
-```
 ```
 
 Ensure `MockWebPortal` implements the same method for demo mode.
@@ -602,10 +558,8 @@ Ensure `MockWebPortal` implements the same method for demo mode.
 Add console logs to verify which portal is active:
 
 ```
-```
 console.log('Portal mode:', isDemoMode ? 'Demo' : 'Real');
 console.log('Portal instance:', w);
-```
 ```
 
 ### Inspect State

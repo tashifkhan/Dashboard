@@ -1,29 +1,5 @@
 # Overview
 
-Relevant source files
-
-* [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)
-* [backend/app/agents/github\_agent.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py)
-* [backend/app/model/best\_model.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/best_model.pkl)
-* [backend/app/model/tfidf.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/tfidf.pkl)
-* [backend/pyproject.toml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml)
-* [backend/requirements.txt](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/requirements.txt)
-* [backend/server.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py)
-* [backend/uv.lock](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/uv.lock)
-* [frontend/app/about/page.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/about/page.tsx)
-* [frontend/app/page.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/page.tsx)
-* [frontend/components/about/ambient-bg.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/ambient-bg.tsx)
-* [frontend/components/about/back-to-top.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/back-to-top.tsx)
-* [frontend/components/about/competitive-edge-table.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/competitive-edge-table.tsx)
-* [frontend/components/about/database-architecture.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/database-architecture.tsx)
-* [frontend/components/about/dual-value.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/dual-value.tsx)
-* [frontend/components/about/market-growth.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/market-growth.tsx)
-* [frontend/components/about/problem-stats.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/problem-stats.tsx)
-* [frontend/components/features.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/features.tsx)
-* [frontend/components/landing-hero.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/landing-hero.tsx)
-* [frontend/components/sidebar-provider.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/sidebar-provider.tsx)
-* [frontend/tsconfig.json](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/tsconfig.json)
-
 ## Purpose and Scope
 
 TalentSync is an AI-powered hiring intelligence platform that automates resume analysis, candidate evaluation, and job application workflows for both job seekers and recruiters. This document provides a high-level introduction to the system architecture, target users, core capabilities, and technology stack.
@@ -35,15 +11,11 @@ For detailed information on specific subsystems:
 * Database schema and data models, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models)
 * Deployment infrastructure, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure)
 
-**Sources**: [frontend/app/about/page.tsx22-25](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/about/page.tsx#L22-L25) [backend/server.py52-56](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L52-L56)
-
 ---
 
 ## System Architecture Overview
 
 TalentSync implements a three-tier architecture consisting of a Next.js frontend, FastAPI backend, and PostgreSQL database, with extensive integration of AI/ML services.
-
-**Sources**: [backend/server.py52-86](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L52-L86) [backend/pyproject.toml1-40](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml#L1-L40) [frontend/tsconfig.json1-28](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/tsconfig.json#L1-L28)
 
 ---
 
@@ -60,8 +32,6 @@ TalentSync implements a three-tier architecture consisting of a Next.js frontend
 | **Analytics** | PostHog | Client-side | Product analytics |
 | **UI Framework** | React + TypeScript | `frontend/components/` | Component architecture |
 
-**Sources**: [frontend/tsconfig.json1-28](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/tsconfig.json#L1-L28) [frontend/app/about/page.tsx1-63](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/about/page.tsx#L1-L63) [frontend/components/sidebar-provider.tsx1-28](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/sidebar-provider.tsx#L1-L28)
-
 ### Backend Service Stack
 
 | Component | Technology | Location | Purpose |
@@ -73,8 +43,6 @@ TalentSync implements a three-tier architecture consisting of a Next.js frontend
 | **ML Classifier** | scikit-learn | `backend/app/model/best_model.pkl` | Job category prediction |
 | **Document Parsing** | PyPDF2, python-docx | `backend/server.py:752-793` | Resume text extraction |
 | **GitHub Analysis** | gitingest | `backend/app/agents/github_agent.py` | Repository ingestion |
-
-**Sources**: [backend/server.py1-86](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L1-L86) [backend/pyproject.toml1-40](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml#L1-L40) [backend/requirements.txt1-121](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/requirements.txt#L1-L121)
 
 ---
 
@@ -101,8 +69,6 @@ TalentSync serves two distinct user segments with different feature sets:
 | **Candidate Dashboard** | Structured view of parsed candidates with filtering and ranking | Database query via Prisma |
 | **ATS Evaluation** | Evaluate candidate resumes against job requirements | `POST /evaluate_resume_ats` |
 
-**Sources**: [frontend/app/about/page.tsx1-63](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/about/page.tsx#L1-L63) [frontend/components/features.tsx1-77](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/features.tsx#L1-L77) [frontend/components/landing-hero.tsx1-247](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/landing-hero.tsx#L1-L247)
-
 ---
 
 ## Core Processing Pipeline
@@ -119,8 +85,6 @@ The resume analysis pipeline demonstrates the integration of traditional ML and 
 6. **Storage** (Prisma ORM): Persists both raw text and structured analysis in PostgreSQL
 
 **Processing Time**: Typically 4-8 seconds for complete analysis including LLM calls.
-
-**Sources**: [backend/server.py52-1029](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L52-L1029) [backend/app/model/best\_model.pkl1-5](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/best_model.pkl#L1-L5) [backend/app/model/tfidf.pkl1-10](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/tfidf.pkl#L1-L10)
 
 ---
 
@@ -146,7 +110,6 @@ TalentSync employs a hybrid approach combining traditional machine learning with
 The system uses Google's Gemini 2.0 Flash model with the following configuration:
 
 ```
-```
 # From backend/server.py:76-80
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
@@ -154,11 +117,8 @@ llm = ChatGoogleGenerativeAI(
     temperature=0.1,
 )
 ```
-```
 
 **Temperature**: Set to 0.1 for deterministic, factual outputs suitable for structured data extraction.
-
-**Sources**: [backend/server.py68-86](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L68-L86) [backend/pyproject.toml6-31](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml#L6-L31) [backend/requirements.txt1-121](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/requirements.txt#L1-L121)
 
 ---
 
@@ -189,8 +149,6 @@ The PostgreSQL database uses Prisma ORM for type-safe access. Key tables include
 
 For complete schema details, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models).
 
-**Sources**: [backend/server.py88-208](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L88-L208)
-
 ---
 
 ## Deployment Architecture
@@ -216,8 +174,6 @@ GitHub Actions automatically deploys on push to `main` branch:
 
 For detailed deployment configuration, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure).
 
-**Sources**: [.gitignore1-59](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore#L1-L59)
-
 ---
 
 ## Key Differentiators
@@ -233,8 +189,6 @@ TalentSync distinguishes itself through several technical capabilities:
 | **Dual-Sided Platform** | Seeker + Recruiter features | Network effects from both supply and demand |
 | **PWA Capabilities** | Workbox service worker | Offline access, app-like experience |
 | **Type Safety** | TypeScript + Pydantic | Reduced runtime errors, better DX |
-
-**Sources**: [frontend/components/about/competitive-edge-table.tsx1-83](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/competitive-edge-table.tsx#L1-L83) [frontend/components/about/dual-value.tsx1-101](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/dual-value.tsx#L1-L101) [backend/app/agents/github\_agent.py1-418](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py#L1-L418)
 
 ---
 
@@ -254,8 +208,6 @@ Based on platform usage as displayed on landing pages:
 
 * AI in HR market: $6.05B (2024) → $14.08B (2029), 19.1% CAGR
 * Resume parsing market: $20.19B (2024) → $43.20B (2029), 114% growth
-
-**Sources**: [frontend/components/landing-hero.tsx119-136](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/landing-hero.tsx#L119-L136) [frontend/components/about/problem-stats.tsx1-80](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/problem-stats.tsx#L1-L80) [frontend/components/about/market-growth.tsx1-115](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/about/market-growth.tsx#L1-L115)
 
 ---
 

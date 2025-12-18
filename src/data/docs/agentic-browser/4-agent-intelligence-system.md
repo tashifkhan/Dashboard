@@ -1,20 +1,5 @@
 # Agent Intelligence System
 
-Relevant source files
-
-* [agents/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/__init__.py)
-* [agents/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py)
-* [agents/react\_tools.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py)
-* [models/requests/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/__init__.py)
-* [models/response/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/__init__.py)
-* [models/response/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/react_agent.py)
-* [routers/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/react_agent.py)
-* [services/google\_search\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/google_search_service.py)
-* [services/pyjiit\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/pyjiit_service.py)
-* [services/react\_agent\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/react_agent_service.py)
-* [services/website\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/website_service.py)
-* [services/youtube\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/youtube_service.py)
-
 The Agent Intelligence System is the core AI orchestration layer of the Agentic Browser. It provides two primary agent workflows: the **React Agent** for conversational AI with dynamic tool selection, and the **Browser Use Agent** for generating structured browser automation scripts. This document focuses on the React Agent architecture, tool system, and LLM integration. For Browser Use Agent implementation details, see [Browser Use Agent and Script Generation](/tashifkhan/agentic-browser/4.2-browser-use-agent-and-script-generation). For individual tool implementations, see [Agent Tool System](/tashifkhan/agentic-browser/4.3-agent-tool-system).
 
 ---
@@ -36,15 +21,12 @@ The Agent Intelligence System is built around LangGraph's state machine framewor
 
 The React Agent uses a cyclic graph with two nodes: `agent` (LLM reasoning) and `tool_execution` (tool invocation). The `tools_condition` function determines whether the LLM's response contains tool calls.
 
-```
 ![Architecture Diagram](images/4-agent-intelligence-system_diagram_2.png)
-```
 
 **Implementation Details:**
 
 The `GraphBuilder` class constructs the workflow in [agents/react\_agent.py138-176](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L138-L176):
 
-```
 ```
 class GraphBuilder:
     def buildgraph(self):
@@ -65,11 +47,9 @@ class GraphBuilder:
         workflow.add_edge("tool_execution", "agent")
         return workflow.compile()
 ```
-```
 
 The `agent` node is created by `_create_agent_node()` [agents/react\_agent.py123-136](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L123-L136) which binds the tool schemas to the LLM:
 
-```
 ```
 def _create_agent_node(tools: Sequence[StructuredTool]):
     bound_llm = _llm.bind_tools(list(tools))
@@ -82,7 +62,6 @@ def _create_agent_node(tools: Sequence[StructuredTool]):
         return {"messages": [response]}
 
     return _agent_node
-```
 ```
 
 **Sources:** [agents/react\_agent.py123-176](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L123-L176)
@@ -98,10 +77,8 @@ The workflow state is defined as a TypedDict with a single field: `messages`, wh
 [agents/react\_agent.py40-41](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L40-L41):
 
 ```
-```
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
-```
 ```
 
 ### Message Conversion System
@@ -163,7 +140,6 @@ Each tool uses Pydantic models for type-safe input validation. Example schemas:
 **GitHubToolInput** [agents/react\_tools.py61-67](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L61-L67):
 
 ```
-```
 class GitHubToolInput(BaseModel):
     url: HttpUrl = Field(..., description="Full URL to a public GitHub repository.")
     question: str = Field(..., description="Question about the repository.")
@@ -172,11 +148,9 @@ class GitHubToolInput(BaseModel):
         description="Optional chat history as a list of {role, content} maps.",
     )
 ```
-```
 
 **GmailSendEmailInput** [agents/react\_tools.py114-124](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L114-L124):
 
-```
 ```
 class GmailSendEmailInput(BaseModel):
     to: EmailStr = Field(..., description="Recipient email address.")
@@ -187,7 +161,6 @@ class GmailSendEmailInput(BaseModel):
         description="OAuth access token with Gmail send scope. "
                    "If omitted, a pre-configured token will be used when available.",
     )
-```
 ```
 
 **Sources:** [agents/react\_tools.py61-210](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L61-L210)
@@ -200,13 +173,10 @@ class GmailSendEmailInput(BaseModel):
 
 The `build_agent_tools()` function dynamically constructs the tool list based on the authentication context provided by the user. This allows the agent to access Gmail, Calendar, and PyJIIT tools only when credentials are available.
 
-```
 ![Architecture Diagram](images/4-agent-intelligence-system_diagram_3.png)
-```
 
 **Implementation** [agents/react\_tools.py609-699](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L609-L699):
 
-```
 ```
 def build_agent_tools(context: Optional[Dict[str, Any]] = None) -> list[StructuredTool]:
     ctx: Dict[str, Any] = dict(context or {})
@@ -244,7 +214,6 @@ def build_agent_tools(context: Optional[Dict[str, Any]] = None) -> list[Structur
 
     return tools
 ```
-```
 
 ### functools.partial Pattern
 
@@ -252,7 +221,6 @@ The system uses `functools.partial` to "bake in" authentication credentials as d
 
 For example, `_gmail_tool` [agents/react\_tools.py279-300](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L279-L300) accepts an `_default_token` keyword argument:
 
-```
 ```
 async def _gmail_tool(
     access_token: Optional[str] = None,
@@ -264,7 +232,6 @@ async def _gmail_tool(
     if not token:
         return "Unable to fetch Gmail messages because no Google access token was provided."
     # ... rest of implementation
-```
 ```
 
 When `build_agent_tools()` creates the Gmail tool for a user with a token, it uses `partial(_gmail_tool, _default_token=google_token)` [agents/react\_tools.py629](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L629-L629) so the LLM doesn't need to provide the token.
@@ -284,7 +251,6 @@ When `build_agent_tools()` creates the Gmail tool for a user with a token, it us
 The GitHub tool converts a repository URL to markdown using `convert_github_repo_to_markdown()` from [tools/github\_crawler/convertor.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/github_crawler/convertor.py) then invokes an LLM chain with the repository content, tree structure, and summary.
 
 ```
-```
 async def _github_tool(url: HttpUrl, question: str, chat_history: Optional[list[dict]] = None) -> str:
     repo_data = await convert_github_repo_to_markdown(url)
     history = _format_chat_history(chat_history)
@@ -298,7 +264,6 @@ async def _github_tool(url: HttpUrl, question: str, chat_history: Optional[list[
     response = await asyncio.to_thread(github_chain.invoke, payload)
     return _ensure_text(response)
 ```
-```
 
 ### Web Search Tool
 
@@ -308,7 +273,6 @@ async def _github_tool(url: HttpUrl, question: str, chat_history: Optional[list[
 
 Uses the Tavily search API via `web_search_pipeline()` from [tools/google\_search/seach\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py) to fetch and summarize web results:
 
-```
 ```
 async def _websearch_tool(query: str, max_results: int = 5) -> str:
     bounded = max(1, min(10, max_results))
@@ -326,7 +290,6 @@ async def _websearch_tool(query: str, max_results: int = 5) -> str:
 
     return "\n\n".join(snippets)
 ```
-```
 
 ### Website Tool
 
@@ -336,7 +299,6 @@ async def _websearch_tool(query: str, max_results: int = 5) -> str:
 
 Fetches a web page, converts it to markdown using `markdown_fetcher()`, and answers questions about it:
 
-```
 ```
 async def _website_tool(url: HttpUrl, question: str, chat_history: Optional[list[dict]] = None) -> str:
     markdown = await asyncio.to_thread(markdown_fetcher, str(url))
@@ -350,7 +312,6 @@ async def _website_tool(url: HttpUrl, question: str, chat_history: Optional[list
     )
     return _ensure_text(response)
 ```
-```
 
 ### YouTube Tool
 
@@ -360,7 +321,6 @@ async def _website_tool(url: HttpUrl, question: str, chat_history: Optional[list
 
 Extracts video transcripts and answers questions using the `youtube_chain`:
 
-```
 ```
 async def _youtube_tool(url: HttpUrl, question: str, chat_history: Optional[list[dict]] = None) -> str:
     history = _format_chat_history(chat_history)
@@ -372,7 +332,6 @@ async def _youtube_tool(url: HttpUrl, question: str, chat_history: Optional[list
         history,
     )
     return _ensure_text(response)
-```
 ```
 
 ### Gmail Tools
@@ -391,7 +350,6 @@ All Gmail tools follow the same pattern:
 Example: `_gmail_tool` [agents/react\_tools.py279-300](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L279-L300):
 
 ```
-```
 async def _gmail_tool(
     access_token: Optional[str] = None,
     max_results: int = 5,
@@ -409,7 +367,6 @@ async def _gmail_tool(
         return _ensure_text({"messages": messages})
     except Exception as exc:
         return f"Failed to fetch Gmail messages: {exc}"
-```
 ```
 
 ### Calendar Tools
@@ -434,7 +391,6 @@ The PyJIIT tool fetches attendance data from the JIIT webportal. It:
 4. Returns processed attendance data with subject codes and percentages
 
 ```
-```
 async def _pyjiit_attendance_tool(
     registration_code: Optional[str] = None,
     session_payload: Optional[Dict[str, Any]] = None,
@@ -446,7 +402,6 @@ async def _pyjiit_attendance_tool(
         return "Unable to fetch attendance because no PyJIIT login session was provided."
 
     # ... session construction and attendance fetching logic
-```
 ```
 
 **Sources:** [agents/react\_tools.py217-521](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L217-L521)
@@ -460,14 +415,11 @@ The agent system uses the `LargeLanguageModel` abstraction from [core/llm.py](ht
 **Initialization** [agents/react\_agent.py36](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L36-L36):
 
 ```
-```
 _llm = LargeLanguageModel().client
-```
 ```
 
 **System Prompt** [agents/react\_agent.py25-34](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L25-L34):
 
-```
 ```
 DEFAULT_SYSTEM_PROMPT = (
     "You are a helpful AI assistant that maintains conversation context and "
@@ -480,15 +432,12 @@ DEFAULT_SYSTEM_PROMPT = (
     "and ask the user to refresh it via the secure flow—do not ask for usernames or passwords."
 )
 ```
-```
 
 The system prompt is prepended to every conversation [agents/react\_agent.py130-131](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L130-L131):
 
 ```
-```
 if not messages or not isinstance(messages[0], SystemMessage):
     messages = [_system_message] + messages
-```
 ```
 
 For LLM provider configuration and multi-provider support details, see [LLM Integration Layer](/tashifkhan/agentic-browser/4.5-llm-integration-layer).
@@ -501,9 +450,7 @@ For LLM provider configuration and multi-provider support details, see [LLM Inte
 
 The following sequence diagram shows the complete flow from HTTP request to agent response:
 
-```
 ![Architecture Diagram](images/4-agent-intelligence-system_diagram_4.png)
-```
 
 **Key Steps:**
 
@@ -528,13 +475,11 @@ Each tool implementation wraps its logic in a try-except block and returns error
 Example from [agents/react\_tools.py294-300](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py#L294-L300):
 
 ```
-```
 try:
     messages = await asyncio.to_thread(get_latest_emails, token, max_results=bounded)
     return _ensure_text({"messages": messages})
 except Exception as exc:
     return f"Failed to fetch Gmail messages: {exc}"
-```
 ```
 
 ### Service-Level Error Handling

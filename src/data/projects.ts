@@ -39,6 +39,7 @@ async function fetchPinnedProjects(first = 6): Promise<Project[]> {
 			pinned: true,
 			stars: p.stars,
 			forks: p.forks,
+			docs_slug: getProjectEntry(slugify(p.name))
 		}));
 	} catch (e) {
 		console.error("Error fetching pinned projects", e);
@@ -155,4 +156,6 @@ async function fetchAllProjects(): Promise<Project[]> {
 	return repoProjects;
 }
 
+
 export const allProjects: Project[] = await fetchAllProjects();
+

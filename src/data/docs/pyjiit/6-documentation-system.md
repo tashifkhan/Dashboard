@@ -1,12 +1,5 @@
 # Documentation System
 
-Relevant source files
-
-* [.github/workflows/documentation.yml](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/documentation.yml)
-* [docs/apiref.rst](https://github.com/codelif/pyjiit/blob/0fe02955/docs/apiref.rst)
-* [docs/conf.py](https://github.com/codelif/pyjiit/blob/0fe02955/docs/conf.py)
-* [docs/requirements.txt](https://github.com/codelif/pyjiit/blob/0fe02955/docs/requirements.txt)
-
 ## Purpose and Scope
 
 This document explains the automated documentation system for pyjiit, including how documentation is generated, built, deployed, and maintained. It covers the Sphinx-based documentation infrastructure, the GitHub Actions automation pipeline, and the integration with Python source code through autodoc.
@@ -50,9 +43,7 @@ The documentation build process consists of multiple stages: dependency installa
 
 ### Documentation Build Flow
 
-```
 ![Architecture Diagram](images/6-documentation-system_diagram_2.png)
-```
 
 **Sources:** [.github/workflows/documentation.yml42-54](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/documentation.yml#L42-L54) [docs/conf.py8-10](https://github.com/codelif/pyjiit/blob/0fe02955/docs/conf.py#L8-L10)
 
@@ -64,9 +55,7 @@ The documentation workflow is defined in `.github/workflows/documentation.yml` a
 
 ### Workflow Execution Diagram
 
-```
 ![Architecture Diagram](images/6-documentation-system_diagram_3.png)
-```
 
 The workflow implements the following key features:
 
@@ -124,9 +113,7 @@ The API reference is structured in `docs/apiref.rst` using Sphinx's `autoclass` 
 
 ### Autodoc Directive Mapping
 
-```
 ![Architecture Diagram](images/6-documentation-system_diagram_4.png)
-```
 
 The `:members:` option instructs autodoc to include all public methods, attributes, and nested classes. Docstrings are extracted from:
 
@@ -164,9 +151,7 @@ The `docs/requirements.txt` file exists as a standalone dependency declaration b
 The documentation is served at a custom domain `pyjiit.codelif.in` through a `CNAME` file created during the build process. The workflow creates this file with a single command:
 
 ```
-```
 echo "pyjiit.codelif.in" > docs/_build/html/CNAME
-```
 ```
 
 This file is deployed to the `gh-pages` branch alongside the HTML files. GitHub Pages reads this file to configure the custom domain. The domain must also be configured in the repository settings for the custom domain to work properly.

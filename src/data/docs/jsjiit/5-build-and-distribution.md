@@ -1,11 +1,5 @@
 # Build and Distribution
 
-Relevant source files
-
-* [build.mjs](https://github.com/codeblech/jsjiit/blob/d123b782/build.mjs)
-* [package-lock.json](https://github.com/codeblech/jsjiit/blob/d123b782/package-lock.json)
-* [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)
-
 This document provides a comprehensive overview of the build system and distribution pipeline for the jsjiit library. It covers how source code is transformed into distributable artifacts, packaged for npm, and made available through various consumption channels.
 
 For detailed information about the build script implementation, see [Build System](/codeblech/jsjiit/5.1-build-system). For package metadata and configuration, see [Package Configuration](/codeblech/jsjiit/5.2-package-configuration). For dependency management details, see [Dependency Management](/codeblech/jsjiit/5.3-dependency-management).
@@ -59,9 +53,7 @@ Both builds share common configuration defined in [build.mjs3-9](https://github.
 
 The package defines multiple entry points to support different consumption patterns. This diagram shows the relationship between package.json export configurations and the actual files:
 
-```
 ![Architecture Diagram](images/5-build-and-distribution_diagram_2.png)
-```
 
 **Export Resolution Strategy**
 
@@ -83,9 +75,7 @@ The [package.json5-25](https://github.com/codeblech/jsjiit/blob/d123b782/package
 
 The library is distributed through multiple channels to maximize accessibility:
 
-```
 ![Architecture Diagram](images/5-build-and-distribution_diagram_3.png)
-```
 
 **Distribution Targets**
 
@@ -119,14 +109,12 @@ The build system integrates with npm's lifecycle hooks to ensure artifacts are a
 The [package.json12-16](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L12-L16) defines the script chain:
 
 ```
-```
 {
   "scripts": {
     "build": "node build.mjs",
     "prepare": "npm run build"
   }
 }
-```
 ```
 
 **Execution Order:**

@@ -1,20 +1,5 @@
 # Data Models and API Contracts
 
-Relevant source files
-
-* [agents/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/__init__.py)
-* [models/requests/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/__init__.py)
-* [models/requests/agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/agent.py)
-* [models/requests/crawller.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/crawller.py)
-* [models/requests/pyjiit.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/pyjiit.py)
-* [models/requests/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/react_agent.py)
-* [models/response/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/__init__.py)
-* [models/response/agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/agent.py)
-* [models/response/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/react_agent.py)
-* [prompts/browser\_use.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/prompts/browser_use.py)
-* [services/browser\_use\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/browser_use_service.py)
-* [utils/agent\_sanitizer.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/utils/agent_sanitizer.py)
-
 ## Purpose and Scope
 
 This document catalogs the Pydantic models that define the API contracts for all endpoints in the Agentic Browser backend. These models provide runtime validation, serialization, and type safety for requests and responses flowing between the browser extension and the Python backend services.
@@ -40,9 +25,7 @@ The data models are organized into two primary categories: request models that v
 
 The `AgentMessage` model represents a single message in a conversation thread. It supports all standard message roles defined by the OpenAI chat completions format, with extensions for tool calling.
 
-```
 ![Architecture Diagram](images/6-data-models-and-api-contracts_diagram_2.png)
-```
 
 **Field Specifications:**
 
@@ -64,9 +47,7 @@ The `AgentMessage` model represents a single message in a conversation thread. I
 
 The `ReactAgentRequest` model defines the contract for the primary agent endpoint at `/api/genai/react`. It carries conversation history and optional authentication context for Google services and PyJIIT.
 
-```
 ![Architecture Diagram](images/6-data-models-and-api-contracts_diagram_3.png)
-```
 
 **Field Specifications:**
 
@@ -88,9 +69,7 @@ The `ReactAgentRequest` model defines the contract for the primary agent endpoin
 
 The `CrawlerRequest` model serves specialized crawling endpoints (GitHub, website analysis) that require a single question rather than full conversation context.
 
-```
 ![Architecture Diagram](images/6-data-models-and-api-contracts_diagram_4.png)
-```
 
 **Field Specifications:**
 
@@ -153,11 +132,9 @@ Nested registration metadata containing session credentials:
 Represents a single institute in the user's available institute list:
 
 ```
-```
 class PyjiitInstituteEntry(BaseModel):
     label: str  # Display name
     value: str  # Institution identifier
-```
 ```
 
 **Sources:** [models/requests/pyjiit.py1-91](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/pyjiit.py#L1-L91)
@@ -225,9 +202,7 @@ Other response models follow similar patterns, wrapping service-specific outputs
 
 ### Request Validation Flow
 
-```
 ![Architecture Diagram](images/6-data-models-and-api-contracts_diagram_5.png)
-```
 
 **Validation Stages:**
 
@@ -262,13 +237,11 @@ Both `ReactAgentRequest` and `CrawlerRequest` accept optional credential payload
 All models leverage Pydantic v2 configuration via `model_config` dictionaries:
 
 ```
-```
 # Common configuration pattern
 model_config = {
     "populate_by_name": True,  # Accept both field names and aliases
     "str_strip_whitespace": True,  # Clean string inputs
 }
-```
 ```
 
 **Configuration Options in Use:**
@@ -323,7 +296,6 @@ The system uses three levels of alias handling:
 ### String Constraints
 
 ```
-```
 # Minimum length enforcement
 content: str = Field(..., min_length=1)
 
@@ -333,11 +305,9 @@ google_access_token: Optional[str] = Field(
     description="OAuth access token with Gmail/Calendar scope."
 )
 ```
-```
 
 ### List Constraints
 
-```
 ```
 # Minimum element count
 messages: List[AgentMessage] = Field(..., min_length=1)
@@ -352,10 +322,8 @@ chat_history: Optional[list[dict[str, Any]]] = Field(
 ### Literal Types
 
 ```
-```
 # Enum-like constraint
 role: Literal["system", "user", "assistant", "tool"]
-```
 ```
 
 **Sources:** [models/requests/react\_agent.py12](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/react_agent.py#L12-L12) [models/requests/react\_agent.py28](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/react_agent.py#L28-L28) [models/requests/crawller.py10-12](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/crawller.py#L10-L12)
@@ -366,7 +334,6 @@ role: Literal["system", "user", "assistant", "tool"]
 
 All models use explicit type hints compatible with Python 3.10+ type checkers:
 
-```
 ```
 from typing import Any, List, Literal, Optional
 from pydantic import BaseModel, Field

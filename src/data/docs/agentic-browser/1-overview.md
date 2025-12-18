@@ -1,7 +1,5 @@
 # Overview
 
-Relevant source files
-
 - [.gitignore](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.gitignore)
 - [.python-version](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/.python-version)
 - [LICENSE](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/LICENSE)

@@ -1,14 +1,5 @@
 # Overview
 
-Relevant source files
-
-* [README.md](https://github.com/codeblech/jportal/blob/4df0fde4/README.md)
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/src/App.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx)
-* [jportal/src/components/Login.jsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Login.jsx)
-* [screenshots/mobile-8.png](https://github.com/codeblech/jportal/blob/4df0fde4/screenshots/mobile-8.png)
-
 ## Purpose and Scope
 
 This document introduces JPortal, a Progressive Web Application (PWA) that serves as a modern replacement for the JIIT Web Portal. It covers the application's purpose, key features, technology stack, and high-level architecture.
@@ -76,9 +67,7 @@ The application supports two authentication modes, managed through the `App` com
 
 ### Application Entry Point and Authentication Flow
 
-```
 ![Architecture Diagram](images/1-overview_diagram_2.png)
-```
 
 The `App` component ([App.jsx243-376](https://github.com/codeblech/jportal/blob/4df0fde4/App.jsx#L243-L376)) serves as the authentication gatekeeper:
 
@@ -91,9 +80,7 @@ The `App` component ([App.jsx243-376](https://github.com/codeblech/jportal/blob/
 
 ### Feature Module Organization
 
-```
 ![Architecture Diagram](images/1-overview_diagram_3.png)
-```
 
 The `AuthenticatedApp` component manages all authenticated routes and serves as a central state hub. It maintains separate state slices for each feature module and passes them down via props (props drilling pattern). Each feature component receives:
 

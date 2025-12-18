@@ -1,9 +1,5 @@
 # Overview
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-
 The JIIT Personalized Timetable Creator is a browser-based Progressive Web App (PWA) that generates customized class schedules for students at Jaypee Institute of Information Technology. The system executes Python timetable generation logic entirely in the browser using Pyodide WebAssembly, eliminating traditional backend infrastructure. The application operates fully offline through service worker caching and provides features including personalized schedule generation, timeline visualization, timetable comparison, academic calendar integration, and Google Calendar synchronization.
 
 **Architectural Approach**: The system implements a three-layer architecture: React frontend (Next.js App Router), Python processing layer (Pyodide WASM), and PWA/offline layer (Service Worker with Workbox). Static JSON data files serve as the data layer, generated at build time from Excel sources.
@@ -43,8 +39,6 @@ The service worker at [public/sw.js](https://github.com/tashifkhan/JIIT-time-tab
 * **CacheFirst**: Pyodide CDN assets with 1-year TTL for performance
 * **Precache**: Static assets (Next.js chunks, JSON data, Python modules)
 
-**Sources**: [README.md1-268](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L1-L268) [public/sw.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/sw.js) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts) [app/layout.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/app/layout.tsx)
-
 ## Core Features
 
 The system provides five primary feature areas, each implemented as a distinct route and component:
@@ -61,11 +55,7 @@ The system provides five primary feature areas, each implemented as a distinct r
 
 The schedule generation process involves user input collection, Python-based parsing, and display rendering:
 
-```
 ![Architecture Diagram](images/1-overview_diagram_2.png)
-```
-
-**Sources**: [src/App.tsx154-229](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L154-L229) [src/components/schedule-form.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-form.tsx) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts) [public/\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py)
 
 ## Architecture Highlights
 
@@ -73,9 +63,7 @@ The schedule generation process involves user input collection, Python-based par
 
 The most distinctive architectural decision is using Pyodide to execute Python code client-side. The `initializePyodide()` function in `pyodide.ts` loads the Pyodide WASM runtime (~10MB) from CDN, then fetches and executes the `_creator.py` module containing timetable generation logic.
 
-```
 ![Architecture Diagram](images/1-overview_diagram_3.png)
-```
 
 The `evaluteTimeTable()` function at [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) implements function selection logic that maps user parameters to specific Python functions:
 
@@ -86,15 +74,11 @@ The `evaluteTimeTable()` function at [src/App.tsx115-152](https://github.com/tas
 * Campus BCA, Year 1: `bca_creator_year1`
 * Campus BCA, Year 2-3: `bca_creator`
 
-**Sources**: [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts) [public/\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py) [public/modules/BE62\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/modules/BE62_creator.py) [public/modules/BE128\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/modules/BE128_creator.py)
-
 ### State Management Strategy
 
 The application implements a three-tier state persistence model:
 
-```
 ![Architecture Diagram](images/1-overview_diagram_4.png)
-```
 
 The `UserContext` defined in [src/context/userContext.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContext.ts) and provided by `UserContextProvider` [src/context/userContextProvider.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContextProvider.tsx) maintains two schedule objects:
 
@@ -102,8 +86,6 @@ The `UserContext` defined in [src/context/userContext.ts](https://github.com/tas
 * `editedSchedule`: User modifications that override the base schedule
 
 The `nuqs` library synchronizes form state with URL parameters, enabling shareable links. When URL parameters conflict with cached data, the `UrlParamsDialog` component [src/components/url-params-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/url-params-dialog.tsx) prompts the user to choose between overriding, prefilling, or viewing the existing schedule.
-
-**Sources**: [src/context/userContext.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContext.ts) [src/context/userContextProvider.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContextProvider.tsx) [src/App.tsx56-109](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L56-L109) [src/components/url-params-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/url-params-dialog.tsx)
 
 ## Technology Stack
 
@@ -155,8 +137,6 @@ The `initializePyodide()` function at [src/utils/pyodide.ts](https://github.com/
 
 The development environment supports multiple package managers (npm, yarn, pnpm, bun) and includes ESLint configuration [eslint.config.mjs](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/eslint.config.mjs) PostCSS configuration [postcss.config.mjs](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/postcss.config.mjs) and Tailwind configuration [tailwind.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/tailwind.config.ts) The `.gitignore` file at [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore) excludes build artifacts (`.next/`, `out/`), dependency directories (`node_modules/`), and environment files.
 
-**Sources**: [README.md36-49](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L36-L49) [package.json](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/package.json) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts) [next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/next.config.ts) [eslint.config.mjs](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/eslint.config.mjs) [postcss.config.mjs](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/postcss.config.mjs) [tailwind.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/tailwind.config.ts) [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore)
-
 ### Data Sources & Build Pipeline
 
 **Static JSON Data Layer**
@@ -174,15 +154,11 @@ The development environment supports multiple package managers (npm, yarn, pnpm,
 
 **Data Preparation Pipeline**
 
-```
 ![Architecture Diagram](images/1-overview_diagram_5.png)
-```
 
 The `json_creater.py` Streamlit application at [json\_creater.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/json_creater.py) converts Excel files to JSON format. The timetable parser ([JIIT-time-table-parser](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/JIIT-time-table-parser)) and academic calendar parser ([JIIT-Academic-Calender](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/JIIT-Academic-Calender)) are external tools that process raw Excel data.
 
 The Next.js build process at [next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/next.config.ts) integrates the `@ducanh2912/next-pwa` plugin, which generates service worker files with precache manifests. See [Timetable Data Format Reference](/tashifkhan/JIIT-time-table-website/11-timetable-data-format-reference) for detailed JSON structure specifications.
-
-**Sources**: [README.md12-16](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L12-L16) [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L66-L138) [json\_creater.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/json_creater.py) [next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/next.config.ts) [package.json](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/package.json)
 
 ## Data Flow Overview
 
@@ -197,8 +173,6 @@ The data flow follows a unidirectional pattern:
 4. Generated schedule updates `UserContext` and persists to `localStorage`
 5. Display components consume schedule from context
 6. Export utilities transform schedule data to PDF, PNG, or Google Calendar events
-
-**Sources**: [src/App.tsx154-229](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L154-L229) [src/components/schedule-form.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-form.tsx) [src/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-display.tsx) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts)
 
 ## Project Structure
 
@@ -235,15 +209,12 @@ public/
 
 The entry point at [src/main.tsx1-73](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L1-L73) configures routing with `BrowserRouter`, wraps the application in `UserContextProvider`, and integrates analytics through Vercel and PostHog. The `Navbar` component provides navigation with mobile gesture support via `react-swipeable`.
 
-**Sources**: [src/main.tsx1-73](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L1-L73) [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L66-L138)
-
 ## Key Interfaces
 
 ### YourTietable Type
 
 The primary data structure for generated schedules:
 
-```
 ```
 interface YourTietable {
   [day: string]: {
@@ -254,7 +225,6 @@ interface YourTietable {
     };
   };
 }
-```
 ```
 
 Defined at [src/App.tsx28-36](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L28-L36) and used throughout the application for schedule representation.
@@ -273,8 +243,6 @@ Python functions exposed to JavaScript:
 
 Each function accepts `time_table_json`, `subject_json`, `batch`, and `electives_subject_codes` parameters and returns a `YourTietable` object.
 
-**Sources**: [src/App.tsx28-36](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L28-L36) [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) [public/\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py)
-
 ## Deployment Architecture
 
 The application is deployed on Vercel with custom rewrites defined in [vercel.json1-17](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/vercel.json#L1-L17):
@@ -283,5 +251,3 @@ The application is deployed on Vercel with custom rewrites defined in [vercel.js
 * All other routes serve `index.html` for client-side routing
 
 The system operates as a Progressive Web App (PWA) with service worker [public/service-worker.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/service-worker.js) for offline functionality and web manifest [public/manifest.json](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/manifest.json) for installability.
-
-**Sources**: [vercel.json1-17](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/vercel.json#L1-L17) [public/service-worker.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/service-worker.js) [public/manifest.json](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/manifest.json) [README.md1-268](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L1-L268)

@@ -1,17 +1,5 @@
 # Schedule Generation (Core Feature)
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/app/academic-calendar/calendar-content.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/app/academic-calendar/calendar-content.tsx)
-* [website/components/action-buttons.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/action-buttons.tsx)
-* [website/components/background.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/background.tsx)
-* [website/components/edit-event-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/edit-event-dialog.tsx)
-* [website/components/google-calendar-button.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/google-calendar-button.tsx)
-* [website/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-display.tsx)
-* [website/components/schedule-form.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/schedule-form.tsx)
-* [website/components/timeline-landing.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/timeline-landing.tsx)
-
 ## Purpose and Scope
 
 This document describes the primary feature of the JIIT Timetable website: the personalized schedule generation pipeline. This process transforms user inputs (campus, year, batch, and elective selections) into a customized weekly timetable by executing Python parsing logic client-side via Pyodide WASM.
@@ -68,7 +56,6 @@ The `ScheduleForm` component collects four required inputs from users, with camp
 The form enforces strict batch format rules before allowing submission:
 
 ```
-```
 // Campus 62: Only A, B, C, G, H batches allowed
 if (campus === "62") {
     if (batch.match(/^[DFH]|BBA|BCA|BSC|MCA|MBA|^[E]/)) {
@@ -89,7 +76,6 @@ else if (campus === "BCA") {
         error = "BCA campus only allows batches like BCA1, BCA2, etc.";
     }
 }
-```
 ```
 
 **Sources:** [src/components/schedule-form.tsx367-386](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-form.tsx#L367-L386)
@@ -139,14 +125,12 @@ When `handleSubmit` is called, the `App` component determines which Python funct
 The system executes the Python function twice on the first invocation to account for Pyodide warm-up behavior:
 
 ```
-```
 if (numExecutions === 0) {
     console.log("Initial execution - running twice");
     Schedule = await evaluteTimeTable(
         timeTableJSON, subjectJSON, batch, electives, campus, year
     );
 }
-```
 ```
 
 **Sources:** [src/App.tsx194-204](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L194-L204)
@@ -204,7 +188,6 @@ The system distinguishes between core subjects (mandatory for all students in a 
 The `is_elective` function determines whether a subject should be treated as an elective based on batch characteristics:
 
 ```
-```
 def is_elective(extracted_batch: str, subject_code: str, 
                 extracted_batches: list[str]) -> bool:
     # Special case: Not an elective
@@ -230,7 +213,6 @@ def is_elective(extracted_batch: str, subject_code: str,
         return True
 
     return False
-```
 ```
 
 **Sources:** [public/\_creator.py96-129](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L96-L129)
@@ -296,7 +278,6 @@ The system maintains a mapping between subject codes and full names in the `subj
 ### Code Matching Strategy
 
 ```
-```
 def subject_name_extractor(subjects_dict: dict, code: str) -> str:
     for subject in subjects_dict:
         # Direct code match
@@ -324,7 +305,6 @@ def subject_name_extractor(subjects_dict: dict, code: str) -> str:
 
     return code  # Return code if no match found
 ```
-```
 
 **Sources:** [public/\_creator.py220-253](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L220-L253) [public/\_creator.py704-737](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L704-L737)
 
@@ -339,7 +319,6 @@ After Python processing completes, the schedule is structured as a nested dictio
 The `YourTietable` interface defines the returned schedule format:
 
 ```
-```
 interface YourTietable {
     [day: string]: {
         [timeSlot: string]: {
@@ -350,11 +329,9 @@ interface YourTietable {
     };
 }
 ```
-```
 
 **Example:**
 
-```
 ```
 {
     "Monday": {
@@ -377,7 +354,6 @@ interface YourTietable {
         }
     }
 }
-```
 ```
 
 **Sources:** [src/App.tsx28-36](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L28-L36) [public/\_creator.py520-525](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L520-L525)
@@ -414,7 +390,6 @@ The system supports shareable URLs that encode schedule parameters. When a URL c
 The `nuqs` library manages URL query parameters as React state:
 
 ```
-```
 const [_year, setYear] = useQueryState("year", parseAsString.withDefault(""));
 const [_batch, setBatch] = useQueryState("batch", parseAsString.withDefault(""));
 const [_campus, setCampus] = useQueryState("campus", parseAsString.withDefault(""));
@@ -422,7 +397,6 @@ const [_selectedSubjects, setSelectedSubjects] = useQueryState(
     "selectedSubjects", 
     parseAsArrayOf(parseAsString).withDefault([])
 );
-```
 ```
 
 **Sources:** [src/App.tsx231-247](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L231-L247)
@@ -459,14 +433,12 @@ The generation pipeline includes error handling at multiple stages to ensure gra
 Pyodide exhibits warm-up behavior where the first execution may return incorrect results. The system compensates by executing twice on the first run:
 
 ```
-```
 if (numExecutions === 0) {
     console.log("Initial execution - running twice");
     Schedule = await evaluteTimeTable(
         timeTableJSON, subjectJSON, batch, electives, campus, year
     );
 }
-```
 ```
 
 **Sources:** [src/App.tsx194-204](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L194-L204)

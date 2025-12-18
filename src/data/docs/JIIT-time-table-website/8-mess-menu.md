@@ -1,9 +1,5 @@
 # Mess Menu
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-
 ## Purpose and Scope
 
 This document describes the **Mess Menu** feature of the JIIT Time Table website, which provides students with access to dining hall meal schedules. The mess menu displays daily meal information organized by time slots (breakfast, lunch, snacks, dinner), helping students plan their meals throughout the week.
@@ -55,9 +51,7 @@ The `mess-menu.tsx` component serves as the primary implementation for the mess 
 
 ### Mess Menu Component Organization
 
-```
 ![Architecture Diagram](images/8-mess-menu_diagram_2.png)
-```
 
 **Diagram: MessMenu Component Internal Structure**
 
@@ -73,7 +67,6 @@ The mess menu data follows a structured format that organizes meals by day of th
 
 ### Expected Data Structure
 
-```
 ```
 interface MealItem {
   name: string;           // Name of the dish
@@ -99,7 +92,6 @@ interface MessMenuData {
   menu: DayMenu[];
 }
 ```
-```
 
 ### Data Organization
 
@@ -121,9 +113,7 @@ The mess menu follows the application's established pattern for fetching and cac
 
 ### Data Flow Sequence
 
-```
 ![Architecture Diagram](images/8-mess-menu_diagram_3.png)
-```
 
 **Diagram: Mess Menu Data Flow**
 
@@ -165,9 +155,7 @@ The mess menu integrates with the application's navigation system, appearing as 
 
 ### Navigation Integration
 
-```
 ![Architecture Diagram](images/8-mess-menu_diagram_4.png)
-```
 
 **Diagram: Navigation Integration for Mess Menu**
 
@@ -208,13 +196,11 @@ The mess menu component manages its own local state for day selection and menu d
 ### Local State Structure
 
 ```
-```
 // Within MessMenu component
 const [selectedDay, setSelectedDay] = useState<string>('Monday');
 const [menuData, setMenuData] = useState<MessMenuData | null>(null);
 const [loading, setLoading] = useState<boolean>(true);
 const [error, setError] = useState<string | null>(null);
-```
 ```
 
 ### State Flow
@@ -235,9 +221,7 @@ The mess menu provides a straightforward user experience for checking meal sched
 
 ### User Journey
 
-```
 ![Architecture Diagram](images/8-mess-menu_diagram_5.png)
-```
 
 **Diagram: Mess Menu User Interaction Flow**
 

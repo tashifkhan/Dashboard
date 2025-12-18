@@ -1,17 +1,5 @@
 # Build & Deployment
 
-Relevant source files
-
-* [.gitignore](https://github.com/codeblech/jportal/blob/4df0fde4/.gitignore)
-* [helpful.md](https://github.com/codeblech/jportal/blob/4df0fde4/helpful.md)
-* [jportal/index.html](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/index.html)
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/public/pwa-icons/j-yuvraj.svg](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/public/pwa-icons/j-yuvraj.svg)
-* [jportal/src/components/DynamicFontLoader.tsx](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/DynamicFontLoader.tsx)
-* [jportal/src/utils/fonts.ts](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/utils/fonts.ts)
-* [jportal/vite.config.ts](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts)
-
 This document covers the build pipeline, production optimization, Progressive Web App (PWA) configuration, and deployment process for JPortal. It explains how source code is transformed into production-ready assets and deployed to GitHub Pages.
 
 For detailed information about PWA-specific features like service workers, offline caching, and installation capabilities, see [PWA Configuration](/codeblech/jportal/6.1-pwa-configuration). For development commands, local testing, and contribution workflows, see [Development Workflow](/codeblech/jportal/6.2-development-workflow).
@@ -66,9 +54,7 @@ The build and deployment process is orchestrated through npm scripts defined in 
 
 ### Build Command Execution
 
-```
 ![Architecture Diagram](images/6-build-and-deployment_diagram_2.png)
-```
 
 **Sources:** [jportal/package.json9](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L9-L9) [jportal/vite.config.ts1-99](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L1-L99)
 
@@ -81,10 +67,8 @@ The core build configuration is defined in `vite.config.ts`. Key settings includ
 ### Base Configuration
 
 ```
-```
 // Base path for deployed application
 base: "/jportal/"
-```
 ```
 
 This sets the base URL for the deployed application on GitHub Pages. All asset paths are prefixed with `/jportal/`.
@@ -104,13 +88,11 @@ This sets the base URL for the deployed application on GitHub Pages. All asset p
 ### Path Aliases
 
 ```
-```
 resolve: {
   alias: {
     "@": path.resolve(__dirname, "./src")
   }
 }
-```
 ```
 
 This allows imports like `import { Button } from "@/components/ui/button"` instead of relative paths.
@@ -121,7 +103,6 @@ This allows imports like `import { Button } from "@/components/ui/button"` inste
 
 The dev server includes a proxy configuration for Cloudflare Analytics API:
 
-```
 ```
 server: {
   proxy: {
@@ -140,7 +121,6 @@ server: {
     }
   }
 }
-```
 ```
 
 This proxies requests from `/api/cloudflare/*` to `https://api.cloudflare.com/*` with authentication headers injected from environment variables.
@@ -166,12 +146,10 @@ The VitePWA plugin generates Progressive Web App assets during the build process
 ### Workbox Caching Configuration
 
 ```
-```
 workbox: {
   maximumFileSizeToCacheInBytes: 30 * 1024 ** 2, // 30MB
   globPatterns: ["**/*.{js,css,html,ico,png,svg,whl}"]
 }
-```
 ```
 
 This configuration allows caching large files like Python wheel files (`.whl`) required for the PDF parsing functionality via Pyodide.
@@ -198,9 +176,7 @@ For detailed PWA configuration including manifest structure and caching strategi
 
 JPortal is deployed to **GitHub Pages** using the `gh-pages` npm package. The deployment is automated through npm scripts.
 
-```
 ![Architecture Diagram](images/6-build-and-deployment_diagram_3.png)
-```
 
 **Sources:** [jportal/package.json6-13](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L6-L13)
 
@@ -315,7 +291,6 @@ JPortal loads several external assets that are critical for functionality:
 Fonts are loaded dynamically based on the active theme using the `DynamicFontLoader` component:
 
 ```
-```
 // Extracts font family from CSS value
 extractFontFamily(fontValue: string): string | null
 
@@ -324,7 +299,6 @@ buildFontCssUrl(family: string, weights: string[]): string
 
 // Injects <link> tag into document head
 loadGoogleFont(family: string, weights: string[]): void
-```
 ```
 
 Default font weights loaded: `400`, `500`, `600`, `700`
@@ -336,9 +310,7 @@ Default font weights loaded: `400`, `500`, `600`, `700`
 The Pyodide JavaScript runtime is loaded from CDN in the HTML:
 
 ```
-```
 <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
-```
 ```
 
 This enables running Python code in the browser for PDF parsing functionality in the Grades module.
@@ -350,11 +322,9 @@ This enables running Python code in the browser for PDF parsing functionality in
 Analytics tracking is injected via Cloudflare's beacon script:
 
 ```
-```
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' 
         data-cf-beacon='{"token": "bd095dd9dc8b402280735bc9a67d868b"}'>
 </script>
-```
 ```
 
 **Sources:** [jportal/index.html14-16](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/index.html#L14-L16)
@@ -408,9 +378,7 @@ Three-tier caching approach:
 The build process supports environment variables through Vite's `loadEnv`:
 
 ```
-```
 const env = loadEnv(mode, process.cwd(), '');
-```
 ```
 
 Currently used variables:

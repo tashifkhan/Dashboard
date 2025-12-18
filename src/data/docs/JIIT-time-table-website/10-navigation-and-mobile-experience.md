@@ -1,11 +1,5 @@
 # Navigation & Mobile Experience
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/components/mobile-navbar.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/mobile-navbar.tsx)
-* [website/components/navbar.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/navbar.tsx)
-
 ## Purpose and Scope
 
 This document describes the navigation system implementation, including the dual-navigation architecture (desktop sidebar and mobile bottom bar), swipe gesture support, and responsive design patterns. The navigation system provides consistent routing across five main pages while adapting to different screen sizes and input methods.
@@ -44,9 +38,7 @@ All navigation routes are defined in a centralized `tabs` array exported from `n
 | `path` | string | Next.js route path |
 | `icon` | LucideIcon | Icon component from lucide-react |
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_2.png)
-```
 
 The `tabs` array is imported by `MobileNavbar` to maintain identical route definitions across both navigation implementations.
 
@@ -60,9 +52,7 @@ The desktop navigation renders as a fixed left sidebar visible only on medium an
 
 ### Desktop Navigation Layout
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_3.png)
-```
 
 ### Active State Detection
 
@@ -88,9 +78,7 @@ The mobile navigation bar renders as a fixed bottom element, visible only on sma
 
 ### Mobile Navigation Component Architecture
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_4.png)
-```
 
 ### Indicator Animation System
 
@@ -131,9 +119,7 @@ The application implements horizontal swipe gestures for mobile navigation using
 
 ### Swipe Handler Configuration
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_5.png)
-```
 
 ### Swipe Navigation Flow
 
@@ -217,9 +203,7 @@ Both navigation components use Next.js routing hooks for state management and na
 
 ### Routing Hook Usage
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_6.png)
-```
 
 ### Active Route Detection Logic
 
@@ -228,17 +212,13 @@ Both components implement identical logic for determining the active tab:
 **Root Path Special Case:**
 
 ```
-```
 if (tab.path === "/" && pathname === "/") return true;
-```
 ```
 
 **Other Paths Prefix Matching:**
 
 ```
-```
 if (tab.path !== "/" && pathname.startsWith(tab.path)) return true;
-```
 ```
 
 This logic ensures that:

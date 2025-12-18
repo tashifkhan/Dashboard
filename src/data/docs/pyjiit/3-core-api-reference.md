@@ -1,13 +1,5 @@
 # Core API Reference
 
-Relevant source files
-
-* [docs/apiref.rst](https://github.com/codelif/pyjiit/blob/0fe02955/docs/apiref.rst)
-* [pyjiit/\_\_init\_\_.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/__init__.py)
-* [pyjiit/exam.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exam.py)
-* [pyjiit/registration.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/registration.py)
-* [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)
-
 This document provides a comprehensive reference for the core API components of pyjiit. It covers the `Webportal` class (the main API client), `WebportalSession` (session management), and the overall structure of API interactions with the JIIT Webportal backend.
 
 For detailed information on authentication and login flow, see [Authentication Flow](/codelif/pyjiit/2.3-authentication-flow). For security and encryption details, see [Security and Encryption](/codelif/pyjiit/4-security-and-encryption). For specific data model structures, see the subsections under [Data Models](/codelif/pyjiit/3.3-data-models).
@@ -32,10 +24,8 @@ The `Webportal` class at [pyjiit/wrapper.py70-489](https://github.com/codelif/py
 ### Initialization
 
 ```
-```
 # No parameters required
 webportal = Webportal()
-```
 ```
 
 The constructor [pyjiit/wrapper.py76-77](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L76-L77) initializes with `self.session = None`. The session is populated after successful authentication via `student_login()`.
@@ -54,9 +44,7 @@ The `__hit()` method at [pyjiit/wrapper.py82-108](https://github.com/codelif/pyj
 | **Response Validation** | Checks `responseStatus`, raises custom exceptions on failure |
 | **Exception Customization** | Accepts `exception` kwarg to specify which exception type to raise |
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_2.png)
-```
 
 **Sources:** [pyjiit/wrapper.py82-108](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L82-L108)
 
@@ -65,7 +53,6 @@ The `__hit()` method at [pyjiit/wrapper.py82-108](https://github.com/codelif/pyj
 The `@authenticated` decorator at [pyjiit/wrapper.py19-36](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L19-L36) enforces session validation before method execution:
 
 ```
-```
 def authenticated(method):
     @wraps(method)
     def wrapper(self, *args, **kwargs):
@@ -73,7 +60,6 @@ def authenticated(method):
             raise NotLoggedIn
         return method(self, *args, **kwargs)
     return wrapper
-```
 ```
 
 All methods requiring authentication are decorated with `@authenticated`. If called without a valid session, they raise `NotLoggedIn` immediately.
@@ -105,12 +91,10 @@ The `WebportalSession` class at [pyjiit/wrapper.py38-68](https://github.com/code
 The `get_headers()` method at [pyjiit/wrapper.py61-68](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L61-L68) generates HTTP headers required for authenticated requests:
 
 ```
-```
 {
     "Authorization": f"Bearer {self.token}",
     "LocalName": generate_local_name()
 }
-```
 ```
 
 The `LocalName` header is regenerated for every request using the encryption module's `generate_local_name()` function.
@@ -181,9 +165,7 @@ The following table categorizes all public API methods by functionality:
 
 This diagram maps public API methods to their corresponding JIIT Webportal backend endpoints:
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_3.png)
-```
 
 **Sources:** [pyjiit/wrapper.py111-488](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L111-L488)
 
@@ -195,9 +177,7 @@ API methods use two payload patterns depending on the endpoint security requirem
 
 Used by methods requiring encryption, invoked via `serialize_payload()` from the encryption module:
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_4.png)
-```
 
 **Methods using encrypted payloads:**
 
@@ -219,9 +199,7 @@ Used by methods requiring encryption, invoked via `serialize_payload()` from the
 
 Used by methods where the backend accepts unencrypted JSON:
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_5.png)
-```
 
 **Methods using plain JSON payloads:**
 
@@ -234,9 +212,7 @@ Used by methods where the backend accepts unencrypted JSON:
 
 ## Data Model Return Types
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_6.png)
-```
 
 | Method | Return Type | Module | Description |
 | --- | --- | --- | --- |
@@ -274,9 +250,7 @@ Other methods return raw `dict` objects containing API response data.
 All API requests target the base URL defined at [pyjiit/wrapper.py17](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L17-L17):
 
 ```
-```
 API = "https://webportal.jiit.ac.in:6011/StudentPortalAPI"
-```
 ```
 
 Each method appends its specific endpoint path to this base URL. For example:

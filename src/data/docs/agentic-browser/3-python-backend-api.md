@@ -1,15 +1,5 @@
 # Python Backend API
 
-Relevant source files
-
-* [api/main.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/api/main.py)
-* [core/config.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py)
-* [pyproject.toml](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml)
-* [routers/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/__init__.py)
-* [tools/google\_search/\_\_init\_\_.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/__init__.py)
-* [tools/google\_search/seach\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py)
-* [uv.lock](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/uv.lock)
-
 ## Purpose and Scope
 
 This document covers the Python backend API server built with FastAPI, including its architecture, router-service-tool layered design, and core dependencies. The backend provides HTTP endpoints for AI-assisted web automation, external service integrations, and agent orchestration.
@@ -69,9 +59,7 @@ The router registration happens at [api/main.py28-38](https://github.com/tashifk
 
 The backend follows a consistent three-tier pattern across all feature verticals:
 
-```
 ![Architecture Diagram](images/3-python-backend-api_diagram_2.png)
-```
 
 ### Layer Responsibilities
 
@@ -156,9 +144,7 @@ The backend uses a centralized configuration system defined in [core/config.py](
 
 Configuration is loaded from `.env` files using `python-dotenv`:
 
-```
 ![Architecture Diagram](images/3-python-backend-api_diagram_3.png)
-```
 
 Key configuration variables at [core/config.py8-14](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L8-L14):
 
@@ -185,10 +171,8 @@ The logging system provides consistent log formatting across all modules:
 Example usage in [tools/google\_search/seach\_agent.py6-8](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L6-L8):
 
 ```
-```
 from core.config import get_logger
 logger = get_logger(__name__)
-```
 ```
 
 **Sources:** [core/config.py1-26](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L1-L26)
@@ -199,9 +183,7 @@ logger = get_logger(__name__)
 
 The FastAPI application can be started in API mode through the main entry point:
 
-```
 ![Architecture Diagram](images/3-python-backend-api_diagram_4.png)
-```
 
 The application initialization sequence:
 

@@ -1,22 +1,5 @@
 # Frontend Application
 
-Relevant source files
-
-* [frontend/app/page.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/page.tsx)
-* [frontend/bun.lock](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/bun.lock)
-* [frontend/components/example-action-pages.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/example-action-pages.tsx)
-* [frontend/components/features.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/features.tsx)
-* [frontend/components/floating-action-button.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/floating-action-button.tsx)
-* [frontend/components/landing-hero.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/landing-hero.tsx)
-* [frontend/components/mobile-bottom-nav.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/mobile-bottom-nav.tsx)
-* [frontend/components/navbar.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/navbar.tsx)
-* [frontend/components/sidebar-provider.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/sidebar-provider.tsx)
-* [frontend/components/ui/modern-mobile-menu.css](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/ui/modern-mobile-menu.css)
-* [frontend/components/ui/modern-mobile-menu.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/ui/modern-mobile-menu.tsx)
-* [frontend/lib/navigation.ts](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/lib/navigation.ts)
-* [frontend/next.config.js](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/next.config.js)
-* [frontend/package.json](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json)
-
 ## Purpose and Scope
 
 This document provides an overview of the TalentSync frontend application, a Next.js-based Progressive Web Application (PWA) that serves as the user interface for the AI-powered hiring intelligence platform. The frontend provides separate experiences for job seekers and recruiters through a responsive, role-based architecture.
@@ -98,9 +81,7 @@ Protected routes are enforced by [middleware.ts](https://github.com/harleenkaur2
 
 ### Component Hierarchy
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_2.png)
-```
 
 **Sources:** [frontend/components/navbar.tsx1-398](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/navbar.tsx#L1-L398) [frontend/components/mobile-bottom-nav.tsx1-209](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/mobile-bottom-nav.tsx#L1-L209) [frontend/components/floating-action-button.tsx1-109](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/floating-action-button.tsx#L1-L109) [frontend/components/sidebar-provider.tsx1-29](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/sidebar-provider.tsx#L1-L29)
 
@@ -110,9 +91,7 @@ Protected routes are enforced by [middleware.ts](https://github.com/harleenkaur2
 
 The navigation system is driven by configuration objects defined in `lib/navigation.ts`:
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_3.png)
-```
 
 The `NavItem` interface includes `label`, `href`, and `icon` (LucideIcon type). The `ActionItem` extends this with a `description` field for detailed tooltips.
 
@@ -126,9 +105,7 @@ The frontend implements a fully responsive navigation system that adapts to thre
 
 ### Desktop (≥768px): Collapsible Sidebar
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_4.png)
-```
 
 **Sources:** [frontend/components/navbar.tsx41-236](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/navbar.tsx#L41-L236) [frontend/components/sidebar-provider.tsx1-29](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/sidebar-provider.tsx#L1-L29)
 
@@ -136,9 +113,7 @@ The frontend implements a fully responsive navigation system that adapts to thre
 
 ### Tablet (640px-767px): Top Navigation Bar
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_5.png)
-```
 
 **Sources:** [frontend/components/navbar.tsx238-391](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/navbar.tsx#L238-L391)
 
@@ -146,9 +121,7 @@ The frontend implements a fully responsive navigation system that adapts to thre
 
 ### Mobile (<640px): Bottom Navigation + FAB
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_6.png)
-```
 
 The mobile bottom navigation uses the `InteractiveMenuWithNavigation` component which provides smooth animations and active state indicators. The FAB expands to reveal quick action items from the `actionItems` array.
 
@@ -162,15 +135,12 @@ The frontend uses a combination of state management strategies:
 
 ### State Management Patterns
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_7.png)
-```
 
 ### Session Management
 
 The application uses NextAuth's `SessionProvider` to manage authentication state globally:
 
-```
 ```
 // Pattern used in navbar.tsx:32
 const { data: session, status } = useSession();
@@ -185,7 +155,6 @@ interface Session {
   }
 }
 ```
-```
 
 The `status` field indicates whether the session is `"loading"`, `"authenticated"`, or `"unauthenticated"`, enabling conditional UI rendering.
 
@@ -197,9 +166,7 @@ The `status` field indicates whether the session is `"loading"`, `"authenticated
 
 The frontend is configured as a PWA using `next-pwa`:
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_8.png)
-```
 
 PWA features are disabled in development mode: `disable: process.env.NODE_ENV === "development"`.
 
@@ -227,7 +194,6 @@ The `next.config.js` includes several important customizations:
 The configuration includes custom webpack rules to handle PostHog's Node.js dependencies in the browser:
 
 ```
-```
 // Pattern from next.config.js:25-61
 if (!isServer) {
   config.resolve.fallback = {
@@ -246,7 +212,6 @@ if (!isServer) {
     })
   );
 }
-```
 ```
 
 This prevents PostHog instrumentation from attempting to use Node.js modules in the browser bundle.
@@ -281,9 +246,7 @@ The build process includes Prisma client generation (`prisma generate`) before N
 
 Features in the dashboard follow a consistent organization pattern:
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_9.png)
-```
 
 This pattern enables:
 

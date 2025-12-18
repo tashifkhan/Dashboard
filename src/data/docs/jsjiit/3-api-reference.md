@@ -1,11 +1,5 @@
 # API Reference
 
-Relevant source files
-
-* [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)
-* [src/index.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js)
-* [src/wrapper.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js)
-
 ## Purpose and Scope
 
 This document provides comprehensive reference documentation for all public classes, methods, constants, and interfaces exposed by the jsjiit library. It serves as the authoritative guide to the library's API surface, detailing the types, signatures, and purposes of all exported constructs.
@@ -63,9 +57,7 @@ The `WebPortal` class is the primary interface for all portal interactions. It p
 
 ### Method Categories
 
-```
 ![Architecture Diagram](images/3-api-reference_diagram_2.png)
-```
 
 **Sources:** [src/wrapper.js75-719](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L75-L719)
 
@@ -146,9 +138,7 @@ The library provides typed data model classes to represent portal data structure
 
 ### Data Model Hierarchy
 
-```
 ![Architecture Diagram](images/3-api-reference_diagram_3.png)
-```
 
 For complete documentation of data model properties and methods, see [Data Models](/codeblech/jsjiit/3.9-data-models).
 
@@ -162,9 +152,7 @@ The library provides a hierarchy of exception classes for different error scenar
 
 ### Exception Hierarchy
 
-```
 ![Architecture Diagram](images/3-api-reference_diagram_4.png)
-```
 
 ### Exception Reference
 
@@ -190,9 +178,7 @@ For detailed error handling strategies and examples, see [Error Handling](/codeb
 #### API
 
 ```
-```
 const API = "https://webportal.jiit.ac.in:6011/StudentPortalAPI"
-```
 ```
 
 Base endpoint URL for all API requests. Defined in [src/wrapper.js14](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L14-L14)
@@ -200,9 +186,7 @@ Base endpoint URL for all API requests. Defined in [src/wrapper.js14](https://gi
 #### DEFCAPTCHA
 
 ```
-```
 const DEFCAPTCHA = { captcha: "phw5n", hidden: "gmBctEffdSg=" }
-```
 ```
 
 Default CAPTCHA bypass values used by `student_login()`. Defined in [src/wrapper.js20](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L20-L20)
@@ -212,9 +196,7 @@ Default CAPTCHA bypass values used by `student_login()`. Defined in [src/wrapper
 #### generate\_local\_name()
 
 ```
-```
 async generate_local_name(): Promise<string>
-```
 ```
 
 Generates a `LocalName` header value required for all API requests. This function is exported for advanced use cases but is typically called internally by the library. Defined in [src/encryption.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/encryption.js)
@@ -243,7 +225,6 @@ All methods requiring authentication are decorated with the `authenticated` deco
 The following methods are automatically wrapped with authentication checks:
 
 ```
-```
 const authenticatedMethods = [
   "get_personal_info",
   "get_student_bank_info",
@@ -268,7 +249,6 @@ const authenticatedMethods = [
   "get_fee_summary",
   "get_subject_choices"
 ];
-```
 ```
 
 Any attempt to call these methods without first calling `student_login()` will throw a `NotLoggedIn` exception.

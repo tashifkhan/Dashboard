@@ -1,17 +1,5 @@
 # Development Guide
 
-Relevant source files
-
-* [.gitignore](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore)
-* [backend/Dockerfile](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile)
-* [backend/app/model/best\_model.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/best_model.pkl)
-* [backend/app/model/tfidf.pkl](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/model/tfidf.pkl)
-* [docker-compose.yaml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml)
-* [frontend/bun.lock](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/bun.lock)
-* [frontend/components/pdf-resume/LoadingOverlay.tsx](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/pdf-resume/LoadingOverlay.tsx)
-* [frontend/next.config.js](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/next.config.js)
-* [frontend/package.json](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json)
-
 ## Purpose and Scope
 
 This guide provides practical instructions for developers who want to set up, run, and contribute to the TalentSync codebase. It covers local development environment setup, project structure, common development workflows, testing procedures, and troubleshooting steps. For deployment and production infrastructure details, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure). For detailed API endpoint documentation, see [API Documentation](/harleenkaur28/AI-Resume-Parser/7.2-api-documentation).
@@ -98,7 +86,6 @@ The following diagram shows how services communicate in a local development envi
 Create a `.env` file in the project root with the following structure:
 
 ```
-```
 # Database Configuration
 POSTGRES_DB=talentsync
 POSTGRES_USER=postgres
@@ -140,7 +127,6 @@ JWT_REFRESH_SECRET=generate_with_openssl_rand_base64_32
 # Environment
 NODE_ENV=development
 ```
-```
 
 **Environment Variable Priority:**
 
@@ -159,13 +145,10 @@ NODE_ENV=development
 
 The following diagram shows the complete frontend setup workflow:
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_2.png)
-```
 
 ### Commands Explained
 
-```
 ```
 # Navigate to frontend directory
 cd frontend
@@ -185,7 +168,6 @@ bun prisma/seed.ts
 # Start development server with hot reload
 bun dev
 ```
-```
 
 The frontend will be available at `http://localhost:3000`. The `bun dev` script runs `next dev` which enables:
 
@@ -203,7 +185,6 @@ The frontend will be available at `http://localhost:3000`. The `bun dev` script 
 ### Installation Steps
 
 ```
-```
 # Navigate to backend directory
 cd backend
 
@@ -219,7 +200,6 @@ uv pip install -e ".[dev]"
 
 # Start FastAPI development server with auto-reload
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
 ```
 
 The backend will be available at `http://localhost:8000`. FastAPI provides automatic interactive API documentation at:
@@ -258,7 +238,6 @@ backend/app/
 For a production-like environment locally:
 
 ```
-```
 # From project root
 docker-compose up --build
 
@@ -273,7 +252,6 @@ docker-compose down
 
 # Stop and remove volumes (clears database)
 docker-compose down -v
-```
 ```
 
 **Docker Compose Services:**
@@ -298,9 +276,7 @@ docker-compose down -v
 
 ### Typical Development Cycle
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_3.png)
-```
 
 ### Making Changes
 
@@ -321,7 +297,6 @@ docker-compose down -v
 **Database Schema Changes:**
 
 ```
-```
 # 1. Edit frontend/prisma/schema.prisma
 # 2. Create migration
 bunx prisma migrate dev --name your_migration_name
@@ -330,7 +305,6 @@ bunx prisma migrate dev --name your_migration_name
 bunx prisma generate
 
 # 4. Restart frontend dev server to use new types
-```
 ```
 
 **Sources:** [frontend/package.json6-12](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json#L6-L12) [backend/Dockerfile32](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L32-L32)
@@ -341,7 +315,6 @@ bunx prisma generate
 
 ### Frontend Commands
 
-```
 ```
 # Development
 bun dev                           # Start dev server (port 3000)
@@ -365,13 +338,11 @@ bun add <package>                # Add dependency
 bun add -d <package>             # Add dev dependency
 bun update                       # Update dependencies
 ```
-```
 
 **Sources:** [frontend/package.json5-16](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json#L5-L16)
 
 ### Backend Commands
 
-```
 ```
 # Development
 uvicorn app.main:app --reload     # Start with auto-reload
@@ -387,7 +358,6 @@ pip install uv                   # Install uv package manager
 uv pip install -e ".[dev]"      # Install with dev dependencies
 uv pip list                      # List installed packages
 ```
-```
 
 **Sources:** [backend/Dockerfile12-22](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L12-L22) [backend/Dockerfile32](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L32-L32)
 
@@ -400,10 +370,8 @@ uv pip list                      # List installed packages
 Prisma Studio provides a GUI for database management:
 
 ```
-```
 cd frontend
 bunx prisma studio
-```
 ```
 
 Opens at `http://localhost:5555` with visual interface to:
@@ -415,7 +383,6 @@ Opens at `http://localhost:5555` with visual interface to:
 
 ### Common Database Operations
 
-```
 ```
 # Reset database (WARNING: deletes all data)
 bunx prisma migrate reset
@@ -435,18 +402,15 @@ bunx prisma generate
 # Seed database with sample data
 bun prisma/seed.ts
 ```
-```
 
 **Database Connection in Code:**
 
 Frontend: Uses `@prisma/client` generated from schema
 
 ```
-```
 // Imported as:
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-```
 ```
 
 Backend: Connects via standard PostgreSQL libraries or through frontend API
@@ -462,13 +426,11 @@ Backend: Connects via standard PostgreSQL libraries or through frontend API
 The project currently uses manual testing through the browser. Recommended testing setup:
 
 ```
-```
 # Install testing dependencies (not currently in package.json)
 bun add -d @testing-library/react @testing-library/jest-dom vitest
 
 # Run tests (once implemented)
 bun test
-```
 ```
 
 **Manual Testing Checklist:**
@@ -486,7 +448,6 @@ bun test
 ### Backend Testing
 
 ```
-```
 # Run FastAPI test client
 cd backend
 pytest
@@ -496,7 +457,6 @@ pytest tests/test_resume_parser.py -v
 
 # Test with coverage
 pytest --cov=app tests/
-```
 ```
 
 **API Testing Tools:**
@@ -509,13 +469,11 @@ pytest --cov=app tests/
 **Example curl test:**
 
 ```
-```
 # Test resume upload endpoint
 curl -X POST "http://localhost:8000/analyze_resume" \
   -F "file=@resume.pdf" \
   -F "showInCentral=true" \
   -F "customName=Test Resume"
-```
 ```
 
 **Sources:** [backend/Dockerfile20](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L20-L20)
@@ -542,13 +500,11 @@ curl -X POST "http://localhost:8000/analyze_resume" \
 **PostHog Debugging:**
 
 ```
-```
 // Check if PostHog is loaded
 console.log(window.posthog)
 
 // Verify events are firing
 window.posthog?.capture('test_event', { property: 'value' })
-```
 ```
 
 **Sources:** [frontend/next.config.js18-64](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/next.config.js#L18-L64)
@@ -558,7 +514,6 @@ window.posthog?.capture('test_event', { property: 'value' })
 **FastAPI Logging:**
 
 ```
-```
 # Backend uses standard Python logging
 import logging
 logger = logging.getLogger(__name__)
@@ -566,7 +521,6 @@ logger = logging.getLogger(__name__)
 logger.debug("Debug message")
 logger.info("Info message")
 logger.error("Error message")
-```
 ```
 
 **Common Backend Issues:**
@@ -582,13 +536,11 @@ logger.error("Error message")
 **Interactive Debugging:**
 
 ```
-```
 # Use Python debugger
 import pdb; pdb.set_trace()
 
 # Or use ipdb (install with: pip install ipdb)
 import ipdb; ipdb.set_trace()
-```
 ```
 
 **Sources:** [backend/Dockerfile5-6](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L5-L6) [backend/Dockerfile32](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/Dockerfile#L32-L32)
@@ -602,7 +554,6 @@ import ipdb; ipdb.set_trace()
 The application behavior changes based on `NODE_ENV`:
 
 ```
-```
 // frontend/next.config.js
 const withPWA = require("next-pwa")({
   dest: "public",
@@ -610,7 +561,6 @@ const withPWA = require("next-pwa")({
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development", // PWA disabled in dev
 });
-```
 ```
 
 **Key Differences:**
@@ -636,14 +586,12 @@ const withPWA = require("next-pwa")({
 The application uses `next-pwa` to generate a service worker automatically. Configuration in `next.config.js`:
 
 ```
-```
 const withPWA = require("next-pwa")({
   dest: "public",           // Output directory
   register: true,           // Auto-register service worker
   skipWaiting: true,        // Activate new SW immediately
   disable: process.env.NODE_ENV === "development",
 });
-```
 ```
 
 **Generated Files:**
@@ -683,10 +631,8 @@ const withPWA = require("next-pwa")({
 **Configuration:**
 
 ```
-```
 # In .env
 TAVILY_API_KEY=your_tavily_key
-```
 ```
 
 Used by backend for company research and web search in:
@@ -700,17 +646,14 @@ Used by backend for company research and web search in:
 **Configuration:**
 
 ```
-```
 # In .env
 NEXT_PUBLIC_POSTHOG_KEY=your_key
 NEXT_PUBLIC_POSTHOG_HOST=http://localhost:3000/ph
-```
 ```
 
 **Proxy Setup:**
 Frontend proxies PostHog requests to avoid ad blockers:
 
-```
 ```
 // next.config.js
 async rewrites() {
@@ -726,7 +669,6 @@ async rewrites() {
   ];
 }
 ```
-```
 
 **Sources:** [frontend/next.config.js65-76](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/next.config.js#L65-L76)
 
@@ -739,15 +681,12 @@ async rewrites() {
 **Issue: `Module not found: Can't resolve '@prisma/client'`**
 
 ```
-```
 # Solution: Generate Prisma Client
 bunx prisma generate
-```
 ```
 
 **Issue: `Database connection failed`**
 
-```
 ```
 # Solution: Check PostgreSQL is running
 pg_isready -h localhost -p 5432
@@ -758,11 +697,9 @@ brew services start postgresql@16
 # Or using Docker
 docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:16
 ```
-```
 
 **Issue: Next.js port 3000 already in use**
 
-```
 ```
 # Solution: Kill existing process
 lsof -ti:3000 | xargs kill -9
@@ -770,16 +707,13 @@ lsof -ti:3000 | xargs kill -9
 # Or use different port
 PORT=3001 bun dev
 ```
-```
 
 **Issue: OAuth login not working**
 
 ```
-```
 # Solution: Verify callback URLs
 # Google: http://localhost:3000/api/auth/callback/google
 # GitHub: http://localhost:3000/api/auth/callback/github
-```
 ```
 
 ### Backend Issues
@@ -787,26 +721,21 @@ PORT=3001 bun dev
 **Issue: `ImportError: No module named 'app'`**
 
 ```
-```
 # Solution: Install dependencies
 cd backend
 uv pip install -e ".[dev]"
-```
 ```
 
 **Issue: `FileNotFoundError: best_model.pkl not found`**
 
 ```
-```
 # Solution: Ensure ML models are present
 ls backend/app/model/
 # Should contain: best_model.pkl, tfidf.pkl, nltk_data/
 ```
-```
 
 **Issue: `GOOGLE_API_KEY environment variable not set`**
 
-```
 ```
 # Solution: Create .env file in project root
 echo "GOOGLE_API_KEY=your_key" >> .env
@@ -814,13 +743,11 @@ echo "GOOGLE_API_KEY=your_key" >> .env
 # Verify it's loaded
 python -c "import os; print(os.getenv('GOOGLE_API_KEY'))"
 ```
-```
 
 ### Database Issues
 
 **Issue: `Prisma schema out of sync with database`**
 
-```
 ```
 # Solution: Run migrations
 bunx prisma migrate dev
@@ -828,18 +755,15 @@ bunx prisma migrate dev
 # Or reset database (WARNING: deletes data)
 bunx prisma migrate reset
 ```
-```
 
 **Issue: `Connection timeout to database`**
 
-```
 ```
 # Solution: Check DATABASE_URL format
 # Correct: postgresql://user:password@localhost:5432/dbname?schema=public
 
 # Verify PostgreSQL is accepting connections
 psql -h localhost -U postgres -d talentsync
-```
 ```
 
 **Sources:** [.gitignore1-59](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/.gitignore#L1-L59) [docker-compose.yaml9-17](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml#L9-L17)
@@ -850,7 +774,6 @@ psql -h localhost -U postgres -d talentsync
 
 ### Branch Strategy
 
-```
 ```
 # Main branch for production
 main
@@ -868,7 +791,6 @@ git commit -m "fix: resolve bug"
 
 # Push to remote
 git push origin feature/your-feature-name
-```
 ```
 
 ### Commit Message Convention
@@ -896,11 +818,9 @@ footer (optional)
 **Examples:**
 
 ```
-```
 git commit -m "feat(resume): add PDF export functionality"
 git commit -m "fix(auth): resolve OAuth callback error"
 git commit -m "docs(api): update endpoint documentation"
-```
 ```
 
 ### Pre-commit Checklist
@@ -926,13 +846,11 @@ Before pushing code:
 **Image Optimization:**
 
 ```
-```
 // next.config.js
 images: {
   unoptimized: true, // Set to false for production
   domains: ["lh3.googleusercontent.com", "avatars.githubusercontent.com"],
 }
-```
 ```
 
 **Code Splitting:**
@@ -941,7 +859,6 @@ images: {
 * Use dynamic imports for heavy components:
 
 ```
-```
 import dynamic from 'next/dynamic'
 const HeavyComponent = dynamic(() => import('./HeavyComponent'))
 ```
@@ -949,13 +866,11 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'))
 **Bundle Analysis:**
 
 ```
-```
 # Install bundle analyzer
 bun add -d @next/bundle-analyzer
 
 # Analyze bundle
 ANALYZE=true bun run build
-```
 ```
 
 ### Backend Performance
@@ -983,7 +898,6 @@ ANALYZE=true bun run build
 Recommended extensions for development:
 
 ```
-```
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -996,11 +910,9 @@ Recommended extensions for development:
   ]
 }
 ```
-```
 
 ### VS Code Settings
 
-```
 ```
 {
   "editor.formatOnSave": true,

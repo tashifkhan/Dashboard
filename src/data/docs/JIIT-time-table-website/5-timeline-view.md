@@ -1,11 +1,5 @@
 # Timeline View
 
-Relevant source files
-
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/components/timeline-header.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/timeline-header.tsx)
-* [website/components/timeline.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/timeline.tsx)
-
 ## Purpose and Scope
 
 The Timeline View provides a calendar-style weekly schedule visualization that displays classes in a time-grid format. This page documents the `TimelinePage` component, its rendering logic, time-based auto-scrolling, event interaction modal, and download mode support.
@@ -50,9 +44,7 @@ The Timeline View consists of two main components: the primary `TimelinePage` co
 
 The Timeline View consumes schedule data from `UserContext` and renders it in a time-grid format.
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_2.png)
-```
 
 **Sources:** [src/components/timeline.tsx13-25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L13-L25) [src/components/timeline.tsx40-90](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L40-L90) [src/context/userContextProvider.tsx1-52](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContextProvider.tsx#L1-L52)
 
@@ -82,9 +74,7 @@ The Timeline View uses a CSS Grid layout with a fixed time column and six dynami
 * Fixed width: `2550px`
 * Optimized for PDF export
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_3.png)
-```
 
 **Sources:** [src/components/timeline.tsx444-616](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L444-L616)
 
@@ -113,9 +103,7 @@ Events are positioned absolutely within their day column using calculated `top` 
 
 The Timeline View displays a live red line indicating the current time, visible only on the current weekday during regular hours (8 AM - 6 PM).
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_4.png)
-```
 
 The indicator position is calculated dynamically:
 
@@ -131,9 +119,7 @@ This results in the red line appearing at the precise fractional hour position w
 
 When a visitor (non-download mode) first loads the Timeline View, the page automatically scrolls to center the current time and day.
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_5.png)
-```
 
 **Two-stage scroll timing:**
 
@@ -161,20 +147,16 @@ The `getEventColor()` function returns styling objects for each event type:
 
 ### Event Block Structure
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_6.png)
-```
 
 **Event styling formula:**
 
-```
 ```
 background: linear-gradient(135deg, rgba(..., 0.15), rgba(..., 0.25))
 backdropFilter: blur(10px)
 border: 1px solid rgba(..., 0.3)
 borderRadius: 18px
 boxShadow: 0 6px 18px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)
-```
 ```
 
 **Sources:** [src/components/timeline.tsx101-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L101-L138) [src/components/timeline.tsx204-222](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L204-L222) [src/components/timeline.tsx529-611](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L529-L611)
@@ -187,9 +169,7 @@ Clicking any event opens the `EventDetailModal`, a dismissible overlay showing c
 
 ### Modal Structure
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_7.png)
-```
 
 ### Dismiss Mechanisms
 
@@ -202,7 +182,6 @@ The modal can be closed three ways:
 The ESC key listener is registered via `useEffect`:
 
 ```
-```
 useEffect(() => {
   function handleKey(e: KeyboardEvent) {
     if (e.key === "Escape") onClose();
@@ -210,7 +189,6 @@ useEffect(() => {
   document.addEventListener("keydown", handleKey);
   return () => document.removeEventListener("keydown", handleKey);
 }, [onClose]);
-```
 ```
 
 **Sources:** [src/components/timeline.tsx637-771](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L637-L771)
@@ -226,13 +204,11 @@ The Timeline View displays aggregate statistics above the schedule grid, showing
 The `getScheduleStats()` function iterates through the schedule to compute:
 
 ```
-```
 {
   total: number,              // Total number of classes
   byType: {[key: string]: number},  // Count per type (L, P, T, C)
   todayCount: number          // Classes scheduled for current day
 }
-```
 ```
 
 **Algorithm:**
@@ -245,9 +221,7 @@ The `getScheduleStats()` function iterates through the schedule to compute:
 
 ### Display Layout
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_8.png)
-```
 
 **Sources:** [src/components/timeline.tsx266-285](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L266-L285) [src/components/timeline.tsx360-402](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L360-L402)
 
@@ -260,12 +234,10 @@ The Timeline View supports a special "download mode" optimized for PDF/PNG expor
 ### Download Mode Detection
 
 ```
-```
 const isDownloadMode = React.useMemo(() => {
   const params = new URLSearchParams(location.search);
   return params.get("download") === "1";
 }, [location.search]);
-```
 ```
 
 ### Rendering Differences
@@ -285,9 +257,7 @@ const isDownloadMode = React.useMemo(() => {
 
 The Timeline View is exported as an image or PDF via the `download.ts` utility functions:
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_9.png)
-```
 
 **Sources:** [src/components/timeline.tsx21-25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L21-L25) [src/components/timeline.tsx297-299](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L297-L299) [src/components/timeline.tsx408-439](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L408-L439) [src/utils/download.ts1-103](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/download.ts#L1-L103)
 
@@ -299,9 +269,7 @@ First-time visitors see a dismissible welcome banner explaining Timeline View fe
 
 ### Persistence Logic
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_10.png)
-```
 
 **Banner features list:**
 
@@ -331,7 +299,6 @@ The Timeline View uses SVG icons to visually represent different class types thr
 The `getTypeIcon()` function returns JSX.Element SVG components:
 
 ```
-```
 const getTypeIcon = (type: string) => {
   const iconProps = "w-4 h-4 inline-block";
   switch (type) {
@@ -342,7 +309,6 @@ const getTypeIcon = (type: string) => {
     default: return <svg className={iconProps} fill="currentColor" viewBox="0 0 20 20">...</svg>;
   }
 };
-```
 ```
 
 **Icon usage locations:**
@@ -372,7 +338,6 @@ The Timeline View adapts to different screen sizes with distinct layouts for mob
 Several utility classes toggle based on screen size:
 
 ```
-```
 // Time column text
 className="text-sm md:text-base"
 
@@ -387,7 +352,6 @@ className="text-xs md:text-sm"
 
 // Grid rows
 className="grid-rows-[repeat(10,9rem)] md:grid-rows-[repeat(10,12rem)]"
-```
 ```
 
 ### Mobile-Specific Features
@@ -412,7 +376,6 @@ The Timeline View consumes schedule data from the global `UserContext` provider,
 ### Context Structure
 
 ```
-```
 interface UserContextType {
   schedule: {
     [day: string]: {
@@ -428,16 +391,13 @@ interface UserContextType {
   setEditedSchedule: (schedule: ...) => void;
 }
 ```
-```
 
 ### Priority Resolution
 
 The Timeline View prioritizes `editedSchedule` over `schedule`:
 
 ```
-```
 const displaySchedule = editedSchedule || schedule;
-```
 ```
 
 This allows user customizations (created via `EditEventDialog` in Schedule Display) to override the base generated schedule without modifying the original data.
@@ -453,10 +413,8 @@ This allows user customizations (created via `EditEventDialog` in Schedule Displ
 The Timeline View uses React refs to efficiently access DOM nodes for scrolling:
 
 ```
-```
 const containerRef = useRef<HTMLDivElement>(null);
 const dayRefs = useRef<(HTMLDivElement | null)[]>([]);
-```
 ```
 
 * `containerRef`: Main schedule container for horizontal scrolling
@@ -467,12 +425,10 @@ const dayRefs = useRef<(HTMLDivElement | null)[]>([]);
 The `isDownloadMode` check is memoized to prevent unnecessary recalculation:
 
 ```
-```
 const isDownloadMode = React.useMemo(() => {
   const params = new URLSearchParams(location.search);
   return params.get("download") === "1";
 }, [location.search]);
-```
 ```
 
 ### Conditional Rendering

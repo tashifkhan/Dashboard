@@ -1,13 +1,11 @@
 # Overview
 
-Relevant source files
-
-* [.gitignore](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore)
-* [LICENSE](https://github.com/codelif/pyjiit/blob/0fe02955/LICENSE)
-* [README.rst](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst)
-* [pyjiit/exceptions.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py)
-* [pyjiit/init.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/init.py)
-* [pyproject.toml](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml)
+- [.gitignore](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore)
+- [LICENSE](https://github.com/codelif/pyjiit/blob/0fe02955/LICENSE)
+- [README.rst](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst)
+- [pyjiit/exceptions.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py)
+- [pyjiit/init.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/init.py)
+- [pyproject.toml](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml)
 
 ## Purpose and Scope
 
@@ -27,12 +25,12 @@ The library reverse-engineers the webportal's proprietary encryption scheme to c
 
 ### Primary Use Cases
 
-| Use Case | Description |
-| --- | --- |
+| Use Case                | Description                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
 | **Attendance Tracking** | Query class attendance data including headers, semesters, and detailed attendance records |
-| **Exam Information** | Retrieve exam event schedules and details |
-| **Registration Data** | Access course registration information and registered subjects |
-| **Session Management** | Handle authentication, token generation, and session lifecycle |
+| **Exam Information**    | Retrieve exam event schedules and details                                                 |
+| **Registration Data**   | Access course registration information and registered subjects                            |
+| **Session Management**  | Handle authentication, token generation, and session lifecycle                            |
 
 **Sources:** [README.rst1-18](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst#L1-L18) [pyproject.toml1-6](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L6)
 
@@ -43,18 +41,17 @@ The library reverse-engineers the webportal's proprietary encryption scheme to c
 pyjiit is organized into four primary subsystems that work together to provide its functionality:
 
 ![Architecture Diagram](images/1-overview_diagram_1.png)
-```
 
 ### Component Descriptions
 
-| Component | File Path | Purpose |
-| --- | --- | --- |
-| **Webportal** | [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py) | Main API client class; orchestrates all operations including authentication, data retrieval, and session management |
-| **WebportalSession** | [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py) | Encapsulates session state including tokens, client ID, and user information |
-| **Encryption Module** | [pyjiit/encryption.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py) | Implements AES-CBC encryption with daily key rotation; handles payload serialization/deserialization and LocalName header generation |
-| **Data Models** | [pyjiit/attendance.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/attendance.py) [pyjiit/exam.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exam.py) [pyjiit/registration.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/registration.py) [pyjiit/tokens.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/tokens.py) | Structured classes for API responses; provide type-safe access to attendance, exam, registration, and token data |
-| **Exceptions** | [pyjiit/exceptions.py1-18](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L18) | Custom exception hierarchy for error handling; includes `APIError`, `LoginError`, `SessionError`, `SessionExpired`, `NotLoggedIn`, and `AccountAPIError` |
-| **Utilities** | [pyjiit/utils.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/utils.py) | Helper functions for date sequence generation and random character sequences used in encryption |
+| Component             | File Path                                                                                                                                                                                                                                                                                                                                                           | Purpose                                                                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Webportal**         | [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)                                                                                                                                                                                                                                                                              | Main API client class; orchestrates all operations including authentication, data retrieval, and session management                                      |
+| **WebportalSession**  | [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)                                                                                                                                                                                                                                                                              | Encapsulates session state including tokens, client ID, and user information                                                                             |
+| **Encryption Module** | [pyjiit/encryption.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py)                                                                                                                                                                                                                                                                        | Implements AES-CBC encryption with daily key rotation; handles payload serialization/deserialization and LocalName header generation                     |
+| **Data Models**       | [pyjiit/attendance.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/attendance.py) [pyjiit/exam.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exam.py) [pyjiit/registration.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/registration.py) [pyjiit/tokens.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/tokens.py) | Structured classes for API responses; provide type-safe access to attendance, exam, registration, and token data                                         |
+| **Exceptions**        | [pyjiit/exceptions.py1-18](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L18)                                                                                                                                                                                                                                                             | Custom exception hierarchy for error handling; includes `APIError`, `LoginError`, `SessionError`, `SessionExpired`, `NotLoggedIn`, and `AccountAPIError` |
+| **Utilities**         | [pyjiit/utils.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/utils.py)                                                                                                                                                                                                                                                                                  | Helper functions for date sequence generation and random character sequences used in encryption                                                          |
 
 **Sources:** [pyjiit/\_\_init\_\_.py1-2](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/__init__.py#L1-L2) [pyproject.toml9-12](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L9-L12) [README.rst9-18](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst#L9-L18)
 
@@ -64,9 +61,7 @@ pyjiit is organized into four primary subsystems that work together to provide i
 
 The following diagram shows how the core components interact during a typical API request flow:
 
-```
 ![Architecture Diagram](images/1-overview_diagram_2.png)
-```
 
 ### Authentication Flow
 
@@ -98,11 +93,11 @@ All data retrieval methods follow a consistent pattern:
 
 The `Webportal` class (defined in [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)) is the primary interface for all interactions with the JIIT Webportal. It provides methods for:
 
-* **Authentication**: `student_login()`, `logout()`
-* **Attendance Queries**: `get_attendance_meta()`, `get_attendance()`
-* **Exam Data**: `get_exam_events()`
-* **Registration**: `get_registrations()`
-* **Account Management**: `set_password()`
+- **Authentication**: `student_login()`, `logout()`
+- **Attendance Queries**: `get_attendance_meta()`, `get_attendance()`
+- **Exam Data**: `get_exam_events()`
+- **Registration**: `get_registrations()`
+- **Account Management**: `set_password()`
 
 The class maintains an internal `WebportalSession` object that tracks authentication state and tokens.
 
@@ -110,10 +105,10 @@ The class maintains an internal `WebportalSession` object that tracks authentica
 
 The `WebportalSession` class (defined in [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)) encapsulates session state including:
 
-* Authentication tokens
-* Client ID
-* User information (username, member type)
-* Session metadata (registration ID, curriculum semester)
+- Authentication tokens
+- Client ID
+- User information (username, member type)
+- Session metadata (registration ID, curriculum semester)
 
 Sessions can expire (typically after HTTP 401 responses), at which point methods raise `SessionExpired` exceptions.
 
@@ -121,10 +116,10 @@ Sessions can expire (typically after HTTP 401 responses), at which point methods
 
 Data model classes provide structured, type-safe access to API responses:
 
-* **AttendanceMeta** / **AttendanceHeader**: Organize attendance data by semester and subject
-* **ExamEvent**: Represents individual exam schedules
-* **RegisteredSubject** / **Registrations**: Encapsulate course registration information
-* **Captcha**: Represents captcha image data for authentication
+- **AttendanceMeta** / **AttendanceHeader**: Organize attendance data by semester and subject
+- **ExamEvent**: Represents individual exam schedules
+- **RegisteredSubject** / **Registrations**: Encapsulate course registration information
+- **Captcha**: Represents captcha image data for authentication
 
 All data models provide a `from_json()` class method for construction from API responses.
 
@@ -132,7 +127,6 @@ All data models provide a `from_json()` class method for construction from API r
 
 The exception hierarchy (defined in [pyjiit/exceptions.py1-18](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L18)) provides granular error handling:
 
-```
 ![Architecture Diagram](images/1-overview_diagram_3.png)
 
 **Sources:** [pyjiit/exceptions.py1-18](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L18) [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)
@@ -143,10 +137,10 @@ The exception hierarchy (defined in [pyjiit/exceptions.py1-18](https://github.co
 
 pyjiit implements a proprietary encryption scheme reverse-engineered from the JIIT Webportal. The encryption system uses:
 
-* **Algorithm**: AES-CBC with a fixed 16-byte IV
-* **Key Derivation**: Daily rotating key based on current date in IST timezone
-* **Payload Format**: JSON → Encrypt → Base64 encode
-* **Headers**: Every request includes an encrypted `LocalName` header
+- **Algorithm**: AES-CBC with a fixed 16-byte IV
+- **Key Derivation**: Daily rotating key based on current date in IST timezone
+- **Payload Format**: JSON → Encrypt → Base64 encode
+- **Headers**: Every request includes an encrypted `LocalName` header
 
 The encryption key is generated using the pattern: `"qa8y" + date_sequence + "ty1pn"`, where `date_sequence` is derived from the current date. Keys rotate at 00:00 IST, providing a 24-hour validity window.
 
@@ -160,10 +154,10 @@ For detailed information about the encryption implementation, see [Security and 
 
 pyjiit has minimal runtime dependencies:
 
-| Dependency | Version Constraint | Purpose |
-| --- | --- | --- |
-| **requests** | >=2.32.3, <3.0.0 | HTTP client for API communication |
-| **pycryptodome** | >=3.22.0, <4.0.0 | AES encryption implementation |
+| Dependency       | Version Constraint | Purpose                           |
+| ---------------- | ------------------ | --------------------------------- |
+| **requests**     | >=2.32.3, <3.0.0   | HTTP client for API communication |
+| **pycryptodome** | >=3.22.0, <4.0.0   | AES encryption implementation     |
 
 The library requires Python 3.9 or higher. Development dependencies (for documentation) include Sphinx and the Furo theme.
 
@@ -175,15 +169,15 @@ The library requires Python 3.9 or higher. Development dependencies (for documen
 
 pyjiit is distributed through:
 
-* **PyPI**: Package name `pyjiit`, installable via `pip install pyjiit`
-* **GitHub**: Source repository at `https://github.com/codelif/pyjiit`
-* **Documentation**: Hosted at `https://pyjiit.codelif.in` (GitHub Pages)
+- **PyPI**: Package name `pyjiit`, installable via `pip install pyjiit`
+- **GitHub**: Source repository at `https://github.com/codelif/pyjiit`
+- **Documentation**: Hosted at `https://pyjiit.codelif.in` (GitHub Pages)
 
 The project uses:
 
-* **Poetry** for dependency management and packaging
-* **Sphinx** with Furo theme for documentation generation
-* **GitHub Actions** for automated testing, documentation builds, and PyPI publishing
+- **Poetry** for dependency management and packaging
+- **Sphinx** with Furo theme for documentation generation
+- **GitHub Actions** for automated testing, documentation builds, and PyPI publishing
 
 For information about building and deploying documentation, see [Documentation System](/codelif/pyjiit/6-documentation-system). For information about the CI/CD pipeline, see [Deployment and CI/CD](/codelif/pyjiit/7-deployment-and-cicd).
 

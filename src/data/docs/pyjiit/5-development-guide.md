@@ -1,13 +1,5 @@
 # Development Guide
 
-Relevant source files
-
-* [.gitignore](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore)
-* [LICENSE](https://github.com/codelif/pyjiit/blob/0fe02955/LICENSE)
-* [poetry.lock](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock)
-* [pyjiit/exceptions.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py)
-* [pyproject.toml](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml)
-
 This guide is intended for developers who want to contribute to pyjiit or understand its internal implementation. It covers the development environment setup, project structure, build system, and development workflows.
 
 For information about using pyjiit as a library, see [Getting Started](/codelif/pyjiit/2-getting-started). For details about the documentation system, see [Documentation System](/codelif/pyjiit/6-documentation-system). For CI/CD workflows, see [Deployment and CI/CD](/codelif/pyjiit/7-deployment-and-cicd).
@@ -37,14 +29,11 @@ The project uses **Poetry** as its primary build and dependency management tool.
 Poetry must be installed before setting up the development environment:
 
 ```
-```
 pip install poetry
-```
 ```
 
 ### Cloning and Setting Up the Repository
 
-```
 ```
 # Clone the repository
 git clone https://github.com/codelif/pyjiit
@@ -56,20 +45,17 @@ poetry install --with docs
 # Activate the virtual environment
 poetry shell
 ```
-```
 
 The `poetry install` command reads [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) and [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock#L1-L1054) to create a reproducible development environment with exact dependency versions locked.
 
 ### Verifying the Installation
 
 ```
-```
 # Check Python environment
 poetry run python --version
 
 # Import the library
 poetry run python -c "from pyjiit import Webportal; print('Success')"
-```
 ```
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock#L1-L1054)
@@ -89,9 +75,7 @@ The following diagram shows how different components of the development environm
 
 ## Project File Structure Overview
 
-```
 ![Architecture Diagram](images/5-development-guide_diagram_2.png)
-```
 
 For detailed information about each directory and file, see [Project Structure](/codelif/pyjiit/5.1-project-structure).
 
@@ -119,9 +103,7 @@ For detailed information about each directory and file, see [Project Structure](
 
 The pyjiit library defines a custom exception hierarchy for fine-grained error handling:
 
-```
 ![Architecture Diagram](images/5-development-guide_diagram_3.png)
-```
 
 **Exception Usage Patterns:**
 
@@ -184,7 +166,6 @@ For detailed dependency management workflows, see [Build System and Dependencies
 ### Adding a New Dependency
 
 ```
-```
 # Add runtime dependency
 poetry add package-name
 
@@ -194,11 +175,9 @@ poetry add --group docs package-name
 # Update poetry.lock after manual pyproject.toml edits
 poetry lock
 ```
-```
 
 ### Running Code Locally
 
-```
 ```
 # Activate Poetry shell
 poetry shell
@@ -209,11 +188,9 @@ python your_script.py
 # Or run without activating shell
 poetry run python your_script.py
 ```
-```
 
 ### Building the Package
 
-```
 ```
 # Build distribution packages (wheel and sdist)
 poetry build
@@ -222,27 +199,22 @@ poetry build
 # - pyjiit-0.1.0a8-py3-none-any.whl
 # - pyjiit-0.1.0a8.tar.gz
 ```
-```
 
 ### Version Management
 
 The version is defined in [pyproject.toml3](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L3-L3):
 
 ```
-```
 version = "0.1.0a8"
-```
 ```
 
 To bump the version:
 
 ```
-```
 # Update version in pyproject.toml
 poetry version patch   # 0.1.0a8 -> 0.1.0a9
 poetry version minor   # 0.1.0 -> 0.2.0
 poetry version major   # 0.1.0 -> 1.0.0
-```
 ```
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28)

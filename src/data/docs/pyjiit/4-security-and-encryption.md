@@ -1,14 +1,5 @@
 # Security and Encryption
 
-Relevant source files
-
-* [pyjiit/encryption.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py)
-* [pyjiit/exam.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exam.py)
-* [pyjiit/registration.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/registration.py)
-* [pyjiit/utils.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/utils.py)
-* [pyjiit/wrapper.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py)
-* [test\_signin.py](https://github.com/codelif/pyjiit/blob/0fe02955/test_signin.py)
-
 ## Purpose and Scope
 
 This page provides an overview of the security and encryption mechanisms used in pyjiit to communicate securely with the JIIT Webportal API. It covers the encryption module architecture, how encryption is integrated into API requests, and the daily key rotation system.
@@ -66,9 +57,7 @@ The `Webportal` class in `pyjiit.wrapper` uses the encryption module at multiple
 
 ### Encryption Usage in Webportal
 
-```
 ![Architecture Diagram](images/4-security-and-encryption_diagram_2.png)
-```
 
 **Sources:** [pyjiit/wrapper.py111-143](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L111-L143) [pyjiit/wrapper.py82-108](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L82-L108) [pyjiit/wrapper.py61-68](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L61-L68)
 
@@ -103,9 +92,7 @@ The encryption key is derived from the current date in IST timezone and rotates 
 
 ### Key Generation Algorithm
 
-```
 ![Architecture Diagram](images/4-security-and-encryption_diagram_3.png)
-```
 
 **Example:** For December 15, 2024 (Sunday, weekday=0):
 
@@ -117,9 +104,7 @@ The encryption key is derived from the current date in IST timezone and rotates 
 
 ### Key Rotation Timeline
 
-```
 ![Architecture Diagram](images/4-security-and-encryption_diagram_4.png)
-```
 
 **Security Implications:**
 
@@ -145,9 +130,7 @@ The `generate_local_name()` function creates the header value using:
 3. **Random suffix:** 5 random alphanumeric characters
 4. **Encryption:** The combined string is encrypted and base64-encoded
 
-```
 ![Architecture Diagram](images/4-security-and-encryption_diagram_5.png)
-```
 
 **Sources:** [pyjiit/encryption.py13-17](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py#L13-L17) [pyjiit/utils.py16-19](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/utils.py#L16-L19)
 
@@ -158,27 +141,22 @@ The `LocalName` header is injected into every request by the `__hit()` method:
 **Authenticated requests:** [pyjiit/wrapper.py89-91](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L89-L91)
 
 ```
-```
 header = self.session.get_headers()  # Returns both Authorization and LocalName
-```
 ```
 
 **Unauthenticated requests:** [pyjiit/wrapper.py92-93](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L92-L93)
 ```
 header = {"LocalName": generate_local_name()}
 ```
-```
 
 The `WebportalSession.get_headers()` method at [pyjiit/wrapper.py61-68](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L61-L68) generates a fresh `LocalName` for each authenticated request:
 
-```
 ```
 def get_headers(self):
     return {
         "Authorization": f"Bearer {self.token}",
         "LocalName": generate_local_name()
     }
-```
 ```
 
 **Sources:** [pyjiit/wrapper.py61-68](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L61-L68) [pyjiit/wrapper.py82-99](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L82-L99)
@@ -209,7 +187,6 @@ The **fixed IV** is used for all encryption operations. While this is generally 
 
 The encryption module depends on the `pycryptodome` library for AES implementation:
 
-```
 ```
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad

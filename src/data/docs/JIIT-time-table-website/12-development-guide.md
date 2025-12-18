@@ -1,14 +1,5 @@
 # Development Guide
 
-Relevant source files
-
-* [.gitignore](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/.gitignore)
-* [README.md](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md)
-* [website/app/layout.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/app/layout.tsx)
-* [website/next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/next.config.ts)
-* [website/public/sw.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/public/sw.js)
-* [website/public/workbox-da59eb65.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/public/workbox-da59eb65.js)
-
 This document provides comprehensive instructions for developers working on the JIIT Timetable Creator. It covers environment setup, development workflows, modifying Python processing logic, managing timetable data, and deployment procedures.
 
 For information about the system architecture, see [System Architecture](/tashifkhan/JIIT-time-table-website/3-system-architecture). For details on specific features, refer to pages [4](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)) through [10](/tashifkhan/JIIT-time-table-website/10-navigation-and-mobile-experience).
@@ -33,10 +24,8 @@ The following software must be installed on your development machine:
 **Step 1: Clone Repository**
 
 ```
-```
 git clone https://github.com/tashifkhan/JIIT-time-table-website
 cd JIIT-time-table-website
-```
 ```
 
 **Step 2: Install Dependencies**
@@ -44,17 +33,13 @@ cd JIIT-time-table-website
 Using bun (recommended):
 
 ```
-```
 bun install
-```
 ```
 
 Using npm:
 
 ```
-```
 npm install
-```
 ```
 
 **Step 3: Start Development Server**
@@ -62,17 +47,13 @@ npm install
 Using bun:
 
 ```
-```
 bun dev
-```
 ```
 
 Using npm:
 
 ```
-```
 npm run dev
-```
 ```
 
 The application will be available at `http://localhost:5173`
@@ -84,8 +65,6 @@ Access the application in a browser and confirm:
 * The form loads without errors
 * Pyodide initializes (check browser console)
 * Static JSON data loads from `/data/time-table/ODD25/`
-
-Sources: [README.md148-186](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L148-L186)
 
 ---
 
@@ -108,17 +87,13 @@ The codebase is organized into distinct layers with clear separation of concerns
 | `public/data/` | JSON data files | `time-table/`, `calender/` |
 | `public/modules/` | Python modules | `BE62_creator.py`, `BE128_creator.py` |
 
-Sources: [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L66-L138) [src/main.tsx1-73](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L1-L73)
-
 ---
 
 ## Development Workflow
 
 ### Development Cycle
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_2.png)
-```
 
 ### Hot Module Replacement
 
@@ -155,17 +130,13 @@ Monitor these requests:
 * Pyodide CDN requests during initialization
 * `/_creator.py` fetch during Pyodide setup
 
-Sources: [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152)
-
 ---
 
 ## Adding New Features
 
 ### Feature Addition Workflow
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_3.png)
-```
 
 ### Example: Adding a New Page
 
@@ -173,7 +144,6 @@ Sources: [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-webs
 
 Create `src/components/new-feature.tsx`:
 
-```
 ```
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -189,19 +159,16 @@ export const NewFeature: React.FC = () => {
   );
 };
 ```
-```
 
 **Step 2: Add Route**
 
 Update [src/main.tsx22-50](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L22-L50):
 
 ```
-```
 import { NewFeature } from './components/new-feature';
 
 // In Routes:
 <Route path="/new-feature" element={<NewFeature />} />
-```
 ```
 
 **Step 3: Add Navigation Link**
@@ -219,7 +186,6 @@ If feature requires global state, update [src/context/userContext.ts](https://gi
 Add to [public/\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py):
 
 ```
-```
 def custom_processor(
     time_table_json: dict,
     subject_json: list,
@@ -233,13 +199,11 @@ def custom_processor(
     # Implementation
     return formatted_timetable
 ```
-```
 
 **Step 2: Update Function Selection**
 
 Modify [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) in `evaluteTimeTable`:
 
-```
 ```
 let functionName;
 if (customCondition) {
@@ -248,13 +212,10 @@ if (customCondition) {
   // existing logic
 }
 ```
-```
 
 **Step 3: Call Function**
 
 The existing `callPythonFunction` at [src/App.tsx141-146](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L141-L146) will handle the new function automatically.
-
-Sources: [src/main.tsx22-50](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L22-L50) [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) [public/\_creator.py423-531](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L423-L531)
 
 ---
 
@@ -262,9 +223,7 @@ Sources: [src/main.tsx22-50](https://github.com/tashifkhan/JIIT-time-table-websi
 
 ### Python Module Architecture
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_4.png)
-```
 
 ### Understanding Python Functions
 
@@ -314,7 +273,6 @@ To modify how batch numbers are parsed, edit [public/\_creator.py8-94](https://g
 To handle a new subject code format in `subject_name_extractor` [public/\_creator.py220-253](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L220-L253):
 
 ```
-```
 # Add new pattern in the patterns list
 patterns = [
     full_code,
@@ -323,7 +281,6 @@ patterns = [
     # Add new pattern here
     full_code[:3] + subject["Code"][1:],
 ]
-```
 ```
 
 ### Testing Python Changes
@@ -342,7 +299,6 @@ After modifying Python files:
 Create a test script `test_parser.py`:
 
 ```
-```
 import json
 from _creator import parse_batch_numbers, subject_extractor
 
@@ -354,11 +310,8 @@ assert subject_extractor("L(CS101-A15)") == "CS101"
 
 print("All tests passed!")
 ```
-```
 
 Run: `python test_parser.py`
-
-Sources: [public/\_creator.py8-94](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L8-L94) [public/\_creator.py177-208](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L177-L208) [public/\_creator.py364-421](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L364-L421)
 
 ---
 
@@ -366,15 +319,12 @@ Sources: [public/\_creator.py8-94](https://github.com/tashifkhan/JIIT-time-table
 
 ### Data Preparation Pipeline
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_5.png)
-```
 
 ### JSON Data Schema
 
 Timetable JSON files follow this structure:
 
-```
 ```
 {
   "1": {
@@ -395,7 +345,6 @@ Timetable JSON files follow this structure:
   }
 }
 ```
-```
 
 **Schema Components**
 
@@ -408,13 +357,11 @@ Timetable JSON files follow this structure:
 **Subject Object**
 
 ```
-```
 {
   "Code": "CS101",
   "Full Code": "22B11CS101",
   "Subject": "Introduction to Programming"
 }
-```
 ```
 
 **Timetable Activity String Format**
@@ -441,17 +388,13 @@ Examples:
 **Step 1: Install Dependencies**
 
 ```
-```
 pip install streamlit pandas openpyxl
-```
 ```
 
 **Step 2: Run Streamlit App**
 
 ```
-```
 streamlit run json_creater.py
-```
 ```
 
 **Step 3: Upload Excel File**
@@ -482,7 +425,6 @@ For minor corrections, edit JSON files directly:
 **Adding a New Class**
 
 ```
-```
 "Monday": {
   "09:00 AM - 09:50 AM": [
     "L(CS101-A15)-101/LH1",
@@ -490,11 +432,9 @@ For minor corrections, edit JSON files directly:
   ]
 }
 ```
-```
 
 **Updating Subject Name**
 
-```
 ```
 "subjects": [
   {
@@ -503,7 +443,6 @@ For minor corrections, edit JSON files directly:
     "Subject": "Updated Subject Name"  // Modify here
   }
 ]
-```
 ```
 
 ### Adding New Semester Data
@@ -515,16 +454,12 @@ To add a new semester (e.g., EVEN26):
 3. Update fetch URLs in [src/App.tsx44-52](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L44-L52):
 
 ```
-```
 fetch("/data/time-table/EVEN26/62.json")
   .then((res) => res.json())
   .then(setMapping62);
 ```
-```
 
 4. Update logic to dynamically select semester based on current date
-
-Sources: [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L66-L138) [src/App.tsx43-53](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L43-L53)
 
 ---
 
@@ -546,9 +481,7 @@ Sources: [README.md66-138](https://github.com/tashifkhan/JIIT-time-table-website
 
 Test the complete workflow:
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_6.png)
-```
 
 1. Fill schedule form with valid data
 2. Verify schedule generates correctly
@@ -604,34 +537,26 @@ Fix:
 2. Verify `editedSchedule` key exists
 3. Inspect [src/context/userContextProvider.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/context/userContextProvider.tsx) localStorage logic
 
-Sources: [src/App.tsx111-113](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L111-L113) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts)
-
 ---
 
 ## Build and Deployment
 
 ### Build Process
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_7.png)
-```
 
 ### Local Production Build
 
 **Step 1: Build Application**
 
 ```
-```
 bun run build
-```
 ```
 
 or
 
 ```
-```
 npm run build
-```
 ```
 
 This generates the `dist/` directory with:
@@ -644,17 +569,13 @@ This generates the `dist/` directory with:
 **Step 2: Preview Build**
 
 ```
-```
 bun run preview
-```
 ```
 
 or
 
 ```
-```
 npm run preview
-```
 ```
 
 Access at `http://localhost:4173`
@@ -668,9 +589,7 @@ The repository is configured for automatic deployment on push to main branch.
 **Manual Deployment**
 
 ```
-```
 vercel --prod
-```
 ```
 
 **Vercel Configuration**
@@ -680,7 +599,6 @@ The [vercel.json1-16](https://github.com/tashifkhan/JIIT-time-table-website/blob
 1. **PostHog Analytics Proxy** - Routes `/ph/*` requests to PostHog
 2. **SPA Routing** - Rewrites all routes to `index.html`
 
-```
 ```
 {
   "rewrites": [
@@ -694,7 +612,6 @@ The [vercel.json1-16](https://github.com/tashifkhan/JIIT-time-table-website/blob
     }
   ]
 }
-```
 ```
 
 ### Environment Variables
@@ -725,9 +642,7 @@ After deployment:
 When modifying cached resources, update version in [public/service-worker.js](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/service-worker.js):
 
 ```
-```
 const CACHE_VERSION = 'v2.0.0'; // Increment version
-```
 ```
 
 ### Post-Deployment Verification
@@ -752,8 +667,6 @@ Use Vercel Analytics and PostHog (if configured) to monitor:
 * Error rates
 * Browser/device distribution
 
-Sources: [vercel.json1-16](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/vercel.json#L1-L16) [README.md148-186](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L148-L186) [src/main.tsx16-26](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/main.tsx#L16-L26)
-
 ---
 
 ## Code Style Guidelines
@@ -762,7 +675,6 @@ Sources: [vercel.json1-16](https://github.com/tashifkhan/JIIT-time-table-website
 
 **Component Structure**
 
-```
 ```
 // 1. Imports
 import React, { useContext, useState } from 'react';
@@ -790,7 +702,6 @@ export const Component: React.FC<Props> = ({ data, onSubmit }) => {
   );
 };
 ```
-```
 
 **Naming Conventions**
 
@@ -812,7 +723,6 @@ Follow PEP 8 standards:
 * Docstrings for public functions
 
 ```
-```
 def parse_batch_numbers(batch_input: str) -> list[str]:
     """
     Parse batch number formats and return array of individual batches.
@@ -825,9 +735,6 @@ def parse_batch_numbers(batch_input: str) -> list[str]:
     """
     # Implementation
 ```
-```
-
-Sources: [src/App.tsx38-839](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L38-L839) [public/\_creator.py8-94](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L8-L94)
 
 ---
 
@@ -901,8 +808,6 @@ Reviewers check for:
 * Documentation is updated
 * Performance implications considered
 
-Sources: [README.md224-246](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L224-L246)
-
 ---
 
 ## Advanced Topics
@@ -916,7 +821,6 @@ To add support for a new campus (e.g., Campus 227):
 Add to [public/\_creator.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py):
 
 ```
-```
 def campus227_creator(
     time_table_json: dict,
     subject_json: list,
@@ -926,13 +830,11 @@ def campus227_creator(
     # Campus-specific logic
     pass
 ```
-```
 
 **Step 2: Update Function Selection**
 
 Modify [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) `evaluteTimeTable`:
 
-```
 ```
 let functionName;
 if (campus === "227") {
@@ -942,7 +844,6 @@ if (campus === "227") {
 } else {
   // existing logic
 }
-```
 ```
 
 **Step 3: Add Data Files**
@@ -975,7 +876,6 @@ To add new export format (e.g., iCal):
 Add to `src/utils/download.ts`:
 
 ```
-```
 export const exportToICAL = (schedule: YourTietable) => {
   // Generate iCal format string
   const icalContent = generateICAL(schedule);
@@ -989,10 +889,7 @@ export const exportToICAL = (schedule: YourTietable) => {
   a.click();
 };
 ```
-```
 
 **Step 2: Add Button**
 
 Update [src/components/action-buttons.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/action-buttons.tsx) or [src/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-display.tsx) to include new export button.
-
-Sources: [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) [src/utils/pyodide.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/pyodide.ts) [src/utils/download.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/download.ts)

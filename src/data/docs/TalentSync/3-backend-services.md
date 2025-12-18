@@ -1,20 +1,5 @@
 # Backend Services
 
-Relevant source files
-
-* [backend/app/agents/\_\_init\_\_.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/__init__.py)
-* [backend/app/agents/github\_agent.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py)
-* [backend/app/main.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py)
-* [backend/app/models/schemas.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/models/schemas.py)
-* [backend/app/services/ats.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py)
-* [backend/app/services/linkedin\_profile.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/linkedin_profile.py)
-* [backend/app/services/tailored\_resume.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/tailored_resume.py)
-* [backend/experiment/exp.ipynb](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/experiment/exp.ipynb)
-* [backend/pyproject.toml](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml)
-* [backend/requirements.txt](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/requirements.txt)
-* [backend/server.py](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py)
-* [backend/uv.lock](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/uv.lock)
-
 ## Purpose and Scope
 
 This document provides a comprehensive overview of the backend services powering TalentSync, an AI-driven hiring intelligence platform. The backend is built on FastAPI and provides RESTful APIs for resume analysis, ATS evaluation, cold email generation, interview preparation, and LinkedIn content creation.
@@ -31,8 +16,6 @@ The TalentSync backend follows a modular service-oriented architecture with clea
 
 ![Architecture Diagram](images/3-backend-services_diagram_1.png)
 ```
-
-**Sources**: [backend/app/main.py1-149](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L1-L149) [backend/server.py1-1100](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L1-L1100) [backend/app/services/ats.py1-214](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py#L1-L214) [backend/app/services/tailored\_resume.py1-90](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/tailored_resume.py#L1-L90) [backend/app/services/linkedin\_profile.py1-408](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/linkedin_profile.py#L1-L408) [backend/app/agents/github\_agent.py1-418](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py#L1-L418)
 
 ---
 
@@ -54,17 +37,11 @@ TalentSync implements a dual-version API strategy to support both legacy file up
 * v2 routers registered at `/api/v2` prefix
 * Cold mail v2 router duplicated at both `/api/v1` and `/api/v2` for migration support
 
-**Sources**: [backend/app/main.py38-148](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L38-L148)
-
 ---
 
 ## Service Dependency Graph
 
-```
 ![Architecture Diagram](images/3-backend-services_diagram_2.png)
-```
-
-**Sources**: [backend/pyproject.toml1-40](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/pyproject.toml#L1-L40) [backend/requirements.txt1-121](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/requirements.txt#L1-L121)
 
 ---
 
@@ -74,11 +51,7 @@ TalentSync implements a dual-version API strategy to support both legacy file up
 
 All TalentSync services follow a consistent request/response pattern using Pydantic models for validation and structured data exchange.
 
-```
 ![Architecture Diagram](images/3-backend-services_diagram_3.png)
-```
-
-**Sources**: [backend/app/models/schemas.py1-499](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/models/schemas.py#L1-L499) [backend/app/services/ats.py24-213](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py#L24-L213)
 
 ---
 
@@ -106,8 +79,6 @@ TalentSync uses Pydantic models extensively for request validation, response ser
 * `SkillProficiency` for skill assessment with percentage
 * `EducationEntry`, `LanguageEntry`, `CertificationEntry` for profile sections
 
-**Sources**: [backend/app/models/schemas.py1-499](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/models/schemas.py#L1-L499)
-
 ---
 
 ## Service Communication Patterns
@@ -116,21 +87,17 @@ TalentSync uses Pydantic models extensively for request validation, response ser
 
 Services orchestrate agent calls to enrich AI-generated content with real-time web data, company research, and GitHub project insights.
 
-```
 ![Architecture Diagram](images/3-backend-services_diagram_4.png)
-```
 
 **Agent Integration Examples**:
 
 **ATS Service using Web Content Agent**:
 
 ```
-```
 # Fetch job description from URL
 if jd_link is not None:
     import app.agents.web_content_agent as web_agent
     jd_text = web_agent.return_markdown(jd_link)
-```
 ```
 
 [backend/app/services/ats.py44-47](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py#L44-L47)
@@ -138,18 +105,14 @@ if jd_link is not None:
 **LinkedIn Service using GitHub Agent**:
 
 ```
-```
 # Analyze GitHub projects
 for repo_url in request.featured_repositories:
     analysis = await self.github_agent.analyze_project_for_linkedin(str(repo_url))
     if not analysis.get("error"):
         github_insights.append(analysis)
 ```
-```
 
 [backend/app/services/linkedin\_profile.py109-115](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/linkedin_profile.py#L109-L115)
-
-**Sources**: [backend/app/services/ats.py44-74](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py#L44-L74) [backend/app/services/linkedin\_profile.py97-118](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/linkedin_profile.py#L97-L118) [backend/app/agents/github\_agent.py223-246](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py#L223-L246)
 
 ---
 
@@ -157,9 +120,7 @@ for repo_url in request.featured_repositories:
 
 ### End-to-End Flow for Resume Analysis
 
-```
 ![Architecture Diagram](images/3-backend-services_diagram_5.png)
-```
 
 **Key Functions**:
 
@@ -171,8 +132,6 @@ for repo_url in request.featured_repositories:
 | `extract_name_and_email()` | [server.py923-932](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/server.py#L923-L932) | Regex-based contact extraction |
 | `extract_skills_from_resume()` | Uses skills list | Match known skills from text |
 | `comprehensive_analysis_prompt_v2` | [server.py373-453](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/server.py#L373-L453) | LLM prompt for structured extraction |
-
-**Sources**: [backend/server.py738-1100](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L738-L1100)
 
 ---
 
@@ -193,13 +152,11 @@ TalentSync uses LangChain `PromptTemplate` objects to structure LLM interactions
 **LLM Configuration**:
 
 ```
-```
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
     google_api_key=os.getenv("GOOGLE_API_KEY"),
     temperature=0.1,  # Low temperature for consistent, factual output
 )
-```
 ```
 
 [backend/server.py76-80](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L76-L80)
@@ -209,8 +166,6 @@ llm = ChatGoogleGenerativeAI(
 * **0.1**: Used for structured data extraction (resume analysis, ATS scoring)
 * **Higher values**: Used for creative content generation (LinkedIn posts)
 
-**Sources**: [backend/server.py68-86](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L68-L86) [backend/server.py373-601](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L373-L601)
-
 ---
 
 ## Machine Learning Pipeline
@@ -219,9 +174,7 @@ llm = ChatGoogleGenerativeAI(
 
 The resume analysis service combines traditional machine learning for fast job category classification with LLM-powered semantic understanding for detailed field extraction.
 
-```
 ![Architecture Diagram](images/3-backend-services_diagram_6.png)
-```
 
 **ML Model Details**:
 
@@ -233,7 +186,6 @@ The resume analysis service combines traditional machine learning for fast job c
 **Model Loading**:
 
 ```
-```
 clf = pickle.load(open(
     os.path.join(os.path.dirname(__file__), "app", "model", "best_model.pkl"),
     "rb",
@@ -243,11 +195,8 @@ tfidf_vectorizer = pickle.load(open(
     "rb",
 ))
 ```
-```
 
 [backend/server.py714-735](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L714-L735)
-
-**Sources**: [backend/server.py714-735](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L714-L735) [backend/server.py373-462](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L373-L462)
 
 ---
 
@@ -272,8 +221,6 @@ TalentSync uses PostgreSQL for persisting user data, resume analyses, and genera
 
 **Note**: Backend services are stateless and do not directly manage database transactions. Database schema and management details are covered in [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models).
 
-**Sources**: [backend/app/main.py46-52](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L46-L52)
-
 ---
 
 ## Error Handling and Validation
@@ -284,7 +231,6 @@ All services implement consistent error handling using FastAPI's `HTTPException`
 
 **Error Response Pattern**:
 
-```
 ```
 try:
     # Validate inputs
@@ -304,7 +250,6 @@ try:
 except Exception as e:
     raise HTTPException(status_code=500, detail=f"Service failed: {e}")
 ```
-```
 
 **HTTP Status Code Usage**:
 
@@ -320,8 +265,6 @@ except Exception as e:
 2. **Service-Level Validation**: Business logic validation (e.g., `jd_text` or `jd_link` required)
 3. **External API Validation**: Check for API availability and valid responses
 
-**Sources**: [backend/app/services/ats.py76-213](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/services/ats.py#L76-L213)
-
 ---
 
 ## CORS and Middleware Configuration
@@ -331,7 +274,6 @@ except Exception as e:
 Both the legacy server and modern main application configure CORS to allow cross-origin requests from any origin during development.
 
 ```
-```
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Development: allow all origins
@@ -340,13 +282,10 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 ```
-```
 
 [backend/app/main.py9-16](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L9-L16)
 
 **Production Recommendation**: Replace `allow_origins=["*"]` with specific frontend domain(s) for security.
-
-**Sources**: [backend/app/main.py9-16](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L9-L16) [backend/server.py59-65](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L59-L65)
 
 ---
 
@@ -365,14 +304,12 @@ TalentSync backend requires several API keys for external service integration. T
 **Environment Loading**:
 
 ```
-```
 from dotenv import load_dotenv
 load_dotenv()
 
 google_api_key = os.getenv("GOOGLE_API_KEY")
 if not google_api_key:
     print("Warning: GOOGLE_API_KEY not found. LLM functionality will be disabled.")
-```
 ```
 
 [backend/server.py47-74](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L47-L74)
@@ -381,8 +318,6 @@ if not google_api_key:
 
 * Missing `TAVILY_API_KEY`: Web search features disabled, services continue without research enrichment
 * Missing `GOOGLE_API_KEY`: LLM features disabled, services return error responses
-
-**Sources**: [backend/server.py47-86](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L47-L86)
 
 ---
 
@@ -413,8 +348,6 @@ if not google_api_key:
 * HTTP requests timeout after 10 seconds
 * GitHub ingestion timeout: 60 seconds
 * LLM calls inherit default timeout from LangChain
-
-**Sources**: [backend/app/agents/github\_agent.py161-193](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/agents/github_agent.py#L161-L193) [backend/server.py714-735](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/server.py#L714-L735)
 
 ---
 
@@ -464,5 +397,3 @@ To add a new service to TalentSync:
    from app.routes.new_service import router as new_service_router
    app.include_router(new_service_router, prefix="/api/v1", tags=["New Service"])
    ```
-
-**Sources**: [backend/app/main.py19-148](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/backend/app/main.py#L19-L148)

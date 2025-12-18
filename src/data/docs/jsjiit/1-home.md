@@ -1,11 +1,5 @@
 # Home
 
-Relevant source files
-
-* [README.md](https://github.com/codeblech/jsjiit/blob/d123b782/README.md)
-* [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)
-* [src/index.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js)
-
 ## Purpose and Scope
 
 This wiki documents **jsjiit**, a browser-compatible JavaScript library that provides programmatic access to the JIIT (Jaypee Institute of Information Technology) WebPortal. The library abstracts the complexity of portal authentication, encryption, and API communication, enabling developers to build web applications that interact with student data without manual portal navigation.
@@ -56,9 +50,7 @@ The `WebPortal` class in `src/wrapper.js` is the primary entry point for all por
 
 The following diagram illustrates how browser applications use jsjiit to communicate with the JIIT WebPortal:
 
-```
 ![Architecture Diagram](images/1-home_diagram_2.png)
-```
 
 **Diagram: Authentication and data retrieval flow showing concrete function and class names**
 
@@ -75,7 +67,6 @@ All API requests after authentication flow through `WebPortalSession`, which use
 The `WebPortal` class provides the initial authentication interface. The `student_login()` method bypasses CAPTCHA using a default CAPTCHA value (`DEFCAPTCHA`) and returns a `WebPortalSession` instance that maintains the authenticated session.
 
 ```
-```
 // Defined in src/wrapper.js
 class WebPortal {
   async student_login(username, password) { /* ... */ }
@@ -89,7 +80,6 @@ class WebPortalSession {
   async get_grade_card(semester) { /* ... */ }
   // ... additional methods
 }
-```
 ```
 
 **Sources:** [src/index.js5-6](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js#L5-L6) [README.md32-38](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L32-L38)
@@ -154,7 +144,6 @@ The `package.json` defines `src/index.js` as the main entry point and `dist/jsji
 A minimal example demonstrating authentication and attendance retrieval:
 
 ```
-```
 import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.min.esm.js';
 
 // Create WebPortal instance
@@ -171,7 +160,6 @@ const header = meta.latest_header();
 // Get detailed attendance for the semester
 const attendance = await portal.get_attendance(header, semester);
 console.log(attendance);
-```
 ```
 
 This demonstrates the core workflow: instantiate `WebPortal`, call `student_login()` to obtain an authenticated session, then use session methods to retrieve data. All encryption and API communication details are abstracted.

@@ -1,15 +1,5 @@
 # Getting Started
 
-Relevant source files
-
-* [README.md](https://github.com/codeblech/jportal/blob/4df0fde4/README.md)
-* [jportal/.env.example](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/.env.example)
-* [jportal/package-lock.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package-lock.json)
-* [jportal/package.json](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json)
-* [jportal/public/pwa-icons/j-yuvraj.svg](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/public/pwa-icons/j-yuvraj.svg)
-* [jportal/vite.config.ts](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts)
-* [screenshots/mobile-8.png](https://github.com/codeblech/jportal/blob/4df0fde4/screenshots/mobile-8.png)
-
 This document provides instructions for running JPortal locally for development, configuring the application, and deploying it. It covers installation of dependencies, environment configuration, development workflows, and building the Progressive Web App for production.
 
 For information about the overall architecture and design patterns, see [Architecture Overview](/codeblech/jportal/3-architecture-overview). For details about individual feature modules, see [Feature Modules](/codeblech/jportal/4-feature-modules).
@@ -66,10 +56,8 @@ JPortal can be installed on various platforms for app-like experience:
 ### Step 1: Clone the Repository
 
 ```
-```
 git clone https://github.com/codeblech/jportal.git
 cd jportal
-```
 ```
 
 ### Step 2: Navigate to Project Directory
@@ -77,17 +65,13 @@ cd jportal
 The main application code is located in the `jportal` subdirectory:
 
 ```
-```
 cd jportal
-```
 ```
 
 ### Step 3: Install Dependencies
 
 ```
-```
 npm install
-```
 ```
 
 This installs all dependencies defined in [jportal/package.json15-43](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L15-L43) including:
@@ -99,9 +83,7 @@ This installs all dependencies defined in [jportal/package.json15-43](https://gi
 * **TanStack Query** - Server state management
 * **Zustand** - Theme state management
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_2.png)
-```
 
 **Diagram 2: Dependency Installation Process**
 
@@ -118,9 +100,7 @@ JPortal uses environment variables for configuration. Create a `.env` file in th
 Copy the example file:
 
 ```
-```
 cp .env.example .env
-```
 ```
 
 ### Environment Variables
@@ -151,9 +131,7 @@ VITE_CLOUDFLARE_SITE_TAG=your_site_tag
 
 The `VITE_USE_FAKE_DATA` variable controls which data source the application uses:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_3.png)
-```
 
 **Diagram 3: Mode Selection and Data Flow**
 
@@ -170,9 +148,7 @@ The mode is determined in `App.jsx` where either `WebPortal` or `MockWebPortal` 
 Start the Vite development server with hot module replacement:
 
 ```
-```
 npm run dev
-```
 ```
 
 This executes the `dev` script defined in [jportal/package.json8](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L8-L8) The application will be available at:
@@ -182,9 +158,7 @@ This executes the `dev` script defined in [jportal/package.json8](https://github
 
 **Note:** The base path `/jportal/` is configured in [jportal/vite.config.ts13](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L13-L13)
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_4.png)
-```
 
 **Diagram 4: Development Server Architecture**
 
@@ -204,10 +178,8 @@ The Vite configuration provides:
 To preview the production build locally:
 
 ```
-```
 npm run build
 npm run preview
-```
 ```
 
 The `preview` command serves the `dist/` directory on a local server.
@@ -219,9 +191,7 @@ The `preview` command serves the `dist/` directory on a local server.
 Run ESLint to check code quality:
 
 ```
-```
 npm run lint
-```
 ```
 
 **Sources:** [jportal/package.json10](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L10-L10)
@@ -235,9 +205,7 @@ npm run lint
 Create an optimized production build:
 
 ```
-```
 npm run build
-```
 ```
 
 This command:
@@ -248,9 +216,7 @@ This command:
 4. Generates PWA manifest and service worker
 5. Outputs to `dist/` directory
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_5.png)
-```
 
 **Diagram 5: Production Build Pipeline**
 
@@ -285,7 +251,6 @@ These are used by the Grades module for client-side PDF parsing.
 The PWA manifest ([jportal/vite.config.ts44-72](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L44-L72)) defines:
 
 ```
-```
 {
   "name": "JPortal",
   "short_name": "JPortal",
@@ -296,7 +261,6 @@ The PWA manifest ([jportal/vite.config.ts44-72](https://github.com/codeblech/jpo
   "orientation": "portrait",
   "icons": [...]
 }
-```
 ```
 
 **Sources:** [jportal/vite.config.ts44-72](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L44-L72)
@@ -310,9 +274,7 @@ The PWA manifest ([jportal/vite.config.ts44-72](https://github.com/codeblech/jpo
 JPortal uses `gh-pages` for automated deployment:
 
 ```
-```
 npm run deploy
-```
 ```
 
 This command:
@@ -321,9 +283,7 @@ This command:
 2. Deploys the `dist/` directory to the `gh-pages` branch
 3. Makes the app available at `https://codeblech.github.io/jportal`
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_6.png)
-```
 
 **Diagram 6: Deployment Process**
 
