@@ -43,7 +43,9 @@ const isActive = (itemSlug: string) => {
 // Recursive sidebar component
 ---
 
-<Layout title={`${title} - ${project} Docs`}>
+<Layout
+	title={`${project.replace(/-/g, " ")} Docs | ${title.replace(/^[\d.\s]+/, "")}`}
+>
 	<div class="flex h-screen overflow-hidden bg-background text-foreground">
 		<aside
 			class="hidden lg:block w-72 border-r border-border bg-muted/10 shrink-0 h-full overflow-y-auto"
