@@ -142,3 +142,48 @@ const moreLanguages = Math.max(0, project.languages.length - 3);
 		</CardFooter>
 	</Card>
 </a>
+
+<script>
+	function initProjectCardHandlers() {
+		// Use event delegation on the document to handle all project card buttons
+		document.addEventListener("click", (e) => {
+			const target = e.target as HTMLElement;
+			const button = target.closest(
+				"[data-live-link], [data-docs-link], [data-github-link]"
+			) as HTMLElement;
+
+			if (button) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				const url = button.getAttribute("data-url");
+				if (!url) return;
+
+				if (button.hasAttribute("data-docs-link")) {
+					window.location.href = url;
+				} else {
+					window.open(url, "_blank");
+				}
+			}
+		});
+
+		// Handle keyboard navigation for buttons
+		document.addEventListener("keydown", (e) => {
+			const target = e.target as HTMLElement;
+			const button = target.closest(
+				"[data-live-link], [data-docs-link], [data-github-link]"
+			) as HTMLElement;
+
+			if (button && (e.key === "Enter" || e.key === " ")) {
+				e.preventDefault();
+				button.click();
+			}
+		});
+	}
+
+	// Initialize on first load
+	initProjectCardHandlers();
+
+	// If using view transitions or similar, re-initialize if needed
+	document.addEventListener("astro:after-swap", initProjectCardHandlers);
+</script>
