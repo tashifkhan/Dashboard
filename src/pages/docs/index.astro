@@ -1,0 +1,87 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { allProjects } from "../../data/projects";
+import {
+	Card,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+	CardContent,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, ArrowRight } from "lucide-react";
+
+// Filter only projects that have documentation
+const docProjects = allProjects.filter((p) => p.docs_slug);
+---
+
+<Layout title="Documentation - Tashif Ahmad Khan">
+	<div
+		class="relative min-h-screen bg-background text-foreground transition-colors duration-300 font-sans"
+	>
+		<div
+			class="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_60%_at_50%_0%,black,transparent)]"
+		>
+			<div class="h-96 bg-gradient-to-b from-primary/5 to-transparent"></div>
+		</div>
+
+		<main
+			class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative"
+		>
+			<div class="mb-12 space-y-4">
+				<h1
+					class="text-3xl sm:text-4xl font-bold tracking-tight text-foreground"
+				>
+					Documentation
+				</h1>
+				<p class="text-lg text-muted-foreground max-w-2xl">
+					Detailed guides, API references, and architecture notes for my
+					projects.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{
+					docProjects.map((project) => (
+						<a
+							href={`/docs/${project.docs_slug}`}
+							class="block group h-full focus:outline-none"
+						>
+							<Card className="h-full flex flex-col border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/20">
+								<CardHeader>
+									<CardTitle className="flex items-center gap-2 text-xl group-hover:text-primary transition-colors">
+										{project.title}
+									</CardTitle>
+									<CardDescription className="line-clamp-2">
+										{project.description}
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="mt-auto pt-0">
+									<div class="flex flex-wrap gap-2 mb-4">
+										{project.languages.slice(0, 3).map((lang) => (
+											<Badge variant="secondary" className="text-xs">
+												{lang}
+											</Badge>
+										))}
+									</div>
+									<div class="flex items-center text-sm text-primary font-medium">
+										Read Docs{" "}
+										<ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+									</div>
+								</CardContent>
+							</Card>
+						</a>
+					))
+				}
+			</div>
+
+			{
+				docProjects.length === 0 && (
+					<div class="text-center py-20">
+						<p class="text-muted-foreground">No documentation available yet.</p>
+					</div>
+				)
+			}
+		</main>
+	</div>
+</Layout>
