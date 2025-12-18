@@ -1175,64 +1175,7 @@ const socials = [
 		});
 		document.dispatchEvent(initialSearchEvent);
 
-		// Handle live link clicks
-		document.querySelectorAll("[data-live-link]").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				const url = (link as HTMLElement).getAttribute("data-url");
-				if (url) {
-					window.open(url, "_blank");
-				}
-			});
-			link.addEventListener("keydown", (e) => {
-				const key = (e as KeyboardEvent).key;
-				if (key === "Enter" || key === " ") {
-					e.preventDefault();
-					(link as HTMLElement).click();
-				}
-			});
-		});
-
-		// Handle GitHub link clicks
-		document.querySelectorAll("[data-github-link]").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				const url = (link as HTMLElement).getAttribute("data-url");
-				if (url) {
-					window.open(url, "_blank");
-				}
-			});
-			link.addEventListener("keydown", (e) => {
-				const key = (e as KeyboardEvent).key;
-				if (key === "Enter" || key === " ") {
-					e.preventDefault();
-					(link as HTMLElement).click();
-				}
-			});
-		});
-
-		// Handle Docs link clicks
-		document.querySelectorAll("[data-docs-link]").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				const url = (link as HTMLElement).getAttribute("data-url");
-				if (url) {
-					window.location.href = url;
-				}
-			});
-			link.addEventListener("keydown", (e) => {
-				const key = (e as KeyboardEvent).key;
-				if (key === "Enter" || key === " ") {
-					e.preventDefault();
-					(link as HTMLElement).click();
-				}
-			});
-		});
-
-		// Welcome banner minimal hide/restore (persisted)
+		// Scroll-to-top button visibility
 		const WELCOME_KEY = "welcome_hidden";
 		const welcomeBanner = document.getElementById("welcome-banner");
 		const welcomeDismiss = document.getElementById("welcome-dismiss");

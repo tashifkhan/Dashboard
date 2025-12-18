@@ -185,23 +185,5 @@ const projects: Project[] = allProjects;
 			detail: { term: "", showLiveOnly: false },
 		});
 		document.dispatchEvent(initialSearchEvent);
-
-		// Handle external link clicks so they don't trigger the card navigation
-		document.querySelectorAll("[data-live-link]").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				const url = link.getAttribute("data-url");
-				if (url) window.open(url, "_blank");
-			});
-		});
-		document.querySelectorAll("[data-github-link]").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-				const url = link.getAttribute("data-url");
-				if (url) window.open(url, "_blank");
-			});
-		});
 	});
 </script>
