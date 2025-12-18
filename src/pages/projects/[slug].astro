@@ -78,8 +78,15 @@ export async function getStaticPaths() {
 								data-live-link
 								data-url={project.live_website_url}
 							>
-								<ExternalLink className="w-3.5 h-3.5" />
-								Live Demo
+								<a
+									class="flex items-center gap-1"
+									href={project.live_website_url}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<ExternalLink className="w-3.5 h-3.5" />
+									Live Demo
+								</a>
 							</Button>
 						)
 					}
@@ -90,8 +97,15 @@ export async function getStaticPaths() {
 						data-github-link
 						data-url={project.github_link}
 					>
-						<Github className="w-3.5 h-3.5" />
-						Source
+						<a
+							class="flex items-center gap-1"
+							href={project.github_link}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<Github className="w-3.5 h-3.5" />
+							Source
+						</a>
 					</Button>
 					{
 						project.docs_slug && (
