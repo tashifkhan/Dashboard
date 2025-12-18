@@ -4,9 +4,9 @@ This document covers the mechanisms for exporting schedules to various formats a
 
 For details on individual export mechanisms, see:
 
-* Google Calendar integration: [9.1](/tashifkhan/JIIT-time-table-website/9.1-google-calendar-integration)
-* PDF/PNG export: [9.2](/tashifkhan/JIIT-time-table-website/9.2-pdf-and-png-export)
-* URL parameter sharing: [9.3](/tashifkhan/JIIT-time-table-website/9.3-shareable-urls-and-configuration-saving)
+* Google Calendar integration: [9.1](9.1-google-calendar-integration)
+* PDF/PNG export: [9.2](9.2-pdf-and-png-export)
+* URL parameter sharing: [9.3](9.3-shareable-urls-and-configuration-saving)
 
 ---
 
@@ -17,7 +17,6 @@ The export and sharing system operates on the current schedule state, with speci
 **Export & Sharing Flow**
 
 ![Architecture Diagram](images/9-export-and-sharing_diagram_1.png)
-```
 
 ---
 
@@ -304,7 +303,6 @@ The `ActionButtons` component renders all export options with consistent styling
 
 **Button Layout**
 
-```
 ![Architecture Diagram](images/9-export-and-sharing_diagram_7.png)
 
 **Loading State Handling**

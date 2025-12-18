@@ -4,7 +4,7 @@
 
 This page provides an overview of the security and encryption mechanisms used in pyjiit to communicate securely with the JIIT Webportal API. It covers the encryption module architecture, how encryption is integrated into API requests, and the daily key rotation system.
 
-For detailed information about the encryption implementation, see [Encryption System](/codelif/pyjiit/4.1-encryption-system). For security implications and considerations, see [Security Considerations](/codelif/pyjiit/4.2-security-considerations).
+For detailed information about the encryption implementation, see [Encryption System](4.1-encryption-system). For security implications and considerations, see [Security Considerations](4.2-security-considerations).
 
 ---
 
@@ -32,7 +32,6 @@ The encryption functionality is centralized in the `pyjiit.encryption` module, w
 ### Encryption Module Components
 
 ![Architecture Diagram](images/4-security-and-encryption_diagram_1.png)
-```
 
 **Sources:** [pyjiit/encryption.py7-45](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py#L7-L45) [pyjiit/utils.py5-19](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/utils.py#L5-L19)
 
@@ -190,7 +189,6 @@ The encryption module depends on the `pycryptodome` library for AES implementati
 ```
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
-```
 ```
 
 **Key functions used:**

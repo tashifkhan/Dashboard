@@ -2,7 +2,7 @@
 
 This document explains how the pyjiit package is built, versioned, and published to the Python Package Index (PyPI). It covers the automated CI/CD workflows using GitHub Actions and the Poetry-based build system.
 
-**Scope**: This page focuses on package deployment to PyPI. For documentation deployment to GitHub Pages, see [Documentation Deployment](/codelif/pyjiit/6.2-documentation-deployment). For local development setup and dependency management, see [Build System and Dependencies](/codelif/pyjiit/5.2-build-system-and-dependencies).
+**Scope**: This page focuses on package deployment to PyPI. For documentation deployment to GitHub Pages, see [Documentation Deployment](6.2-documentation-deployment). For local development setup and dependency management, see [Build System and Dependencies](5.2-build-system-and-dependencies).
 
 ---
 
@@ -74,7 +74,6 @@ The automated publishing workflow is defined in `.github/workflows/python-publis
 The workflow can be triggered by two mechanisms:
 
 ![Architecture Diagram](images/7-deployment-and-cicd_diagram_1.png)
-```
 
 **Primary Trigger**: GitHub release publication [.github/workflows/python-publish.yml3-5](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/python-publish.yml#L3-L5)
 
@@ -149,7 +148,6 @@ The version is manually updated in `pyproject.toml` before creating a GitHub rel
 
 The following diagram shows the complete deployment pipeline from code changes to PyPI publication:
 
-```
 ![Architecture Diagram](images/7-deployment-and-cicd_diagram_3.png)
 
 **Pipeline Characteristics**:
@@ -226,7 +224,7 @@ The pyjiit project has two primary GitHub Actions workflows with different purpo
 | Output | HTML documentation to GitHub Pages | Python package to PyPI |
 | Dependencies | `poetry install --with docs` | `poetry install` |
 | Authentication | GitHub token (automatic) | `PYPI_API_KEY` secret |
-| Related Page | [Documentation Deployment](/codelif/pyjiit/6.2-documentation-deployment) | This page |
+| Related Page | [Documentation Deployment](6.2-documentation-deployment) | This page |
 
 Both workflows use Poetry for dependency management but serve distinct purposes in the project's deployment pipeline.
 

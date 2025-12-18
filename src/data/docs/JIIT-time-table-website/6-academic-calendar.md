@@ -2,7 +2,7 @@
 
 ## Purpose and Scope
 
-The Academic Calendar feature displays institutional events, holidays, and important dates for JIIT academic sessions. It provides a chronological timeline view with filtering capabilities and Google Calendar synchronization. For information about personal timetable scheduling, see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)). For exporting personal schedules to Google Calendar, see [Google Calendar Integration](/tashifkhan/JIIT-time-table-website/9.1-google-calendar-integration).
+The Academic Calendar feature displays institutional events, holidays, and important dates for JIIT academic sessions. It provides a chronological timeline view with filtering capabilities and Google Calendar synchronization. For information about personal timetable scheduling, see [Schedule Generation](4-schedule-generation-(core-feature)). For exporting personal schedules to Google Calendar, see [Google Calendar Integration](9.1-google-calendar-integration).
 
 **Sources:** [src/components/academic-calendar.tsx1-414](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L1-L414)
 
@@ -15,7 +15,6 @@ The academic calendar system loads event data from static JSON files organized b
 ### System Architecture
 
 ![Architecture Diagram](images/6-academic-calendar_diagram_1.png)
-```
 
 **Sources:** [src/components/academic-calendar.tsx20-54](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L20-L54) [src/utils/calendar-AC.ts21-107](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/calendar-AC.ts#L21-L107)
 
@@ -176,7 +175,6 @@ useEffect(() => {
 
 ### OAuth Flow
 
-```
 ![Architecture Diagram](images/6-academic-calendar_diagram_5.png)
 
 **Sources:** [src/components/academic-calendar.tsx106-128](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/academic-calendar.tsx#L106-L128) [src/utils/calendar-AC.ts21-107](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/utils/calendar-AC.ts#L21-L107)

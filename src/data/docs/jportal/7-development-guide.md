@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide provides information for developers contributing to JPortal. It covers code organization patterns, architectural decisions, development workflow, and best practices used throughout the codebase. For information about building and deploying the application, see [Build & Deployment](/codeblech/jportal/6-build-and-deployment). For details about the mock data system used in demo mode, see [Mock Data System](/codeblech/jportal/7.1-mock-data-system). For step-by-step instructions on adding new features, see [Adding New Features](/codeblech/jportal/7.2-adding-new-features).
+This guide provides information for developers contributing to JPortal. It covers code organization patterns, architectural decisions, development workflow, and best practices used throughout the codebase. For information about building and deploying the application, see [Build & Deployment](6-build-and-deployment). For details about the mock data system used in demo mode, see [Mock Data System](7.1-mock-data-system). For step-by-step instructions on adding new features, see [Adding New Features](7.2-adding-new-features).
 
 ---
 
@@ -107,7 +107,6 @@ jportal/
 ### Main Entry Flow
 
 ![Architecture Diagram](images/7-development-guide_diagram_1.png)
-```
 
 The application uses `HashRouter` for GitHub Pages compatibility. The `App` component implements authentication-based routing: unauthenticated users see `Login`, while authenticated users access `AuthenticatedApp`. The `/stats` route is publicly accessible.
 
@@ -432,7 +431,6 @@ When passing many props to a component, use object destructuring and group relat
 
 ### Route Structure
 
-```
 ![Architecture Diagram](images/7-development-guide_diagram_7.png)
 
 ### Navigation Components

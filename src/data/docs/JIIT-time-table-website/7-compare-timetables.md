@@ -13,7 +13,6 @@ For information about generating a single timetable, see page **4** (Schedule Ge
 The comparison feature operates as a standalone page that leverages the same schedule generation pipeline used in the main application, but processes two configurations in parallel and applies comparison logic to the results.
 
 ![Architecture Diagram](images/7-compare-timetables_diagram_1.png)
-```
 
 **Sources:** [website/components/compare-timetable.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/compare-timetable.tsx) README.md
 
@@ -238,7 +237,6 @@ This ensures slots appear in chronological order regardless of the order they we
 
 The component fetches timetable data on mount:
 
-```
 ![Architecture Diagram](images/7-compare-timetables_diagram_7.png)
 
 The component displays a loading message until all three mappings are loaded.

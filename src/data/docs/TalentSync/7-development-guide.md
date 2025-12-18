@@ -2,7 +2,7 @@
 
 ## Purpose and Scope
 
-This guide provides practical instructions for developers who want to set up, run, and contribute to the TalentSync codebase. It covers local development environment setup, project structure, common development workflows, testing procedures, and troubleshooting steps. For deployment and production infrastructure details, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure). For detailed API endpoint documentation, see [API Documentation](/harleenkaur28/AI-Resume-Parser/7.2-api-documentation).
+This guide provides practical instructions for developers who want to set up, run, and contribute to the TalentSync codebase. It covers local development environment setup, project structure, common development workflows, testing procedures, and troubleshooting steps. For deployment and production infrastructure details, see [Deployment & Infrastructure](6-deployment-and-infrastructure). For detailed API endpoint documentation, see [API Documentation](7.2-api-documentation).
 
 ---
 
@@ -65,7 +65,6 @@ AI-Resume-Parser/
 The following diagram shows how services communicate in a local development environment:
 
 ![Architecture Diagram](images/7-development-guide_diagram_1.png)
-```
 
 **Key Differences from Production:**
 
@@ -927,7 +926,6 @@ Recommended extensions for development:
   }
 }
 ```
-```
 
 ---
 
@@ -937,9 +935,9 @@ After setting up your development environment:
 
 1. **Explore the codebase:**
 
-   * Review [Frontend Architecture](/harleenkaur28/AI-Resume-Parser/2.2-frontend-architecture) for UI structure
-   * Study [Backend Services](/harleenkaur28/AI-Resume-Parser/3-backend-services) for API implementation
-   * Understand [Database Schema](/harleenkaur28/AI-Resume-Parser/5.1-prisma-schema) for data models
+   * Review [Frontend Architecture](2.2-frontend-architecture) for UI structure
+   * Study [Backend Services](3-backend-services) for API implementation
+   * Understand [Database Schema](5.1-prisma-schema) for data models
 2. **Try common workflows:**
 
    * Upload a test resume through the UI
@@ -947,7 +945,7 @@ After setting up your development environment:
    * Modify a component and see hot reload in action
 3. **Read API documentation:**
 
-   * See [API Documentation](/harleenkaur28/AI-Resume-Parser/7.2-api-documentation) for endpoint details
+   * See [API Documentation](7.2-api-documentation) for endpoint details
    * Use FastAPI docs at `http://localhost:8000/docs`
 4. **Contribute:**
 

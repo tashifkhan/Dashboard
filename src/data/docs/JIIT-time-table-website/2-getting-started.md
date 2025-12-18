@@ -1,6 +1,6 @@
 # Getting Started
 
-This document guides developers through setting up the JIIT Personalized Timetable Creator development environment, running the application locally, and understanding the core project structure and build system. For information about the overall system architecture and how components interact, see [System Architecture](/tashifkhan/JIIT-time-table-website/3-system-architecture). For specific feature implementation details, see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)).
+This document guides developers through setting up the JIIT Personalized Timetable Creator development environment, running the application locally, and understanding the core project structure and build system. For information about the overall system architecture and how components interact, see [System Architecture](3-system-architecture). For specific feature implementation details, see [Schedule Generation](4-schedule-generation-(core-feature)).
 
 ## Purpose and Scope
 
@@ -101,7 +101,6 @@ The development server provides:
 The following diagram shows how the application initializes when the development server starts, mapping natural language concepts to actual code entities:
 
 ![Architecture Diagram](images/2-getting-started_diagram_1.png)
-```
 
 **Component Initialization Order**:
 
@@ -109,7 +108,7 @@ The following diagram shows how the application initializes when the development
 2. **[main.tsx23](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L23-L23)**: `StrictMode` wrapper enables additional development checks
 3. **[main.tsx24-27](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L24-L27)**: `PostHogProvider` initializes analytics with API key from environment variable `VITE_PUBLIC_POSTHOG_KEY`
 4. **[main.tsx28](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L28-L28)**: `Background` component provides visual styling
-5. **[main.tsx29](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L29-L29)**: `UserContextProvider` establishes global state management (see [State Management](/tashifkhan/JIIT-time-table-website/3.4-data-model-and-types))
+5. **[main.tsx29](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L29-L29)**: `UserContextProvider` establishes global state management (see [State Management](3.4-data-model-and-types))
 6. **[main.tsx30](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L30-L30)**: `Analytics` component from Vercel tracks page views
 7. **[main.tsx31](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L31-L31)**: `NuqsAdapter` enables URL query parameter synchronization
 8. **[main.tsx32](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L32-L32)**: `BrowserRouter` enables client-side routing
@@ -129,12 +128,12 @@ The repository follows a standard React TypeScript project layout with specific 
 | **`public/`** | Static files served at root URL | All files accessible via `https://domain/filename` |
 | **`public/data/`** | JSON data files for timetables and calendars | `time-table/ODD25/62.json`, `calender/2526/calender.json` |
 | **`public/modules/`** | Python modules for specific campus logic | `BE128_creator.py`, `BE62_creator.py` |
-| **`public/_creator.py`** | Main Python timetable generation logic | Loaded by Pyodide at runtime (see [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration)) |
+| **`public/_creator.py`** | Main Python timetable generation logic | Loaded by Pyodide at runtime (see [Pyodide WASM Integration](3.2-pyodide-wasm-integration)) |
 | **`src/components/`** | React UI components | 15+ components including forms, displays, dialogs |
 | **`src/context/`** | React Context API state management | `userContext.ts`, `userContextProvider.tsx` |
 | **`src/utils/`** | Utility functions and integrations | `pyodide.ts`, `calender.ts`, `download.ts` |
 | **`src/types/`** | TypeScript type definitions | Interfaces for schedules, events, and API responses |
-| **`src/App.tsx`** | Main schedule creator page component | Primary user interface (see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature))) |
+| **`src/App.tsx`** | Main schedule creator page component | Primary user interface (see [Schedule Generation](4-schedule-generation-(core-feature))) |
 | **`src/main.tsx`** | Application entry point | Routing and provider setup |
 
 ## Build System Configuration
@@ -189,13 +188,12 @@ VITE_PUBLIC_POSTHOG_KEY=your_posthog_api_key_here
 | --- | --- | --- | --- |
 | `VITE_PUBLIC_POSTHOG_KEY` | PostHog analytics API key | No | [main.tsx25](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/main.tsx#L25-L25) |
 
-**Note**: Google Calendar API credentials are configured client-side during the OAuth flow, not via environment variables. See [Google Calendar Integration](/tashifkhan/JIIT-time-table-website/9.1-google-calendar-integration) for details.
+**Note**: Google Calendar API credentials are configured client-side during the OAuth flow, not via environment variables. See [Google Calendar Integration](9.1-google-calendar-integration) for details.
 
 ## Development Workflow
 
 The typical development cycle follows this pattern:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_3.png)
 
 ### Recommended Development Practices
@@ -230,7 +228,7 @@ http://localhost:5173/data/time-table/ODD25/128.json
 http://localhost:5173/data/calender/2526/calender.json
 ```
 
-Python modules in `public/modules/` and `public/_creator.py` are fetched by the Pyodide runtime [README.md89-93](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L89-L93) See [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration) for details on how these files are loaded and executed.
+Python modules in `public/modules/` and `public/_creator.py` are fetched by the Pyodide runtime [README.md89-93](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L89-L93) See [Pyodide WASM Integration](3.2-pyodide-wasm-integration) for details on how these files are loaded and executed.
 
 **External Access**: The production API allows external access to data [README.md56-64](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L56-L64):
 
@@ -259,8 +257,8 @@ curl https://simple-timetable.tashif.codes/data/calender/2526/calender.json
 
 After successfully running the development server:
 
-1. **Understand the Architecture**: Read [System Architecture](/tashifkhan/JIIT-time-table-website/3-system-architecture) to learn how components interact
-2. **Explore the Core Feature**: See [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)) for the main timetable creation pipeline
-3. **Review Data Structures**: Consult [Data Model & Types](/tashifkhan/JIIT-time-table-website/3.3-pwa-and-offline-capabilities) for TypeScript interfaces
-4. **Learn State Management**: Study [State Management](/tashifkhan/JIIT-time-table-website/3.4-data-model-and-types) for context and persistence patterns
-5. **Explore Python Integration**: Read [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration) for client-side Python execution details
+1. **Understand the Architecture**: Read [System Architecture](3-system-architecture) to learn how components interact
+2. **Explore the Core Feature**: See [Schedule Generation](4-schedule-generation-(core-feature)) for the main timetable creation pipeline
+3. **Review Data Structures**: Consult [Data Model & Types](3.3-pwa-and-offline-capabilities) for TypeScript interfaces
+4. **Learn State Management**: Study [State Management](3.4-data-model-and-types) for context and persistence patterns
+5. **Explore Python Integration**: Read [Pyodide WASM Integration](3.2-pyodide-wasm-integration) for client-side Python execution details

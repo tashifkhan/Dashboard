@@ -6,12 +6,12 @@ The JIIT Personalized Timetable Creator is a browser-based Progressive Web App (
 
 **Scope**: This page provides a high-level overview of the system architecture, core features, technology stack, and data flow. For detailed information about specific subsystems, refer to:
 
-* System architecture: [#3](/tashifkhan/JIIT-time-table-website/3-system-architecture)
-* Schedule generation pipeline: [#4](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature))
-* Pyodide WASM integration: [#3.2](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration)
-* PWA and offline capabilities: [#3.3](/tashifkhan/JIIT-time-table-website/3.3-pwa-and-offline-capabilities)
-* State management: [#3.5](/tashifkhan/JIIT-time-table-website/3.5-state-management)
-* Export and sharing mechanisms: [#9](/tashifkhan/JIIT-time-table-website/9-export-and-sharing)
+* System architecture: [#3](3-system-architecture)
+* Schedule generation pipeline: [#4](4-schedule-generation-(core-feature))
+* Pyodide WASM integration: [#3.2](3.2-pyodide-wasm-integration)
+* PWA and offline capabilities: [#3.3](3.3-pwa-and-offline-capabilities)
+* State management: [#3.5](3.5-state-management)
+* Export and sharing mechanisms: [#9](9-export-and-sharing)
 
 ## System Overview
 
@@ -20,7 +20,6 @@ The application consists of three primary runtime layers operating in the browse
 **System Architecture Diagram**
 
 ![Architecture Diagram](images/1-overview_diagram_1.png)
-```
 
 **Key Architectural Characteristics**:
 
@@ -158,11 +157,10 @@ The development environment supports multiple package managers (npm, yarn, pnpm,
 
 The `json_creater.py` Streamlit application at [json\_creater.py](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/json_creater.py) converts Excel files to JSON format. The timetable parser ([JIIT-time-table-parser](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/JIIT-time-table-parser)) and academic calendar parser ([JIIT-Academic-Calender](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/JIIT-Academic-Calender)) are external tools that process raw Excel data.
 
-The Next.js build process at [next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/next.config.ts) integrates the `@ducanh2912/next-pwa` plugin, which generates service worker files with precache manifests. See [Timetable Data Format Reference](/tashifkhan/JIIT-time-table-website/11-timetable-data-format-reference) for detailed JSON structure specifications.
+The Next.js build process at [next.config.ts](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/next.config.ts) integrates the `@ducanh2912/next-pwa` plugin, which generates service worker files with precache manifests. See [Timetable Data Format Reference](11-timetable-data-format-reference) for detailed JSON structure specifications.
 
 ## Data Flow Overview
 
-```
 ![Architecture Diagram](images/1-overview_diagram_6.png)
 
 The data flow follows a unidirectional pattern:

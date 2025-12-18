@@ -2,7 +2,7 @@
 
 This document provides a comprehensive reference for the core API components of pyjiit. It covers the `Webportal` class (the main API client), `WebportalSession` (session management), and the overall structure of API interactions with the JIIT Webportal backend.
 
-For detailed information on authentication and login flow, see [Authentication Flow](/codelif/pyjiit/2.3-authentication-flow). For security and encryption details, see [Security and Encryption](/codelif/pyjiit/4-security-and-encryption). For specific data model structures, see the subsections under [Data Models](/codelif/pyjiit/3.3-data-models).
+For detailed information on authentication and login flow, see [Authentication Flow](2.3-authentication-flow). For security and encryption details, see [Security and Encryption](4-security-and-encryption). For specific data model structures, see the subsections under [Data Models](3.3-data-models).
 
 ## Overview
 
@@ -13,7 +13,6 @@ The core API is implemented in [pyjiit/wrapper.py](https://github.com/codelif/py
 ## Core Class Hierarchy
 
 ![Architecture Diagram](images/3-core-api-reference_diagram_1.png)
-```
 
 **Sources:** [pyjiit/wrapper.py1-489](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L1-L489) [pyjiit/\_\_init\_\_.py1-3](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/__init__.py#L1-L3)
 
@@ -232,7 +231,6 @@ Other methods return raw `dict` objects containing API response data.
 
 ## Exception Flow
 
-```
 ![Architecture Diagram](images/3-core-api-reference_diagram_7.png)
 
 ### Exception Types by Method
@@ -269,6 +267,6 @@ A typical API interaction flow:
 4. **Query Data**: Call authenticated methods like `get_attendance()`, `get_exam_schedule()`, etc.
 5. **Handle Errors**: Catch `NotLoggedIn`, `SessionExpired`, `LoginError`, `APIError` as needed
 
-For detailed usage examples, see [Quick Start Guide](/codelif/pyjiit/2.2-quick-start-guide).
+For detailed usage examples, see [Quick Start Guide](2.2-quick-start-guide).
 
 **Sources:** [pyjiit/wrapper.py70-489](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/wrapper.py#L70-L489)

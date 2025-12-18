@@ -6,10 +6,10 @@ This document describes the overall system architecture of TalentSync, explainin
 
 For detailed information about specific subsystems, see:
 
-* Backend service implementations: [Backend Services](/harleenkaur28/AI-Resume-Parser/3-backend-services)
-* Frontend application structure: [Frontend Application](/harleenkaur28/AI-Resume-Parser/4-frontend-application)
-* Database schema details: [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models)
-* Deployment and infrastructure: [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure)
+* Backend service implementations: [Backend Services](3-backend-services)
+* Frontend application structure: [Frontend Application](4-frontend-application)
+* Database schema details: [Database & Data Models](5-database-and-data-models)
+* Deployment and infrastructure: [Deployment & Infrastructure](6-deployment-and-infrastructure)
 
 ---
 

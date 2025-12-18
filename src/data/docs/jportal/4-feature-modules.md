@@ -4,14 +4,14 @@
 
 This page provides an overview of JPortal's five core feature modules: **Attendance**, **Grades**, **Exams**, **Subjects**, and **Profile**. It documents the common architecture patterns, integration mechanisms, and data flow shared across these modules. For detailed documentation of each individual module's functionality and components, see:
 
-* [Attendance Module](/codeblech/jportal/4.1-attendance-module) - Daily and overview attendance tracking
-* [Grades Module](/codeblech/jportal/4.2-grades-module) - SGPA/CGPA trends and semester grade cards
-* [Exams Module](/codeblech/jportal/4.3-exams-module) - Examination schedules and events
-* [Subjects Module](/codeblech/jportal/4.4-subjects-module) - Registered courses and faculty information
-* [Profile Module](/codeblech/jportal/4.5-profile-module) - Student personal and academic information
-* [Analytics Dashboard](/codeblech/jportal/4.6-analytics-dashboard) - Cloudflare analytics integration
+* [Attendance Module](4.1-attendance-module) - Daily and overview attendance tracking
+* [Grades Module](4.2-grades-module) - SGPA/CGPA trends and semester grade cards
+* [Exams Module](4.3-exams-module) - Examination schedules and events
+* [Subjects Module](4.4-subjects-module) - Registered courses and faculty information
+* [Profile Module](4.5-profile-module) - Student personal and academic information
+* [Analytics Dashboard](4.6-analytics-dashboard) - Cloudflare analytics integration
 
-For navigation and UI infrastructure, see [Theme & Navigation Components](/codeblech/jportal/5.2-theme-and-navigation-components). For authentication and routing mechanics, see [Application Structure & Authentication](/codeblech/jportal/3.1-application-structure-and-authentication).
+For navigation and UI infrastructure, see [Theme & Navigation Components](5.2-theme-and-navigation-components). For authentication and routing mechanics, see [Application Structure & Authentication](3.1-application-structure-and-authentication).
 
 ---
 
@@ -24,7 +24,6 @@ All feature modules are coordinated by the `AuthenticatedApp` component, which s
 **Feature Module Integration Architecture**
 
 ![Architecture Diagram](images/4-feature-modules_diagram_1.png)
-```
 
 ---
 
@@ -163,7 +162,6 @@ The `AuthenticatedApp` component coordinates all feature modules through:
 
 **AuthenticatedApp Component Structure:**
 
-```
 ![Architecture Diagram](images/4-feature-modules_diagram_9.png)
 
 ---
@@ -207,4 +205,4 @@ The current architecture uses extensive props drilling from `AuthenticatedApp` t
 />
 ```
 
-This pattern enables state persistence across route changes but creates tight coupling between `AuthenticatedApp` and feature modules. For potential refactoring approaches using context or state management libraries, see [State Management Strategy](/codeblech/jportal/3.2-state-management-strategy).
+This pattern enables state persistence across route changes but creates tight coupling between `AuthenticatedApp` and feature modules. For potential refactoring approaches using context or state management libraries, see [State Management Strategy](3.2-state-management-strategy).

@@ -11,7 +11,7 @@
 
 This document provides a high-level introduction to **pyjiit**, a Python library for programmatic access to the JIIT Webportal system. It covers what pyjiit is, its architectural design, core components, and how data flows through the system. This overview is intended for developers who want to understand the library's structure before using it or contributing to it.
 
-For detailed API reference, see [Core API Reference](/codelif/pyjiit/3-core-api-reference). For installation and usage instructions, see [Getting Started](/codelif/pyjiit/2-getting-started). For information about the encryption mechanisms, see [Security and Encryption](/codelif/pyjiit/4-security-and-encryption).
+For detailed API reference, see [Core API Reference](3-core-api-reference). For installation and usage instructions, see [Getting Started](2-getting-started). For information about the encryption mechanisms, see [Security and Encryption](4-security-and-encryption).
 
 **Sources:** [README.rst1-46](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst#L1-L46) [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28)
 
@@ -144,7 +144,7 @@ pyjiit implements a proprietary encryption scheme reverse-engineered from the JI
 
 The encryption key is generated using the pattern: `"qa8y" + date_sequence + "ty1pn"`, where `date_sequence` is derived from the current date. Keys rotate at 00:00 IST, providing a 24-hour validity window.
 
-For detailed information about the encryption implementation, see [Security and Encryption](/codelif/pyjiit/4-security-and-encryption).
+For detailed information about the encryption implementation, see [Security and Encryption](4-security-and-encryption).
 
 **Sources:** [pyjiit/encryption.py](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/encryption.py) [README.rst33-34](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst#L33-L34)
 
@@ -179,6 +179,6 @@ The project uses:
 - **Sphinx** with Furo theme for documentation generation
 - **GitHub Actions** for automated testing, documentation builds, and PyPI publishing
 
-For information about building and deploying documentation, see [Documentation System](/codelif/pyjiit/6-documentation-system). For information about the CI/CD pipeline, see [Deployment and CI/CD](/codelif/pyjiit/7-deployment-and-cicd).
+For information about building and deploying documentation, see [Documentation System](6-documentation-system). For information about the CI/CD pipeline, see [Deployment and CI/CD](7-deployment-and-cicd).
 
 **Sources:** [pyproject.toml1-6](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L6) [pyproject.toml14-16](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L14-L16) [README.rst6](https://github.com/codelif/pyjiit/blob/0fe02955/README.rst#L6-L6)

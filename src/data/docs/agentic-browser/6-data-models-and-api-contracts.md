@@ -4,7 +4,7 @@
 
 This document catalogs the Pydantic models that define the API contracts for all endpoints in the Agentic Browser backend. These models provide runtime validation, serialization, and type safety for requests and responses flowing between the browser extension and the Python backend services.
 
-For information about how these models are consumed by API endpoints, see [Service Integration Routers](/tashifkhan/agentic-browser/3.3-api-routers). For details on the agent execution flow that uses these models, see [React Agent Architecture](/tashifkhan/agentic-browser/4.1-react-agent-architecture).
+For information about how these models are consumed by API endpoints, see [Service Integration Routers](3.3-api-routers). For details on the agent execution flow that uses these models, see [React Agent Architecture](4.1-react-agent-architecture).
 
 ---
 
@@ -13,7 +13,6 @@ For information about how these models are consumed by API endpoints, see [Servi
 The data models are organized into two primary categories: request models that validate incoming payloads, and response models that structure outgoing data. All models inherit from Pydantic's `BaseModel` and leverage field validation, alias resolution, and serialization configuration.
 
 ![Architecture Diagram](images/6-data-models-and-api-contracts_diagram_1.png)
-```
 
 **Sources:** [models/requests/\_\_init\_\_.py1-21](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/requests/__init__.py#L1-L21) [models/response/\_\_init\_\_.py1-20](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/models/response/__init__.py#L1-L20)
 
@@ -342,7 +341,6 @@ class AgentMessage(BaseModel):
     role: Literal["system", "user", "assistant", "tool"]  # Exhaustive options
     content: str = Field(..., min_length=1)  # Required, non-empty
     tool_calls: Optional[List[Dict[str, Any]]] = None  # Nullable
-```
 ```
 
 **IDE Benefits:**

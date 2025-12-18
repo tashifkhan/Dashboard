@@ -4,7 +4,7 @@
 
 This document defines the JSON data formats used for timetable and academic calendar storage in the JIIT Time Table application. It covers the structure of timetable JSON files, academic calendar JSON files, directory organization, API endpoints for data access, and the data generation pipeline using `json_creater.py`.
 
-For information about how this data is processed by Python modules, see [Python Processing Pipeline](/tashifkhan/JIIT-time-table-website/4.2-python-processing-pipeline). For details on how the data is consumed by React components, see [Data Model & Types](/tashifkhan/JIIT-time-table-website/3.4-data-model-and-types).
+For information about how this data is processed by Python modules, see [Python Processing Pipeline](4.2-python-processing-pipeline). For details on how the data is consumed by React components, see [Data Model & Types](3.4-data-model-and-types).
 
 **Sources:** [README.md1-138](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L1-L138)
 
@@ -15,7 +15,6 @@ For information about how this data is processed by Python modules, see [Python 
 All static JSON data is stored in the `/public/data/` directory, organized hierarchically by data type, academic period, and campus variant.
 
 ![Architecture Diagram](images/11-timetable-data-format-reference_diagram_1.png)
-```
 
 ### Directory Organization
 
@@ -419,7 +418,6 @@ When offline:
 
 When new semester data becomes available, the update process is:
 
-```
 ![Architecture Diagram](images/11-timetable-data-format-reference_diagram_5.png)
 
 ### Update Checklist

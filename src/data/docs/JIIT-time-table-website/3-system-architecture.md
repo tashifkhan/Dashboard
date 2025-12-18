@@ -6,10 +6,10 @@ This document describes the overall system architecture of the JIIT Personalized
 
 For detailed information about specific architectural subsystems:
 
-* Frontend component hierarchy and routing: see [Frontend Architecture & Routing](/tashifkhan/JIIT-time-table-website/3.1-frontend-architecture-and-routing)
-* Pyodide integration and Python execution: see [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration)
-* Data structures and TypeScript types: see [Data Model & Types](/tashifkhan/JIIT-time-table-website/3.3-pwa-and-offline-capabilities)
-* State persistence and synchronization: see [State Management](/tashifkhan/JIIT-time-table-website/3.4-data-model-and-types)
+* Frontend component hierarchy and routing: see [Frontend Architecture & Routing](3.1-frontend-architecture-and-routing)
+* Pyodide integration and Python execution: see [Pyodide WASM Integration](3.2-pyodide-wasm-integration)
+* Data structures and TypeScript types: see [Data Model & Types](3.3-pwa-and-offline-capabilities)
+* State persistence and synchronization: see [State Management](3.4-data-model-and-types)
 
 ## High-Level Overview
 
@@ -38,7 +38,6 @@ The system is deployed as a static site on Vercel, with all computation happenin
 The application implements all business logic in the browser, with no backend API:
 
 ![Architecture Diagram](images/3-system-architecture_diagram_1.png)
-```
 
 **Architectural Decision: No Backend Server**
 
@@ -138,7 +137,7 @@ The Python modules ([public/modules/BE62\_creator.py](https://github.com/tashifk
 * Time format conversion (12-hour → 24-hour)
 * Elective subject matching
 
-For detailed implementation: see [Pyodide WASM Integration](/tashifkhan/JIIT-time-table-website/3.2-pyodide-wasm-integration)
+For detailed implementation: see [Pyodide WASM Integration](3.2-pyodide-wasm-integration)
 
 ## Routing and Navigation
 
@@ -155,7 +154,7 @@ For detailed implementation: see [Pyodide WASM Integration](/tashifkhan/JIIT-tim
 
 The navbar implements touch gestures via `react-swipeable` for mobile-first navigation experience.
 
-For detailed routing implementation: see [Frontend Architecture & Routing](/tashifkhan/JIIT-time-table-website/3.1-frontend-architecture-and-routing)
+For detailed routing implementation: see [Frontend Architecture & Routing](3.1-frontend-architecture-and-routing)
 
 ## External Dependencies and Services
 
@@ -192,7 +191,6 @@ The system provides multiple export formats:
 
 ### Build and Deployment Pipeline
 
-```
 ![Architecture Diagram](images/3-system-architecture_diagram_9.png)
 
 **Deployment Characteristics:**
@@ -232,7 +230,7 @@ interface YourTietable {
 3. Type-asserted as `YourTietable` in React
 4. Stored in UserContext and rendered by `ScheduleDisplay`
 
-For complete type definitions: see [Data Model & Types](/tashifkhan/JIIT-time-table-website/3.3-pwa-and-offline-capabilities)
+For complete type definitions: see [Data Model & Types](3.3-pwa-and-offline-capabilities)
 
 ## Performance Considerations
 

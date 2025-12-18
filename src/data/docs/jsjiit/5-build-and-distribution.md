@@ -2,7 +2,7 @@
 
 This document provides a comprehensive overview of the build system and distribution pipeline for the jsjiit library. It covers how source code is transformed into distributable artifacts, packaged for npm, and made available through various consumption channels.
 
-For detailed information about the build script implementation, see [Build System](/codeblech/jsjiit/5.1-build-system). For package metadata and configuration, see [Package Configuration](/codeblech/jsjiit/5.2-package-configuration). For dependency management details, see [Dependency Management](/codeblech/jsjiit/5.3-dependency-management).
+For detailed information about the build script implementation, see [Build System](5.1-build-system). For package metadata and configuration, see [Package Configuration](5.2-package-configuration). For dependency management details, see [Dependency Management](5.3-dependency-management).
 
 ---
 
@@ -26,7 +26,6 @@ The build process is triggered automatically during package installation via the
 The following diagram illustrates the complete build and distribution flow from source code to consumable artifacts:
 
 ![Architecture Diagram](images/5-build-and-distribution_diagram_1.png)
-```
 
 **Build Script Execution Flow**
 
@@ -101,7 +100,6 @@ The library is distributed through multiple channels to maximize accessibility:
 
 The build system integrates with npm's lifecycle hooks to ensure artifacts are always up-to-date:
 
-```
 ![Architecture Diagram](images/5-build-and-distribution_diagram_4.png)
 
 **Lifecycle Hook Chain**

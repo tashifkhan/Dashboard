@@ -4,7 +4,7 @@
 
 This document provides a comprehensive technical overview of the jsjiit library's internal architecture, design patterns, and implementation details. It focuses on the structural organization of the codebase, the relationships between core components, and the architectural decisions that enable browser-based interaction with the JIIT WebPortal API.
 
-For practical usage information, see [Getting Started](/codeblech/jsjiit/2-getting-started). For detailed API method documentation, see [API Reference](/codeblech/jsjiit/3-api-reference). For information about the build pipeline and artifact generation, see [Build and Distribution](/codeblech/jsjiit/5-build-and-distribution).
+For practical usage information, see [Getting Started](2-getting-started). For detailed API method documentation, see [API Reference](3-api-reference). For information about the build pipeline and artifact generation, see [Build and Distribution](5-build-and-distribution).
 
 ---
 
@@ -19,7 +19,6 @@ The jsjiit library implements a **client-server proxy pattern** where the librar
 ### System Architecture Diagram
 
 ![Architecture Diagram](images/4-architecture-and-design_diagram_1.png)
-```
 
 ---
 
@@ -173,7 +172,7 @@ authenticatedMethods.forEach((methodName) => {
 
 ## Encryption and Payload Serialization
 
-All sensitive payloads are encrypted using **AES-CBC** with a date-based key derivation scheme. This is covered in detail in [Encryption and Security](/codeblech/jsjiit/4.2-encryption-and-security), but the architectural integration points are:
+All sensitive payloads are encrypted using **AES-CBC** with a date-based key derivation scheme. This is covered in detail in [Encryption and Security](4.2-encryption-and-security), but the architectural integration points are:
 
 ### Encryption Integration Points
 
@@ -196,7 +195,6 @@ The library implements a hierarchical exception system with custom error classes
 
 ### Exception Hierarchy
 
-```
 ![Architecture Diagram](images/4-architecture-and-design_diagram_7.png)
 
 ### Error Usage Mapping
@@ -347,5 +345,5 @@ The jsjiit library architecture is characterized by:
 
 For implementation details of specific subsystems, see:
 
-* [Encryption and Security](/codeblech/jsjiit/4.2-encryption-and-security) for cryptographic implementation
-* [Module Organization](/codeblech/jsjiit/4.3-module-organization) for export strategies and bundling
+* [Encryption and Security](4.2-encryption-and-security) for cryptographic implementation
+* [Module Organization](4.3-module-organization) for export strategies and bundling

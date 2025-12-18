@@ -4,7 +4,7 @@
 
 This document introduces JPortal, a Progressive Web Application (PWA) that serves as a modern replacement for the JIIT Web Portal. It covers the application's purpose, key features, technology stack, and high-level architecture.
 
-For detailed setup and deployment instructions, see [Getting Started](/codeblech/jportal/2-getting-started). For in-depth architecture discussions, see [Architecture Overview](/codeblech/jportal/3-architecture-overview). For information about individual features, see [Feature Modules](/codeblech/jportal/4-feature-modules).
+For detailed setup and deployment instructions, see [Getting Started](2-getting-started). For in-depth architecture discussions, see [Architecture Overview](3-architecture-overview). For information about individual features, see [Feature Modules](4-feature-modules).
 
 ## What is JPortal
 
@@ -48,7 +48,6 @@ The application supports two authentication modes, managed through the `App` com
 ### Core Framework
 
 ![Architecture Diagram](images/1-overview_diagram_1.png)
-```
 
 **Key Dependencies Table**
 
@@ -97,7 +96,6 @@ The `AuthenticatedApp` component manages all authenticated routes and serves as 
 
 The application uses a **strategy pattern** for data access, allowing seamless switching between real and demo modes:
 
-```
 ![Architecture Diagram](images/1-overview_diagram_4.png)
 
 All feature components interact with the portal through a uniform interface, calling methods like:
@@ -159,7 +157,7 @@ JPortal features an advanced theming system with:
 * **CSS custom properties** - Theme values mapped to Tailwind utilities
 * **Zustand state management** - Global theme state persistence
 
-The theme system integrates throughout the application via the `ThemeProvider`, `ThemeSelector`, and `DynamicFontLoader` components. For detailed theme architecture, see [Theme System](/codeblech/jportal/3.4-theme-system).
+The theme system integrates throughout the application via the `ThemeProvider`, `ThemeSelector`, and `DynamicFontLoader` components. For detailed theme architecture, see [Theme System](3.4-theme-system).
 
 **Sources:** [jportal/src/App.jsx12-14](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/App.jsx#L12-L14) High-level diagram analysis
 
@@ -191,11 +189,11 @@ Navigation is provided through:
 
 To begin using or developing JPortal:
 
-* For installation and setup instructions, see [Getting Started](/codeblech/jportal/2-getting-started)
-* For detailed architecture information, see [Architecture Overview](/codeblech/jportal/3-architecture-overview)
-* For information about specific features, see [Feature Modules](/codeblech/jportal/4-feature-modules)
-* For UI component documentation, see [UI Components](/codeblech/jportal/5-ui-components)
-* For build and deployment processes, see [Build & Deployment](/codeblech/jportal/6-build-and-deployment)
-* For development guidelines, see [Development Guide](/codeblech/jportal/7-development-guide)
+* For installation and setup instructions, see [Getting Started](2-getting-started)
+* For detailed architecture information, see [Architecture Overview](3-architecture-overview)
+* For information about specific features, see [Feature Modules](4-feature-modules)
+* For UI component documentation, see [UI Components](5-ui-components)
+* For build and deployment processes, see [Build & Deployment](6-build-and-deployment)
+* For development guidelines, see [Development Guide](7-development-guide)
 
 **Sources:** README.md, package.json, App.jsx comprehensive analysis

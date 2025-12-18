@@ -4,10 +4,10 @@
 
 This document provides an overview of JPortal's UI component architecture, including the component hierarchy, styling infrastructure, and integration patterns. For detailed documentation of specific component types, see:
 
-* Custom feature components like `AttendanceCard` and `CircleProgress` → [Custom Feature Components](/codeblech/jportal/5.1-custom-feature-components)
-* Navigation and theme-related components → [Theme & Navigation Components](/codeblech/jportal/5.2-theme-and-navigation-components)
-* Base Radix UI wrapper components → [Base UI Components](/codeblech/jportal/5.3-base-ui-components)
-* Styling system details → [Styling System](/codeblech/jportal/5.4-styling-system)
+* Custom feature components like `AttendanceCard` and `CircleProgress` → [Custom Feature Components](5.1-custom-feature-components)
+* Navigation and theme-related components → [Theme & Navigation Components](5.2-theme-and-navigation-components)
+* Base Radix UI wrapper components → [Base UI Components](5.3-base-ui-components)
+* Styling system details → [Styling System](5.4-styling-system)
 
 ## Component Architecture Overview
 
@@ -16,7 +16,6 @@ JPortal implements a **three-layer component architecture** that combines access
 ### Component Hierarchy Diagram
 
 ![Architecture Diagram](images/5-ui-components_diagram_1.png)
-```
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx1-359](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L1-L359) [jportal/src/components/CircleProgress.jsx1-53](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/CircleProgress.jsx#L1-L53) [jportal/src/components/SubjectInfoCard.jsx1-26](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/SubjectInfoCard.jsx#L1-L26) [jportal/src/components/Profile.jsx1-157](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Profile.jsx#L1-L157) [jportal/src/components/ui/tabs.jsx1-42](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/ui/tabs.jsx#L1-L42) [jportal/package.json15-43](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L15-L43)
 
@@ -230,7 +229,6 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
 
 ### Props Drilling Architecture
 
-```
 ![Architecture Diagram](images/5-ui-components_diagram_4.png)
 
 **Sources:** [jportal/src/components/AttendanceCard.jsx7-13](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/AttendanceCard.jsx#L7-L13) [jportal/src/components/CircleProgress.jsx3](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/CircleProgress.jsx#L3-L3) [jportal/src/components/Profile.jsx6](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/src/components/Profile.jsx#L6-L6)

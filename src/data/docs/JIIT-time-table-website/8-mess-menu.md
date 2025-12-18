@@ -4,7 +4,7 @@
 
 This document describes the **Mess Menu** feature of the JIIT Time Table website, which provides students with access to dining hall meal schedules. The mess menu displays daily meal information organized by time slots (breakfast, lunch, snacks, dinner), helping students plan their meals throughout the week.
 
-This page covers the mess menu component implementation, data structure, and user interface. For information about other timetable-related features, see [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)) and [Timeline View](/tashifkhan/JIIT-time-table-website/5-timeline-view). For the academic calendar feature, which shares similar display patterns, see [Academic Calendar](/tashifkhan/JIIT-time-table-website/6-academic-calendar).
+This page covers the mess menu component implementation, data structure, and user interface. For information about other timetable-related features, see [Schedule Generation](4-schedule-generation-(core-feature)) and [Timeline View](5-timeline-view). For the academic calendar feature, which shares similar display patterns, see [Academic Calendar](6-academic-calendar).
 
 **Sources:** [README.md27](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L27-L27) [README.md107](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/README.md#L107-L107)
 
@@ -35,7 +35,6 @@ The mess menu follows the application's component-based architecture pattern, in
 ### Component Location and Integration
 
 ![Architecture Diagram](images/8-mess-menu_diagram_1.png)
-```
 
 **Diagram: Mess Menu Component Integration**
 
@@ -289,7 +288,6 @@ The mess menu data requires periodic updates to reflect changing weekly menus. T
 
 ### Update Process
 
-```
 ![Architecture Diagram](images/8-mess-menu_diagram_6.png)
 
 **Diagram: Mess Menu Data Update Pipeline**

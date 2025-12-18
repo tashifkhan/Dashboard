@@ -2,7 +2,7 @@
 
 This document describes the deployment strategy, containerization setup, CI/CD pipeline, Progressive Web App (PWA) implementation, and infrastructure configuration for the TalentSync platform. It covers how the application is packaged, deployed, and served in production environments.
 
-For information about the database schema and migrations, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models). For frontend and backend architecture details, see [System Architecture](/harleenkaur28/AI-Resume-Parser/2-system-architecture).
+For information about the database schema and migrations, see [Database & Data Models](5-database-and-data-models). For frontend and backend architecture details, see [System Architecture](2-system-architecture).
 
 ---
 
@@ -27,7 +27,6 @@ The TalentSync platform uses a containerized deployment strategy with Docker Com
 ### Production Infrastructure
 
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_1.png)
-```
 
 **Deployment Flow:**
 
@@ -393,7 +392,6 @@ This policy:
 
 ### Service Dependencies
 
-```
 ![Architecture Diagram](images/6-deployment-and-infrastructure_diagram_10.png)
 
 **Startup Order:**

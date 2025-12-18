@@ -7,7 +7,7 @@ import {
 	getDocPagination,
 	type SidebarItem,
 } from "../../../utils/docs";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
 	ChevronRight,
 	Menu,
@@ -65,40 +65,35 @@ const isActive = (itemSlug: string) => {
 					<div class="flex gap-2 mt-4">
 						{
 							currentProject?.live_website_url && (
-								<Button
-									size="sm"
-									variant="outline"
-									className="flex-1 h-8 text-xs"
-									asChild
+								<a
+									href={currentProject.live_website_url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class={buttonVariants({
+										variant: "default",
+										size: "sm",
+										className: "flex-1 h-8 text-xs",
+									})}
 								>
-									<a
-										href={currentProject.live_website_url}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<ExternalLink className="w-3 h-3 mr-2" />
-										Live Demo
-									</a>
-								</Button>
+									<ExternalLink className="w-3 h-3" />
+									Live
+								</a>
 							)
 						}
-						<Button
-							size="sm"
-							variant="outline"
-							className="flex-1 h-8 text-xs"
-							asChild
+						<a
+							href={currentProject?.github_link ||
+								`https://github.com/tashifkhan/${project}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							class={buttonVariants({
+								variant: "outline",
+								size: "sm",
+								className: "flex-1 h-8 text-xs",
+							})}
 						>
-							<a
-								href={currentProject?.github_link ||
-									`https://github.com/tashifkhan/${project}`}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="flex items-center gap-0.5"
-							>
-								<Github className="w-3 h-3 mr-2" />
-								GitHub
-							</a>
-						</Button>
+							<Github className="w-3 h-3" />
+							GitHub
+						</a>
 					</div>
 				</div>
 				<div class="flex-1 overflow-y-auto py-4">
@@ -211,39 +206,35 @@ const isActive = (itemSlug: string) => {
 				<div class="flex gap-2">
 					{
 						currentProject?.live_website_url && (
-							<Button
-								size="sm"
-								variant="outline"
-								className="flex-1 h-8 text-xs"
-								asChild
+							<a
+								href={currentProject.live_website_url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class={buttonVariants({
+									variant: "default",
+									size: "sm",
+									className: "flex-1 h-8 text-xs",
+								})}
 							>
-								<a
-									href={currentProject.live_website_url}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<ExternalLink className="w-3 h-3 mr-2" />
-									Live
-								</a>
-							</Button>
+								<ExternalLink className="w-3 h-3" />
+								Live
+							</a>
 						)
 					}
-					<Button
-						size="sm"
-						variant="outline"
-						className="flex-1 h-8 text-xs"
-						asChild
+					<a
+						href={currentProject?.github_link ||
+							`https://github.com/tashifkhan/${project}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class={buttonVariants({
+							variant: "outline",
+							size: "sm",
+							className: "flex-1 h-8 text-xs",
+						})}
 					>
-						<a
-							href={currentProject?.github_link ||
-								`https://github.com/tashifkhan/${project}`}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Github className="w-3 h-3 mr-2" />
-							GitHub
-						</a>
-					</Button>
+						<Github className="w-3 h-3" />
+						GitHub
+					</a>
 				</div>
 			</div>
 			<div class="h-[calc(100vh-8rem)] overflow-y-auto">

@@ -2,7 +2,7 @@
 
 This document provides comprehensive instructions for developers working on the JIIT Timetable Creator. It covers environment setup, development workflows, modifying Python processing logic, managing timetable data, and deployment procedures.
 
-For information about the system architecture, see [System Architecture](/tashifkhan/JIIT-time-table-website/3-system-architecture). For details on specific features, refer to pages [4](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature)) through [10](/tashifkhan/JIIT-time-table-website/10-navigation-and-mobile-experience).
+For information about the system architecture, see [System Architecture](3-system-architecture). For details on specific features, refer to pages [4](4-schedule-generation-(core-feature)) through [10](10-navigation-and-mobile-experience).
 
 ---
 
@@ -73,7 +73,6 @@ Access the application in a browser and confirm:
 The codebase is organized into distinct layers with clear separation of concerns:
 
 ![Architecture Diagram](images/12-development-guide_diagram_1.png)
-```
 
 ### Key Directories
 
@@ -742,7 +741,6 @@ def parse_batch_numbers(batch_input: str) -> list[str]:
 
 ### Pull Request Process
 
-```
 ![Architecture Diagram](images/12-development-guide_diagram_8.png)
 
 **Step-by-Step Guide**

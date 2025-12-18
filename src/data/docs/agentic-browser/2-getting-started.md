@@ -13,9 +13,9 @@ This guide walks you through the initial setup and execution of the Agentic Brow
 
 For detailed information about specific components:
 
-- For dependency details and package management, see [Installation and Dependencies](/tashifkhan/agentic-browser/2.1-installation-and-dependencies)
-- For comprehensive environment variable configuration, see [Configuration and Environment Variables](/tashifkhan/agentic-browser/2.2-configuration-and-environment-variables)
-- For detailed runtime options and command-line arguments, see [Running the Application](/tashifkhan/agentic-browser/2.3-running-the-application)
+- For dependency details and package management, see [Installation and Dependencies](2.1-installation-and-dependencies)
+- For comprehensive environment variable configuration, see [Configuration and Environment Variables](2.2-configuration-and-environment-variables)
+- For detailed runtime options and command-line arguments, see [Running the Application](2.3-running-the-application)
 
 ---
 
@@ -80,7 +80,7 @@ The project defines 28 core dependencies in [pyproject.toml7-28](https://github.
 - Multiple LLM provider integrations (Google, OpenAI, Anthropic, Ollama)
 - Specialized tools (gitingest, yt-dlp, faster-whisper, BeautifulSoup)
 
-For a complete dependency breakdown, see [Installation and Dependencies](/tashifkhan/agentic-browser/2.1-installation-and-dependencies).
+For a complete dependency breakdown, see [Installation and Dependencies](2.1-installation-and-dependencies).
 
 ---
 
@@ -118,7 +118,7 @@ TAVILY_API_KEY=your_tavily_key_here
 
 The configuration system loads environment variables through [core/config.py5-6](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L5-L6) using `dotenv.load_dotenv()`, then exposes them via getter functions like [core/config.py22-25](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/core/config.py#L22-L25) for logging configuration.
 
-For complete environment variable documentation and service-specific configuration, see [Configuration and Environment Variables](/tashifkhan/agentic-browser/2.2-configuration-and-environment-variables).
+For complete environment variable documentation and service-specific configuration, see [Configuration and Environment Variables](2.2-configuration-and-environment-variables).
 
 ---
 
@@ -278,7 +278,7 @@ The port configuration is read from [core/config.py11](https://github.com/tashif
 
 After successfully starting the application:
 
-1. **Explore the API**: Review [FastAPI Application and Router Architecture](/tashifkhan/agentic-browser/3.2-fastapi-application-and-router-architecture) for available endpoints
-2. **Configure Integrations**: See [Configuration and Environment Variables](/tashifkhan/agentic-browser/2.2-configuration-and-environment-variables) for service-specific setup
-3. **Understand Agents**: Learn about the [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system) for AI capabilities
-4. **Try the Extension**: Set up the [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension) for frontend automation
+1. **Explore the API**: Review [FastAPI Application and Router Architecture](3.2-fastapi-application-and-router-architecture) for available endpoints
+2. **Configure Integrations**: See [Configuration and Environment Variables](2.2-configuration-and-environment-variables) for service-specific setup
+3. **Understand Agents**: Learn about the [Agent Intelligence System](4-agent-intelligence-system) for AI capabilities
+4. **Try the Extension**: Set up the [Browser Extension](5-browser-extension) for frontend automation

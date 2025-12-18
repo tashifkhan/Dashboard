@@ -4,7 +4,7 @@
 
 This guide is intended for developers who want to contribute to, modify, or extend the jsjiit library. It covers the complete development workflow from initial setup through testing and release.
 
-For information about using the library in your application, see [Getting Started](/codeblech/jsjiit/2-getting-started). For details about the build system architecture, see [Build and Distribution](/codeblech/jsjiit/5-build-and-distribution). For documentation generation specifics, see [Documentation System](/codeblech/jsjiit/6-documentation-system).
+For information about using the library in your application, see [Getting Started](2-getting-started). For details about the build system architecture, see [Build and Distribution](5-build-and-distribution). For documentation generation specifics, see [Documentation System](6-documentation-system).
 
 ---
 
@@ -29,7 +29,6 @@ The project uses ES modules exclusively, as indicated by `"type": "module"` in [
 ## Development Workflow Overview
 
 ![Architecture Diagram](images/7-development-guide_diagram_1.png)
-```
 
 **Diagram: Complete development workflow from setup to deployment**
 
@@ -284,7 +283,7 @@ async function myFunction(paramName) {
 }
 ```
 
-For detailed JSDoc configuration, see [JSDoc Configuration](/codeblech/jsjiit/6.1-jsdoc-configuration).
+For detailed JSDoc configuration, see [JSDoc Configuration](6.1-jsdoc-configuration).
 
 **Sources:** [package.json14](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L14-L14)
 
@@ -338,7 +337,7 @@ For detailed JSDoc configuration, see [JSDoc Configuration](/codeblech/jsjiit/6.
 
 Once pushed to GitHub:
 
-* **GitHub Actions** automatically builds and deploys documentation to GitHub Pages (see [Automated Documentation Deployment](/codeblech/jsjiit/6.2-automated-documentation-deployment))
+* **GitHub Actions** automatically builds and deploys documentation to GitHub Pages (see [Automated Documentation Deployment](6.2-automated-documentation-deployment))
 * **npm registry** makes the package available at `https://www.npmjs.com/package/jsjiit`
 * **jsdelivr CDN** automatically mirrors the package from npm within minutes
 

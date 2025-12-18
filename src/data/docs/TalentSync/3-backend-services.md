@@ -4,7 +4,7 @@
 
 This document provides a comprehensive overview of the backend services powering TalentSync, an AI-driven hiring intelligence platform. The backend is built on FastAPI and provides RESTful APIs for resume analysis, ATS evaluation, cold email generation, interview preparation, and LinkedIn content creation.
 
-For information about the overall system architecture, see [System Architecture](/harleenkaur28/AI-Resume-Parser/2-system-architecture). For details on individual AI service implementations, see subsections [Resume Analysis Service](/harleenkaur28/AI-Resume-Parser/3.1-resume-analysis-service), [ATS Evaluation Service](/harleenkaur28/AI-Resume-Parser/3.2-ats-evaluation-service), [Cold Mail Generator Service](/harleenkaur28/AI-Resume-Parser/3.3-cold-mail-generator-service), [Hiring Assistant Service](/harleenkaur28/AI-Resume-Parser/3.4-hiring-assistant-service), [Tailored Resume Service](/harleenkaur28/AI-Resume-Parser/3.5-tailored-resume-service), and [LinkedIn Services](/harleenkaur28/AI-Resume-Parser/3.6-linkedin-services). For frontend integration patterns, see [Frontend Application](/harleenkaur28/AI-Resume-Parser/4-frontend-application). For deployment infrastructure, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure).
+For information about the overall system architecture, see [System Architecture](2-system-architecture). For details on individual AI service implementations, see subsections [Resume Analysis Service](3.1-resume-analysis-service), [ATS Evaluation Service](3.2-ats-evaluation-service), [Cold Mail Generator Service](3.3-cold-mail-generator-service), [Hiring Assistant Service](3.4-hiring-assistant-service), [Tailored Resume Service](3.5-tailored-resume-service), and [LinkedIn Services](3.6-linkedin-services). For frontend integration patterns, see [Frontend Application](4-frontend-application). For deployment infrastructure, see [Deployment & Infrastructure](6-deployment-and-infrastructure).
 
 ---
 
@@ -15,7 +15,6 @@ The TalentSync backend follows a modular service-oriented architecture with clea
 ### Service Organization Diagram
 
 ![Architecture Diagram](images/3-backend-services_diagram_1.png)
-```
 
 ---
 
@@ -219,7 +218,7 @@ TalentSync uses PostgreSQL for persisting user data, resume analyses, and genera
 3. Frontend persists to PostgreSQL via Prisma
 4. Frontend displays cached data from database
 
-**Note**: Backend services are stateless and do not directly manage database transactions. Database schema and management details are covered in [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models).
+**Note**: Backend services are stateless and do not directly manage database transactions. Database schema and management details are covered in [Database & Data Models](5-database-and-data-models).
 
 ---
 

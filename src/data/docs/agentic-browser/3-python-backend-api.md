@@ -4,7 +4,7 @@
 
 This document covers the Python backend API server built with FastAPI, including its architecture, router-service-tool layered design, and core dependencies. The backend provides HTTP endpoints for AI-assisted web automation, external service integrations, and agent orchestration.
 
-For information about the agent intelligence system and LangGraph workflows, see [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system). For browser extension functionality, see [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension). For running the application in different modes, see [Running the Application](/tashifkhan/agentic-browser/2.3-running-the-application).
+For information about the agent intelligence system and LangGraph workflows, see [Agent Intelligence System](4-agent-intelligence-system). For browser extension functionality, see [Browser Extension](5-browser-extension). For running the application in different modes, see [Running the Application](2.3-running-the-application).
 
 ---
 
@@ -29,7 +29,6 @@ All components share a common configuration system and LLM abstraction layer, en
 The main FastAPI application is defined in [api/main.py12](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/api/main.py#L12-L12) with the title "Agentic Browser API" and version "0.1.0". The application includes 11 distinct routers, each handling a specific domain:
 
 ![Architecture Diagram](images/3-python-backend-api_diagram_1.png)
-```
 
 ### Router Registration
 
@@ -208,7 +207,6 @@ A simple root endpoint is defined at [api/main.py42-44](https://github.com/tashi
 
 To illustrate the three-tier architecture in action, here's how a web search request flows through the system:
 
-```
 ![Architecture Diagram](images/3-python-backend-api_diagram_5.png)
 
 The `web_search_pipeline` function at [tools/google\_search/seach\_agent.py14-62](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/tools/google_search/seach_agent.py#L14-L62):
@@ -234,11 +232,11 @@ This pattern demonstrates:
 
 For detailed information about specific components:
 
-* **Router details**: See [API Routers](/tashifkhan/agentic-browser/3.3-api-routers) and its subsections
-* **Service layer patterns**: See [Service Layer Architecture](/tashifkhan/agentic-browser/3.4-service-layer-architecture)
-* **Tool implementations**: See [Tool Layer](/tashifkhan/agentic-browser/3.5-tool-layer)
-* **Agent system**: See [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system) for React Agent and Browser Use Agent
-* **LLM integration**: See [LLM Integration Layer](/tashifkhan/agentic-browser/4.5-llm-integration-layer) for multi-provider support
-* **Project structure**: See [Project Structure and Dependencies](/tashifkhan/agentic-browser/3.1-project-structure-and-dependencies) for directory organization
+* **Router details**: See [API Routers](3.3-api-routers) and its subsections
+* **Service layer patterns**: See [Service Layer Architecture](3.4-service-layer-architecture)
+* **Tool implementations**: See [Tool Layer](3.5-tool-layer)
+* **Agent system**: See [Agent Intelligence System](4-agent-intelligence-system) for React Agent and Browser Use Agent
+* **LLM integration**: See [LLM Integration Layer](4.5-llm-integration-layer) for multi-provider support
+* **Project structure**: See [Project Structure and Dependencies](3.1-project-structure-and-dependencies) for directory organization
 
 **Sources:** Table of contents structure

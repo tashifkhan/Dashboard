@@ -2,7 +2,7 @@
 
 This page provides an overview of how to install and begin using the jsjiit library. It covers prerequisites, the basic workflow for integrating jsjiit into your application, and the fundamental concepts you need to understand before making API calls to the JIIT Web Portal.
 
-For detailed installation instructions across different environments, see [Installation](/codeblech/jsjiit/2.1-installation). For working code examples and hands-on tutorials, see [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide).
+For detailed installation instructions across different environments, see [Installation](2.1-installation). For working code examples and hands-on tutorials, see [Quick Start Guide](2.2-quick-start-guide).
 
 ## Purpose and Scope
 
@@ -15,7 +15,7 @@ This page covers:
 * **Core Concepts** - The main classes and workflow
 * **Initial Setup** - Your first interaction with the library
 
-For detailed API method documentation, see [API Reference](/codeblech/jsjiit/3-api-reference). For architecture and implementation details, see [Architecture and Design](/codeblech/jsjiit/4-architecture-and-design).
+For detailed API method documentation, see [API Reference](3-api-reference). For architecture and implementation details, see [Architecture and Design](4-architecture-and-design).
 
 ## Prerequisites
 
@@ -52,7 +52,6 @@ If you plan to build from source or contribute to the library, you will need:
 The jsjiit library is distributed through multiple channels, each serving different use cases:
 
 ![Architecture Diagram](images/2-getting-started_diagram_1.png)
-```
 
 **Distribution Entry Points**
 
@@ -160,7 +159,7 @@ Also defined in [src/wrapper.js](https://github.com/codeblech/jsjiit/blob/d123b7
 | Exams | `get_exam_events()`, `get_exam_schedule()` |
 | Account | `get_personal_info()`, `change_password()` |
 
-For complete method documentation, see [API Reference](/codeblech/jsjiit/3-api-reference).
+For complete method documentation, see [API Reference](3-api-reference).
 
 ### Domain Model Classes
 
@@ -173,7 +172,7 @@ These classes represent structured data returned by API methods:
 * **`Registrations`** [src/registration.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/registration.js) - Collection of registered subjects
 * **`ExamEvent`** [src/exam.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/exam.js) - Exam event information
 
-For detailed documentation of these models, see [Data Models](/codeblech/jsjiit/3.9-data-models).
+For detailed documentation of these models, see [Data Models](3.9-data-models).
 
 ### Exception Classes
 
@@ -184,7 +183,7 @@ Defined in [src/exceptions.js](https://github.com/codeblech/jsjiit/blob/d123b782
 * `PasswordTooShortException` - Password validation error
 * Additional exception types for various error scenarios
 
-For error handling strategies, see [Error Handling](/codeblech/jsjiit/3.8-error-handling).
+For error handling strategies, see [Error Handling](3.8-error-handling).
 
 **Sources:** [src/index.js1-8](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js#L1-L8) [src/wrapper.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js) [src/attendance.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/attendance.js) [src/registration.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/registration.js) [src/exam.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/exam.js) [src/exceptions.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/exceptions.js)
 
@@ -192,7 +191,6 @@ For error handling strategies, see [Error Handling](/codeblech/jsjiit/3.8-error-
 
 The jsjiit library can be installed through multiple methods depending on your project structure:
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_4.png)
 
 **Installation Method Selection**
@@ -208,7 +206,7 @@ The jsjiit library can be installed through multiple methods depending on your p
 | Bundler Project | npm | `npm install jsjiit` → `import { WebPortal } from 'jsjiit'` |
 | Local Development | git clone | `git clone https://github.com/codeblech/jsjiit.git` |
 
-For complete installation instructions including environment-specific setup, see [Installation](/codeblech/jsjiit/2.1-installation).
+For complete installation instructions including environment-specific setup, see [Installation](2.1-installation).
 
 **Sources:** [README.md23-24](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L23-L24) [package.json2-3](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L2-L3)
 
@@ -249,7 +247,7 @@ This pattern demonstrates:
 3. Authentication must succeed before calling any data retrieval methods
 4. The library handles encryption, decryption, and error handling automatically
 
-For more comprehensive examples including error handling and multiple API methods, see [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide).
+For more comprehensive examples including error handling and multiple API methods, see [Quick Start Guide](2.2-quick-start-guide).
 
 **Sources:** [README.md32-55](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L32-L55)
 
@@ -264,7 +262,7 @@ Key security features:
 * **CAPTCHA bypass** - Authentication does not require manual CAPTCHA solving
 * **Credential security** - Passwords are never sent in plaintext
 
-For detailed information about the encryption implementation, see [Encryption and Security](/codeblech/jsjiit/4.2-encryption-and-security).
+For detailed information about the encryption implementation, see [Encryption and Security](4.2-encryption-and-security).
 
 **Sources:** [README.md4](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L4-L4) [README.md13](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L13-L13)
 
@@ -272,21 +270,21 @@ For detailed information about the encryption implementation, see [Encryption an
 
 After understanding the basic concepts on this page:
 
-1. **[Installation](/codeblech/jsjiit/2.1-installation)** - Follow detailed installation instructions for your specific environment
-2. **[Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide)** - Work through complete code examples with error handling
-3. **[API Reference](/codeblech/jsjiit/3-api-reference)** - Explore the full API surface and available methods
-4. **[WebPortal Class](/codeblech/jsjiit/3.1-webportal-class)** - Deep dive into the main entry point class
-5. **[Data Models](/codeblech/jsjiit/3.9-data-models)** - Understand the structure of returned data
+1. **[Installation](2.1-installation)** - Follow detailed installation instructions for your specific environment
+2. **[Quick Start Guide](2.2-quick-start-guide)** - Work through complete code examples with error handling
+3. **[API Reference](3-api-reference)** - Explore the full API surface and available methods
+4. **[WebPortal Class](3.1-webportal-class)** - Deep dive into the main entry point class
+5. **[Data Models](3.9-data-models)** - Understand the structure of returned data
 
 **Common Next Actions:**
 
 | If you want to... | See |
 | --- | --- |
-| Install the library | [Installation](/codeblech/jsjiit/2.1-installation) |
-| See working examples | [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide) |
-| Understand all available methods | [API Reference](/codeblech/jsjiit/3-api-reference) |
-| Handle authentication errors | [Error Handling](/codeblech/jsjiit/3.8-error-handling) |
-| Learn about the architecture | [Architecture and Design](/codeblech/jsjiit/4-architecture-and-design) |
-| Contribute to development | [Development Guide](/codeblech/jsjiit/7-development-guide) |
+| Install the library | [Installation](2.1-installation) |
+| See working examples | [Quick Start Guide](2.2-quick-start-guide) |
+| Understand all available methods | [API Reference](3-api-reference) |
+| Handle authentication errors | [Error Handling](3.8-error-handling) |
+| Learn about the architecture | [Architecture and Design](4-architecture-and-design) |
+| Contribute to development | [Development Guide](7-development-guide) |
 
 **Sources:** [README.md1-113](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L1-L113) [package.json1-61](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L1-L61)

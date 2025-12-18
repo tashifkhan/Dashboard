@@ -4,7 +4,7 @@
 
 The Timeline View provides a calendar-style weekly schedule visualization that displays classes in a time-grid format. This page documents the `TimelinePage` component, its rendering logic, time-based auto-scrolling, event interaction modal, and download mode support.
 
-For information about the grid-based schedule display with day cards, see [Schedule Display & Editing](/tashifkhan/JIIT-time-table-website/4.3-schedule-display-and-editing). For exporting schedules as images and PDFs, see [PDF & PNG Export](/tashifkhan/JIIT-time-table-website/9.2-pdf-and-png-export).
+For information about the grid-based schedule display with day cards, see [Schedule Display & Editing](4.3-schedule-display-and-editing). For exporting schedules as images and PDFs, see [PDF & PNG Export](9.2-pdf-and-png-export).
 
 **Sources:** [src/components/timeline.tsx1-774](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L1-L774)
 
@@ -34,7 +34,6 @@ The Timeline View renders a weekly schedule as a vertical timeline grid with col
 The Timeline View consists of two main components: the primary `TimelinePage` component and the `EventDetailModal` child component.
 
 ![Architecture Diagram](images/5-timeline-view_diagram_1.png)
-```
 
 **Sources:** [src/components/timeline.tsx13-635](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/timeline.tsx#L13-L635)
 
@@ -370,7 +369,6 @@ className="grid-rows-[repeat(10,9rem)] md:grid-rows-[repeat(10,12rem)]"
 
 The Timeline View consumes schedule data from the global `UserContext` provider, which manages both base and edited schedules.
 
-```
 ![Architecture Diagram](images/5-timeline-view_diagram_11.png)
 
 ### Context Structure

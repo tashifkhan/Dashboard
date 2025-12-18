@@ -6,7 +6,7 @@
 
 This page provides an overview of how to install pyjiit, understand its core components, and make your first API calls to the JIIT Webportal. It introduces the basic workflow and concepts needed to use the library effectively.
 
-For detailed installation instructions and dependency management, see [Installation](/codelif/pyjiit/2.1-installation). For a comprehensive walkthrough with complete code examples, see [Quick Start Guide](/codelif/pyjiit/2.2-quick-start-guide). For in-depth coverage of the authentication process, see [Authentication Flow](/codelif/pyjiit/2.3-authentication-flow).
+For detailed installation instructions and dependency management, see [Installation](2.1-installation). For a comprehensive walkthrough with complete code examples, see [Quick Start Guide](2.2-quick-start-guide). For in-depth coverage of the authentication process, see [Authentication Flow](2.3-authentication-flow).
 
 ---
 
@@ -55,7 +55,7 @@ This installs the library and its two core dependencies:
 - **`requests`**: HTTP client for API communication
 - **`pycryptodome`**: AES-CBC encryption for secure payload transmission
 
-The package is distributed through PyPI and can be installed in any Python 3.9+ environment. For detailed installation options, virtual environment setup, and troubleshooting, see [Installation](/codelif/pyjiit/2.1-installation).
+The package is distributed through PyPI and can be installed in any Python 3.9+ environment. For detailed installation options, virtual environment setup, and troubleshooting, see [Installation](2.1-installation).
 
 **Sources:** [docs/usage.rst6-13](https://github.com/codelif/pyjiit/blob/0fe02955/docs/usage.rst#L6-L13) [pyproject.toml1-12](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L12)
 
@@ -157,7 +157,7 @@ After successful authentication, the `Webportal.session` attribute contains a `W
 
 All authenticated methods use the `@authenticated` decorator to verify an active session before execution.
 
-**See [Authentication Flow](/codelif/pyjiit/2.3-authentication-flow) for detailed coverage of the authentication process.**
+**See [Authentication Flow](2.3-authentication-flow) for detailed coverage of the authentication process.**
 
 ### Encrypted Communication
 
@@ -209,7 +209,7 @@ except NotLoggedIn:
     w.student_login(username, password, captcha)
 ```
 
-**For comprehensive exception documentation, see [Exception Handling](/codelif/pyjiit/3.4-exception-handling).**
+**For comprehensive exception documentation, see [Exception Handling](3.4-exception-handling).**
 
 **Sources:** [docs/usage.rst138-142](https://github.com/codelif/pyjiit/blob/0fe02955/docs/usage.rst#L138-L142) [pyjiit/exceptions.py1-34](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L34)
 
@@ -273,14 +273,14 @@ for subject in registrations.subjects:
 
 Now that you understand the basic workflow, proceed to:
 
-- **[Installation](/codelif/pyjiit/2.1-installation)** - Detailed installation instructions, virtual environments, and dependency management
-- **[Quick Start Guide](/codelif/pyjiit/2.2-quick-start-guide)** - Complete walkthrough with multiple examples and best practices
-- **[Authentication Flow](/codelif/pyjiit/2.3-authentication-flow)** - Deep dive into the two-phase authentication process and session management
+- **[Installation](2.1-installation)** - Detailed installation instructions, virtual environments, and dependency management
+- **[Quick Start Guide](2.2-quick-start-guide)** - Complete walkthrough with multiple examples and best practices
+- **[Authentication Flow](2.3-authentication-flow)** - Deep dive into the two-phase authentication process and session management
 
 For comprehensive API documentation, see:
 
-- **[Webportal Class](/codelif/pyjiit/3.1-webportal-class)** - Complete method reference
-- **[Data Models](/codelif/pyjiit/3.3-data-models)** - Detailed documentation of all data structures
-- **[Exception Handling](/codelif/pyjiit/3.4-exception-handling)** - Exception hierarchy and error handling patterns
+- **[Webportal Class](3.1-webportal-class)** - Complete method reference
+- **[Data Models](3.3-data-models)** - Detailed documentation of all data structures
+- **[Exception Handling](3.4-exception-handling)** - Exception hierarchy and error handling patterns
 
 **Sources:** [docs/usage.rst1-145](https://github.com/codelif/pyjiit/blob/0fe02955/docs/usage.rst#L1-L145) [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28)

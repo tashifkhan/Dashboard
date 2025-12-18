@@ -1,6 +1,6 @@
 # Agent Intelligence System
 
-The Agent Intelligence System is the core AI orchestration layer of the Agentic Browser. It provides two primary agent workflows: the **React Agent** for conversational AI with dynamic tool selection, and the **Browser Use Agent** for generating structured browser automation scripts. This document focuses on the React Agent architecture, tool system, and LLM integration. For Browser Use Agent implementation details, see [Browser Use Agent and Script Generation](/tashifkhan/agentic-browser/4.2-browser-use-agent-and-script-generation). For individual tool implementations, see [Agent Tool System](/tashifkhan/agentic-browser/4.3-agent-tool-system).
+The Agent Intelligence System is the core AI orchestration layer of the Agentic Browser. It provides two primary agent workflows: the **React Agent** for conversational AI with dynamic tool selection, and the **Browser Use Agent** for generating structured browser automation scripts. This document focuses on the React Agent architecture, tool system, and LLM integration. For Browser Use Agent implementation details, see [Browser Use Agent and Script Generation](4.2-browser-use-agent-and-script-generation). For individual tool implementations, see [Agent Tool System](4.3-agent-tool-system).
 
 ---
 
@@ -9,7 +9,6 @@ The Agent Intelligence System is the core AI orchestration layer of the Agentic 
 The Agent Intelligence System is built around LangGraph's state machine framework, which enables the ReAct (Reason + Act) pattern where the LLM iteratively decides whether to call tools or provide a final answer.
 
 ![Architecture Diagram](images/4-agent-intelligence-system_diagram_1.png)
-```
 
 **Sources:** [agents/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py) [agents/react\_tools.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_tools.py) [services/react\_agent\_service.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/react_agent_service.py) [routers/react\_agent.py](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/routers/react_agent.py)
 
@@ -440,7 +439,7 @@ if not messages or not isinstance(messages[0], SystemMessage):
     messages = [_system_message] + messages
 ```
 
-For LLM provider configuration and multi-provider support details, see [LLM Integration Layer](/tashifkhan/agentic-browser/4.5-llm-integration-layer).
+For LLM provider configuration and multi-provider support details, see [LLM Integration Layer](4.5-llm-integration-layer).
 
 **Sources:** [agents/react\_agent.py25-36](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L25-L36) [agents/react\_agent.py126-133](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/agents/react_agent.py#L126-L133)
 
@@ -486,7 +485,6 @@ except Exception as exc:
 
 The `ReactAgentService` catches all exceptions and returns a user-friendly error message [services/react\_agent\_service.py85-91](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/services/react_agent_service.py#L85-L91):
 
-```
 ```
 except Exception as exc:
     logger.error("Error generating react agent answer: %s", exc)

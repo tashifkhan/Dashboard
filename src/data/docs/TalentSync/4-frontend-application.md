@@ -6,13 +6,13 @@ This document provides an overview of the TalentSync frontend application, a Nex
 
 For detailed information about specific subsystems:
 
-* Next.js configuration and PWA setup: see [Next.js Configuration & Dependencies](/harleenkaur28/AI-Resume-Parser/4.1-next.js-configuration-and-dependencies)
-* Authentication flows and NextAuth integration: see [Authentication System](/harleenkaur28/AI-Resume-Parser/4.2-authentication-system)
-* Navigation components and responsive design: see [Navigation System](/harleenkaur28/AI-Resume-Parser/4.3-navigation-system)
-* Public-facing pages: see [Landing & Public Pages](/harleenkaur28/AI-Resume-Parser/4.4-landing-and-public-pages)
-* Protected feature pages: see [Dashboard Pages](/harleenkaur28/AI-Resume-Parser/4.5-dashboard-pages)
-* User profile management: see [Account Management](/harleenkaur28/AI-Resume-Parser/4.6-account-management)
-* Reusable UI components: see [Shared Components](/harleenkaur28/AI-Resume-Parser/4.7-shared-components)
+* Next.js configuration and PWA setup: see [Next.js Configuration & Dependencies](4.1-next.js-configuration-and-dependencies)
+* Authentication flows and NextAuth integration: see [Authentication System](4.2-authentication-system)
+* Navigation components and responsive design: see [Navigation System](4.3-navigation-system)
+* Public-facing pages: see [Landing & Public Pages](4.4-landing-and-public-pages)
+* Protected feature pages: see [Dashboard Pages](4.5-dashboard-pages)
+* User profile management: see [Account Management](4.6-account-management)
+* Reusable UI components: see [Shared Components](4.7-shared-components)
 
 This page focuses on the overall architecture, technology stack, and how the major subsystems fit together.
 
@@ -45,7 +45,6 @@ The frontend is built using the following core technologies and libraries:
 ### Directory Organization
 
 ![Architecture Diagram](images/4-frontend-application_diagram_1.png)
-```
 
 **Sources:** [frontend/package.json1-98](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/package.json#L1-L98) [frontend/app/page.tsx1-60](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/app/page.tsx#L1-L60) [frontend/components/navbar.tsx1-398](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/components/navbar.tsx#L1-L398) [frontend/lib/navigation.ts1-109](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/frontend/lib/navigation.ts#L1-L109)
 
@@ -265,7 +264,6 @@ This pattern enables:
 
 The frontend integrates PostHog for product analytics:
 
-```
 ![Architecture Diagram](images/4-frontend-application_diagram_10.png)
 
 PostHog requests are proxied through the Next.js server to avoid ad blockers and CORS issues. Static assets are served from `/ph/static/*` and API requests from `/ph/*`.

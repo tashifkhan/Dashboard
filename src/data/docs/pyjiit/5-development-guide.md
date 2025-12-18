@@ -2,7 +2,7 @@
 
 This guide is intended for developers who want to contribute to pyjiit or understand its internal implementation. It covers the development environment setup, project structure, build system, and development workflows.
 
-For information about using pyjiit as a library, see [Getting Started](/codelif/pyjiit/2-getting-started). For details about the documentation system, see [Documentation System](/codelif/pyjiit/6-documentation-system). For CI/CD workflows, see [Deployment and CI/CD](/codelif/pyjiit/7-deployment-and-cicd).
+For information about using pyjiit as a library, see [Getting Started](2-getting-started). For details about the documentation system, see [Documentation System](6-documentation-system). For CI/CD workflows, see [Deployment and CI/CD](7-deployment-and-cicd).
 
 ---
 
@@ -67,7 +67,6 @@ poetry run python -c "from pyjiit import Webportal; print('Success')"
 The following diagram shows how different components of the development environment interact:
 
 ![Architecture Diagram](images/5-development-guide_diagram_1.png)
-```
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock#L1-L1054) [.gitignore1-166](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore#L1-L166)
 
@@ -77,7 +76,7 @@ The following diagram shows how different components of the development environm
 
 ![Architecture Diagram](images/5-development-guide_diagram_2.png)
 
-For detailed information about each directory and file, see [Project Structure](/codelif/pyjiit/5.1-project-structure).
+For detailed information about each directory and file, see [Project Structure](5.1-project-structure).
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [.gitignore1-166](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore#L1-L166) [LICENSE1-22](https://github.com/codelif/pyjiit/blob/0fe02955/LICENSE#L1-L22)
 
@@ -155,7 +154,7 @@ The [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.l
 
 This ensures **reproducible builds** across different environments and time periods.
 
-For detailed dependency management workflows, see [Build System and Dependencies](/codelif/pyjiit/5.2-build-system-and-dependencies).
+For detailed dependency management workflows, see [Build System and Dependencies](5.2-build-system-and-dependencies).
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock#L1-L1054)
 
@@ -223,10 +222,9 @@ poetry version major   # 0.1.0 -> 1.0.0
 
 ## Development Workflow Lifecycle
 
-```
 ![Architecture Diagram](images/5-development-guide_diagram_4.png)
 
-For detailed testing workflows, see [Testing and Development Workflow](/codelif/pyjiit/5.3-testing-and-development-workflow). For CI/CD details, see [GitHub Actions Workflows](/codelif/pyjiit/7.2-github-actions-workflows).
+For detailed testing workflows, see [Testing and Development Workflow](5.3-testing-and-development-workflow). For CI/CD details, see [GitHub Actions Workflows](7.2-github-actions-workflows).
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [.gitignore1-166](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore#L1-L166)
 
@@ -268,10 +266,10 @@ The [.gitignore1-166](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore
 
 ## Next Steps
 
-* **[Project Structure](/codelif/pyjiit/5.1-project-structure)** - Detailed directory layout and module organization
-* **[Build System and Dependencies](/codelif/pyjiit/5.2-build-system-and-dependencies)** - Deep dive into Poetry usage and dependency management
-* **[Testing and Development Workflow](/codelif/pyjiit/5.3-testing-and-development-workflow)** - How to test, debug, and contribute new features
+* **[Project Structure](5.1-project-structure)** - Detailed directory layout and module organization
+* **[Build System and Dependencies](5.2-build-system-and-dependencies)** - Deep dive into Poetry usage and dependency management
+* **[Testing and Development Workflow](5.3-testing-and-development-workflow)** - How to test, debug, and contribute new features
 
-For setting up documentation builds locally, see [Building Documentation](/codelif/pyjiit/6.1-building-documentation). For understanding how releases are published, see [Publishing to PyPI](/codelif/pyjiit/7.1-publishing-to-pypi).
+For setting up documentation builds locally, see [Building Documentation](6.1-building-documentation). For understanding how releases are published, see [Publishing to PyPI](7.1-publishing-to-pypi).
 
 **Sources:** [pyproject.toml1-28](https://github.com/codelif/pyjiit/blob/0fe02955/pyproject.toml#L1-L28) [poetry.lock1-1054](https://github.com/codelif/pyjiit/blob/0fe02955/poetry.lock#L1-L1054) [pyjiit/exceptions.py1-19](https://github.com/codelif/pyjiit/blob/0fe02955/pyjiit/exceptions.py#L1-L19) [.gitignore1-166](https://github.com/codelif/pyjiit/blob/0fe02955/.gitignore#L1-L166)

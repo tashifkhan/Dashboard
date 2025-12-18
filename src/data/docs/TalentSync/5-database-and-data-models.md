@@ -4,7 +4,7 @@
 
 This document describes the PostgreSQL database schema, Prisma ORM integration, and data models used throughout the TalentSync platform. It covers the database tables, their relationships, field definitions, and validation strategies employed on both the frontend (Prisma) and backend (Pydantic).
 
-For information about how data flows through the system during specific operations, see [Data Flow Patterns](/harleenkaur28/AI-Resume-Parser/2.3-data-flow-patterns). For details about the Prisma ORM configuration and migrations, see [Prisma Schema](/harleenkaur28/AI-Resume-Parser/5.1-prisma-schema).
+For information about how data flows through the system during specific operations, see [Data Flow Patterns](2.3-data-flow-patterns). For details about the Prisma ORM configuration and migrations, see [Prisma Schema](5.1-prisma-schema).
 
 ---
 
@@ -17,7 +17,6 @@ TalentSync uses **PostgreSQL 16** as its primary relational database, managed th
 The database connection is established through environment variables defined in the Docker Compose configuration:
 
 ![Architecture Diagram](images/5-database-and-data-models_diagram_1.png)
-```
 
 **Sources:** [docker-compose.yaml4-17](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml#L4-L17) [docker-compose.yaml28](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml#L28-L28) [docker-compose.yaml59](https://github.com/harleenkaur28/AI-Resume-Parser/blob/b2bbd83d/docker-compose.yaml#L59-L59)
 
@@ -382,7 +381,6 @@ This ensures the database has required reference data before the application sta
 
 ### Frontend → Database
 
-```
 ![Architecture Diagram](images/5-database-and-data-models_diagram_4.png)
 
 **Key Patterns:**

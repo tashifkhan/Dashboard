@@ -6,10 +6,10 @@ TalentSync is an AI-powered hiring intelligence platform that automates resume a
 
 For detailed information on specific subsystems:
 
-* Backend service implementation details, see [Backend Services](/harleenkaur28/AI-Resume-Parser/3-backend-services)
-* Frontend application structure, see [Frontend Application](/harleenkaur28/AI-Resume-Parser/4-frontend-application)
-* Database schema and data models, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models)
-* Deployment infrastructure, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure)
+* Backend service implementation details, see [Backend Services](3-backend-services)
+* Frontend application structure, see [Frontend Application](4-frontend-application)
+* Database schema and data models, see [Database & Data Models](5-database-and-data-models)
+* Deployment infrastructure, see [Deployment & Infrastructure](6-deployment-and-infrastructure)
 
 ---
 
@@ -147,7 +147,7 @@ The PostgreSQL database uses Prisma ORM for type-safe access. Key tables include
 * **Session**: NextAuth session management
 * **VerificationToken**: Email verification tokens
 
-For complete schema details, see [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models).
+For complete schema details, see [Database & Data Models](5-database-and-data-models).
 
 ---
 
@@ -172,7 +172,7 @@ GitHub Actions automatically deploys on push to `main` branch:
 3. Rebuild Docker images
 4. Restart containers with zero downtime
 
-For detailed deployment configuration, see [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure).
+For detailed deployment configuration, see [Deployment & Infrastructure](6-deployment-and-infrastructure).
 
 ---
 
@@ -215,7 +215,7 @@ Based on platform usage as displayed on landing pages:
 
 For detailed information on specific subsystems:
 
-* **Backend Implementation**: See [Backend Services](/harleenkaur28/AI-Resume-Parser/3-backend-services) for API endpoints, ML services, and agent architecture
-* **Frontend Features**: See [Frontend Application](/harleenkaur28/AI-Resume-Parser/4-frontend-application) for page structure, authentication, and UI components
-* **Data Layer**: See [Database & Data Models](/harleenkaur28/AI-Resume-Parser/5-database-and-data-models) for schema design and relationships
-* **Operations**: See [Deployment & Infrastructure](/harleenkaur28/AI-Resume-Parser/6-deployment-and-infrastructure) for Docker setup, CI/CD, and monitoring
+* **Backend Implementation**: See [Backend Services](3-backend-services) for API endpoints, ML services, and agent architecture
+* **Frontend Features**: See [Frontend Application](4-frontend-application) for page structure, authentication, and UI components
+* **Data Layer**: See [Database & Data Models](5-database-and-data-models) for schema design and relationships
+* **Operations**: See [Deployment & Infrastructure](6-deployment-and-infrastructure) for Docker setup, CI/CD, and monitoring

@@ -24,8 +24,6 @@ You can check if the daemon is running using the `--status` argument:
 
 ```bash
 python autologin.py --status
-```
-
 ![Daemon Status](images/status.png)
 
 ### Stopping the Daemon

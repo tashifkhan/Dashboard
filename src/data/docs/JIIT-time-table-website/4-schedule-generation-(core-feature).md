@@ -4,7 +4,7 @@
 
 This document describes the primary feature of the JIIT Timetable website: the personalized schedule generation pipeline. This process transforms user inputs (campus, year, batch, and elective selections) into a customized weekly timetable by executing Python parsing logic client-side via Pyodide WASM.
 
-For information about the user interface components that collect this input, see [Schedule Form & User Input](/tashifkhan/JIIT-time-table-website/4.1-schedule-form-and-user-input). For details on how Python modules parse and filter timetable data, see [Python Processing Pipeline](/tashifkhan/JIIT-time-table-website/4.2-python-processing-pipeline). For how the generated schedule is displayed and edited, see [Schedule Display & Editing](/tashifkhan/JIIT-time-table-website/4.3-schedule-display-and-editing).
+For information about the user interface components that collect this input, see [Schedule Form & User Input](4.1-schedule-form-and-user-input). For details on how Python modules parse and filter timetable data, see [Python Processing Pipeline](4.2-python-processing-pipeline). For how the generated schedule is displayed and edited, see [Schedule Display & Editing](4.3-schedule-display-and-editing).
 
 ---
 
@@ -15,7 +15,6 @@ The schedule generation process follows a client-side pipeline that eliminates t
 ### Schedule Generation Sequence
 
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_1.png)
-```
 
 **Sources:** [src/App.tsx115-229](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L229) [public/\_creator.py423-531](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L423-L531)
 
@@ -45,9 +44,7 @@ The `ScheduleForm` component collects four required inputs from users, with camp
 
 ### Input Fields and Validation
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_2.png)
-```
 
 **Sources:** [src/components/schedule-form.tsx364-399](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-form.tsx#L364-L399) [src/components/schedule-form.tsx507-588](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-form.tsx#L507-L588)
 
@@ -101,9 +98,7 @@ When `handleSubmit` is called, the `App` component determines which Python funct
 
 ### Function Selection Algorithm
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_3.png)
-```
 
 **Sources:** [src/App.tsx115-152](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L115-L152) [src/App.tsx154-229](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L154-L229)
 
@@ -251,9 +246,7 @@ The `process_timeslot` function converts timetable time strings into standardize
 
 ### Time Format Conversion
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_4.png)
-```
 
 **Sources:** [public/\_creator.py364-421](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L364-L421) [public/\_creator.py345-362](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/public/_creator.py#L345-L362)
 
@@ -362,9 +355,7 @@ interface YourTietable {
 
 The generated schedule is persisted in three locations:
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_5.png)
-```
 
 **Sources:** [src/App.tsx205-223](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L205-L223) [src/App.tsx84-95](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L84-L95) [src/App.tsx105-109](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L105-L109)
 
@@ -403,9 +394,7 @@ const [_selectedSubjects, setSelectedSubjects] = useQueryState(
 
 ### Conflict Resolution
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_6.png)
-```
 
 **Sources:** [src/App.tsx273-359](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L273-L359) [src/components/url-params-dialog.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/url-params-dialog.tsx) (referenced)
 
@@ -474,7 +463,6 @@ The schedule generation feature integrates with other system components:
 
 ### Downstream Consumers
 
-```
 ![Architecture Diagram](images/4-schedule-generation-(core-feature)_diagram_7.png)
 
 **Sources:** [src/App.tsx557-590](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/App.tsx#L557-L590) [src/components/schedule-display.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/components/schedule-display.tsx) (referenced), [src/pages/timeline.tsx](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/src/pages/timeline.tsx) (referenced)

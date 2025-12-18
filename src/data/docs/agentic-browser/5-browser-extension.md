@@ -4,18 +4,17 @@ The Browser Extension is a WXT-based TypeScript extension providing frontend bro
 
 The extension architecture consists of three main components:
 
-* **Frontend UI**: React-based sidepanel for user interaction (see [Extension Architecture Overview](/tashifkhan/agentic-browser/5.1-extension-architecture-overview))
-* **Background Script**: Message router and browser automation engine (see [Background Script and Message Handling](/tashifkhan/agentic-browser/5.2-background-script-and-message-handling) and [Browser Automation Tools](/tashifkhan/agentic-browser/5.3-browser-automation-tools))
-* **Backend Service**: Python Flask server for OAuth flows and Gemini API integration (see [Extension Backend Service](/tashifkhan/agentic-browser/5.4-extension-backend-service))
+* **Frontend UI**: React-based sidepanel for user interaction (see [Extension Architecture Overview](5.1-extension-architecture-overview))
+* **Background Script**: Message router and browser automation engine (see [Background Script and Message Handling](5.2-background-script-and-message-handling) and [Browser Automation Tools](5.3-browser-automation-tools))
+* **Backend Service**: Python Flask server for OAuth flows and Gemini API integration (see [Extension Backend Service](5.4-extension-backend-service))
 
-For information about the main Python backend API that can also be used independently, see [Python Backend API](/tashifkhan/agentic-browser/3-python-backend-api). For details on the agent intelligence system, see [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system).
+For information about the main Python backend API that can also be used independently, see [Python Backend API](3-python-backend-api). For details on the agent intelligence system, see [Agent Intelligence System](4-agent-intelligence-system).
 
 ## High-Level Architecture
 
 The extension implements a message-passing architecture where the React UI communicates with the background script, which orchestrates browser automation and external API calls.
 
 ![Architecture Diagram](images/5-browser-extension_diagram_1.png)
-```
 
 **Key Design Decisions:**
 
@@ -48,10 +47,10 @@ extension/
 
 | Entrypoint Type | File | Purpose |
 | --- | --- | --- |
-| Sidepanel | `sidepanel/AgentExecutor.tsx` | Main chat interface (see [Extension Architecture Overview](/tashifkhan/agentic-browser/5.1-extension-architecture-overview)) |
-| Background | `background.ts` | Message routing and 26+ browser tools (see [Background Script and Message Handling](/tashifkhan/agentic-browser/5.2-background-script-and-message-handling)) |
+| Sidepanel | `sidepanel/AgentExecutor.tsx` | Main chat interface (see [Extension Architecture Overview](5.1-extension-architecture-overview)) |
+| Background | `background.ts` | Message routing and 26+ browser tools (see [Background Script and Message Handling](5.2-background-script-and-message-handling)) |
 | Content Script | `content.ts` | DOM manipulation (injected on demand) |
-| Backend Service | `backend_service.py` | OAuth and Gemini API proxy (see [Extension Backend Service](/tashifkhan/agentic-browser/5.4-extension-backend-service)) |
+| Backend Service | `backend_service.py` | OAuth and Gemini API proxy (see [Extension Backend Service](5.4-extension-backend-service)) |
 
 **Sources:** [extension/entrypoints/background.ts1-50](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L1-L50) [extension/backend\_service.py1-50](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/backend_service.py#L1-L50)
 
@@ -69,7 +68,7 @@ The extension can call the main FastAPI server for agent operations. Connection 
 * `/api/genai/youtube` - YouTube analysis
 * `/api/genai/website` - Website analysis
 
-The `executeAgent()` utility at [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) handles request construction, credential injection, and response formatting. See [Extension Architecture Overview](/tashifkhan/agentic-browser/5.1-extension-architecture-overview) for details on the command system and request flow.
+The `executeAgent()` utility at [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) handles request construction, credential injection, and response formatting. See [Extension Architecture Overview](5.1-extension-architecture-overview) for details on the command system and request flow.
 
 ### Extension Flask Backend
 
@@ -141,7 +140,7 @@ The extension provides 26+ browser automation tools implemented in the backgroun
 
 * **EXECUTE\_SCRIPT**: Execute arbitrary JavaScript in page context
 
-All tools are implemented at [extension/entrypoints/background.ts893-1700](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L893-L1700) and use either `browser.scripting.executeScript()` for DOM operations or `browser.tabs.*` APIs for browser-level operations. See [Browser Automation Tools](/tashifkhan/agentic-browser/5.3-browser-automation-tools) for detailed implementation of each tool.
+All tools are implemented at [extension/entrypoints/background.ts893-1700](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L893-L1700) and use either `browser.scripting.executeScript()` for DOM operations or `browser.tabs.*` APIs for browser-level operations. See [Browser Automation Tools](5.3-browser-automation-tools) for detailed implementation of each tool.
 
 **Sources:** [extension/entrypoints/background.ts893-1026](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L893-L1026) [extension/entrypoints/background.ts1030-1700](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L1030-L1700)
 
@@ -157,7 +156,7 @@ User commands flow from the UI to external APIs:
 
 ![Architecture Diagram](images/5-browser-extension_diagram_2.png)
 
-The `executeAgent()` function at [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) handles credential injection, URL extraction, and payload construction. See [Extension Architecture Overview](/tashifkhan/agentic-browser/5.1-extension-architecture-overview) for detailed request flow.
+The `executeAgent()` function at [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) handles credential injection, URL extraction, and payload construction. See [Extension Architecture Overview](5.1-extension-architecture-overview) for detailed request flow.
 
 ### Internal Message Passing
 
@@ -165,10 +164,9 @@ Background script handles messages from UI and content scripts:
 
 **Title: Internal Extension Message Flow**
 
-```
 ![Architecture Diagram](images/5-browser-extension_diagram_3.png)
 
-The background script's message router at [extension/entrypoints/background.ts24-128](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L24-L128) supports 8 message types. See [Background Script and Message Handling](/tashifkhan/agentic-browser/5.2-background-script-and-message-handling) for complete message type documentation.
+The background script's message router at [extension/entrypoints/background.ts24-128](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L24-L128) supports 8 message types. See [Background Script and Message Handling](5.2-background-script-and-message-handling) for complete message type documentation.
 
 **Sources:** [extension/entrypoints/utils/executeAgent.ts17-127](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/utils/executeAgent.ts#L17-L127) [extension/entrypoints/background.ts24-128](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L24-L128) [extension/entrypoints/background.ts516-539](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/extension/entrypoints/background.ts#L516-L539)
 

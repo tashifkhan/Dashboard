@@ -4,7 +4,7 @@
 
 This document describes the documentation generation and deployment infrastructure for the jsjiit library. It covers how JSDoc is configured to extract API documentation from source code comments, how the `docs` npm script generates HTML documentation locally, and how the GitHub Actions workflow automatically builds and deploys versioned documentation to GitHub Pages on every push to the main branch.
 
-For information about the build system that creates distributable bundles, see [Build System](/codeblech/jsjiit/5.1-build-system). For package configuration details, see [Package Configuration](/codeblech/jsjiit/5.2-package-configuration).
+For information about the build system that creates distributable bundles, see [Build System](5.1-build-system). For package configuration details, see [Package Configuration](5.2-package-configuration).
 
 **Sources:** [package.json1-61](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L1-L61) [jsdoc.conf.json1-25](https://github.com/codeblech/jsjiit/blob/d123b782/jsdoc.conf.json#L1-L25) [.github/workflows/jsdoc-build.yaml1-28](https://github.com/codeblech/jsjiit/blob/d123b782/.github/workflows/jsdoc-build.yaml#L1-L28)
 
@@ -15,7 +15,6 @@ For information about the build system that creates distributable bundles, see [
 The jsjiit documentation system uses JSDoc as its core documentation generator. JSDoc extracts specially-formatted comments from JavaScript source files and transforms them into browsable HTML documentation. The system consists of three main components: the JSDoc tool configuration, local documentation generation via npm scripts, and automated deployment via GitHub Actions.
 
 ![Architecture Diagram](images/6-documentation-system_diagram_1.png)
-```
 
 **Diagram: Documentation System Architecture**
 
@@ -175,7 +174,6 @@ The workflow requires `contents: write` permission to push generated documentati
 
 ### Workflow Steps
 
-```
 ![Architecture Diagram](images/6-documentation-system_diagram_3.png)
 
 **Diagram: GitHub Actions Documentation Workflow**

@@ -4,11 +4,11 @@
 
 This document describes the high-level architecture of JPortal, including the technology stack, application structure, component organization, routing system, and key design patterns. For detailed information about specific subsystems, refer to:
 
-* Authentication flow and routing: [Application Structure & Authentication](/codeblech/jportal/3.1-application-structure-and-authentication)
-* State management patterns: [State Management Strategy](/codeblech/jportal/3.2-state-management-strategy)
-* Data access layer: [Data Layer & API Integration](/codeblech/jportal/3.3-data-layer-and-api-integration)
-* Theme infrastructure: [Theme System](/codeblech/jportal/3.4-theme-system)
-* Individual feature modules: [Feature Modules](/codeblech/jportal/4-feature-modules)
+* Authentication flow and routing: [Application Structure & Authentication](3.1-application-structure-and-authentication)
+* State management patterns: [State Management Strategy](3.2-state-management-strategy)
+* Data access layer: [Data Layer & API Integration](3.3-data-layer-and-api-integration)
+* Theme infrastructure: [Theme System](3.4-theme-system)
+* Individual feature modules: [Feature Modules](4-feature-modules)
 
 ## Technology Stack
 
@@ -37,7 +37,6 @@ JPortal is built as a single-page application (SPA) using modern web technologie
 The application bootstraps from `index.html`, which defines critical resources:
 
 ![Architecture Diagram](images/3-architecture-overview_diagram_1.png)
-```
 
 **Sources:** [index.html1-25](https://github.com/codeblech/jportal/blob/4df0fde4/index.html#L1-L25)
 
@@ -232,7 +231,6 @@ The `Header` component handles theme switching and logout. The `Navbar` provides
 
 ### Authentication Error Handling
 
-```
 ![Architecture Diagram](images/3-architecture-overview_diagram_15.png)
 
 **Error States:**

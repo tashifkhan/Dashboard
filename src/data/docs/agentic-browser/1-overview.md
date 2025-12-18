@@ -18,10 +18,10 @@ This document provides a high-level introduction to the **Agentic Browser** syst
 
 For detailed information about specific components:
 
-- Installation and setup procedures: see [Getting Started](/tashifkhan/agentic-browser/2-getting-started)
-- FastAPI backend implementation: see [Python Backend API](/tashifkhan/agentic-browser/3-python-backend-api)
-- AI agent architecture and reasoning: see [Agent Intelligence System](/tashifkhan/agentic-browser/4-agent-intelligence-system)
-- Browser extension implementation: see [Browser Extension](/tashifkhan/agentic-browser/5-browser-extension)
+- Installation and setup procedures: see [Getting Started](2-getting-started)
+- FastAPI backend implementation: see [Python Backend API](3-python-backend-api)
+- AI agent architecture and reasoning: see [Agent Intelligence System](4-agent-intelligence-system)
+- Browser extension implementation: see [Browser Extension](5-browser-extension)
 
 **Sources:** [README.md1-118](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L1-L118) [main.py1-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L1-L58) [pyproject.toml1-33](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L1-L33)
 

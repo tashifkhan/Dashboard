@@ -4,7 +4,7 @@
 
 This document explains the automated documentation system for pyjiit, including how documentation is generated, built, deployed, and maintained. It covers the Sphinx-based documentation infrastructure, the GitHub Actions automation pipeline, and the integration with Python source code through autodoc.
 
-For detailed information about building documentation locally and Sphinx configuration, see [Building Documentation](/codelif/pyjiit/6.1-building-documentation). For information about the automated deployment process to GitHub Pages, see [Documentation Deployment](/codelif/pyjiit/6.2-documentation-deployment). For guidelines on contributing to documentation, see [Contributing to Documentation](/codelif/pyjiit/6.3-contributing-to-documentation).
+For detailed information about building documentation locally and Sphinx configuration, see [Building Documentation](6.1-building-documentation). For information about the automated deployment process to GitHub Pages, see [Documentation Deployment](6.2-documentation-deployment). For guidelines on contributing to documentation, see [Contributing to Documentation](6.3-contributing-to-documentation).
 
 ---
 
@@ -31,7 +31,6 @@ The documentation system is organized as a separate subsystem from the core libr
 ### System Component Diagram
 
 ![Architecture Diagram](images/6-documentation-system_diagram_1.png)
-```
 
 **Sources:** [docs/conf.py1-49](https://github.com/codelif/pyjiit/blob/0fe02955/docs/conf.py#L1-L49) [.github/workflows/documentation.yml51-63](https://github.com/codelif/pyjiit/blob/0fe02955/.github/workflows/documentation.yml#L51-L63)
 

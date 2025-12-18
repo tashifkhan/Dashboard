@@ -6,11 +6,11 @@ This document describes the navigation system implementation, including the dual
 
 For information about specific page implementations, see the following pages:
 
-* Schedule creation interface: [Schedule Generation](/tashifkhan/JIIT-time-table-website/4-schedule-generation-(core-feature))
-* Timeline/calendar view: [Timeline View](/tashifkhan/JIIT-time-table-website/5-timeline-view)
-* Academic calendar features: [Academic Calendar](/tashifkhan/JIIT-time-table-website/6-academic-calendar)
-* Timetable comparison: [Compare Timetables](/tashifkhan/JIIT-time-table-website/7-compare-timetables)
-* Dining schedules: [Mess Menu](/tashifkhan/JIIT-time-table-website/8-mess-menu)
+* Schedule creation interface: [Schedule Generation](4-schedule-generation-(core-feature))
+* Timeline/calendar view: [Timeline View](5-timeline-view)
+* Academic calendar features: [Academic Calendar](6-academic-calendar)
+* Timetable comparison: [Compare Timetables](7-compare-timetables)
+* Dining schedules: [Mess Menu](8-mess-menu)
 
 ---
 
@@ -19,7 +19,6 @@ For information about specific page implementations, see the following pages:
 The application implements a dual-navigation pattern with distinct interfaces for desktop and mobile devices. Both navigation components share the same route configuration but render differently based on screen size.
 
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_1.png)
-```
 
 **Sources:** [website/components/navbar.tsx1-201](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/navbar.tsx#L1-L201) [website/components/mobile-navbar.tsx1-98](https://github.com/tashifkhan/JIIT-time-table-website/blob/0ffdedf5/website/components/mobile-navbar.tsx#L1-L98)
 
@@ -295,7 +294,6 @@ The navigation components are rendered at the application root level and persist
 
 ### Layout Integration Pattern
 
-```
 ![Architecture Diagram](images/10-navigation-and-mobile-experience_diagram_7.png)
 
 ### Z-Index Layering

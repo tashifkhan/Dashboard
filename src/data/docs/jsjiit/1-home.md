@@ -4,7 +4,7 @@
 
 This wiki documents **jsjiit**, a browser-compatible JavaScript library that provides programmatic access to the JIIT (Jaypee Institute of Information Technology) WebPortal. The library abstracts the complexity of portal authentication, encryption, and API communication, enabling developers to build web applications that interact with student data without manual portal navigation.
 
-This page provides an architectural overview of the jsjiit system, its core components, and data flow. For installation and usage instructions, see [Getting Started](/codeblech/jsjiit/2-getting-started). For detailed API documentation, see [API Reference](/codeblech/jsjiit/3-api-reference). For build system details, see [Build and Distribution](/codeblech/jsjiit/5-build-and-distribution).
+This page provides an architectural overview of the jsjiit system, its core components, and data flow. For installation and usage instructions, see [Getting Started](2-getting-started). For detailed API documentation, see [API Reference](3-api-reference). For build system details, see [Build and Distribution](5-build-and-distribution).
 
 **Sources:** [package.json1-62](https://github.com/codeblech/jsjiit/blob/d123b782/package.json#L1-L62) [README.md1-113](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L1-L113)
 
@@ -36,7 +36,6 @@ The jsjiit library follows a modular architecture where domain-specific modules 
 ### Module Organization
 
 ![Architecture Diagram](images/1-home_diagram_1.png)
-```
 
 **Diagram: Module dependency graph showing code entities and their relationships**
 
@@ -120,7 +119,6 @@ The library defines custom exception classes for granular error handling:
 
 jsjiit is packaged as an ES module and distributed through multiple channels:
 
-```
 ![Architecture Diagram](images/1-home_diagram_3.png)
 
 **Diagram: Package distribution pipeline showing concrete artifact names**
@@ -185,8 +183,8 @@ The repository structure separates source code (`src/`), build artifacts (`dist/
 
 ## Related Pages
 
-* For installation instructions and quick start guide, see [Getting Started](/codeblech/jsjiit/2-getting-started)
-* For complete API method documentation, see [API Reference](/codeblech/jsjiit/3-api-reference)
-* For build system details, see [Build System](/codeblech/jsjiit/5.1-build-system)
-* For architecture deep-dive, see [Architecture and Design](/codeblech/jsjiit/4-architecture-and-design)
-* For development workflow, see [Development Guide](/codeblech/jsjiit/7-development-guide)
+* For installation instructions and quick start guide, see [Getting Started](2-getting-started)
+* For complete API method documentation, see [API Reference](3-api-reference)
+* For build system details, see [Build System](5.1-build-system)
+* For architecture deep-dive, see [Architecture and Design](4-architecture-and-design)
+* For development workflow, see [Development Guide](7-development-guide)

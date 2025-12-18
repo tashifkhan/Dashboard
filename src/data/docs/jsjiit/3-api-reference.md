@@ -4,7 +4,7 @@
 
 This document provides comprehensive reference documentation for all public classes, methods, constants, and interfaces exposed by the jsjiit library. It serves as the authoritative guide to the library's API surface, detailing the types, signatures, and purposes of all exported constructs.
 
-For implementation details and internal architecture, see [Architecture and Design](/codeblech/jsjiit/4-architecture-and-design). For step-by-step usage examples, see [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide). For detailed information about specific API categories, refer to the subsections below.
+For implementation details and internal architecture, see [Architecture and Design](4-architecture-and-design). For step-by-step usage examples, see [Quick Start Guide](2.2-quick-start-guide). For detailed information about specific API categories, refer to the subsections below.
 
 **Sources:** [src/index.js1-32](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js#L1-L32)
 
@@ -45,7 +45,6 @@ The jsjiit library exports its entire public API through [src/index.js1-32](http
 The following diagram illustrates the relationship between the primary API classes and their dependencies:
 
 ![Architecture Diagram](images/3-api-reference_diagram_1.png)
-```
 
 **Sources:** [src/index.js1-32](https://github.com/codeblech/jsjiit/blob/d123b782/src/index.js#L1-L32) [src/wrapper.js75-719](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L75-L719)
 
@@ -90,12 +89,12 @@ The `WebPortal` class is the primary interface for all portal interactions. It p
 
 For detailed documentation of each method, see:
 
-* [Authentication and Session Management](/codeblech/jsjiit/3.2-authentication-and-session-management)
-* [Attendance Methods](/codeblech/jsjiit/3.3-attendance-methods)
-* [Registration and Subject Methods](/codeblech/jsjiit/3.4-registration-and-subject-methods)
-* [Exam and Schedule Methods](/codeblech/jsjiit/3.5-exam-and-schedule-methods)
-* [Academic Records Methods](/codeblech/jsjiit/3.6-academic-records-methods)
-* [Feedback and Account Methods](/codeblech/jsjiit/3.7-feedback-and-account-methods)
+* [Authentication and Session Management](3.2-authentication-and-session-management)
+* [Attendance Methods](3.3-attendance-methods)
+* [Registration and Subject Methods](3.4-registration-and-subject-methods)
+* [Exam and Schedule Methods](3.5-exam-and-schedule-methods)
+* [Academic Records Methods](3.6-academic-records-methods)
+* [Feedback and Account Methods](3.7-feedback-and-account-methods)
 
 **Sources:** [src/wrapper.js168-719](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L168-L719) [README.md19-96](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L19-L96)
 
@@ -140,7 +139,7 @@ The library provides typed data model classes to represent portal data structure
 
 ![Architecture Diagram](images/3-api-reference_diagram_3.png)
 
-For complete documentation of data model properties and methods, see [Data Models](/codeblech/jsjiit/3.9-data-models).
+For complete documentation of data model properties and methods, see [Data Models](3.9-data-models).
 
 **Sources:** [src/attendance.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/attendance.js) [src/registration.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/registration.js) [src/exam.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/exam.js)
 
@@ -165,7 +164,7 @@ The library provides a hierarchy of exception classes for different error scenar
 | `SessionExpired` | All authenticated methods | JWT token has expired (HTTP 401) |
 | `SessionError` | Session operations | Generic session-related errors |
 
-For detailed error handling strategies and examples, see [Error Handling](/codeblech/jsjiit/3.8-error-handling).
+For detailed error handling strategies and examples, see [Error Handling](3.8-error-handling).
 
 **Sources:** [src/exceptions.js](https://github.com/codeblech/jsjiit/blob/d123b782/src/exceptions.js) [src/wrapper.js97-157](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L97-L157) [src/wrapper.js679-719](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L679-L719)
 
@@ -209,7 +208,6 @@ Generates a `LocalName` header value required for all API requests. This functio
 
 The following diagram illustrates the typical request flow through the `WebPortal` class:
 
-```
 ![Architecture Diagram](images/3-api-reference_diagram_5.png)
 
 **Sources:** [src/wrapper.js97-157](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L97-L157) [src/wrapper.js679-719](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L679-L719)
@@ -326,7 +324,7 @@ The typical usage pattern for the jsjiit API follows this sequence:
 
 All authenticated methods return Promises and should be awaited. Errors should be caught and handled appropriately using try-catch blocks.
 
-For complete usage examples, see [Quick Start Guide](/codeblech/jsjiit/2.2-quick-start-guide).
+For complete usage examples, see [Quick Start Guide](2.2-quick-start-guide).
 
 **Sources:** [README.md21-96](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L21-L96) [src/wrapper.js75-81](https://github.com/codeblech/jsjiit/blob/d123b782/src/wrapper.js#L75-L81)
 
@@ -342,6 +340,6 @@ The current API version is **0.0.23** as defined in package.json. The library ta
 * **CDN (Production)**: `import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.min.esm.js'`
 * **CDN (Development)**: `import { WebPortal } from 'https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.esm.js'`
 
-For installation instructions, see [Installation](/codeblech/jsjiit/2.1-installation).
+For installation instructions, see [Installation](2.1-installation).
 
 **Sources:** [README.md23-28](https://github.com/codeblech/jsjiit/blob/d123b782/README.md#L23-L28) [package.json](https://github.com/codeblech/jsjiit/blob/d123b782/package.json)

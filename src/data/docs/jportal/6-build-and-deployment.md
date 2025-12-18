@@ -2,7 +2,7 @@
 
 This document covers the build pipeline, production optimization, Progressive Web App (PWA) configuration, and deployment process for JPortal. It explains how source code is transformed into production-ready assets and deployed to GitHub Pages.
 
-For detailed information about PWA-specific features like service workers, offline caching, and installation capabilities, see [PWA Configuration](/codeblech/jportal/6.1-pwa-configuration). For development commands, local testing, and contribution workflows, see [Development Workflow](/codeblech/jportal/6.2-development-workflow).
+For detailed information about PWA-specific features like service workers, offline caching, and installation capabilities, see [PWA Configuration](6.1-pwa-configuration). For development commands, local testing, and contribution workflows, see [Development Workflow](6.2-development-workflow).
 
 ---
 
@@ -31,7 +31,6 @@ JPortal uses **Vite** as its build tool, providing fast development server start
 ## Build Pipeline Flow
 
 ![Architecture Diagram](images/6-build-and-deployment_diagram_1.png)
-```
 
 **Sources:** [jportal/vite.config.ts9-99](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L9-L99) [jportal/package.json8-13](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L8-L13)
 
@@ -81,7 +80,7 @@ This sets the base URL for the deployed application on GitHub Pages. All asset p
 | --- | --- | --- |
 | `@vitejs/plugin-react` | React Fast Refresh and JSX transformation | Default configuration |
 | `vite-plugin-svgr` | Import SVGs as React components | Default configuration |
-| `vite-plugin-pwa` | PWA manifest and service worker generation | Extensive configuration (see [#6.1](/codeblech/jportal/6.1-pwa-configuration)) |
+| `vite-plugin-pwa` | PWA manifest and service worker generation | Extensive configuration (see [#6.1](6.1-pwa-configuration)) |
 
 **Sources:** [jportal/vite.config.ts14-74](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L14-L74)
 
@@ -168,7 +167,7 @@ The following assets are explicitly pre-cached for offline functionality:
 
 **Sources:** [jportal/vite.config.ts38-42](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L38-L42) [jportal/index.html17](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/index.html#L17-L17)
 
-For detailed PWA configuration including manifest structure and caching strategies, see [PWA Configuration](/codeblech/jportal/6.1-pwa-configuration).
+For detailed PWA configuration including manifest structure and caching strategies, see [PWA Configuration](6.1-pwa-configuration).
 
 ---
 
@@ -431,7 +430,6 @@ Typical build output characteristics:
 
 Key configuration files in the repository:
 
-```
 ![Architecture Diagram](images/6-build-and-deployment_diagram_4.png)
 
 **Sources:** [jportal/vite.config.ts1-100](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L1-L100) [jportal/package.json1-67](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L1-L67)

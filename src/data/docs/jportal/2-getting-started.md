@@ -2,7 +2,7 @@
 
 This document provides instructions for running JPortal locally for development, configuring the application, and deploying it. It covers installation of dependencies, environment configuration, development workflows, and building the Progressive Web App for production.
 
-For information about the overall architecture and design patterns, see [Architecture Overview](/codeblech/jportal/3-architecture-overview). For details about individual feature modules, see [Feature Modules](/codeblech/jportal/4-feature-modules).
+For information about the overall architecture and design patterns, see [Architecture Overview](3-architecture-overview). For details about individual feature modules, see [Feature Modules](4-feature-modules).
 
 ---
 
@@ -31,7 +31,6 @@ JPortal is deployed as a Progressive Web App and can be accessed immediately wit
 2. Login with your JIIT credentials (real mode) or use demo mode
 
 ![Architecture Diagram](images/2-getting-started_diagram_1.png)
-```
 
 **Diagram 1: Application Access Flow**
 
@@ -306,7 +305,6 @@ Key configuration for GitHub Pages:
 
 ## Development Workflow Summary
 
-```
 ![Architecture Diagram](images/2-getting-started_diagram_7.png)
 
 **Diagram 7: Complete Development Workflow**
@@ -358,10 +356,10 @@ jportal/
 
 After completing the setup:
 
-1. **Understand the Architecture** - See [Architecture Overview](/codeblech/jportal/3-architecture-overview) for system design patterns
-2. **Explore Feature Modules** - See [Feature Modules](/codeblech/jportal/4-feature-modules) for detailed component documentation
-3. **Learn the Theme System** - See [Theme System](/codeblech/jportal/3.4-theme-system) for customization options
-4. **Review State Management** - See [State Management Strategy](/codeblech/jportal/3.2-state-management-strategy) for data flow patterns
-5. **Study the Build Pipeline** - See [Build & Deployment](/codeblech/jportal/6-build-and-deployment) for advanced build configuration
+1. **Understand the Architecture** - See [Architecture Overview](3-architecture-overview) for system design patterns
+2. **Explore Feature Modules** - See [Feature Modules](4-feature-modules) for detailed component documentation
+3. **Learn the Theme System** - See [Theme System](3.4-theme-system) for customization options
+4. **Review State Management** - See [State Management Strategy](3.2-state-management-strategy) for data flow patterns
+5. **Study the Build Pipeline** - See [Build & Deployment](6-build-and-deployment) for advanced build configuration
 
 **Sources:** [README.md1-61](https://github.com/codeblech/jportal/blob/4df0fde4/README.md#L1-L61) [jportal/package.json1-66](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/package.json#L1-L66) [jportal/vite.config.ts1-99](https://github.com/codeblech/jportal/blob/4df0fde4/jportal/vite.config.ts#L1-L99)
