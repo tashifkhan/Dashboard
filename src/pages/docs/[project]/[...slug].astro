@@ -8,7 +8,16 @@ import {
 	type SidebarItem,
 } from "../../../utils/docs";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Menu, X, ChevronLeft } from "lucide-react";
+import {
+	ChevronRight,
+	Menu,
+	X,
+	ChevronLeft,
+	FileText,
+	Github,
+	ExternalLink,
+} from "lucide-react";
+import { allProjects, type Project } from "../../../data/projects";
 
 export async function getStaticPaths() {
 	const docs = getAllDocs();
@@ -18,6 +27,9 @@ export async function getStaticPaths() {
 const { project, slug, content, title } = Astro.props;
 const sidebar = getSidebar(project);
 const { prev, next } = getDocPagination(project, slug);
+
+// Find current project metadata
+const currentProject = allProjects.find((p) => p.slug === project);
 
 // Helper to check if a link is active
 const isActive = (itemSlug: string) => {
@@ -40,10 +52,52 @@ const isActive = (itemSlug: string) => {
 				<div
 					class="p-4 border-b border-border sticky top-0 bg-muted/10 z-10 backdrop-blur-sm"
 				>
-					<h2 class="font-semibold text-lg tracking-tight capitalize">
+					<h2
+						class="font-semibold text-lg tracking-tight capitalize flex items-center gap-2"
+					>
+						<FileText className="w-5 h-5 text-muted-foreground" />
 						{project.replace(/-/g, " ")}
 					</h2>
-					<p class="text-xs text-muted-foreground mt-1">Documentation</p>
+					<p class="text-xs text-muted-foreground mt-1 ml-7">Documentation</p>
+
+					<div class="flex gap-2 mt-4">
+						{
+							currentProject?.live_website_url && (
+								<Button
+									size="sm"
+									variant="outline"
+									className="flex-1 h-8 text-xs"
+									asChild
+								>
+									<a
+										href={currentProject.live_website_url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<ExternalLink className="w-3 h-3 mr-2" />
+										Live Demo
+									</a>
+								</Button>
+							)
+						}
+						<Button
+							size="sm"
+							variant="outline"
+							className="flex-1 h-8 text-xs"
+							asChild
+						>
+							<a
+								href={currentProject?.github_link ||
+									`https://github.com/tashifkhan/${project}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex items-center gap-0.5"
+							>
+								<Github className="w-3 h-3 mr-2" />
+								GitHub
+							</a>
+						</Button>
+					</div>
 				</div>
 				<div class="flex-1 overflow-y-auto py-4">
 					<div class="px-4 space-y-1">
@@ -139,13 +193,56 @@ const isActive = (itemSlug: string) => {
 			id="mobile-sidebar"
 			class="fixed inset-y-0 left-0 z-50 h-full w-3/4 max-w-sm border-r border-border bg-background p-6 shadow-lg transition-transform duration-300 ease-in-out -translate-x-full lg:hidden data-[state=open]:translate-x-0"
 		>
-			<div class="flex items-center justify-between mb-6">
-				<h2 class="font-semibold text-lg tracking-tight capitalize">
-					{project.replace(/-/g, " ")}
-				</h2>
-				<Button variant="ghost" size="icon" id="close-sidebar">
-					<X className="h-4 w-4" />
-				</Button>
+			<div class="flex flex-col mb-6">
+				<div class="flex items-center justify-between mb-4">
+					<h2
+						class="font-semibold text-lg tracking-tight capitalize flex items-center gap-2"
+					>
+						<FileText className="w-5 h-5 text-muted-foreground" />
+						{project.replace(/-/g, " ")}
+					</h2>
+					<Button variant="ghost" size="icon" id="close-sidebar">
+						<X className="h-4 w-4" />
+					</Button>
+				</div>
+
+				<div class="flex gap-2">
+					{
+						currentProject?.live_website_url && (
+							<Button
+								size="sm"
+								variant="outline"
+								className="flex-1 h-8 text-xs"
+								asChild
+							>
+								<a
+									href={currentProject.live_website_url}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<ExternalLink className="w-3 h-3 mr-2" />
+									Live
+								</a>
+							</Button>
+						)
+					}
+					<Button
+						size="sm"
+						variant="outline"
+						className="flex-1 h-8 text-xs"
+						asChild
+					>
+						<a
+							href={currentProject?.github_link ||
+								`https://github.com/tashifkhan/${project}`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<Github className="w-3 h-3 mr-2" />
+							GitHub
+						</a>
+					</Button>
+				</div>
 			</div>
 			<div class="h-[calc(100vh-8rem)] overflow-y-auto">
 				<div class="space-y-1">
