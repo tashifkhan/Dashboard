@@ -46,43 +46,37 @@ The system is designed around two key architectural principles:
 
 ![Architecture Diagram](images/1-overview_diagram_1.png)
 
-```
-
 **Diagram: Entry Point Architecture**
 
 The application entry point is defined in [main.py11-57](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L11-L57) with the following execution paths:
 
-| Mode | Invocation | Function Called | Purpose |
-| --- | --- | --- | --- |
-| API Server | `python main.py --api` | `api.run.run()` | Starts FastAPI server with REST endpoints |
-| MCP Server | `python main.py --mcp` | `mcp_server.server.run()` | Starts Model Context Protocol server |
-| Interactive | `python main.py` | User prompted | Prompts user to select mode |
-| Default Non-Interactive | `python main.py --yes` | `api.run.run()` | Defaults to API mode |
+| Mode                    | Invocation             | Function Called           | Purpose                                   |
+| ----------------------- | ---------------------- | ------------------------- | ----------------------------------------- |
+| API Server              | `python main.py --api` | `api.run.run()`           | Starts FastAPI server with REST endpoints |
+| MCP Server              | `python main.py --mcp` | `mcp_server.server.run()` | Starts Model Context Protocol server      |
+| Interactive             | `python main.py`       | User prompted             | Prompts user to select mode               |
+| Default Non-Interactive | `python main.py --yes` | `api.run.run()`           | Defaults to API mode                      |
 
 **Sources:** [main.py11-57](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L11-L57) [pyproject.toml30-32](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L30-L32)
 
 ## Core Dependencies and Technology Stack
 
-```
-
 ![Architecture Diagram](images/1-overview_diagram_2.png)
-
-```
 
 **Diagram: Dependency Graph by Category**
 
 The system is built on the following technology stack:
 
-| Category | Technologies | Purpose |
-| --- | --- | --- |
-| **Agent Orchestration** | LangChain, LangGraph | Multi-step reasoning, tool orchestration, state management |
-| **LLM Providers** | langchain-google-genai, langchain-openai, langchain-anthropic, langchain-ollama | Model-agnostic LLM access |
-| **Web Framework** | FastAPI, Uvicorn, Pydantic | REST API server, request validation |
-| **Search & Retrieval** | langchain-tavily, googlesearch-python | Web search integration |
-| **Content Extraction** | BeautifulSoup4, html2text, gitingest | HTML parsing, repository crawling |
-| **Media Processing** | yt-dlp, faster-whisper | YouTube subtitle/transcript extraction |
-| **Protocol** | mcp | Model Context Protocol compliance |
-| **Security** | pycryptodome, python-dotenv | Encryption, environment variable management |
+| Category                | Technologies                                                                    | Purpose                                                    |
+| ----------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Agent Orchestration** | LangChain, LangGraph                                                            | Multi-step reasoning, tool orchestration, state management |
+| **LLM Providers**       | langchain-google-genai, langchain-openai, langchain-anthropic, langchain-ollama | Model-agnostic LLM access                                  |
+| **Web Framework**       | FastAPI, Uvicorn, Pydantic                                                      | REST API server, request validation                        |
+| **Search & Retrieval**  | langchain-tavily, googlesearch-python                                           | Web search integration                                     |
+| **Content Extraction**  | BeautifulSoup4, html2text, gitingest                                            | HTML parsing, repository crawling                          |
+| **Media Processing**    | yt-dlp, faster-whisper                                                          | YouTube subtitle/transcript extraction                     |
+| **Protocol**            | mcp                                                                             | Model Context Protocol compliance                          |
+| **Security**            | pycryptodome, python-dotenv                                                     | Encryption, environment variable management                |
 
 **Sources:** [pyproject.toml7-28](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L7-L28) [uv.lock10-58](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/uv.lock#L10-L58)
 
@@ -92,9 +86,9 @@ The system is built on the following technology stack:
 
 When launched with `--api`, the system starts a FastAPI application that exposes HTTP endpoints for:
 
-* **Service Integration Routers**: GitHub repository analysis, YouTube video processing, website content extraction, Gmail operations, Google Calendar management, PyJIIT webportal access
-* **Agent Routers**: React Agent for conversational AI with tool use, Browser Use Agent for script generation
-* **Utility Routers**: Health monitoring, website validation for prompt injection detection
+- **Service Integration Routers**: GitHub repository analysis, YouTube video processing, website content extraction, Gmail operations, Google Calendar management, PyJIIT webportal access
+- **Agent Routers**: React Agent for conversational AI with tool use, Browser Use Agent for script generation
+- **Utility Routers**: Health monitoring, website validation for prompt injection detection
 
 The API server listens on the host and port defined in environment variables `BACKEND_HOST` and `BACKEND_PORT` (defaults: `0.0.0.0:5454`).
 
@@ -107,8 +101,6 @@ When launched with `--mcp`, the system starts a Model Context Protocol server th
 **Sources:** [main.py43-44](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/main.py#L43-L44) [README.md29](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/README.md#L29-L29) [pyproject.toml20](https://github.com/tashifkhan/agentic-browser/blob/e94826c4/pyproject.toml#L20-L20)
 
 ## Core Capabilities
-
-```
 
 ![Architecture Diagram](images/1-overview_diagram_3.png)
 

@@ -1,5 +1,8 @@
-import { slugify } from "../utils/slugify";
 import { formatTitle } from "../utils/formatTitle";
+import { getProjectEntry } from "../utils/docs";
+import { slugify } from "../utils/slugify";
+import fs from 'fs';
+import path from 'path';
 
 export interface Project {
 	title: string;
@@ -13,6 +16,7 @@ export interface Project {
 	pinned?: boolean;
 	stars?: number;
 	forks?: number;
+    docs_slug?: string | null;
 }
 
 async function fetchPinnedProjects(first = 6): Promise<Project[]> {
@@ -116,6 +120,7 @@ async function fetchAllProjects(): Promise<Project[]> {
 			pinned: isPinned,
 			stars,
 			forks,
+            docs_slug: getProjectEntry(slugify(project.title))
 		};
 	});
 

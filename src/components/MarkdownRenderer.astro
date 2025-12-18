@@ -1,7 +1,7 @@
 ---
 import { renderMarkdownToHtml } from "../lib/renderMarkdown";
 
-const { content, githubBaseUrl } = Astro.props;
+const { content, githubBaseUrl, project } = Astro.props;
 
 let html = "";
 
@@ -12,6 +12,7 @@ function convertRelativeUrl(url: string): string {
 	// Convert GitHub URL to raw.githubusercontent.com for images
 	let baseUrl = githubBaseUrl;
 	if (
+		baseUrl &&
 		baseUrl.includes("github.com") &&
 		!baseUrl.includes("raw.githubusercontent.com")
 	) {
@@ -20,14 +21,24 @@ function convertRelativeUrl(url: string): string {
 	}
 
 	let convertedUrl = url;
+
+	// Check if it's a local image path that we've moved to public/docs-assets
+	if (
+		Astro.props.project &&
+		(url.startsWith("images/") || url.startsWith("./images/"))
+	) {
+		const imagePath = url.replace(/^\.\//, ""); // Remove ./ if present
+		return `/docs-assets/${Astro.props.project}/${imagePath}`;
+	}
+
 	if (url.startsWith("./")) {
-		convertedUrl = baseUrl + "/" + url.substring(2);
+		convertedUrl = baseUrl ? baseUrl + "/" + url.substring(2) : url;
 	} else if (url.startsWith("../")) {
-		convertedUrl = baseUrl + "/" + url.replace(/^\.\.\//, "");
+		convertedUrl = baseUrl ? baseUrl + "/" + url.replace(/^\.\.\//, "") : url;
 	} else if (url.startsWith("/")) {
-		convertedUrl = baseUrl + url;
+		convertedUrl = baseUrl ? baseUrl + url : url;
 	} else if (!url.includes("://") && !url.startsWith("#")) {
-		convertedUrl = baseUrl + "/" + url;
+		convertedUrl = baseUrl ? baseUrl + "/" + url : url;
 	}
 	return convertedUrl;
 }

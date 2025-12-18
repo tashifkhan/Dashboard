@@ -1213,6 +1213,25 @@ const socials = [
 			});
 		});
 
+		// Handle Docs link clicks
+		document.querySelectorAll("[data-docs-link]").forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				const url = (link as HTMLElement).getAttribute("data-url");
+				if (url) {
+					window.location.href = url;
+				}
+			});
+			link.addEventListener("keydown", (e) => {
+				const key = (e as KeyboardEvent).key;
+				if (key === "Enter" || key === " ") {
+					e.preventDefault();
+					(link as HTMLElement).click();
+				}
+			});
+		});
+
 		// Welcome banner minimal hide/restore (persisted)
 		const WELCOME_KEY = "welcome_hidden";
 		const welcomeBanner = document.getElementById("welcome-banner");
