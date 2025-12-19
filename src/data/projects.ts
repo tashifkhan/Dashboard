@@ -17,6 +17,7 @@ export interface Project {
 	stars?: number;
 	forks?: number;
     docs_slug?: string | null;
+    parentRepo?: string;
 }
 
 async function fetchPinnedProjects(first = 6): Promise<Project[]> {
@@ -95,18 +96,36 @@ async function fetchAllProjects(): Promise<Project[]> {
 	);
 
 	// Map repos -> Project objects
+    const FORK_MAPPINGS: Record<string, string> = {
+        "jsjiit": "codeblech",
+        "jportal": "codeblech",
+        "pyjiit": "codelif",
+    };
+
 	const repoProjects: Project[] = repos.map((project: any) => {
 		const titleFormatted = formatTitle(project.title);
 		const isPinned = pinnedNames.has(titleFormatted.toLowerCase());
+        const projectSlug = slugify(project.title);
+        
+        let parentRepo = FORK_MAPPINGS[projectSlug] || FORK_MAPPINGS[project.title.toLowerCase()] || undefined;
+
+		// Priority: Star map (parent if exists, else self) -> project.stars -> project.stargazers -> 0
+        let targetRepoForStars = parentRepo ? parentRepo.toLowerCase() : project.title.toLowerCase();
+		let stars = starMap.get(targetRepoForStars);
 		
-		// Priority: Star map -> project.stars -> project.stargazers -> 0
-		let stars = starMap.get(project.title.toLowerCase());
-		if (stars === undefined) {
-			stars =
-				project.stars ??
-				project.stargazers ??
-				project.stargazers_count ??
-				0;
+        if (stars === undefined) {
+             // Fallback if not in starMap (only for non-forks usually, as forks should use parent)
+             if (!parentRepo) {
+                stars =
+                    project.stars ??
+                    project.stargazers ??
+                    project.stargazers_count ??
+                    0;
+             } else {
+                 // If parent stars not found in map, maybe try to find parent in repos list? 
+                 // For now default to own stars or 0 if parent not found
+                 stars = project.stars ?? 0;
+             }
 		}
 
 		const forks = project.forks ?? project.forks_count ?? 0;
@@ -117,11 +136,12 @@ async function fetchAllProjects(): Promise<Project[]> {
 			live_website_url: project.live_website_url,
 			github_link: `https://github.com/tashifkhan/${project.title}`,
 			readme: project.readme,
-			slug: slugify(project.title),
+			slug: projectSlug,
 			pinned: isPinned,
 			stars,
 			forks,
-            docs_slug: getProjectEntry(slugify(project.title))
+            docs_slug: getProjectEntry(projectSlug),
+            parentRepo
 		};
 	});
 
