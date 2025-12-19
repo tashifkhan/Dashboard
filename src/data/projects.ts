@@ -21,40 +21,33 @@ export interface Project {
     isFork?: boolean;
 }
 
-async function fetchPinnedProjects(usernames: string[]): Promise<Project[]> {
-	const allPinned: Project[] = [];
-	
-	await Promise.all(usernames.map(async (username) => {
-		try {
-			const res = await fetch(
-				`https://github-stats.tashif.codes/${username}/pinned?first=6`
-			);
-			if (!res.ok) {
-				console.error(`Failed to fetch pinned projects for ${username}:`, res.status, res.statusText);
-				return;
-			}
-			const data = await res.json();
-			const projects = (data as any[]).map((p) => ({
-				title: formatTitle(p.name),
-				description: p.description || "No description available.",
-				languages: p.primary_language ? [p.primary_language] : [],
-				github_link: p.url,
-				readme: "", // Not provided by pinned endpoint
-				slug: slugify(p.name),
-				pinned: true,
-				stars: p.stars,
-				forks: p.forks,
-				docs_slug: getProjectEntry(slugify(p.name)),
-                // Store original owner for potential parent repo matching if needed
-                parentRepo: username !== 'tashifkhan' ? username : undefined 
-			}));
-            allPinned.push(...projects);
-		} catch (e) {
-			console.error(`Error fetching pinned projects for ${username}`, e);
+async function fetchPinnedProjects(first = 6): Promise<Project[]> {
+	try {
+        // Reverted to only fetching tashifkhan's pinned projects
+		const res = await fetch(
+			`https://github-stats.tashif.codes/tashifkhan/pinned?first=${first}`
+		);
+		if (!res.ok) {
+			console.error("Failed to fetch pinned projects:", res.status, res.statusText);
+			return [];
 		}
-	}));
-    
-    return allPinned;
+		const data = await res.json();
+		return (data as any[]).map((p) => ({
+			title: formatTitle(p.name),
+			description: p.description || "No description available.",
+			languages: p.primary_language ? [p.primary_language] : [],
+			github_link: p.url,
+			readme: "", // Not provided by pinned endpoint
+			slug: slugify(p.name),
+			pinned: true,
+			stars: p.stars,
+			forks: p.forks,
+			docs_slug: getProjectEntry(slugify(p.name))
+		}));
+	} catch (e) {
+		console.error("Error fetching pinned projects", e);
+		return [];
+	}
 }
 
 async function fetchAllProjects(): Promise<Project[]> {
@@ -72,34 +65,39 @@ async function fetchAllProjects(): Promise<Project[]> {
 		console.error("Error fetching repos", e);
 	}
 
-	// Fetch stars
+	// Fetch stars from multiple users to support parent repo star counts
 	const starMap = new Map<string, number>();
-	try {
-		const starsRes = await fetch(
-			"https://github-stats.tashif.codes/tashifkhan/stars"
-		);
-		if (starsRes.ok) {
-			const starsData = await starsRes.json();
-			if (starsData.repositories && Array.isArray(starsData.repositories)) {
-				starsData.repositories.forEach((repo: any) => {
-					// Map by name (lowercase for safety)
-					starMap.set(repo.name.toLowerCase(), repo.stars);
-					// Also map by full URL if needed, but name is usually enough
-				});
-			}
-		} else {
-			console.error(
-				"Failed to fetch stars:",
-				starsRes.status,
-				starsRes.statusText
-			);
-		}
-	} catch (e) {
-		console.error("Error fetching stars:", e);
-	}
+    // User requested "multiple stars api call" for these accounts
+    const starSources = ['tashifkhan', 'codeblech', 'codelif'];
+    
+	await Promise.all(starSources.map(async (user) => {
+        try {
+            const starsRes = await fetch(
+                `https://github-stats.tashif.codes/${user}/stars`
+            );
+            if (starsRes.ok) {
+                const starsData = await starsRes.json();
+                if (starsData.repositories && Array.isArray(starsData.repositories)) {
+                    starsData.repositories.forEach((repo: any) => {
+                        // Map by name (lowercase for safety)
+                        // This allows looking up 'jsjiit' and finding the star count from the 'codeblech' fetch
+                        starMap.set(repo.name.toLowerCase(), repo.stars);
+                    });
+                }
+            } else {
+                console.error(
+                    `Failed to fetch stars for ${user}:`,
+                    starsRes.status,
+                    starsRes.statusText
+                );
+            }
+        } catch (e) {
+            console.error(`Error fetching stars for ${user}:`, e);
+        }
+    }));
 
 	// Fetch pinned in parallel / earlier
-	const pinnedProjects = await fetchPinnedProjects(['tashifkhan', 'codeblech', 'codelif']);
+	const pinnedProjects = await fetchPinnedProjects();
 	const pinnedNames = new Set(
 		pinnedProjects.map((p) => p.title.toLowerCase().trim())
 	);
@@ -119,11 +117,10 @@ async function fetchAllProjects(): Promise<Project[]> {
         let parentRepo = FORK_MAPPINGS[projectSlug] || FORK_MAPPINGS[project.title.toLowerCase()] || undefined;
 
 		// Priority: Star map (parent if exists, else self) -> project.stars -> project.stargazers -> 0
-        let targetRepoForStars = parentRepo ? parentRepo.toLowerCase() : project.title.toLowerCase();
-		let stars = starMap.get(targetRepoForStars);
+		let stars = starMap.get(project.title.toLowerCase());
 		
         if (stars === undefined) {
-             // Fallback if not in starMap (only for non-forks usually, as forks should use parent)
+             // Fallback
              if (!parentRepo) {
                 stars =
                     project.stars ??
@@ -131,12 +128,7 @@ async function fetchAllProjects(): Promise<Project[]> {
                     project.stargazers_count ??
                     0;
              } else {
-                 // Try to find parent in pinned projects first (as they contain updated star counts)
-                 const parentPinned = pinnedProjects.find(p => 
-                    p.slug === projectSlug // Assuming slug matches repo name
-                 );
-                 
-                 stars = parentPinned?.stars ?? project.stars ?? 0;
+                 stars = project.stars ?? 0;
              }
 		}
 
@@ -158,19 +150,11 @@ async function fetchAllProjects(): Promise<Project[]> {
 		};
 	});
 
-	// Include any pinned projects from the main user (tashifkhan) that might be missing from the repos list
-    // OR if we strictly want only what's in repos + pinned(tashifkhan), we filter the pinnedProjects first.
-    // The external ones (codeblech, codelif) are ONLY for star stats.
+	// Include any pinned repos not in the user's own repo list
 	const existingSlugs = new Set(repoProjects.map((p) => p.slug));
 	for (const pinned of pinnedProjects) {
-        // Skip if this pinned project came from an external source (parentRepo was set to username in fetchPinnedProjects)
-        // We only want to display pinned projects from tashifkhan
-        if (pinned.parentRepo && pinned.parentRepo !== 'tashifkhan') continue;
-
 		if (!existingSlugs.has(pinned.slug)) {
-			// Try to update stars for pinned projects if available in starMap
-             // pinnedProjects might rely on the pinned API's star count, 
-             // but let's check our starMap too just in case it's fresher.
+            // Apply star updates to pinned projects too if available
             const freshStars = starMap.get(pinned.title.toLowerCase());
             if (freshStars !== undefined) {
                 pinned.stars = freshStars;
@@ -206,4 +190,3 @@ async function fetchAllProjects(): Promise<Project[]> {
 
 
 export const allProjects: Project[] = await fetchAllProjects();
-
