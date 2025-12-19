@@ -88,6 +88,35 @@ export interface GitHubStats {
 	orgContributions: OrgContribution[];
 }
 
+async function fetchExtraParentStars(): Promise<number> {
+    const mappings = [
+        { user: 'codeblech', repos: ['jsjiit', 'jportal'] },
+        { user: 'codelif', repos: ['pyjiit'] }
+    ];
+
+    let totalExtraStars = 0;
+
+    await Promise.all(mappings.map(async ({ user, repos }) => {
+        try {
+            const res = await fetch(`https://github-stats.tashif.codes/${user}/stars`);
+            if (res.ok) {
+                const data = await res.json();
+                if (data.repositories && Array.isArray(data.repositories)) {
+                    data.repositories.forEach((repo: any) => {
+                        if (repos.includes(repo.name.toLowerCase())) {
+                            totalExtraStars += repo.stars;
+                        }
+                    });
+                }
+            }
+        } catch (e) {
+            console.error(`Error fetching extra stars for ${user}:`, e);
+        }
+    }));
+
+    return totalExtraStars;
+}
+
 async function fetchGitHubStats(): Promise<GitHubStats> {
 	const endpoints = [
 		"https://github-stats.tashif.codes/tashifkhan/stats?exclude=HTML,CSS,Jupyter Notebook,SCSS",
@@ -99,6 +128,9 @@ async function fetchGitHubStats(): Promise<GitHubStats> {
 	];
 
 	try {
+        // Start fetching extra stars in parallel
+        const extraStarsPromise = fetchExtraParentStars();
+
 		const responses = await Promise.all(
 			endpoints.map(endpoint => fetch(endpoint))
 		);
@@ -113,6 +145,8 @@ async function fetchGitHubStats(): Promise<GitHubStats> {
 			})
 		);
 
+        const extraStars = await extraStarsPromise;
+
 		return {
 			stats: stats || {
 				status: "",
@@ -125,7 +159,10 @@ async function fetchGitHubStats(): Promise<GitHubStats> {
 				contributions: {}
 			},
 			prs: prs || [],
-			stars: stars || { total_stars: 0, repositories: [] },
+			stars: { 
+                total_stars: (stars?.total_stars || 0) + extraStars, 
+                repositories: stars?.repositories || [] 
+            },
 			commits: commits || [],
 			pulls: pulls || [],
 			orgContributions: orgContributions || []
