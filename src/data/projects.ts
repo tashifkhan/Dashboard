@@ -19,6 +19,14 @@ export interface Project {
     docs_slug?: string | null;
     parentRepo?: string;
     isFork?: boolean;
+    contributors?: Contributor[];
+}
+
+export interface Contributor {
+    login: string;
+    avatar_url: string;
+    html_url: string;
+    contributions: number;
 }
 
 async function fetchPinnedProjects(first = 6): Promise<Project[]> {
@@ -146,7 +154,8 @@ async function fetchAllProjects(): Promise<Project[]> {
 			forks,
             docs_slug: getProjectEntry(projectSlug),
             parentRepo,
-            isFork: project.fork
+            isFork: project.fork,
+            contributors: project.contributors
 		};
 	});
 

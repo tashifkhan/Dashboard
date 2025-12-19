@@ -12,6 +12,7 @@ import MarkdownRenderer from "../../components/MarkdownRenderer.astro";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
 const { project } = Astro.props as { project: Project };
 
@@ -91,6 +92,29 @@ export async function getStaticPaths() {
 						))
 					}
 				</div>
+
+				{
+					project.contributors && project.contributors.length > 1 && (
+						<div class="flex items-center gap-4 mb-6">
+							<span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+								Contributors
+							</span>
+							<div class="flex flex-row items-center justify-start">
+								<AnimatedTooltip
+									client:load
+									items={project.contributors.map((c) => ({
+										id: c.login === "tashifkhan" ? 1 : Math.random(), // Ensure stable ID for main user if needed, or just unique
+										name: c.login,
+										designation: `${c.contributions} contributions`,
+										image: c.avatar_url,
+										url: c.html_url,
+									}))}
+								/>
+							</div>
+						</div>
+					)
+				}
+
 				<div class="flex flex-row flex-wrap items-center gap-3 sm:gap-6">
 					{
 						project.live_website_url && (
