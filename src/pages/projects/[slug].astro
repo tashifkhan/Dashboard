@@ -62,15 +62,21 @@ export async function getStaticPaths() {
 				</p>
 				{
 					project.parentRepo && (
-						<div class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-6 -mt-4 bg-gray-100/50 dark:bg-gray-800/50 w-fit px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">
-							<GitFork className="w-4 h-4" />
-							<span>
-								Forked from{" "}
-								<strong class="font-medium text-gray-700 dark:text-gray-300">
-									{project.parentRepo}
-								</strong>
-							</span>
-						</div>
+						<a
+							href={`https://github.com/${project.parentRepo}`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<div class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-6 -mt-4 bg-gray-100/50 dark:bg-gray-800/50 w-fit px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">
+								<GitFork className="w-4 h-4" />
+								<span>
+									Forked from{" "}
+									<strong class="font-medium text-gray-700 dark:text-gray-300">
+										{project.parentRepo}
+									</strong>
+								</span>
+							</div>
+						</a>
 					)
 				}
 				<div class="flex flex-wrap gap-2 mb-6">

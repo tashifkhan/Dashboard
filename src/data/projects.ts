@@ -18,34 +18,43 @@ export interface Project {
 	forks?: number;
     docs_slug?: string | null;
     parentRepo?: string;
+    isFork?: boolean;
 }
 
-async function fetchPinnedProjects(first = 6): Promise<Project[]> {
-	try {
-		const res = await fetch(
-			`https://github-stats.tashif.codes/tashifkhan/pinned?first=${first}`
-		);
-		if (!res.ok) {
-			console.error("Failed to fetch pinned projects:", res.status, res.statusText);
-			return [];
+async function fetchPinnedProjects(usernames: string[]): Promise<Project[]> {
+	const allPinned: Project[] = [];
+	
+	await Promise.all(usernames.map(async (username) => {
+		try {
+			const res = await fetch(
+				`https://github-stats.tashif.codes/${username}/pinned?first=6`
+			);
+			if (!res.ok) {
+				console.error(`Failed to fetch pinned projects for ${username}:`, res.status, res.statusText);
+				return;
+			}
+			const data = await res.json();
+			const projects = (data as any[]).map((p) => ({
+				title: formatTitle(p.name),
+				description: p.description || "No description available.",
+				languages: p.primary_language ? [p.primary_language] : [],
+				github_link: p.url,
+				readme: "", // Not provided by pinned endpoint
+				slug: slugify(p.name),
+				pinned: true,
+				stars: p.stars,
+				forks: p.forks,
+				docs_slug: getProjectEntry(slugify(p.name)),
+                // Store original owner for potential parent repo matching if needed
+                parentRepo: username !== 'tashifkhan' ? username : undefined 
+			}));
+            allPinned.push(...projects);
+		} catch (e) {
+			console.error(`Error fetching pinned projects for ${username}`, e);
 		}
-		const data = await res.json();
-		return (data as any[]).map((p) => ({
-			title: formatTitle(p.name),
-			description: p.description || "No description available.",
-			languages: p.primary_language ? [p.primary_language] : [],
-			github_link: p.url,
-			readme: "", // Not provided by pinned endpoint
-			slug: slugify(p.name),
-			pinned: true,
-			stars: p.stars,
-			forks: p.forks,
-			docs_slug: getProjectEntry(slugify(p.name))
-		}));
-	} catch (e) {
-		console.error("Error fetching pinned projects", e);
-		return [];
-	}
+	}));
+    
+    return allPinned;
 }
 
 async function fetchAllProjects(): Promise<Project[]> {
@@ -90,7 +99,7 @@ async function fetchAllProjects(): Promise<Project[]> {
 	}
 
 	// Fetch pinned in parallel / earlier
-	const pinnedProjects = await fetchPinnedProjects();
+	const pinnedProjects = await fetchPinnedProjects(['tashifkhan', 'codeblech', 'codelif']);
 	const pinnedNames = new Set(
 		pinnedProjects.map((p) => p.title.toLowerCase().trim())
 	);
@@ -122,9 +131,12 @@ async function fetchAllProjects(): Promise<Project[]> {
                     project.stargazers_count ??
                     0;
              } else {
-                 // If parent stars not found in map, maybe try to find parent in repos list? 
-                 // For now default to own stars or 0 if parent not found
-                 stars = project.stars ?? 0;
+                 // Try to find parent in pinned projects first (as they contain updated star counts)
+                 const parentPinned = pinnedProjects.find(p => 
+                    p.slug === projectSlug // Assuming slug matches repo name
+                 );
+                 
+                 stars = parentPinned?.stars ?? project.stars ?? 0;
              }
 		}
 
@@ -141,13 +153,20 @@ async function fetchAllProjects(): Promise<Project[]> {
 			stars,
 			forks,
             docs_slug: getProjectEntry(projectSlug),
-            parentRepo
+            parentRepo,
+            isFork: project.fork
 		};
 	});
 
-	// Include any pinned repos not in the user's own repo list (e.g. collaborations)
+	// Include any pinned projects from the main user (tashifkhan) that might be missing from the repos list
+    // OR if we strictly want only what's in repos + pinned(tashifkhan), we filter the pinnedProjects first.
+    // The external ones (codeblech, codelif) are ONLY for star stats.
 	const existingSlugs = new Set(repoProjects.map((p) => p.slug));
 	for (const pinned of pinnedProjects) {
+        // Skip if this pinned project came from an external source (parentRepo was set to username in fetchPinnedProjects)
+        // We only want to display pinned projects from tashifkhan
+        if (pinned.parentRepo && pinned.parentRepo !== 'tashifkhan') continue;
+
 		if (!existingSlugs.has(pinned.slug)) {
 			// Try to update stars for pinned projects if available in starMap
              // pinnedProjects might rely on the pinned API's star count, 
@@ -173,7 +192,16 @@ async function fetchAllProjects(): Promise<Project[]> {
 		return 0; 
 	});
 
-	return repoProjects;
+	return repoProjects.filter((p) => {
+        // Always show pinned projects
+        if (p.pinned) return true;
+        
+        // Show if it's one of the special mapped forks
+        if (FORK_MAPPINGS[p.slug] || FORK_MAPPINGS[p.title.toLowerCase()]) return true;
+        
+        // Show if it is NOT a fork (source repo)
+        return !p.isFork;
+    });
 }
 
 
