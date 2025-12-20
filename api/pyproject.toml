@@ -1,9 +1,17 @@
 [project]
 name = "api"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "Multi-Project Analytics API - Unified Vercel + PostHog data"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.124.4",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "httpx>=0.28.0",
+    "pydantic>=2.10.0",
+    "python-dotenv>=1.0.0",
 ]
+
+[project.scripts]
+api = "main:main"
+
