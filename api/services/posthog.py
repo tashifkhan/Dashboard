@@ -1,0 +1,157 @@
+"""
+PostHog Service Layer
+
+Handles all interactions with the PostHog API using HogQL queries.
+Supports dynamic project ID for multi-project analytics.
+"""
+
+import os
+from datetime import datetime
+import httpx
+
+from models import StatEntry, TimeseriesEntry
+
+
+# PostHog API Configuration
+PH_API_KEY = os.getenv("POSTHOG_API_KEY", "")
+PH_BASE_URL = os.getenv("POSTHOG_BASE_URL", "https://us.posthog.com")
+
+# Field mapping for PostHog internal property names
+PH_FIELDS = {
+    "path": "properties.$pathname",
+    "device_type": "properties.$device_type",
+    "referrer": "properties.$referring_domain",
+    "os_name": "properties.$os",
+    "country": "properties.$geoip_country_code"
+}
+
+
+async def query_posthog(project_id: str, hogql: str) -> list:
+    """
+    Execute a HogQL query against a specific PostHog project.
+    
+    Args:
+        project_id: The PostHog project ID
+        hogql: The HogQL query string
+        
+    Returns:
+        List of result rows from the query
+    """
+    if not PH_API_KEY:
+        return []
+    
+    url = f"{PH_BASE_URL}/api/projects/{project_id}/query/"
+    headers = {"Authorization": f"Bearer {PH_API_KEY}"}
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(
+                url, 
+                headers=headers, 
+                json={"query": {"kind": "HogQLQuery", "query": hogql}},
+                timeout=20.0
+            )
+            response.raise_for_status()
+            return response.json().get("results", [])
+        except httpx.HTTPError as e:
+            print(f"PostHog API error: {e}")
+            return []
+
+
+async def fetch_timeseries(project_id: str, days: int = 30) -> list[TimeseriesEntry]:
+    """
+    Fetch timeseries pageview data from PostHog.
+    
+    Args:
+        project_id: The PostHog project ID
+        days: Number of days to look back
+        
+    Returns:
+        List of TimeseriesEntry objects
+    """
+    query = f"""
+        SELECT 
+            toStartOfDay(timestamp) as d, 
+            count() as pageviews, 
+            count(DISTINCT distinct_id) as visitors
+        FROM events 
+        WHERE event = '$pageview' 
+            AND timestamp > now() - INTERVAL {days} DAY
+        GROUP BY d 
+        ORDER BY d ASC
+    """
+    
+    results = await query_posthog(project_id, query)
+    
+    return [
+        TimeseriesEntry(
+            date=datetime.fromisoformat(row[0]) if isinstance(row[0], str) else row[0],
+            pageviews=row[1],
+            visitors=row[2],
+            bounce_rate=0.0  # PostHog doesn't provide bounce rate in the same way
+        )
+        for row in results
+    ]
+
+
+async def fetch_breakdown(project_id: str, field: str, days: int = 30, limit: int = 15) -> list[StatEntry]:
+    """
+    Fetch breakdown statistics for a specific field from PostHog.
+    
+    Args:
+        project_id: The PostHog project ID
+        field: The field to break down by (path, device_type, referrer, os_name, country)
+        days: Number of days to look back
+        limit: Maximum number of results to return
+        
+    Returns:
+        List of StatEntry objects
+    """
+    target = PH_FIELDS.get(field, "properties.$pathname")
+    
+    query = f"""
+        SELECT 
+            {target} as key,
+            count() as pageviews,
+            count(DISTINCT distinct_id) as visitors
+        FROM events 
+        WHERE event = '$pageview' 
+            AND timestamp > now() - INTERVAL {days} DAY
+            AND {target} IS NOT NULL
+        GROUP BY key 
+        ORDER BY pageviews DESC 
+        LIMIT {limit}
+    """
+    
+    results = await query_posthog(project_id, query)
+    
+    return [
+        StatEntry(
+            key=str(row[0]),
+            pageviews=row[1],
+            visitors=row[2]
+        )
+        for row in results
+    ]
+
+
+async def fetch_all_breakdowns(project_id: str, days: int = 30) -> dict[str, list[StatEntry]]:
+    """
+    Fetch all breakdown statistics in parallel.
+    
+    Args:
+        project_id: The PostHog project ID
+        days: Number of days to look back
+        
+    Returns:
+        Dictionary mapping field names to lists of StatEntry objects
+    """
+    import asyncio
+    
+    fields = ["path", "device_type", "referrer", "os_name", "country"]
+    
+    # Execute all breakdown queries in parallel
+    tasks = [fetch_breakdown(project_id, field, days) for field in fields]
+    results = await asyncio.gather(*tasks)
+    
+    return dict(zip(fields, results))
