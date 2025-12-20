@@ -16,6 +16,9 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
+# Load environment variables BEFORE importing modules that depend on them
+load_dotenv()
+
 from config import PROJECT_REGISTRY, get_project_config, list_available_projects
 from models import AllStats, Metadata, ProjectInfo, ProjectListResponse
 from services import (
@@ -26,9 +29,6 @@ from services import (
     merge_timeseries,
     merge_stats,
 )
-
-# Load environment variables
-load_dotenv()
 
 # --- APP SETUP ---
 app = FastAPI(
