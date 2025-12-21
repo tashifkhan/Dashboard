@@ -281,7 +281,7 @@ export default function ProjectStatsDashboard() {
 	const [stats, setStats] = useState<AllStats | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
-	const [period, setPeriod] = useState<string>("365");
+	const [period, setPeriod] = useState<string>("0");
 
 	const API_BASE = import.meta.env.PUBLIC_API_BASE;
 	// Fetch Projects List
@@ -342,11 +342,20 @@ export default function ProjectStatsDashboard() {
 			(acc, curr) => acc + curr.visitors,
 			0
 		);
-		// Simple average for bounce rate
+		// Calculate weighted average bounce rate based on pageviews
+		const entriesWithBounce = stats.timeseries.filter(
+			(entry) => entry.bounce_rate > 0 && entry.pageviews > 0
+		);
+		const totalPageviewsWithBounce = entriesWithBounce.reduce(
+			(acc, curr) => acc + curr.pageviews,
+			0
+		);
 		const bounce =
-			stats.timeseries.length > 0
-				? stats.timeseries.reduce((acc, curr) => acc + curr.bounce_rate, 0) /
-				  stats.timeseries.length
+			totalPageviewsWithBounce > 0
+				? entriesWithBounce.reduce(
+						(acc, curr) => acc + curr.bounce_rate * curr.pageviews,
+						0
+				  ) / totalPageviewsWithBounce
 				: 0;
 		return { views, visitors, bounce };
 	}, [stats]);
@@ -406,6 +415,7 @@ export default function ProjectStatsDashboard() {
 							<SelectItem value="30">Last 30 days</SelectItem>
 							<SelectItem value="90">Last 90 days</SelectItem>
 							<SelectItem value="365">Last 365 days</SelectItem>
+							<SelectItem value="0">Lifetime</SelectItem>
 						</SelectContent>
 					</Select>
 				</div>

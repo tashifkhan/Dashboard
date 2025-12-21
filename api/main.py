@@ -79,7 +79,10 @@ async def get_projects():
 async def get_project_stats(
     project_slug: str,
     days: int = Query(
-        default=30, ge=1, le=365, description="Number of days to fetch data for"
+        default=30,
+        ge=0,
+        le=3650,
+        description="Number of days to fetch data for (0 for lifetime)",
     ),
 ):
     """
@@ -110,18 +113,23 @@ async def get_project_stats(
     if vercel_data is None:
         vercel_data = get_empty_stats()
 
-    # Filter Vercel data to match the requested day range
-    filtered_vercel_timeseries = filter_timeseries_by_date(vercel_data.timeseries, days)
-    filtered_vercel_stats = filter_stats_by_date(vercel_data.stats, days)
+    # Filter Vercel data to match the requested day range (days=0 means lifetime/no filter)
+    filter_days = days if days > 0 else None
+    filtered_vercel_timeseries = filter_timeseries_by_date(
+        vercel_data.timeseries, filter_days
+    )
+    filtered_vercel_stats = filter_stats_by_date(vercel_data.stats, filter_days)
 
     # 2. Fetch PostHog data in parallel (if project has a PostHog ID configured)
     ph_timeseries = []
     ph_breakdowns = {}
 
     if ph_id:
+        # For lifetime (days=0), use a large value for PostHog queries
+        ph_days = days if days > 0 else 3650  # ~10 years for lifetime
         # Fetch timeseries and all breakdowns concurrently
-        ts_task = fetch_timeseries(ph_id, days)
-        breakdowns_task = fetch_all_breakdowns(ph_id, days)
+        ts_task = fetch_timeseries(ph_id, ph_days)
+        breakdowns_task = fetch_all_breakdowns(ph_id, ph_days)
 
         ph_timeseries, ph_breakdowns = await asyncio.gather(ts_task, breakdowns_task)
 
@@ -143,7 +151,10 @@ async def get_project_stats(
 async def get_project_timeseries(
     project_slug: str,
     days: int = Query(
-        default=30, ge=1, le=365, description="Number of days to fetch data for"
+        default=30,
+        ge=0,
+        le=3650,
+        description="Number of days to fetch data for (0 for lifetime)",
     ),
 ):
     """
@@ -160,16 +171,20 @@ async def get_project_timeseries(
     ph_id = config["ph_id"]
     vercel_file = config["vercel_file"]
 
-    # Load Vercel data and filter by days
+    # Load Vercel data and filter by days (days=0 means lifetime/no filter)
+    filter_days = days if days > 0 else None
     vercel_data = load_vercel_data(vercel_file)
     vercel_ts = (
-        filter_timeseries_by_date(vercel_data.timeseries, days) if vercel_data else []
+        filter_timeseries_by_date(vercel_data.timeseries, filter_days)
+        if vercel_data
+        else []
     )
 
     # Fetch PostHog timeseries
     ph_ts = []
     if ph_id:
-        ph_ts = await fetch_timeseries(ph_id, days)
+        ph_days = days if days > 0 else 3650  # ~10 years for lifetime
+        ph_ts = await fetch_timeseries(ph_id, ph_days)
 
     # Merge and return
     merged = merge_timeseries(vercel_ts, ph_ts)
