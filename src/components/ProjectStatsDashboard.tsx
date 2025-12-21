@@ -334,6 +334,13 @@ export default function ProjectStatsDashboard() {
 		fetchStats();
 	}, [selectedSlug, period]);
 
+	// Effect to reset period for jportal if > 90 days
+	useEffect(() => {
+		if (selectedSlug === "jportal" && (period === "365" || period === "0")) {
+			setPeriod("90");
+		}
+	}, [selectedSlug, period]);
+
 	// Derived metrics
 	const totals = useMemo(() => {
 		if (!stats) return { views: 0, visitors: 0, bounce: 0 };
@@ -417,8 +424,12 @@ export default function ProjectStatsDashboard() {
 							<SelectItem value="7">Last 7 days</SelectItem>
 							<SelectItem value="30">Last 30 days</SelectItem>
 							<SelectItem value="90">Last 90 days</SelectItem>
-							<SelectItem value="365">Last 365 days</SelectItem>
-							<SelectItem value="0">Lifetime</SelectItem>
+							{selectedSlug !== "jportal" && (
+								<>
+									<SelectItem value="365">Last 365 days</SelectItem>
+									<SelectItem value="0">Lifetime</SelectItem>
+								</>
+							)}
 						</SelectContent>
 					</Select>
 				</div>
