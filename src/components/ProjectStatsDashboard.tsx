@@ -144,25 +144,28 @@ const RechartsAreaChart = ({
 					<CartesianGrid
 						strokeDasharray="3 3"
 						vertical={false}
-						stroke="hsl(var(--border))"
-						opacity={0.4}
+						stroke="currentColor"
+						opacity={0.1}
+						className="text-muted-foreground"
 					/>
 					<XAxis
 						dataKey="formattedDate"
-						stroke="hsl(var(--muted-foreground))"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}
 						minTickGap={30}
-						tick={{ fill: "hsl(var(--foreground))" }} // Adaptive text color
+						stroke="currentColor"
+						tick={{ fill: "currentColor" }}
+						className="text-muted-foreground"
 					/>
 					<YAxis
-						stroke="hsl(var(--muted-foreground))"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}
 						tickFormatter={(value) => value.toLocaleString()}
-						tick={{ fill: "hsl(var(--foreground))" }} // Adaptive text color
+						stroke="currentColor"
+						tick={{ fill: "currentColor" }}
+						className="text-muted-foreground"
 					/>
 					<Tooltip
 						contentStyle={{
@@ -467,7 +470,7 @@ export default function ProjectStatsDashboard() {
 							title="Total Pageviews"
 							value={totals.views.toLocaleString()}
 							icon={Eye}
-							trend={`Last ${period} days`}
+							trend={period === "0" ? "Lifetime" : `Last ${period} days`}
 						/>
 						<MetricCard
 							title="Total Visitors"
@@ -477,7 +480,7 @@ export default function ProjectStatsDashboard() {
 						/>
 						<MetricCard
 							title="Avg. Bounce Rate"
-							value={`${(totals.bounce * 100).toFixed(1)}%`}
+							value={`${totals.bounce.toFixed(1)}%`}
 							icon={Activity}
 							trend={`Average`}
 						/>
@@ -515,12 +518,12 @@ export default function ProjectStatsDashboard() {
 											</p>
 										</div>
 										<div className="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full">
-											{period} Day Trend
+											{period === "0" ? "Lifetime" : `${period} Day Trend`}
 										</div>
 									</div>
 									<div className="w-full pt-4">
 										<RechartsAreaChart
-											data={stats.timeseries.slice(-parseInt(period))}
+											data={period === "0" ? stats.timeseries : stats.timeseries.slice(-parseInt(period))}
 											dataKey="pageviews"
 											color="#f97316"
 											height={280}
@@ -539,12 +542,12 @@ export default function ProjectStatsDashboard() {
 											</p>
 										</div>
 										<div className="bg-emerald-500/10 text-emerald-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
-											{period} Day Trend
+											{period === "0" ? "Lifetime" : `${period} Day Trend`}
 										</div>
 									</div>
 									<div className="w-full pt-4">
 										<RechartsAreaChart
-											data={stats.timeseries.slice(-parseInt(period))}
+											data={period === "0" ? stats.timeseries : stats.timeseries.slice(-parseInt(period))}
 											dataKey="visitors"
 											color="#10b981"
 											height={280}
