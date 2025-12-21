@@ -1,7 +1,7 @@
 """
 Project Registry Configuration
 
-This file maps project slugs to their respective PostHog Project IDs 
+This file maps project slugs to their respective PostHog Project IDs
 and local Vercel migration data files.
 
 To add a new project:
@@ -22,31 +22,36 @@ DATA_DIR = Path(__file__).parent / "data"
 # - vercel_file: Path to the Vercel migration JSON file
 # - display_name: Human-readable name for the dashboard
 PROJECT_REGISTRY = {
-    "portfolio": {
-        "ph_id": os.getenv("PH_PORTFOLIO_ID", ""),
-        "vercel_file": DATA_DIR / "portfolio.json",
-        "display_name": "Portfolio Website"
-    },
-    "blog": {
-        "ph_id": os.getenv("PH_BLOG_ID", ""),
-        "vercel_file": DATA_DIR / "blog.json",
-        "display_name": "Blog"
-    },
-    "dashboard": {
-        "ph_id": os.getenv("PH_DASHBOARD_ID", ""),
-        "vercel_file": DATA_DIR / "dashboard.json",
-        "display_name": "Dashboard"
+    "jiit-timetable-website": {
+        "ph_id": os.getenv("PH_JIIT_TIMETABLE_ID", ""),
+        "vercel_file": DATA_DIR / "jiit-timetable-website.json",
+        "display_name": "JIIT Timetable Website",
     },
     "jiit-campus-updates": {
         "ph_id": os.getenv("PH_JIIT_CAMPUS_UPDATES_ID", ""),
         "vercel_file": DATA_DIR / "jiit-campus-updates.json",
-        "display_name": "JIIT Campus Updates"
+        "display_name": "JIIT Campus Updates",
     },
-    "jiit-timetable-website": {
-        "ph_id": os.getenv("PH_JIIT_TIMETABLE_ID", ""),
-        "vercel_file": DATA_DIR / "jiit-timetable-website.json",
-        "display_name": "JIIT Timetable Website"
-    }
+    "talentsync": {
+        "ph_id": os.getenv("PH_TALENTSYNC_ID", ""),
+        "vercel_file": DATA_DIR / "talentsync.json",
+        "display_name": "TalentSync",
+    },
+    "dashboard": {
+        "ph_id": os.getenv("PH_DASHBOARD_ID", ""),
+        "vercel_file": DATA_DIR / "dashboard.json",
+        "display_name": "Dashboard",
+    },
+    "blog": {
+        "ph_id": os.getenv("PH_BLOG_ID", ""),
+        "vercel_file": DATA_DIR / "blog.json",
+        "display_name": "Blog",
+    },
+    "portfolio": {
+        "ph_id": os.getenv("PH_PORTFOLIO_ID", ""),
+        "vercel_file": DATA_DIR / "portfolio.json",
+        "display_name": "Portfolio Website",
+    },
 }
 
 
