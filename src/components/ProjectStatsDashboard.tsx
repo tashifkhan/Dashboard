@@ -235,21 +235,21 @@ const BreakdownList = ({
 	items: StatEntry[];
 	maxVal: number;
 }) => (
-	<GlassCard className="h-full flex flex-col">
+	<GlassCard className="h-[400px] flex flex-col">
 		<CardHeader className="pb-3">
 			<CardTitle className="text-sm font-medium flex items-center gap-2">
 				{title}
 			</CardTitle>
 		</CardHeader>
-		<CardContent className="space-y-3 flex-1 overflow-auto custom-scrollbar">
+		<CardContent className="space-y-3 flex-1 overflow-auto custom-scrollbar pr-2">
 			{items.length === 0 ? (
 				<div className="flex flex-col items-center justify-center h-20 text-muted-foreground text-xs text-center">
 					<Activity className="w-4 h-4 mb-1 opacity-20" />
 					No data available
 				</div>
 			) : (
-				items.slice(0, 6).map((item, i) => (
-					<div key={i} className="group flex flex-col space-y-1.5">
+				items.map((item, i) => (
+					<div key={i} className="group flex flex-col space-y-1.5 shrink-0">
 						<div className="flex justify-between text-xs sm:text-sm">
 							<span
 								className="truncate max-w-[70%] text-foreground/90 font-medium group-hover:text-primary transition-colors"
@@ -523,7 +523,11 @@ export default function ProjectStatsDashboard() {
 									</div>
 									<div className="w-full pt-4">
 										<RechartsAreaChart
-											data={period === "0" ? stats.timeseries : stats.timeseries.slice(-parseInt(period))}
+											data={
+												period === "0"
+													? stats.timeseries
+													: stats.timeseries.slice(-parseInt(period))
+											}
 											dataKey="pageviews"
 											color="#f97316"
 											height={280}
@@ -547,7 +551,11 @@ export default function ProjectStatsDashboard() {
 									</div>
 									<div className="w-full pt-4">
 										<RechartsAreaChart
-											data={period === "0" ? stats.timeseries : stats.timeseries.slice(-parseInt(period))}
+											data={
+												period === "0"
+													? stats.timeseries
+													: stats.timeseries.slice(-parseInt(period))
+											}
 											dataKey="visitors"
 											color="#10b981"
 											height={280}
