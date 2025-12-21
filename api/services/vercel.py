@@ -97,7 +97,7 @@ def filter_stats_by_date(stats: "Stats", days: int | None = None) -> "Stats":
     cutoff_date = (datetime.now(timezone.utc) - timedelta(days=days)).date()
 
     def filter_and_aggregate(entries: list[StatEntry]) -> list[StatEntry]:
-        """Filter entries by date and aggregate same keys."""
+        """Filter entries by date and aggregate same keys (case-insensitive)."""
         # Filter entries within date range
         filtered = [
             entry
@@ -105,16 +105,20 @@ def filter_stats_by_date(stats: "Stats", days: int | None = None) -> "Stats":
             if entry.migration_date is None or entry.migration_date >= cutoff_date
         ]
 
-        # Aggregate entries with the same key
+        # Aggregate entries with the same key (case-insensitive)
         aggregated: dict[str, StatEntry] = {}
         for entry in filtered:
-            if entry.key in aggregated:
-                aggregated[entry.key].pageviews += entry.pageviews
-                aggregated[entry.key].visitors += entry.visitors
+            # Normalize key to lowercase for case-insensitive matching
+            normalized_key = entry.key.lower() if entry.key else entry.key
+            if normalized_key in aggregated:
+                aggregated[normalized_key].pageviews += entry.pageviews
+                aggregated[normalized_key].visitors += entry.visitors
             else:
-                # Create a copy without migration_date for aggregated result
-                aggregated[entry.key] = StatEntry(
-                    key=entry.key, pageviews=entry.pageviews, visitors=entry.visitors
+                # Create a copy with normalized key
+                aggregated[normalized_key] = StatEntry(
+                    key=normalized_key,
+                    pageviews=entry.pageviews,
+                    visitors=entry.visitors,
                 )
 
         # Sort by pageviews descending
