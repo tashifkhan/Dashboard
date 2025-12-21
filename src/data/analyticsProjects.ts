@@ -32,6 +32,10 @@ export async function fetchAnalyticsProjects(): Promise<AnalyticsProject[]> {
 // Map project slugs to their analytics slugs (for renamed projects)
 const slugMapping: Record<string, string> = {
 	"jiit-placement-alerts": "jiit-campus-updates",
+    "jiit-time-table-website": "jiit-timetable-website",
+    "JIIT-Academic-Calender": "jiit-timetable-website",
+    "JIIT-time-table-parser": "jiit-timetable-website",
+    "TalentSync-HR-Dashboard": "talentsync",
 };
 
 export function getAnalyticsSlug(slug: string): string {
