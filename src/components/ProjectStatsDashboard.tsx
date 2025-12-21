@@ -115,7 +115,12 @@ const RechartsAreaChart = ({
 			</div>
 		);
 
-	const formattedData = data.map((d) => ({
+	// Filter data to start from the first non-zero entry
+	const firstNonZeroIndex = data.findIndex((d) => d[dataKey] > 0);
+	const filteredData =
+		firstNonZeroIndex === -1 ? data : data.slice(firstNonZeroIndex);
+
+	const formattedData = filteredData.map((d) => ({
 		...d,
 		formattedDate: new Date(d.date).toLocaleDateString(undefined, {
 			month: "short",
