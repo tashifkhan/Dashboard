@@ -14,10 +14,10 @@ from datetime import datetime, timezone
 def load_vercel_data(file_path: Path) -> AllStats | None:
     """
     Load Vercel migration data from a JSON file.
-    
+
     Args:
         file_path: Path to the JSON file
-        
+
     Returns:
         AllStats object or None if file doesn't exist
     """
@@ -35,41 +35,95 @@ def load_vercel_data(file_path: Path) -> AllStats | None:
 def get_empty_stats() -> AllStats:
     """
     Create an empty AllStats object for projects without migration data.
-    
+
     Returns:
         AllStats with empty timeseries and stats
     """
     return AllStats(
-        metadata=Metadata(
-            export_date=datetime.now(timezone.utc),
-            source="initialized"
-        ),
+        metadata=Metadata(export_date=datetime.now(timezone.utc), source="initialized"),
         timeseries=[],
-        stats=Stats()
+        stats=Stats(),
     )
 
 
 def filter_timeseries_by_date(
-    timeseries: list[TimeseriesEntry],
-    days: int | None = None
+    timeseries: list[TimeseriesEntry], days: int | None = None
 ) -> list[TimeseriesEntry]:
     """
     Filter timeseries entries to only include entries within the specified day range.
-    
+
     Args:
         timeseries: List of TimeseriesEntry objects
         days: Number of days to include (None for all)
-        
+
     Returns:
         Filtered list of TimeseriesEntry objects
     """
     if days is None:
         return timeseries
-    
-    cutoff = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-    cutoff = cutoff.replace(day=cutoff.day - days) if days > 0 else cutoff
-    
+
+    from datetime import timedelta
+
+    cutoff = datetime.now(timezone.utc).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    ) - timedelta(days=days)
+
     return [
-        entry for entry in timeseries
+        entry
+        for entry in timeseries
         if entry.date.replace(tzinfo=timezone.utc) >= cutoff
     ]
+
+
+def filter_stats_by_date(stats: "Stats", days: int | None = None) -> "Stats":
+    """
+    Filter stats entries to only include entries within the specified day range,
+    then aggregate entries with the same key.
+
+    Args:
+        stats: Stats object containing breakdown data
+        days: Number of days to include (None for all)
+
+    Returns:
+        Filtered Stats object with aggregated entries
+    """
+    from models import StatEntry
+
+    if days is None:
+        return stats
+
+    from datetime import timedelta
+
+    cutoff_date = (datetime.now(timezone.utc) - timedelta(days=days)).date()
+
+    def filter_and_aggregate(entries: list[StatEntry]) -> list[StatEntry]:
+        """Filter entries by date and aggregate same keys."""
+        # Filter entries within date range
+        filtered = [
+            entry
+            for entry in entries
+            if entry.migration_date is None or entry.migration_date >= cutoff_date
+        ]
+
+        # Aggregate entries with the same key
+        aggregated: dict[str, StatEntry] = {}
+        for entry in filtered:
+            if entry.key in aggregated:
+                aggregated[entry.key].pageviews += entry.pageviews
+                aggregated[entry.key].visitors += entry.visitors
+            else:
+                # Create a copy without migration_date for aggregated result
+                aggregated[entry.key] = StatEntry(
+                    key=entry.key, pageviews=entry.pageviews, visitors=entry.visitors
+                )
+
+        # Sort by pageviews descending
+        return sorted(aggregated.values(), key=lambda x: x.pageviews, reverse=True)
+
+    return Stats(
+        path=filter_and_aggregate(stats.path),
+        device_type=filter_and_aggregate(stats.device_type),
+        referrer=filter_and_aggregate(stats.referrer),
+        os_name=filter_and_aggregate(stats.os_name),
+        country=filter_and_aggregate(stats.country),
+    )

@@ -28,6 +28,8 @@ from services import (
     get_empty_stats,
     merge_timeseries,
     merge_stats,
+    filter_timeseries_by_date,
+    filter_stats_by_date,
 )
 
 # --- APP SETUP ---
@@ -49,13 +51,14 @@ app.add_middleware(
 
 # --- ENDPOINTS ---
 
+
 @app.get("/")
 async def root():
     """Health check endpoint."""
     return {
         "status": "ok",
         "message": "Multi-Project Analytics API",
-        "version": "1.0.0"
+        "version": "1.0.0",
     }
 
 
@@ -63,30 +66,31 @@ async def root():
 async def get_projects():
     """
     List all projects available on this dashboard.
-    
+
     Returns a list of projects with their slugs and display names.
     """
     projects = list_available_projects()
     return ProjectListResponse(
-        projects=[ProjectInfo(**p) for p in projects],
-        total=len(projects)
+        projects=[ProjectInfo(**p) for p in projects], total=len(projects)
     )
 
 
 @app.get("/api/v1/{project_slug}/stats", response_model=AllStats)
 async def get_project_stats(
     project_slug: str,
-    days: int = Query(default=30, ge=1, le=365, description="Number of days to fetch data for")
+    days: int = Query(
+        default=30, ge=1, le=365, description="Number of days to fetch data for"
+    ),
 ):
     """
     Get unified analytics stats for a specific project.
-    
+
     Combines Vercel migration data with live PostHog data.
-    
+
     Args:
         project_slug: The URL slug of the project (e.g., "portfolio", "blog")
         days: Number of days to look back (1-365, default: 30)
-        
+
     Returns:
         AllStats object containing merged timeseries and breakdown stats
     """
@@ -95,87 +99,91 @@ async def get_project_stats(
     if config is None:
         raise HTTPException(
             status_code=404,
-            detail=f"Project '{project_slug}' not found. Use /api/v1/projects to see available projects."
+            detail=f"Project '{project_slug}' not found. Use /api/v1/projects to see available projects.",
         )
-    
+
     ph_id = config["ph_id"]
     vercel_file = config["vercel_file"]
-    
-    # 1. Load Vercel migration data
+
+    # 1. Load Vercel migration data and filter by days
     vercel_data = load_vercel_data(vercel_file)
     if vercel_data is None:
         vercel_data = get_empty_stats()
-    
+
+    # Filter Vercel data to match the requested day range
+    filtered_vercel_timeseries = filter_timeseries_by_date(vercel_data.timeseries, days)
+    filtered_vercel_stats = filter_stats_by_date(vercel_data.stats, days)
+
     # 2. Fetch PostHog data in parallel (if project has a PostHog ID configured)
     ph_timeseries = []
     ph_breakdowns = {}
-    
+
     if ph_id:
         # Fetch timeseries and all breakdowns concurrently
         ts_task = fetch_timeseries(ph_id, days)
         breakdowns_task = fetch_all_breakdowns(ph_id, days)
-        
+
         ph_timeseries, ph_breakdowns = await asyncio.gather(ts_task, breakdowns_task)
-    
+
     # 3. Merge Vercel and PostHog data
-    merged_timeseries = merge_timeseries(vercel_data.timeseries, ph_timeseries)
-    merged_stats = merge_stats(vercel_data.stats, ph_breakdowns)
-    
+    merged_timeseries = merge_timeseries(filtered_vercel_timeseries, ph_timeseries)
+    merged_stats = merge_stats(filtered_vercel_stats, ph_breakdowns)
+
     # 4. Build unified response
     return AllStats(
         metadata=Metadata(
-            export_date=datetime.now(timezone.utc),
-            source=f"unified_{project_slug}"
+            export_date=datetime.now(timezone.utc), source=f"unified_{project_slug}"
         ),
         timeseries=merged_timeseries,
-        stats=merged_stats
+        stats=merged_stats,
     )
 
 
 @app.get("/api/v1/{project_slug}/timeseries")
 async def get_project_timeseries(
     project_slug: str,
-    days: int = Query(default=30, ge=1, le=365, description="Number of days to fetch data for")
+    days: int = Query(
+        default=30, ge=1, le=365, description="Number of days to fetch data for"
+    ),
 ):
     """
     Get only timeseries data for a specific project.
-    
+
     This is a lighter endpoint when you only need the time-based data.
     """
     config = get_project_config(project_slug)
     if config is None:
         raise HTTPException(
-            status_code=404,
-            detail=f"Project '{project_slug}' not found."
+            status_code=404, detail=f"Project '{project_slug}' not found."
         )
-    
+
     ph_id = config["ph_id"]
     vercel_file = config["vercel_file"]
-    
-    # Load Vercel data
+
+    # Load Vercel data and filter by days
     vercel_data = load_vercel_data(vercel_file)
-    vercel_ts = vercel_data.timeseries if vercel_data else []
-    
+    vercel_ts = (
+        filter_timeseries_by_date(vercel_data.timeseries, days) if vercel_data else []
+    )
+
     # Fetch PostHog timeseries
     ph_ts = []
     if ph_id:
         ph_ts = await fetch_timeseries(ph_id, days)
-    
+
     # Merge and return
     merged = merge_timeseries(vercel_ts, ph_ts)
-    
-    return {
-        "project": project_slug,
-        "days": days,
-        "timeseries": merged
-    }
+
+    return {"project": project_slug, "days": days, "timeseries": merged}
 
 
 # --- MAIN ENTRY POINT ---
 
+
 def main():
     """Run the API server (for development)."""
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
