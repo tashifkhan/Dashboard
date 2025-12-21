@@ -6,6 +6,10 @@ from .posthog import (
     fetch_breakdown,
     fetch_all_breakdowns,
 )
+from .cloudflare import (
+    fetch_cf_timeseries,
+    fetch_cf_all_breakdowns,
+)
 from .vercel import (
     load_vercel_data,
     get_empty_stats,
@@ -19,6 +23,8 @@ __all__ = [
     "fetch_timeseries",
     "fetch_breakdown",
     "fetch_all_breakdowns",
+    "fetch_cf_timeseries",
+    "fetch_cf_all_breakdowns",
     "load_vercel_data",
     "get_empty_stats",
     "filter_timeseries_by_date",

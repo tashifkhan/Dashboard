@@ -24,6 +24,8 @@ from models import AllStats, Metadata, ProjectInfo, ProjectListResponse
 from services import (
     fetch_timeseries,
     fetch_all_breakdowns,
+    fetch_cf_timeseries,
+    fetch_cf_all_breakdowns,
     load_vercel_data,
     get_empty_stats,
     merge_timeseries,
@@ -106,7 +108,9 @@ async def get_project_stats(
         )
 
     ph_id = config["ph_id"]
+    cf_site_tag = config.get("cf_site_tag", "")
     vercel_file = config["vercel_file"]
+    analytics_provider = config.get("analytics_provider", "posthog")
 
     # 1. Load Vercel migration data and filter by days
     vercel_data = load_vercel_data(vercel_file)
@@ -120,22 +124,31 @@ async def get_project_stats(
     )
     filtered_vercel_stats = filter_stats_by_date(vercel_data.stats, filter_days)
 
-    # 2. Fetch PostHog data in parallel (if project has a PostHog ID configured)
-    ph_timeseries = []
-    ph_breakdowns = {}
+    # 2. Fetch live analytics data based on provider
+    live_timeseries = []
+    live_breakdowns = {}
 
-    if ph_id:
-        # For lifetime (days=0), use a large value for PostHog queries
-        ph_days = days if days > 0 else 3650  # ~10 years for lifetime
-        # Fetch timeseries and all breakdowns concurrently
-        ts_task = fetch_timeseries(ph_id, ph_days)
-        breakdowns_task = fetch_all_breakdowns(ph_id, ph_days)
+    # For lifetime (days=0), use a large value for queries
+    query_days = days if days > 0 else 3650  # ~10 years for lifetime
 
-        ph_timeseries, ph_breakdowns = await asyncio.gather(ts_task, breakdowns_task)
+    if analytics_provider == "cloudflare" and cf_site_tag:
+        # Fetch from Cloudflare Web Analytics
+        ts_task = fetch_cf_timeseries(cf_site_tag, query_days)
+        breakdowns_task = fetch_cf_all_breakdowns(cf_site_tag, query_days)
+        live_timeseries, live_breakdowns = await asyncio.gather(
+            ts_task, breakdowns_task
+        )
+    elif ph_id:
+        # Fetch from PostHog
+        ts_task = fetch_timeseries(ph_id, query_days)
+        breakdowns_task = fetch_all_breakdowns(ph_id, query_days)
+        live_timeseries, live_breakdowns = await asyncio.gather(
+            ts_task, breakdowns_task
+        )
 
-    # 3. Merge Vercel and PostHog data
-    merged_timeseries = merge_timeseries(filtered_vercel_timeseries, ph_timeseries)
-    merged_stats = merge_stats(filtered_vercel_stats, ph_breakdowns)
+    # 3. Merge Vercel and live data
+    merged_timeseries = merge_timeseries(filtered_vercel_timeseries, live_timeseries)
+    merged_stats = merge_stats(filtered_vercel_stats, live_breakdowns)
 
     # 4. Build unified response
     return AllStats(
@@ -169,7 +182,9 @@ async def get_project_timeseries(
         )
 
     ph_id = config["ph_id"]
+    cf_site_tag = config.get("cf_site_tag", "")
     vercel_file = config["vercel_file"]
+    analytics_provider = config.get("analytics_provider", "posthog")
 
     # Load Vercel data and filter by days (days=0 means lifetime/no filter)
     filter_days = days if days > 0 else None
@@ -180,14 +195,17 @@ async def get_project_timeseries(
         else []
     )
 
-    # Fetch PostHog timeseries
-    ph_ts = []
-    if ph_id:
-        ph_days = days if days > 0 else 3650  # ~10 years for lifetime
-        ph_ts = await fetch_timeseries(ph_id, ph_days)
+    # Fetch live timeseries based on provider
+    live_ts = []
+    query_days = days if days > 0 else 3650  # ~10 years for lifetime
+
+    if analytics_provider == "cloudflare" and cf_site_tag:
+        live_ts = await fetch_cf_timeseries(cf_site_tag, query_days)
+    elif ph_id:
+        live_ts = await fetch_timeseries(ph_id, query_days)
 
     # Merge and return
-    merged = merge_timeseries(vercel_ts, ph_ts)
+    merged = merge_timeseries(vercel_ts, live_ts)
 
     return {"project": project_slug, "days": days, "timeseries": merged}
 

@@ -32,6 +32,13 @@ PROJECT_REGISTRY = {
         "vercel_file": DATA_DIR / "jiit-campus-updates.json",
         "display_name": "JIIT Campus Updates",
     },
+    "jportal": {
+        "ph_id": "",  # Uses Cloudflare instead
+        "cf_site_tag": os.getenv("CF_JPORTAL_SITE_TAG", ""),
+        "vercel_file": DATA_DIR / "jportal.json",
+        "display_name": "JPortal",
+        "analytics_provider": "cloudflare",
+    },
     "talentsync": {
         "ph_id": os.getenv("PH_TALENTSYNC_ID", ""),
         "vercel_file": DATA_DIR / "talentsync.json",
