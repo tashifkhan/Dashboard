@@ -283,8 +283,7 @@ export default function ProjectStatsDashboard() {
 	const [error, setError] = useState<string | null>(null);
 	const [period, setPeriod] = useState<string>("365");
 
-	const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
-
+	const API_BASE = import.meta.env.VITE_API_BASE;
 	// Fetch Projects List
 	useEffect(() => {
 		async function fetchProjects() {
