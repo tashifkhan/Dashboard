@@ -14,15 +14,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import {
-	BarChart,
-	Users,
-	Eye,
-	Activity,
-	Calendar,
-	ArrowUpRight,
-} from "lucide-react";
+import { Users, Eye, Activity, Calendar } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
@@ -292,6 +284,16 @@ export default function ProjectStatsDashboard() {
 	const [period, setPeriod] = useState<string>("0");
 
 	const API_BASE = import.meta.env.PUBLIC_API_BASE;
+
+	// Get initial project from URL parameter
+	const getInitialProject = () => {
+		if (typeof window !== "undefined") {
+			const params = new URLSearchParams(window.location.search);
+			return params.get("project") || "";
+		}
+		return "";
+	};
+
 	// Fetch Projects List
 	useEffect(() => {
 		async function fetchProjects() {
@@ -300,7 +302,12 @@ export default function ProjectStatsDashboard() {
 				if (!res.ok) throw new Error("Failed to fetch projects");
 				const data: ProjectListResponse = await res.json();
 				setProjects(data.projects);
-				if (data.projects.length > 0) {
+
+				// Check for URL parameter first
+				const urlProject = getInitialProject();
+				if (urlProject && data.projects.some(p => p.slug === urlProject)) {
+					setSelectedSlug(urlProject);
+				} else if (data.projects.length > 0) {
 					setSelectedSlug(data.projects[0].slug);
 				}
 			} catch (err) {
@@ -312,6 +319,15 @@ export default function ProjectStatsDashboard() {
 		}
 		fetchProjects();
 	}, []);
+
+	// Update URL when project changes
+	useEffect(() => {
+		if (selectedSlug && typeof window !== "undefined") {
+			const url = new URL(window.location.href);
+			url.searchParams.set("project", selectedSlug);
+			window.history.replaceState({}, "", url.toString());
+		}
+	}, [selectedSlug]);
 
 	// Fetch Stats when selection changes
 	useEffect(() => {

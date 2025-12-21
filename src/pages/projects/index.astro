@@ -2,9 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import ProjectFilters from "../../components/ProjectFilters.tsx";
 import { starLists } from "../../data/starLists";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, BarChart3 } from "lucide-react";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { allProjects, type Project } from "../../data/projects";
+import { Button } from "@/components/ui/button";
 
 const projects: Project[] = allProjects;
 ---
@@ -32,11 +33,24 @@ const projects: Project[] = allProjects;
 				>
 					<ArrowLeft className="w-4 h-4 mr-2" /> Home
 				</a>
-				<h1
-					class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-2"
-				>
-					Projects
-				</h1>
+				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+					<h1
+						class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+					>
+						Projects
+					</h1>
+					<Button
+						variant="outline"
+						size="sm"
+						className="h-9 gap-2 bg-blue-500/10 border-blue-500/30 hover:bg-blue-500/20 hover:border-blue-500/50 transition-colors"
+						asChild
+					>
+						<a href="/projects/stats" class="flex items-center gap-2">
+							<BarChart3 className="w-4 h-4" />
+							<span>View Analytics</span>
+						</a>
+					</Button>
+				</div>
 				<p
 					class="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl"
 				>
