@@ -35,14 +35,14 @@ const projects: Project[] = allProjects;
 				</a>
 				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
 					<h1
-						class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+						class="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
 					>
 						Projects
 					</h1>
 					<Button
 						variant="default"
 						size="sm"
-						className="w-full sm:w-auto h-10 sm:h-9 px-4 sm:px-5 gap-2 rounded-xl font-semibold tracking-wide bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30 hover:bg-blue-500/25 hover:border-blue-500/50 shadow-sm hover:shadow-blue-500/20 focus-visible:ring-2 focus-visible:ring-blue-500/40 transition-all"
+						className="w-full sm:w-auto h-10 sm:h-9 px-4 sm:px-5 gap-2 rounded-xl font-semibold tracking-wide bg-chart-1/15 text-chart-1 border border-chart-1/30 hover:bg-chart-1/25 hover:border-chart-1/50 shadow-sm hover:shadow-chart-1/20 focus-visible:ring-2 focus-visible:ring-chart-1/40 transition-all"
 						asChild
 					>
 						<a href="/projects/stats" class="flex items-center gap-2">
@@ -52,7 +52,7 @@ const projects: Project[] = allProjects;
 					</Button>
 				</div>
 				<p
-					class="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl"
+					class="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-3xl"
 				>
 					Explore my latest projects and open-source contributions.
 				</p>
