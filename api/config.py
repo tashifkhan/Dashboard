@@ -30,7 +30,7 @@ PROJECT_REGISTRY = {
     "jiit-campus-updates": {
         "ph_id": os.getenv("PH_JIIT_CAMPUS_UPDATES_ID", ""),
         "vercel_file": DATA_DIR / "jiit-campus-updates.json",
-        "display_name": "JIIT Campus Updates",
+        "display_name": "JIIT Placement",
     },
     "jportal": {
         "ph_id": "",  # Uses Cloudflare instead
@@ -47,7 +47,7 @@ PROJECT_REGISTRY = {
     "dashboard": {
         "ph_id": os.getenv("PH_DASHBOARD_ID", ""),
         "vercel_file": DATA_DIR / "dashboard.json",
-        "display_name": "Dashboard",
+        "display_name": "tashif.codes",
     },
     "blog": {
         "ph_id": os.getenv("PH_BLOG_ID", ""),
