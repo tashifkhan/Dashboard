@@ -5,6 +5,12 @@ Handles the unification of Vercel migration data and PostHog live data.
 """
 
 from models import StatEntry, TimeseriesEntry, Stats
+import sys
+from pathlib import Path
+
+# Add parent directory to path to import utils
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from utils import get_country_display
 
 
 def merge_stat_lists(
@@ -45,19 +51,25 @@ def merge_timeseries(
 ) -> list[TimeseriesEntry]:
     """
     Merge two timeseries lists and sort by date.
-
-    For overlapping dates, data from both sources is kept (they represent different time periods).
+    Filters to start from the first non-zero pageview entry.
 
     Args:
         list_a: First timeseries list (e.g., from Vercel)
         list_b: Second timeseries list (e.g., from PostHog)
 
     Returns:
-        Merged and sorted timeseries list
+        Merged and sorted timeseries list starting from first non-zero pageviews
     """
     # Combine and sort by date
     combined = list_a + list_b
-    return sorted(combined, key=lambda x: x.date)
+    sorted_data = sorted(combined, key=lambda x: x.date)
+
+    # Find first non-zero pageview entry
+    first_nonzero_idx = next(
+        (i for i, entry in enumerate(sorted_data) if entry.pageviews > 0), 0
+    )
+
+    return sorted_data[first_nonzero_idx:]
 
 
 def merge_stats(
@@ -65,14 +77,30 @@ def merge_stats(
 ) -> Stats:
     """
     Merge Vercel Stats with PostHog breakdown data.
+    Formats country codes to display names with flags.
 
     Args:
         vercel_stats: Stats object from Vercel migration data
         posthog_stats: Dictionary of PostHog breakdown results
 
     Returns:
-        Merged Stats object
+        Merged Stats object with formatted country names
     """
+    # Merge country data and format the keys
+    merged_countries = merge_stat_lists(
+        vercel_stats.country, posthog_stats.get("country", [])
+    )
+
+    # Format country codes to display names with flags
+    formatted_countries = [
+        StatEntry(
+            key=get_country_display(entry.key),
+            pageviews=entry.pageviews,
+            visitors=entry.visitors,
+        )
+        for entry in merged_countries
+    ]
+
     return Stats(
         path=merge_stat_lists(vercel_stats.path, posthog_stats.get("path", [])),
         device_type=merge_stat_lists(
@@ -84,7 +112,5 @@ def merge_stats(
         os_name=merge_stat_lists(
             vercel_stats.os_name, posthog_stats.get("os_name", [])
         ),
-        country=merge_stat_lists(
-            vercel_stats.country, posthog_stats.get("country", [])
-        ),
+        country=formatted_countries,
     )
