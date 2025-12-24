@@ -51,6 +51,7 @@ def filter_timeseries_by_date(
 ) -> list[TimeseriesEntry]:
     """
     Filter timeseries entries to only include entries within the specified day range.
+    Starts from the first non-zero pageview entry.
 
     Args:
         timeseries: List of TimeseriesEntry objects
@@ -60,7 +61,11 @@ def filter_timeseries_by_date(
         Filtered list of TimeseriesEntry objects
     """
     if days is None:
-        return timeseries
+        # Find first non-zero pageview entry
+        first_nonzero_idx = next(
+            (i for i, entry in enumerate(timeseries) if entry.pageviews > 0), 0
+        )
+        return timeseries[first_nonzero_idx:]
 
     from datetime import timedelta
 
@@ -68,11 +73,18 @@ def filter_timeseries_by_date(
         hour=0, minute=0, second=0, microsecond=0
     ) - timedelta(days=days)
 
-    return [
+    filtered = [
         entry
         for entry in timeseries
         if entry.date.replace(tzinfo=timezone.utc) >= cutoff
     ]
+
+    # Find first non-zero pageview entry in filtered data
+    first_nonzero_idx = next(
+        (i for i, entry in enumerate(filtered) if entry.pageviews > 0), 0
+    )
+
+    return filtered[first_nonzero_idx:]
 
 
 def filter_stats_by_date(stats: "Stats", days: int | None = None) -> "Stats":
