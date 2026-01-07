@@ -237,7 +237,7 @@ const socials = [
 						data-state="inactive"
 					>
 						<FileText size={16} className="mr-2" />
-						Resume
+						About
 					</button>
 					<button
 						id="community-tab"
@@ -339,11 +339,6 @@ const socials = [
 									<FileText size={16} />
 								</a>
 							</Button>
-							<Button variant="outline" size="icon" className="h-8 w-8" asChild>
-								<a href="mailto:tashif@duck.com" aria-label="Contact">
-									<Mail size={16} />
-								</a>
-							</Button>
 						</span>
 					</div>
 				</CardContent>
@@ -392,9 +387,7 @@ const socials = [
 								<Code2 className="w-5 h-5" />
 							</div>
 							<div class="flex-1">
-								<h2
-									class="text-xl font-semibold text-foreground mb-1"
-								>
+								<h2 class="text-xl font-semibold text-foreground mb-1">
 									Projects Showcase
 								</h2>
 								<p class="text-sm text-muted-foreground">
@@ -553,9 +546,7 @@ const socials = [
 			<!-- LeetCode Section -->
 			<div id="leetcode-section" class="hidden space-y-8">
 				<!-- Header Card (LeetCode) -->
-				<Card
-					className="relative border-border/60 bg-card/70 backdrop-blur"
-				>
+				<Card className="relative border-border/60 bg-card/70 backdrop-blur">
 					<CardContent className="p-4 sm:p-5">
 						<!-- Mobile Layout -->
 						<div class="flex flex-col gap-3 md:hidden">
@@ -599,9 +590,7 @@ const socials = [
 								<Trophy className="w-5 h-5" />
 							</div>
 							<div class="flex-1">
-								<h2
-									class="text-xl font-semibold text-foreground mb-1"
-								>
+								<h2 class="text-xl font-semibold text-foreground mb-1">
 									LeetCode Profile
 								</h2>
 								<p class="text-sm text-muted-foreground">
@@ -648,9 +637,7 @@ const socials = [
 			<!-- GitHub Section -->
 			<div id="github-section" class="hidden space-y-8">
 				<!-- Header Card (GitHub) -->
-				<Card
-					className="relative border-border/60 bg-card/70 backdrop-blur"
-				>
+				<Card className="relative border-border/60 bg-card/70 backdrop-blur">
 					<CardContent className="p-4 sm:p-5">
 						<!-- Mobile Layout -->
 						<div class="flex flex-col gap-3 md:hidden">
@@ -694,9 +681,7 @@ const socials = [
 								<Github className="w-5 h-5" />
 							</div>
 							<div class="flex-1">
-								<h2
-									class="text-xl font-semibold text-foreground mb-1"
-								>
+								<h2 class="text-xl font-semibold text-foreground mb-1">
 									GitHub Profile
 								</h2>
 								<p class="text-sm text-muted-foreground">
@@ -1306,14 +1291,14 @@ const socials = [
 
 		const applyWelcomeState = (hidden: boolean) => {
 			if (!welcomeBanner || !welcomeRestore) return;
-			
+
 			// On mobile, hide both banner and restore pill entirely
 			if (isMobile()) {
 				welcomeBanner.classList.add("hidden");
 				welcomeRestore.classList.add("hidden");
 				return;
 			}
-			
+
 			// On desktop, use the stored preference
 			welcomeBanner.classList.toggle("hidden", hidden);
 			welcomeRestore.classList.toggle("hidden", !hidden);
