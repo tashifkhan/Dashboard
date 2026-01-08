@@ -208,20 +208,20 @@ const socials = [
 						Projects
 					</button>
 					<button
+						id="resume-tab"
+						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
+						data-state="inactive"
+					>
+						<FileText size={16} className="mr-2" />
+						About
+					</button>
+					<button
 						id="blog-tab"
 						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
 						<BookOpen size={16} className="mr-2" />
 						Blog
-					</button>
-					<button
-						id="leetcode-tab"
-						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
-						data-state="inactive"
-					>
-						<Code2 size={16} className="mr-2" />
-						LeetCode
 					</button>
 					<button
 						id="github-tab"
@@ -232,12 +232,12 @@ const socials = [
 						GitHub
 					</button>
 					<button
-						id="resume-tab"
+						id="leetcode-tab"
 						class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:text-foreground shrink-0"
 						data-state="inactive"
 					>
-						<FileText size={16} className="mr-2" />
-						About
+						<Code2 size={16} className="mr-2" />
+						LeetCode
 					</button>
 					<button
 						id="community-tab"
@@ -245,7 +245,7 @@ const socials = [
 						data-state="inactive"
 					>
 						<Users size={16} className="mr-2" />
-						Community
+						Connect
 					</button>
 				</div>
 			</div>
@@ -432,6 +432,11 @@ const socials = [
 				</div>
 			</div>
 
+			<!-- Resume Section -->
+			<div id="resume-section" class="hidden">
+				<Resume />
+			</div>
+
 			<!-- Blog Section -->
 			<div id="blog-section" class="hidden relative">
 				<!-- Header Card -->
@@ -541,97 +546,6 @@ const socials = [
 						</div>
 					)
 				}
-			</div>
-
-			<!-- LeetCode Section -->
-			<div id="leetcode-section" class="hidden space-y-8">
-				<!-- Header Card (LeetCode) -->
-				<Card className="relative border-border/60 bg-card/70 backdrop-blur">
-					<CardContent className="p-4 sm:p-5">
-						<!-- Mobile Layout -->
-						<div class="flex flex-col gap-3 md:hidden">
-							<div class="flex items-center gap-3">
-								<div
-									class="p-2 rounded-xl bg-chart-2/15 text-chart-2 ring-1 ring-chart-2/30"
-								>
-									<Trophy className="w-4 h-4" />
-								</div>
-								<h2 class="text-lg font-semibold text-foreground">
-									LeetCode Profile
-								</h2>
-							</div>
-							<div class="flex flex-wrap gap-2 items-center">
-								<Badge variant="secondary" className="text-xs">
-									{totalSolved} Solved
-								</Badge>
-								<a
-									href="https://leetcode.com/u/khan_tashif/"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
-								>
-									<ExternalLink className="w-3 h-3" />
-									Profile
-								</a>
-								<a
-									href="/leetcode"
-									class="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-chart-2/15 text-chart-2 border border-chart-2/30 hover:bg-chart-2/25 hover:border-chart-2/50 transition-all"
-								>
-									<ChevronRight className="w-3.5 h-3.5" />
-									Full Page
-								</a>
-							</div>
-						</div>
-						<!-- Desktop Layout -->
-						<div class="hidden md:flex items-center gap-4">
-							<div
-								class="p-2.5 rounded-xl bg-chart-2/15 text-chart-2 ring-1 ring-chart-2/30"
-							>
-								<Trophy className="w-5 h-5" />
-							</div>
-							<div class="flex-1">
-								<h2 class="text-xl font-semibold text-foreground mb-1">
-									LeetCode Profile
-								</h2>
-								<p class="text-sm text-muted-foreground">
-									Progress, contests and achievement highlights.
-								</p>
-							</div>
-							<div class="flex flex-wrap gap-2 items-center">
-								<Badge variant="secondary" className="text-xs">
-									{totalSolved} Solved
-								</Badge>
-								<a
-									href="https://leetcode.com/u/khan_tashif/"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
-								>
-									External Profile <ExternalLink size={12} />
-								</a>
-								<a
-									href="/leetcode"
-									class="ml-2 inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-chart-2/15 text-chart-2 border border-chart-2/30 hover:bg-chart-2/25 hover:border-chart-2/50 shadow-sm hover:shadow-chart-2/20 transition-all"
-								>
-									<ChevronRight className="w-3.5 h-3.5" />
-									Full Page
-								</a>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-
-				<!-- Core Stats -->
-				<LeetCodeStats />
-
-				<!-- Secondary Panels -->
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-					<!-- Contests Panel -->
-					<LeetCodeContests />
-
-					<!-- Badges Panel -->
-					<LeetCodeBadges />
-				</div>
 			</div>
 
 			<!-- GitHub Section -->
@@ -747,9 +661,95 @@ const socials = [
 				</Card>
 			</div>
 
-			<!-- Resume Section -->
-			<div id="resume-section" class="hidden">
-				<Resume />
+			<!-- LeetCode Section -->
+			<div id="leetcode-section" class="hidden space-y-8">
+				<!-- Header Card (LeetCode) -->
+				<Card className="relative border-border/60 bg-card/70 backdrop-blur">
+					<CardContent className="p-4 sm:p-5">
+						<!-- Mobile Layout -->
+						<div class="flex flex-col gap-3 md:hidden">
+							<div class="flex items-center gap-3">
+								<div
+									class="p-2 rounded-xl bg-chart-2/15 text-chart-2 ring-1 ring-chart-2/30"
+								>
+									<Trophy className="w-4 h-4" />
+								</div>
+								<h2 class="text-lg font-semibold text-foreground">
+									LeetCode Profile
+								</h2>
+							</div>
+							<div class="flex flex-wrap gap-2 items-center">
+								<Badge variant="secondary" className="text-xs">
+									{totalSolved} Solved
+								</Badge>
+								<a
+									href="https://leetcode.com/u/khan_tashif/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+								>
+									<ExternalLink className="w-3 h-3" />
+									Profile
+								</a>
+								<a
+									href="/leetcode"
+									class="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-chart-2/15 text-chart-2 border border-chart-2/30 hover:bg-chart-2/25 hover:border-chart-2/50 transition-all"
+								>
+									<ChevronRight className="w-3.5 h-3.5" />
+									Full Page
+								</a>
+							</div>
+						</div>
+						<!-- Desktop Layout -->
+						<div class="hidden md:flex items-center gap-4">
+							<div
+								class="p-2.5 rounded-xl bg-chart-2/15 text-chart-2 ring-1 ring-chart-2/30"
+							>
+								<Trophy className="w-5 h-5" />
+							</div>
+							<div class="flex-1">
+								<h2 class="text-xl font-semibold text-foreground mb-1">
+									LeetCode Profile
+								</h2>
+								<p class="text-sm text-muted-foreground">
+									Progress, contests and achievement highlights.
+								</p>
+							</div>
+							<div class="flex flex-wrap gap-2 items-center">
+								<Badge variant="secondary" className="text-xs">
+									{totalSolved} Solved
+								</Badge>
+								<a
+									href="https://leetcode.com/u/khan_tashif/"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+								>
+									External Profile <ExternalLink size={12} />
+								</a>
+								<a
+									href="/leetcode"
+									class="ml-2 inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-chart-2/15 text-chart-2 border border-chart-2/30 hover:bg-chart-2/25 hover:border-chart-2/50 shadow-sm hover:shadow-chart-2/20 transition-all"
+								>
+									<ChevronRight className="w-3.5 h-3.5" />
+									Full Page
+								</a>
+							</div>
+						</div>
+					</CardContent>
+				</Card>
+
+				<!-- Core Stats -->
+				<LeetCodeStats />
+
+				<!-- Secondary Panels -->
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<!-- Contests Panel -->
+					<LeetCodeContests />
+
+					<!-- Badges Panel -->
+					<LeetCodeBadges />
+				</div>
 			</div>
 
 			<!-- Community Section -->
@@ -851,7 +851,7 @@ const socials = [
 				<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 					<!-- Email Card -->
 					<div
-						class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 p-8 text-white lg:col-span-1 flex flex-col justify-center"
+						class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 p-8 text-white lg:col-span-1 hidden md:flex flex-col justify-center"
 					>
 						<div class="absolute inset-0 bg-black/5"></div>
 						<div class="relative z-10">
@@ -983,19 +983,19 @@ const socials = [
 	// Tab switching logic
 	const tabs = {
 		projects: document.getElementById("projects-tab"),
-		blog: document.getElementById("blog-tab"),
-		leetcode: document.getElementById("leetcode-tab"),
-		github: document.getElementById("github-tab"),
 		resume: document.getElementById("resume-tab"),
+		blog: document.getElementById("blog-tab"),
+		github: document.getElementById("github-tab"),
+		leetcode: document.getElementById("leetcode-tab"),
 		community: document.getElementById("community-tab"),
 	};
 
 	const sections = {
 		projects: document.getElementById("projects-section"),
-		blog: document.getElementById("blog-section"),
-		leetcode: document.getElementById("leetcode-section"),
-		github: document.getElementById("github-section"),
 		resume: document.getElementById("resume-section"),
+		blog: document.getElementById("blog-section"),
+		github: document.getElementById("github-section"),
+		leetcode: document.getElementById("leetcode-section"),
 		community: document.getElementById("community-section"),
 	};
 
